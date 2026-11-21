@@ -1,22 +1,7 @@
 import { CodeBlock } from "./CodeBlock";
 import { RamsName } from "../brand/RamsName";
 
-const installationPrompt = `Use the RAMS source checkout at <RAMS_SOURCE> in my React application at <APP_PATH>.
-My goal is <GOAL>.
-Read llms.txt, AGENTS.md and docs/foundations.md in the source checkout first.
-Use node tools/discover.mjs --query "<task>" and --item <exact-id>.
-Read the selected source exports, inherited props and attached guides.
-Keep the default Geist profile unless I explicitly supply a project profile.
-Run node tools/install.mjs from <RAMS_SOURCE> with --target <APP_PATH>, the chosen
---items IDs and --dry-run. Review its file plan and exact package versions, then install.
-Keep existing code and resolve differing files before retrying the installer.
-Install the reported package versions with the application's package manager.
-Import "./rams/styles.css" once and use the installed component exports.
-Preserve the application's APIs, data and services. Compose with RAMS semantic tokens,
-fluid typography and one primary action per active view. Let labels wrap and controls grow.
-Preserve browser text preferences, keyboard navigation, visible focus and reduced motion.
-Compile the application and check its relevant states and narrow/wide layouts.
-Report changes, checks performed and anything unverified. Do not publish anything.`;
+const installationPrompt = "Install RAMS components in the React application I'm working on. Use the component names or interface goal from this conversation. If the app or goal is unclear, ask me only for the missing detail.\n\nFind the app root by checking its package.json. Use an existing checkout of https://github.com/heypablozarate/rams, or clone that repository outside the app. Do not download a ZIP. If GitHub access fails, stop and report the error.\n\nIn the checkout, read public/rams-source/llms.txt, AGENTS.md and docs/foundations.md under public/rams-source. From the repository root, use node public/rams-source/tools/discover.mjs with --query to find candidates and a separate --item call to confirm each exact ID, its guide and its exported API.\n\nRun node public/rams-source/tools/install.mjs with --target set to the app's absolute path, --items set to the confirmed comma-separated IDs and --dry-run. Inspect the file and dependency plan. If there are conflicting files, stop and report them without overwriting. Otherwise rerun without --dry-run, add the reported dependencies with the app's package manager and import src/rams/styles.css once using the appropriate app-relative import.\n\nKeep the public Geist profile, preserve existing app behavior, and do not publish or deploy anything. Build the app, verify the installed components and report what changed, what passed and what you couldn't check.";
 
 export default function InstallationGuide() {
   return (
@@ -26,9 +11,15 @@ export default function InstallationGuide() {
       </h1>
       <div className="docs-prose mt-6 space-y-7">
         <section>
-          <h2 className="docs-section-title">Get the source</h2>
-          <p className="mt-3 text-muted-foreground">Download and extract the source ZIP. Open the extracted <code>rams-source</code> folder before running the commands below. It includes the installer, component source, guides and licensed Geist fonts.</p>
-          <a className="mt-4 inline-block docs-underlined-link" href="/rams-source.zip" download>Download RAMS source ZIP</a>
+          <h2 className="docs-section-title">Get the source from GitHub</h2>
+          <p className="mt-3 text-muted-foreground">Browse components and usage here. Clone the GitHub repository to install the components you need, with their shared styles and licensed Geist fonts.</p>
+          <a className="mt-4 inline-block docs-underlined-link" href="https://github.com/heypablozarate/rams">View source on GitHub</a>
+          <div className="mt-4">
+            <CodeBlock
+              label="Terminal · clone the repository"
+              code={'git clone https://github.com/heypablozarate/rams.git\ncd rams'}
+            />
+          </div>
         </section>
         <section>
           <h2 className="docs-section-title">Choose components</h2>
@@ -46,13 +37,12 @@ export default function InstallationGuide() {
         <section>
           <h2 className="docs-section-title">Install from source</h2>
           <p className="mt-3 text-muted-foreground">
-            From the checkout containing <code>rams.json</code> and{" "}
-            <code>tools/install.mjs</code>, inspect the installation plan:
+            From the cloned repository root, inspect the installation plan:
           </p>
           <div className="mt-4">
             <CodeBlock
               label="Terminal · dry run"
-              code="node tools/install.mjs --target /path/to/app --items button,input,label --dry-run"
+              code="node public/rams-source/tools/install.mjs --target /path/to/app --items button,input,label --dry-run"
             />
           </div>
           <p className="mt-3 text-muted-foreground">
@@ -63,7 +53,7 @@ export default function InstallationGuide() {
           <div className="mt-4">
             <CodeBlock
               label="Terminal · install"
-              code="node tools/install.mjs --target /path/to/app --items button,input,label"
+              code="node public/rams-source/tools/install.mjs --target /path/to/app --items button,input,label"
             />
           </div>
           <p className="mt-3 text-muted-foreground">
@@ -105,9 +95,8 @@ export default function InstallationGuide() {
         <section>
           <h2 className="docs-section-title">Use with an agent</h2>
           <p className="mt-3 text-muted-foreground">
-            Use an agent with filesystem and shell tools. Replace{" "}
-            <code>RAMS_SOURCE</code>, <code>APP_PATH</code> and <code>GOAL</code> in
-            the prompt. Source installation runs locally without a <RamsName /> server or MCP.
+            Paste this into a coding agent in your React project. Tell it which
+            components you want, or describe what you are building. No paths to fill in.
           </p>
           <div className="mt-4">
             <CodeBlock label="Agent installation prompt" code={installationPrompt} />

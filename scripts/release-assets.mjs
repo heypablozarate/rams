@@ -404,7 +404,7 @@ function buildConsumption(
         if (!sourceManifest.items[primary]) throw new Error(`Missing source installation item: ${variant.id} → ${primary}`);
         for (const match of usage.example.matchAll(/["']\.\/rams\/components\/([a-z0-9-]+)["']/g))
           if (sourceManifest.items[match[1]]) ids.add(match[1]);
-        const installation = { format: "rams-source-installation", items: [...ids], manifestUrl: "/rams-source/rams.json", url: "/rams-source/rams.json", command: "node tools/install.mjs --target <APP_PATH> --items " + [...ids].join(",") };
+        const installation = { format: "rams-source-installation", items: [...ids], manifestUrl: "/rams-source/rams.json", url: "/rams-source/rams.json", repositoryUrl: "https://github.com/heypablozarate/rams", command: "node public/rams-source/tools/install.mjs --target <APP_PATH> --items " + [...ids].join(",") };
         const sources = closure(variant.codeFiles).map(sourceInfo);
         const view = "/#/components/" + family.id + "/" + variant.id;
         return {
@@ -536,34 +536,6 @@ function writeAssets(files) {
   }
 }
 
-const crcTable = Array.from({length:256}, (_, n) => {
-  for (let i=0;i<8;i++) n = (n & 1) ? 0xedb88320 ^ (n >>> 1) : n >>> 1;
-  return n >>> 0;
-});
-function crc32(data) { let n=0xffffffff; for (const byte of data) n=crcTable[(n ^ byte)&255] ^ (n>>>8); return (n ^ 0xffffffff) >>> 0; }
-function sourceArchive(directory, manifest) {
-  const chunks=[], central=[];
-  let offset=0;
-  const paths=[...Object.keys(manifest.files), "rams.json"].sort();
-  if(paths.length >= 65535) throw Error("Source archive exceeds ZIP entry limit");
-  for(const path of paths) {
-    if(path.startsWith("/") || path.split("/").some(p=>!p || p==="." || p==="..") || /(?:Timeless|^\.env|^\.git\/)/i.test(path)) throw Error("Unsafe portable archive path: "+path);
-    const file=join(directory,path), stat=lstatSync(file);
-    if(!stat.isFile() || stat.isSymbolicLink()) throw Error("Expected physical portable file: "+path);
-    const data=readFileSync(file), name=Buffer.from("rams-source/"+path);
-    if(path!=="rams.json" && createHash("sha256").update(data).digest("hex")!==manifest.files[path].sha256) throw Error("Portable archive hash differs: "+path);
-    const crc=crc32(data), local=Buffer.alloc(30), entry=Buffer.alloc(46);
-    local.writeUInt32LE(0x04034b50); local.writeUInt16LE(20,4); local.writeUInt16LE(0x800,6); local.writeUInt16LE(33,12);
-    local.writeUInt32LE(crc,14); local.writeUInt32LE(data.length,18); local.writeUInt32LE(data.length,22); local.writeUInt16LE(name.length,26);
-    entry.writeUInt32LE(0x02014b50); entry.writeUInt16LE(20,4); entry.writeUInt16LE(20,6); entry.writeUInt16LE(0x800,8); entry.writeUInt16LE(33,14);
-    entry.writeUInt32LE(crc,16); entry.writeUInt32LE(data.length,20); entry.writeUInt32LE(data.length,24); entry.writeUInt16LE(name.length,28); entry.writeUInt32LE(offset,42);
-    chunks.push(local,name,data); central.push(entry,name); offset+=local.length+name.length+data.length;
-  }
-  const directoryBytes=Buffer.concat(central), end=Buffer.alloc(22);
-  end.writeUInt32LE(0x06054b50); end.writeUInt16LE(paths.length,8); end.writeUInt16LE(paths.length,10); end.writeUInt32LE(directoryBytes.length,12); end.writeUInt32LE(offset,16);
-  return Buffer.concat([...chunks,directoryBytes,end]);
-}
-
 function renderViewerCatalog(catalog, structured, version) {
   const guides = new Map(structured.entries.flatMap(family => family.variants.map(variant => [variant.id, variant])));
   return JSON.stringify({
@@ -588,7 +560,6 @@ function renderViewerCatalog(catalog, structured, version) {
 }
 
 const json = (file) => JSON.parse(readFileSync(join(projectRoot, file), "utf8"));
-const sourceDirectory = join(projectRoot, "public/rams-source");
 const sourceManifest = json("public/rams-source/rams.json");
 const variants = json("src/catalog/catalog-data.json");
 const { version } = json("package.json");
@@ -597,6 +568,5 @@ const result = buildConsumption(variants, version, sourceManifest);
 result.files.set("catalog.json", renderViewerCatalog(variants, result.catalog, version));
 result.files.set("tokens.json", JSON.stringify(resolveTokens(authoredTokens), null, 2) + "\n");
 result.files.set("design-system.json", JSON.stringify(buildFoundationManifest(authoredTokens), null, 2) + "\n");
-result.files.set("rams-source.zip", sourceArchive(sourceDirectory, sourceManifest));
 writeAssets(result.files);
-console.log(`Prepared ${result.catalog.familyCount} families, ${result.catalog.variantCount} variants, ${result.sourceCount} source listings and the SDK archive.`);
+console.log(`Prepared ${result.catalog.familyCount} families, ${result.catalog.variantCount} variants, ${result.sourceCount} source listings.`);

@@ -18,12 +18,19 @@ npm run build
 npm run preview
 ```
 
-The build generates the catalog documents and source archive, checks TypeScript, and writes the static site to `dist/`. It verifies the code listings, the source package manifest, and the fonts in the finished site. A static host can serve that directory at the domain root. Component pages use hash routes such as `/#/components/signature-pad`.
+The build generates the catalog documents and source listings, checks TypeScript, and writes the static site to `dist/`. It verifies the code listings, the source package manifest, and the fonts in the finished site. A static host can serve that directory at the domain root. Component pages use hash routes such as `/#/components/signature-pad`.
 
 ## Use a component
 
-Use the Installation page in the catalog, or read the [source package documentation](public/rams-source/README.md). The built site serves the source manifest at `/rams-source/rams.json` and the downloadable package at `/rams-source.zip`.
+Browse the [component catalog](https://rams-design-system.heypablozarate.chatgpt.site) and install selected components from this GitHub checkout:
+
+```sh
+node public/rams-source/tools/install.mjs --target /path/to/app --items button,input,label --dry-run
+node public/rams-source/tools/install.mjs --target /path/to/app --items button,input,label
+```
+
+Add the dependencies reported by the installer with your app's package manager. See the [source README](public/rams-source/README.md) for imports and requirements.
 
 ## Licenses
 
-The downloadable package includes its [license](public/rams-source/LICENSE) and [attribution notices](public/rams-source/NOTICE.md). The Geist fonts include the [SIL Open Font License](public/rams-source/fonts/OFL.txt). The catalog retains the [original contributions notice](public/legal/OWN-CONTRIBUTIONS.txt) and [third-party notices](public/legal/). These notices retain their existing scope.
+The distributable source includes its [license](public/rams-source/LICENSE) and [attribution notices](public/rams-source/NOTICE.md). The Geist fonts include the [SIL Open Font License](public/rams-source/fonts/OFL.txt). The catalog retains the [original contributions notice](public/legal/OWN-CONTRIBUTIONS.txt) and [third-party notices](public/legal/). These notices retain their existing scope.
