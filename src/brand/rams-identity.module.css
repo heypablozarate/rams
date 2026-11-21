@@ -1,0 +1,8 @@
+.identity { display:inline-flex; align-items:baseline; flex-wrap:wrap; --rams-lockup-space:var(--rams-detail-brand-lockup-inline-gap); gap:var(--rams-detail-brand-lockup-line-gap) var(--rams-lockup-space); max-inline-size:100%; font-size:max(var(--rams-detail-brand-lockup-min-size),var(--type-control-size,var(--rams-detail-native-body-size-fallback))); }
+.credit { font-size:inherit; font-weight:var(--rams-detail-brand-lockup-credit-weight); letter-spacing:normal; }
+/* The lockup shares one fluid size, including the wordmark's 24px minimum.
+   Its parts may wrap; the author's native wordmark stays indivisible. */
+.identity .author { font-size:inherit; }
+
+/* Keep the authorship phrase together when the identity needs two lines. */
+.attribution { display:inline-flex; align-items:baseline; gap:var(--rams-lockup-space); max-inline-size:100%; }

@@ -1,0 +1,38 @@
+.group { display: grid; min-width: 0; margin: 0; border: 0; padding: 0; }
+.group legend { margin-block-end: var(--rams-detail-space-2); padding: 0; font-family: var(--type-control-family); font-size: var(--type-control-size); font-weight: var(--rams-detail-label-weight); line-height: var(--type-control-leading); letter-spacing: var(--type-control-tracking); }
+/* One highlight travels between the rows: above their borders and fills, below their text, so it never crosses a label. */
+.options { position: relative; display: grid; gap: var(--rams-detail-space-2); }
+.highlight { position: absolute; inset-block-start: 0; inset-inline: 0; z-index: var(--rams-detail-motion-radio-highlight-layer); box-sizing: border-box; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-control-on); border-radius: var(--rams-detail-radius-control); background: color-mix(in oklab, var(--rams-detail-control-on) var(--rams-detail-motion-radio-selection-strength), transparent); opacity: 0; pointer-events: none; }
+/* Rows answer a press with color only; the mark is what moves. */
+/* The mark sits centered on the left edge of the row, whether or not the option has a description. */
+.option { position: relative; display: flex; align-items: center; gap: var(--rams-detail-space-3); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-space-3); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .option:hover { background: var(--rams-detail-surface-muted); } }
+.option:active { background: var(--rams-detail-surface-muted); }
+/* Until the highlight is placed (server paint or no script), the checked row carries the same look itself. */
+.options:not([data-ready]) .option:has(input:checked) { border-color: var(--rams-detail-control-on); background: color-mix(in oklab, var(--rams-detail-control-on) var(--rams-detail-motion-radio-selection-strength), transparent); }
+.option input { position: absolute; inline-size: var(--rams-detail-motion-radio-glyph-size); block-size: var(--rams-detail-motion-radio-glyph-size); margin: 0; opacity: 0; }
+.option:has(input:focus-visible) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: var(--rams-detail-focus-outline-offset); }
+/* Rows are not stacking contexts, so their mark and copy rise above the highlight while their border and fill stay below it. */
+.option > span { position: relative; z-index: var(--rams-detail-motion-radio-content-layer); }
+.mark { display: grid; box-sizing: border-box; inline-size: var(--rams-detail-motion-radio-glyph-size); block-size: var(--rams-detail-motion-radio-glyph-size); flex: 0 0 auto; place-items: center; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-strong); border-radius: var(--rams-detail-elliptical-corner-radius); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+/* The dot's optical size stays on whole pixels inside the mark. */
+.mark::after, .dot { grid-area: 1 / 1; inline-size: var(--rams-detail-motion-radio-dot-size); block-size: var(--rams-detail-motion-radio-dot-size); border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-foreground); }
+/* A faint dot previews the choice while the pointer is down, then the real dot springs in on release. */
+.mark::after { content: ""; opacity: 0; transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.option:active:not(:has(input:checked)) .mark::after { opacity: var(--rams-detail-motion-radio-press-preview-opacity); }
+/* The mark alone answers a press: a quick dip, then a spring back. */
+.option:active .mark { transform: scale(var(--rams-motion-radio-group-press-scale)); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.option:has(input:checked) .mark { border-color: var(--rams-detail-control-on); background: var(--rams-detail-control-on); }
+.option:has(input:checked) .dot { background: var(--rams-detail-control-glyph); }
+.option > span:last-child { display: grid; gap: var(--rams-detail-selection-description-gap); min-inline-size: 0; overflow-wrap: anywhere; }
+.option strong { color: var(--rams-detail-text-secondary); font-family: var(--type-control-family); font-size: var(--type-control-size); font-weight: var(--rams-detail-label-weight); line-height: var(--type-control-leading); letter-spacing: var(--type-control-tracking); transition: color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.option:has(input:checked) strong { color: var(--rams-detail-foreground); }
+.option small { color: var(--rams-detail-text-muted); font-family: var(--type-caption-family); font-size: var(--type-caption-size); line-height: var(--type-caption-leading); }
+@media (prefers-reduced-motion: reduce) { .option, .mark, .mark::after, .option strong { transition: none; } .option:active .mark { transform: none; } }
+:where(.group,.options,.highlight,.option,.mark,.dot):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Neutral keeps the same traveling highlight and selected-dot affordance. */
+.group[data-tone="neutral"] {
+  --rams-detail-control-on: var(--rams-detail-foreground);
+  --rams-detail-control-glyph: var(--rams-detail-surface);
+}

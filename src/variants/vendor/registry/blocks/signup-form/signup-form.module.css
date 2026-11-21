@@ -1,0 +1,66 @@
+.block { container: signup / inline-size; width: min(100%, var(--rams-detail-signup-form-panel-measure)); min-width: 0; overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-surface); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+.viewport { overflow: hidden; }
+.track { position: relative; min-width: 0; }
+.step { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; padding: clamp(var(--rams-detail-signup-form-inset-min), var(--rams-detail-signup-form-inset-preferred), var(--rams-detail-space-8)); }
+.heading { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-space-2); min-width: 0; margin-bottom: var(--rams-detail-space-6); }
+.heading h2 { margin: 0; font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-text-3xl); font-weight: var(--type-body-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-leading-display); text-wrap: balance; overflow-wrap: anywhere; }
+.heading p { margin: 0; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); overflow-wrap: anywhere; }
+.address, .email { color: var(--rams-detail-foreground); overflow-wrap: anywhere; }
+.form, .fieldGroup, .actions, .alternatives { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; gap: var(--rams-detail-space-4); }
+.fieldGroup { gap: 0; }
+.actions, .alternatives { gap: var(--rams-detail-space-2); }
+.wide { width: 100%; min-width: 0; height: auto; white-space: normal; }
+.wide > span, .wide > span > span, .wide > span > span > span, .ssoButton > span { min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+.sso { display: grid; grid-template-columns: repeat(var(--rams-detail-auth-card-provider-columns), minmax(0, 1fr)); gap: var(--rams-detail-space-2); }
+.sso .ssoButton { min-width: 0; padding-inline: var(--rams-detail-space-2); white-space: normal; }
+.providerMark { display: inline-grid; flex: none; place-items: center; width: var(--rams-detail-signup-form-provider-mark-size); height: var(--rams-detail-signup-form-provider-mark-size); }
+.divider { display: flex; align-items: center; gap: var(--rams-detail-space-3); margin-block: var(--rams-detail-space-5); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); overflow-wrap: anywhere; }
+.divider::before, .divider::after { flex: var(--rams-detail-layout-flex-fill); height: var(--rams-detail-separator-thickness); min-width: var(--rams-detail-signup-form-divider-min-inline-size); background: var(--rams-detail-border); content: ""; }
+.textButton, .inlineButton, .resend { border: 0; border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-space-1) 0; background: none; color: var(--rams-detail-foreground); font: inherit; font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); text-decoration: underline; text-underline-offset: var(--rams-detail-signup-form-text-underline-offset); overflow-wrap: anywhere; cursor: pointer; }
+.resend { display: inline-flex; align-items: baseline; justify-self: start; flex-wrap: wrap; gap: var(--rams-detail-signup-form-resend-gap); margin-top: var(--rams-detail-space-3); font-size: var(--rams-detail-text-sm); }
+.details { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; margin: 0 0 var(--rams-detail-space-6); border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); }
+.details div { display: grid; grid-template-columns: var(--rams-detail-layout-grid-shrinkable-pair); gap: var(--rams-detail-space-3); padding-block: var(--rams-detail-space-3); border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); overflow-wrap: anywhere; }
+.details dt { color: var(--rams-detail-text-secondary); }
+.details dd { margin: 0; text-align: end; }
+.footer { padding: var(--rams-detail-space-3) clamp(var(--rams-detail-signup-form-inset-min), var(--rams-detail-signup-form-inset-preferred), var(--rams-detail-space-8)); border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.status { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.error, .submitError { margin: var(--rams-detail-space-3) 0 0; color: var(--rams-detail-danger); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); overflow-wrap: anywhere; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+:where(.textButton, .inlineButton, .resend, .legal a, .legal summary, .switchButton):focus-visible { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: var(--rams-detail-focus-outline-offset); }
+
+.passwordGroup { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.feedback { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rams-detail-space-2); margin-top: var(--rams-detail-space-2); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.feedbackText { position: relative; min-width: 0; flex: 1 1 var(--rams-detail-signup-form-password-feedback-basis); color: var(--rams-detail-text-muted); overflow-wrap: anywhere; }
+.feedbackText > span { display: block; }
+.feedbackText[data-error] { color: var(--rams-detail-danger); }
+.meter { display: flex; flex: none; gap: var(--rams-detail-signup-form-password-meter-gap); }
+.meter span { width: var(--rams-detail-signup-form-password-meter-segment-width); height: var(--rams-detail-signup-form-password-meter-segment-height); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-border); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.meter span[data-on] { background: var(--rams-detail-accent); }
+.meter[data-level="1"] span[data-on] { background: var(--rams-detail-danger); }
+.meter[data-level="2"] span[data-on] { background: var(--rams-detail-warning); }
+.meter[data-level="4"] span[data-on] { background: var(--rams-detail-success); }
+.updates, .row { min-width: 0; }
+.row { overflow: hidden; }
+.legal { margin: var(--rams-detail-space-4) 0 0; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); overflow-wrap: anywhere; }
+.legal summary { cursor: pointer; padding-block: var(--rams-detail-space-2); }
+.legal p { margin: var(--rams-detail-space-2) 0 0; }
+.success { display: block; width: var(--rams-detail-signup-form-receipt-mark-size); height: var(--rams-detail-signup-form-receipt-mark-size); margin-bottom: var(--rams-detail-space-6); overflow: visible; color: var(--rams-detail-success); }
+.footer { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-space-2); }
+.status > span { display: block; }
+.switch { overflow-wrap: anywhere; }
+@container signup (max-width: 24rem) { .sso { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .meter span { transition: none; } }
+
+/* Framed titles stay between existing subheading/heading roles as their measure changes. */
+.heading h2 { font-size: clamp(var(--rams-detail-text-xl), var(--rams-detail-signup-form-heading-preferred-size), var(--rams-detail-text-3xl)); }
+
+/* At enlarged/narrow measures, preserve whole words before decorative gutters. */
+.step .wide { padding-inline: min(var(--rams-detail-space-4), var(--rams-detail-signup-form-action-padding-cap)); }
+.sso .ssoButton { padding-inline: min(var(--rams-detail-space-2), var(--rams-detail-signup-form-provider-padding-cap)); }
+@container signup (max-width: 24rem) {
+  .details div { grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-space-1); overflow-wrap: normal; }
+  .details dd { text-align: start; }
+  .divider { display: block; }
+  .divider::before, .divider::after { content: none; }
+}

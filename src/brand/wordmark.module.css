@@ -1,0 +1,11 @@
+.wordmark { display:inline-block; max-width:100%; white-space:nowrap; color:var(--rams-wordmark-ink,var(--rams-detail-brand-wordmark-default-ink)); font-family:var(--rams-detail-brand-wordmark-family); font-size:inherit; font-weight:var(--rams-detail-brand-wordmark-weight); font-style:normal; font-synthesis:none; font-kerning:normal; font-feature-settings:normal; font-variation-settings:normal; letter-spacing:var(--rams-detail-brand-wordmark-tracking); line-height:var(--rams-detail-brand-wordmark-leading); }
+.wordmark[data-compact] { letter-spacing:var(--rams-detail-brand-wordmark-compact-tracking); }
+.trademark { color:var(--rams-wordmark-accent,var(--rams-brand-accent,currentColor)); }
+:global(.dark) .wordmark { color:var(--rams-wordmark-ink,var(--rams-detail-brand-wordmark-default-ink)); }
+.wordmark[data-monochrome] .trademark { color:inherit; }
+
+.wordmark[data-master="200"] { letter-spacing:var(--rams-detail-brand-wordmark-master-200-tracking); }
+.wordmark[data-master="124"] { letter-spacing:var(--rams-detail-brand-wordmark-master-124-tracking); }
+.wordmark[data-master="76"] { letter-spacing:var(--rams-detail-brand-wordmark-master-76-tracking); }
+.wordmark[data-master="48"] { letter-spacing:var(--rams-detail-brand-wordmark-master-48-tracking); }
+.wordmark[data-monochrome] { color:inherit; }

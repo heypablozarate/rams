@@ -1,0 +1,68 @@
+.figure { display: grid; min-width: 0; margin: 0; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+/* Series colors (--rams-detail-series-1 to --rams-detail-series-4) come from registry/foundation.css. */
+
+.plot { position: relative; min-width: 0; outline: none; touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; cursor: crosshair; }
+.svg { position: absolute; inset: 0; display: block; overflow: visible; }
+
+/* Ridges are opaque, so each one hides the valleys of the row behind it. */
+.ridge { transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.fill { fill: color-mix(in oklab, var(--rams-detail-ridge) var(--rams-detail-ridgeline-fill-share), var(--rams-detail-surface)); stroke: none; transition: fill var(--rams-detail-duration-considered) var(--rams-detail-ease-standard); }
+.line { fill: none; stroke: var(--rams-detail-ridge); stroke-width: var(--rams-detail-ridgeline-line-stroke); stroke-linejoin: var(--rams-detail-chart-series-linejoin); stroke-linecap: var(--rams-detail-chart-series-linecap); transition: stroke var(--rams-detail-duration-considered) var(--rams-detail-ease-standard); }
+.median { stroke: color-mix(in oklab, var(--rams-detail-ridge) var(--rams-detail-ridgeline-median-share), var(--rams-detail-surface)); stroke-width: var(--rams-detail-ridgeline-median-stroke); transition: stroke var(--rams-detail-duration-considered) var(--rams-detail-ease-standard); }
+.plot[data-active] .ridge[data-dim] { opacity: var(--rams-detail-ridgeline-dim-opacity); }
+.ridge[data-lifted] { opacity: 0; transition-duration: var(--rams-detail-duration-instant); }
+
+/* The lifted ridge is a copy drawn above the rest, so it can rise over its neighbours. */
+.lens { opacity: 0; pointer-events: none; transform: translateY(0); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.lens[data-on] { opacity: 1; transform: translateY(calc(-1 * var(--rams-detail-ridgeline-active-lift))); }
+.lensFill { fill: color-mix(in oklab, var(--rams-detail-ridge) var(--rams-detail-ridgeline-lens-fill-share), var(--rams-detail-surface)); stroke: none; }
+.lensBand { fill: color-mix(in oklab, var(--rams-detail-ridge) var(--rams-detail-ridgeline-lens-band-share), var(--rams-detail-surface)); stroke: none; }
+.lensMedian { stroke: var(--rams-detail-foreground); stroke-width: var(--rams-detail-ridgeline-lens-median-stroke); stroke-linecap: var(--rams-detail-ridgeline-median-linecap); }
+.lensLine { fill: none; stroke: var(--rams-detail-ridge); stroke-width: var(--rams-detail-ridgeline-lens-line-stroke); stroke-linejoin: var(--rams-detail-chart-series-linejoin); stroke-linecap: var(--rams-detail-chart-series-linecap); }
+
+.ticks { position: absolute; top: 0; right: 0; left: 0; pointer-events: none; }
+.tick { position: absolute; bottom: 0; left: 0; width: var(--rams-detail-ridgeline-tick-stroke); background: var(--rams-detail-border-subtle); will-change: transform; animation: tickIn var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.tickLabel { position: absolute; bottom: 0; left: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-ridgeline-tick-leading); white-space: nowrap; font-variant-numeric: var(--type-data-variant); translate: -50% 0; }
+/* Endpoint text stays inside the axis; the tick itself retains its data position. */
+.tick:first-child .tickLabel { translate: 0 0; }
+.tick:last-child .tickLabel { translate: -100% 0; }
+@keyframes tickIn { from { opacity: 0; } }
+
+.crosshair { position: absolute; left: 0; width: var(--rams-detail-ridgeline-crosshair-stroke); background: var(--rams-detail-foreground); opacity: 0; pointer-events: none; transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.plot[data-cursor] .crosshair { opacity: var(--rams-detail-ridgeline-crosshair-opacity); }
+
+.labels { position: absolute; inset: 0; pointer-events: none; }
+.rowLabel { position: absolute; left: 0; overflow: hidden; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-ridgeline-row-label-leading); text-overflow: ellipsis; white-space: nowrap; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.rowLabel[data-active] { color: var(--rams-detail-foreground); font-weight: var(--rams-detail-label-weight); }
+
+.message { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); pointer-events: none; }
+
+.tooltip { position: absolute; top: 0; left: 0; z-index: var(--rams-detail-ridgeline-tooltip-layer); display: grid; grid-template-columns: minmax(0, 1fr); box-sizing: border-box; min-width: min(var(--rams-detail-ridgeline-tooltip-min-inline), 100%); max-width: min(var(--rams-detail-ridgeline-tooltip-max-inline), 100%); gap: var(--rams-detail-ridgeline-tooltip-gap); padding: var(--rams-detail-chart-tooltip-fixed-padding); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-panel); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); opacity: 0; pointer-events: none; scale: var(--rams-motion-ridgeline-tooltip-hidden-scale); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), scale var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.plot[data-active] .tooltip { opacity: 1; scale: var(--rams-detail-transform-rest-scale); }
+.tipTitle { margin: 0 0 var(--rams-detail-ridgeline-tooltip-title-gap); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.tipValue, .tipRow { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--rams-detail-ridgeline-tooltip-value-block-gap) var(--rams-detail-ridgeline-tooltip-value-inline-gap); margin: 0; font-variant-numeric: var(--type-data-variant); white-space: normal; }
+.tipValue { color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-chart-value-weight); line-height: var(--type-caption-leading); }
+.tipRow { color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.tipKey { color: var(--rams-detail-text-muted); font-weight: var(--rams-detail-ridgeline-tooltip-key-weight); }
+.tipValue .tipKey { font-size: var(--rams-detail-text-xs); }
+.tipNote { margin: var(--rams-detail-ridgeline-tooltip-note-gap) 0 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); font-variant-numeric: var(--type-data-variant); }
+
+.scale { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--rams-detail-ridgeline-scale-gap); margin-top: var(--rams-detail-space-3); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); font-variant-numeric: var(--type-data-variant); }
+.scaleLabel { margin-right: var(--rams-detail-ridgeline-scale-label-gap); color: var(--rams-detail-text-secondary); }
+.steps { display: inline-flex; gap: var(--rams-detail-ridgeline-scale-step-gap); }
+.step { width: var(--rams-detail-ridgeline-scale-step-inline); height: var(--rams-detail-ridgeline-scale-step-block); border-radius: var(--rams-detail-ridgeline-scale-step-radius); background: var(--rams-detail-ridge); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ridge, .lens, .crosshair, .tooltip, .rowLabel { transition: none; }
+  .tick { animation: none; }
+}
+
+:where(.figure,.plot,.svg,.ridge,.fill,.line,.median,.lens,.lensFill,.lensBand,.lensMedian,.lensLine,.ticks,.tick,.tickLabel,.crosshair,.labels,.rowLabel,.message,.tooltip,.tipTitle,.tipValue,.tipRow,.tipKey,.tipNote,.scale,.scaleLabel,.steps,.step,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.tickLabel, .tipValue > span:last-child, .tipRow > span:last-child, .scale > span:not(.steps):not(.scaleLabel) { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* Keep detail text within the chart when a word or formatted value is wide. */
+.tipTitle, .tipNote, .tipValue > span, .tipRow > span { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }

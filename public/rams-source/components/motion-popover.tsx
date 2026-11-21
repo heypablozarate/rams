@@ -1,0 +1,42 @@
+"use client";
+import "./motion-fields.css";
+
+import { Popover as PopoverPrimitive } from "radix-ui";
+import { forwardRef } from "react";
+import type { ComponentPropsWithoutRef } from "react";
+import { Button } from "./button";
+import { floatingPlacement } from "./floating-placement";
+import styles from "./motion-popover.module.css";
+
+export const Popover = PopoverPrimitive.Root;
+export const PopoverClose = PopoverPrimitive.Close;
+
+/** The trigger anchors the panel, so it opts out of press-scale: a scaled rect measured on open would shift the panel as the trigger springs back. */
+export const PopoverTrigger = forwardRef<
+  HTMLButtonElement,
+  ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>
+>(function PopoverTrigger({ asChild = false, children, className, ...props }, ref) {
+  return <PopoverPrimitive.Trigger {...props} ref={ref} asChild className={[styles.anchor, className].filter(Boolean).join(" ")}>
+    {asChild ? children : <Button variant="outline">{children}</Button>}
+  </PopoverPrimitive.Trigger>;
+});
+
+PopoverTrigger.displayName = "PopoverTrigger";
+
+export const PopoverContent = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
+>(function PopoverContent({ className, align = "start", sideOffset = floatingPlacement.motionPopover.anchorGapPx, collisionPadding = floatingPlacement.motionPopover.collisionInsetPx, ...props }, ref) {
+  return <PopoverPrimitive.Portal>
+    <PopoverPrimitive.Content
+      {...props}
+      ref={ref}
+      align={align}
+      sideOffset={sideOffset}
+      collisionPadding={collisionPadding}
+      className={[styles.content, className].filter(Boolean).join(" ")}
+    />
+  </PopoverPrimitive.Portal>;
+});
+
+PopoverContent.displayName = "PopoverContent";

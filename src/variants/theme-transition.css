@@ -1,0 +1,12 @@
+/* Scoped to this bridge; unrelated application View Transitions keep their defaults. */
+html[data-rams-theme-transition]::view-transition-old(root),
+html[data-rams-theme-transition]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html[data-rams-theme-transition]::view-transition-old(root) { z-index: var(--rams-detail-local-overlay-layer); }
+html[data-rams-theme-transition]::view-transition-new(root) { z-index: var(--rams-detail-layer-above-overlay); }
+html[data-rams-theme-transition]::view-transition-group(root) {
+  animation: none;
+}
+html[data-rams-theme-transition]::view-transition { pointer-events: none; }

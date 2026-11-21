@@ -1,0 +1,132 @@
+/* RAMS density owns spacing and geometry; the shared fluid layer owns text sizes. */
+:root[data-density=compact] {
+  --spacing: .25rem;
+}
+:root:not([data-density]), :root[data-density=default], :root[data-density=comfortable] {
+  --spacing: .3125rem;
+  --text-xs: .875rem;
+  --text-sm: 1rem;
+  --text-base: 1.125rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 2.625rem;
+  --text-5xl: 3.5rem;
+  --text-sm--line-height: 1.5;
+  --text-base--line-height: 1.5;
+}
+:root[data-density=wide] {
+  --spacing: .375rem;
+  --text-xs: 1rem;
+  --text-sm: 1.125rem;
+  --text-base: 1.25rem;
+  --text-lg: 1.375rem;
+  --text-xl: 1.625rem;
+  --text-2xl: 2rem;
+  --text-3xl: 2.5rem;
+  --text-4xl: 3rem;
+  --text-5xl: 4rem;
+  --text-sm--line-height: 1.5;
+  --text-base--line-height: 1.5;
+}
+body { font-size:var(--text-base); }
+[data-slot="switch"][data-size="default"] { --rams-switch-track-block:max(calc(var(--spacing) * 4.6), calc(var(--rams-switch-thumb-size) + 2px)); }
+:root:not([data-density=compact]) [data-slot=calendar] .rdp-weekday { font-size:var(--text-xs); }
+@media (max-width: 40rem) { :root:not([data-density=compact]) [data-slot=calendar] { --cell-size:clamp(1.5rem, calc((100vw - 8rem) / 7), calc(var(--spacing) * 8)); padding:var(--spacing); } }
+@container rams-demo (width < 24rem) { :root[data-density] [data-slot=calendar] { --cell-size:clamp(1.5rem, calc((100cqw - var(--spacing) * 2 - 2px) / 7), calc(var(--spacing) * 8)); padding:var(--spacing); } :root[data-density] [data-slot=calendar] .rdp-month_caption { padding-inline:0; margin-block-start:calc(var(--spacing) * 8); } }
+:root[data-density=compact] {
+  --text-xs: clamp(0.75rem, calc(0.7291667rem + 0.1041667vw), 0.8125rem);
+  --text-sm: clamp(0.875rem, calc(0.8541667rem + 0.1041667vw), 0.9375rem);
+  --text-base: clamp(1rem, calc(0.9791667rem + 0.1041667vw), 1.0625rem);
+  --text-lg: clamp(1.125rem, calc(1.1041667rem + 0.1041667vw), 1.1875rem);
+  --text-xl: clamp(1.25rem, calc(1.2083333rem + 0.2083333vw), 1.375rem);
+  --text-2xl: clamp(1.5rem, calc(1.4583333rem + 0.2083333vw), 1.625rem);
+  --text-3xl: clamp(1.75rem, calc(1.6666667rem + 0.4166667vw), 2rem);
+  --text-4xl: clamp(2rem, calc(1.875rem + 0.625vw), 2.375rem);
+  --text-5xl: clamp(2.5rem, calc(2.3333333rem + 0.8333333vw), 3rem);
+}
+:root:not([data-density]), :root[data-density=default], :root[data-density=comfortable] {
+  --text-xs: clamp(0.8125rem, calc(0.7916667rem + 0.1041667vw), 0.875rem);
+  --text-sm: clamp(0.9375rem, calc(0.9166667rem + 0.1041667vw), 1rem);
+  --text-base: clamp(1rem, calc(0.9583333rem + 0.2083333vw), 1.125rem);
+  --text-lg: clamp(1.125rem, calc(1.0833333rem + 0.2083333vw), 1.25rem);
+  --text-xl: clamp(1.375rem, calc(1.3333333rem + 0.2083333vw), 1.5rem);
+  --text-2xl: clamp(1.625rem, calc(1.5416667rem + 0.4166667vw), 1.875rem);
+  --text-3xl: clamp(1.875rem, calc(1.75rem + 0.625vw), 2.25rem);
+  --text-4xl: clamp(2.25rem, calc(2.125rem + 0.625vw), 2.625rem);
+  --text-5xl: clamp(2.75rem, calc(2.5rem + 1.25vw), 3.5rem);
+}
+:root[data-density=wide] {
+  --text-xs: clamp(0.875rem, calc(0.8333333rem + 0.2083333vw), 1rem);
+  --text-sm: clamp(1rem, calc(0.9583333rem + 0.2083333vw), 1.125rem);
+  --text-base: clamp(1.125rem, calc(1.0833333rem + 0.2083333vw), 1.25rem);
+  --text-lg: clamp(1.25rem, calc(1.2083333rem + 0.2083333vw), 1.375rem);
+  --text-xl: clamp(1.5rem, calc(1.4583333rem + 0.2083333vw), 1.625rem);
+  --text-2xl: clamp(1.75rem, calc(1.6666667rem + 0.4166667vw), 2rem);
+  --text-3xl: clamp(2.125rem, calc(2rem + 0.625vw), 2.5rem);
+  --text-4xl: clamp(2.5rem, calc(2.3333333rem + 0.8333333vw), 3rem);
+  --text-5xl: clamp(3.25rem, calc(3rem + 1.25vw), 4rem);
+}
+/* Generated semantic typography. Fluid ranges own sizes; density selects a range; roles own usage. */
+:root {
+  --type-family-interface: var(--font-sans);
+  --type-family-editorial: var(--font-serif);
+  --type-family-code: var(--font-mono);
+  --type-control-size: var(--text-sm);
+  --type-control-leading: 1.5;
+  --type-control-family: var(--type-family-interface);
+  --type-control-weight: 400;
+  --type-control-tracking: 0em;
+  --type-body-size: var(--text-base);
+  --type-body-leading: 1.5;
+  --type-body-family: var(--type-family-interface);
+  --type-body-weight: 400;
+  --type-body-tracking: 0em;
+  --type-caption-size: var(--text-xs);
+  --type-caption-leading: 1.4;
+  --type-caption-family: var(--type-family-interface);
+  --type-caption-weight: 400;
+  --type-caption-tracking: 0em;
+  --type-title-size: var(--text-lg);
+  --type-title-leading: 1.3;
+  --type-title-family: var(--type-family-interface);
+  --type-title-weight: 550;
+  --type-title-tracking: -0.005em;
+  --type-heading-size: var(--text-3xl);
+  --type-heading-leading: 1.2;
+  --type-heading-family: var(--type-family-interface);
+  --type-heading-weight: 650;
+  --type-heading-tracking: -0.02em;
+  --type-display-size: var(--text-5xl);
+  --type-display-leading: 1.1;
+  --type-display-family: var(--type-family-interface);
+  --type-display-weight: 700;
+  --type-display-tracking: -0.03em;
+  --type-code-size: var(--text-xs);
+  --type-code-leading: 1.7;
+  --type-code-family: var(--type-family-code);
+  --type-code-weight: 400;
+  --type-code-tracking: 0em;
+  --type-input-size: var(--type-control-size);
+  --type-action-family: var(--type-family-interface);
+  --type-action-size: var(--type-control-size);
+  --type-action-weight: 500;
+  --type-primary-action-weight: 700;
+  --type-action-leading: 1.4;
+  --type-action-tracking: 0em;
+  --type-data-family: var(--type-family-interface);
+  --type-data-variant: lining-nums tabular-nums;
+}
+@media (min-width:64rem) { :root { --type-title-tracking:-0.01em; --type-heading-tracking:-0.035em; --type-display-tracking:-0.05em; } }
+body { font-size:var(--type-body-size); font-family:var(--type-body-family); line-height:var(--type-body-leading); }
+.rams-interface-italic, [data-rams-font="interface"] :is(em,i):not(code *,pre *) { font-family:var(--type-family-interface); font-style:var(--type-interface-italic-style,italic); font-variation-settings:var(--type-interface-italic-settings,normal); font-synthesis:none; }
+:where([data-slot="button"], [data-slot="input-otp-slot"], [data-slot="accordion-trigger"], [data-slot="label"], [data-slot="field-label"], [data-slot="toggle"], [data-slot="tabs-trigger"], [data-slot="select-trigger"], [data-slot="select-item"], [data-slot="table-cell"], [data-slot="table-head"], [data-slot="command-item"], [data-slot="navigation-menu-trigger"], [data-slot="navigation-menu-link"], [data-slot="menubar-trigger"], [data-slot="dropdown-menu-item"], [data-slot="dropdown-menu-checkbox-item"], [data-slot="dropdown-menu-radio-item"], [data-slot="dropdown-menu-sub-trigger"], [data-slot="context-menu-item"], [data-slot="context-menu-checkbox-item"], [data-slot="context-menu-radio-item"], [data-slot="context-menu-sub-trigger"], [data-slot="menubar-item"], [data-slot="menubar-checkbox-item"], [data-slot="menubar-radio-item"], [data-slot="menubar-sub-trigger"]) { font-size:var(--type-control-size); font-family:var(--type-control-family); }
+:where([data-slot="input"], [data-slot="input-group-control"], [data-slot="textarea"], [data-slot="native-select"], [data-slot="command-input"]) { font-size:var(--type-input-size); font-family:var(--type-control-family); line-height:var(--type-control-leading); }
+:where([data-slot="card-title"], [data-slot="alert-title"], [data-slot="dialog-title"], [data-slot="sheet-title"], [data-slot="drawer-title"], [data-slot="alert-dialog-title"]) { font-size:var(--type-title-size); font-family:var(--type-title-family); line-height:var(--type-title-leading); font-weight:var(--type-title-weight); letter-spacing:var(--type-title-tracking); }
+:where([data-slot="card-description"], [data-slot="dialog-description"], [data-slot="sheet-description"], [data-slot="drawer-description"], [data-slot="alert-dialog-description"], [data-slot="alert-description"]) { font-size:var(--type-body-size); line-height:var(--type-body-leading); }
+:where([data-slot="accordion-content"] > div) { font-size:var(--type-body-size); line-height:var(--type-body-leading); }
+:where([data-slot="checkbox"] ~ div > p) { font-size:var(--type-caption-size); line-height:var(--type-caption-leading); }
+:where([data-slot="field-description"], [data-slot="field-error"], [data-slot="tooltip-content"], [data-slot="table-caption"]) { font-size:var(--type-caption-size); line-height:var(--type-caption-leading); }
+:where([data-slot="dropdown-menu-content"], [data-slot="context-menu-content"], [data-slot="menubar-content"], [data-slot="select-content"], [data-slot="popover-content"]) { max-width:calc(100vw - var(--rams-detail-overlay-viewport-gutter, var(--rams-detail-space-6))); }
+@media (width < 48rem) { :root { --type-input-size:max(1rem, var(--type-control-size)); } }

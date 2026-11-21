@@ -1,0 +1,9 @@
+# Drawers
+
+Drawer delegates open state, drag gestures, snap points, dismissal and modal behavior to Vaul1.1.2. Choose a bottom, top, left or right direction on the root. Compose Trigger, Content, Header, Title, Description and Footer; Close uses the root's actual dismissal state. Controlled open/onOpenChange and the native modal/gesture options remain available.
+
+Content supplies its portal, overlay, a bottom-direction grip and a RAMS close button. Give every drawer a meaningful Title; add Description only when it explains the task. `showCloseButton={false}` removes the automatic close control when another accessible close action is present. Content focuses its own frame by default, without opening a mobile input keyboard; an onOpenAutoFocus handler can prevent that default and choose another target. Native Escape, focus containment and trigger return remain with the dialog engine.
+
+The outer frame owns direction and drag transforms; its inner body scrolls tall content. Do not animate or transform that frame with another engine. Mark an inner interaction `data-vaul-no-drag` when it must not initiate a drawer gesture. Native Root options govern dismissal thresholds and snap behavior. The supplied grip is decorative: when using handleOnly, compose the native Handle from vaul as the interactive drag target. Vertical drag begins after the native opening transition settles. Reduced motion removes the adapter's native CSS entrance/exit animation and transition, while retaining selection, actions and focus.
+
+[Paper Notes](../examples/paper-notes.tsx) edits a paper specification and binding note, preserves entries when dismissed, and shows the saved values after submission. The form uses RAMS Input, Textarea, Label and Button; its primary action appears only inside the active modal.

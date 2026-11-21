@@ -1,0 +1,144 @@
+/* Cells are opaque so rows passing each other during a sort cover one another cleanly instead of blending text. */
+.wrapper { --rams-detail-column-tint: var(--rams-detail-surface-muted); position: relative; width: 100%; min-width: 0; max-width: 100%; overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); }
+.scroller { position: relative; overflow-x: auto; overscroll-behavior-x: contain; }
+.band { position: absolute; top: 0; bottom: 0; background: var(--rams-detail-column-tint); pointer-events: none; }
+.table { position: relative; z-index: var(--rams-detail-local-overlay-layer); width: 100%; min-width: var(--rams-detail-sortable-table-wide-min-inline-size); border-collapse: separate; border-spacing: 0; font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); letter-spacing: var(--rams-detail-tracking-body); text-align: start; }
+.table[data-fixed] { table-layout: fixed; }
+.table caption, .srOnly { position: absolute; inline-size: var(--rams-detail-accessible-hidden-inline-size); block-size: var(--rams-detail-accessible-hidden-block-size); margin: var(--rams-detail-accessible-hidden-margin); padding: var(--rams-detail-accessible-hidden-padding); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; border: var(--rams-detail-accessible-hidden-border); }
+.selectCol { inline-size: var(--rams-detail-sortable-table-select-column-inline-size); }
+
+.table th, .table td { --rams-detail-cell-base: var(--rams-detail-surface); --rams-detail-cell-fill: var(--rams-detail-cell-base); background-color: var(--rams-detail-cell-fill); transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.table th[data-sorted], .table td[data-sorted] { --rams-detail-cell-base: var(--rams-detail-column-tint); }
+.table th { height: var(--rams-detail-sortable-table-header-control-block-size); padding: 0 var(--rams-detail-space-4); border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); text-align: start; white-space: nowrap; }
+.table th[data-sortable] { padding: 0; }
+.table th[data-sorted] { color: var(--rams-detail-foreground); }
+.table td { height: var(--rams-detail-sortable-table-row-block-size); padding: 0 var(--rams-detail-space-4); border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); color: var(--rams-detail-foreground); font-weight: var(--type-body-weight); vertical-align: middle; overflow-wrap: anywhere; }
+.table tbody tr:last-child td { border-bottom: 0; }
+.table [data-numeric] { text-align: end; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.table[data-selectable] tbody tr { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.table[data-selectable] tbody tr[data-selected] td { --rams-detail-cell-fill: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-sortable-table-selected-fill-share), var(--rams-detail-cell-base)); }
+.table[data-selectable] [data-primary]:not([data-sortable]), .table[data-selectable] th[data-primary] .sortButton { padding-inline-start: var(--rams-detail-space-2); }
+
+.sortButton { display: flex; width: 100%; height: var(--rams-detail-sortable-table-header-control-block-size); align-items: center; justify-content: flex-start; border: 0; padding: 0 var(--rams-detail-space-4); background: transparent; color: inherit; font: inherit; letter-spacing: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.table th[data-numeric] .sortButton { justify-content: flex-end; }
+.sortInner { display: inline-flex; align-items: center; gap: var(--rams-detail-sortable-table-sort-label-gap); border-radius: var(--rams-detail-radius-control); transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+/* Right-aligned columns lead with the arrow so the label lines up with the digits below it. */
+.table th[data-numeric] .sortInner { flex-direction: row-reverse; }
+.sortIcon { position: relative; display: grid; inline-size: var(--rams-detail-motion-button-glyph-size); block-size: var(--rams-detail-motion-button-glyph-size); flex: none; place-items: center; }
+.sortIcon svg { inline-size: var(--rams-detail-motion-button-glyph-size); block-size: var(--rams-detail-motion-button-glyph-size); }
+.sortHint, .sortArrow { position: absolute; inset: 0; display: grid; place-items: center; }
+.sortHint { color: var(--rams-detail-text-muted); opacity: 0; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.sortArrow { color: var(--rams-detail-foreground); }
+.sortButton:focus-visible .sortHint { opacity: var(--rams-detail-sortable-table-sort-hint-opacity); }
+.table th[data-sorted] .sortHint { opacity: 0; }
+
+.selectCell { inline-size: var(--rams-detail-sortable-table-select-column-inline-size); }
+.table .selectCell { padding: 0; padding-inline-start: var(--rams-detail-space-4); }
+.selectHit { position: relative; display: flex; width: 100%; height: var(--rams-detail-sortable-table-header-control-block-size); align-items: center; cursor: pointer; }
+.selectInput { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.selectBox { position: relative; display: block; inline-size: var(--rams-detail-motion-checkbox-glyph-size); block-size: var(--rams-detail-motion-checkbox-glyph-size); flex: none; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-strong); border-radius: var(--radius-indicator); background: var(--rams-detail-surface); color: var(--rams-detail-control-glyph); pointer-events: none; transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.selectBox[data-on] { border-color: var(--rams-detail-control-on); }
+.selectFill { position: absolute; inset: calc(-1 * var(--rams-detail-primitive-border-width)); border-radius: inherit; background: var(--rams-detail-control-on); }
+.selectMark { position: absolute; inset: calc(-1 * var(--rams-detail-primitive-border-width)); inline-size: var(--rams-detail-motion-checkbox-glyph-size); block-size: var(--rams-detail-motion-checkbox-glyph-size); overflow: visible; }
+/* The native checkbox is hidden, so its keyboard focus outline is drawn on the visible box. */
+.selectInput:focus-visible + .selectBox { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: var(--rams-detail-focus-outline-offset); }
+.selectInput:active + .selectBox { transform: scale(var(--rams-motion-checkbox-press-scale)); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+
+.footer { display: flex; height: var(--rams-detail-sortable-table-footer-block-size); align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3); padding-inline: var(--rams-detail-space-4) var(--rams-detail-space-2); border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); letter-spacing: var(--rams-detail-tracking-body); }
+.count { display: inline-flex; min-width: 0; align-items: baseline; gap: var(--rams-detail-sortable-table-count-gap); white-space: nowrap; transition: color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.count[data-active] { color: var(--rams-detail-foreground); }
+.swap { display: inline-block; }
+.swapInner { position: relative; display: inline-flex; width: max-content; }
+.swapText { display: inline-block; white-space: nowrap; }
+
+.clear { height: var(--rams-detail-sortable-table-clear-action-block-size); flex: none; border: 0; border-radius: var(--rams-detail-radius-control); padding: 0 var(--rams-detail-space-3); background: transparent; color: var(--rams-detail-foreground); font: inherit; font-weight: var(--rams-detail-label-weight); letter-spacing: inherit; cursor: pointer; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); -webkit-tap-highlight-color: transparent; }
+
+.empty { height: var(--rams-detail-sortable-table-empty-row-block-size) !important; color: var(--rams-detail-text-muted) !important; text-align: center !important; }
+
+@media (hover: hover) and (pointer: fine) {
+  .table tbody tr:hover td { --rams-detail-cell-fill: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-sortable-table-hover-fill-share), var(--rams-detail-cell-base)); }
+  .table[data-selectable] tbody tr[data-selected]:hover td { --rams-detail-cell-fill: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-sortable-table-selected-hover-fill-share), var(--rams-detail-cell-base)); }
+  .table tbody tr:has(.empty):hover td { --rams-detail-cell-fill: var(--rams-detail-cell-base); }
+  .sortButton:hover .sortInner { color: var(--rams-detail-foreground); }
+  .sortButton:hover .sortHint { opacity: var(--rams-detail-sortable-table-sort-hint-opacity); }
+  .table th[data-sorted] .sortButton:hover .sortHint { opacity: 0; }
+  .selectHit:hover .selectBox:not([data-on]) { border-color: var(--rams-detail-text-muted); }
+  .clear:hover { background: var(--rams-detail-surface-muted); }
+}
+
+@media (max-width: 620px) {
+  .scroller { overflow: visible; }
+  .band { display: none; }
+  .table { display: block; width: 100%; min-width: 0; max-width: 100%; }
+  .table thead { display: block; }
+  /* The header becomes a strip of sort controls, so sorting stays one tap away on a phone. */
+  .table thead tr { display: flex; align-items: center; gap: var(--rams-detail-space-1); padding: var(--rams-detail-space-1) var(--rams-detail-space-2); overflow-x: auto; border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); scrollbar-width: none; }
+  .table thead tr::-webkit-scrollbar { display: none; }
+  .table th { display: block; flex: none; height: auto; border: 0; padding: 0; background: transparent; }
+  /* Select all stays pinned while the sort controls scroll beneath it. */
+  .table th.selectCell { position: sticky; inset-inline-start: calc(-1 * var(--rams-detail-space-2)); z-index: var(--rams-detail-local-overlay-layer); inline-size: var(--rams-detail-sortable-table-sticky-select-inline-size); margin-inline-start: calc(-1 * var(--rams-detail-space-2)); padding: 0; padding-inline-start: var(--rams-detail-space-3); background: var(--rams-detail-surface); }
+  .table th.selectCell .selectHit { height: var(--rams-detail-sortable-table-narrow-header-control-block-size); }
+  /* Once the strip scrolls, a fade off the pinned cell hides the word sliding under it. */
+  .table th.selectCell::after { position: absolute; top: 0; bottom: 0; inset-inline-start: 100%; inline-size: var(--rams-detail-sortable-table-sticky-fade-inline-size); background: linear-gradient(to right, var(--rams-detail-surface) var(--rams-detail-sortable-table-sticky-fade-solid-share), transparent); content: ""; opacity: 0; pointer-events: none; }
+  .table th.selectCell:dir(rtl)::after { background: linear-gradient(to left, var(--rams-detail-surface) var(--rams-detail-sortable-table-sticky-fade-solid-share), transparent); }
+  /* Browsers without scroll-driven animations would play the fade once, at zero duration, and leave it on; they keep it off. */
+  @supports (animation-timeline: scroll()) { .table th.selectCell::after { animation: stripFade var(--rams-motion-uniform-ease) both; animation-timeline: scroll(nearest inline); animation-range: 0 var(--rams-detail-sortable-table-sticky-fade-scroll-distance); } }
+  .table th .sortButton, .table[data-selectable] th[data-primary] .sortButton { width: auto; height: var(--rams-detail-sortable-table-narrow-header-control-block-size); border-radius: var(--rams-detail-radius-control); padding: 0 var(--rams-detail-sortable-table-narrow-sort-inline-padding); transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+  .table th[data-sorted] .sortButton { background: var(--rams-detail-surface-muted); }
+  .table th[data-numeric] .sortInner { flex-direction: row; }
+  .sortButton:focus-visible { --rams-detail-focus-outline-offset: var(--rams-detail-sortable-table-narrow-sort-focus-offset); }
+  .table tbody { display: block; width: 100%; }
+  /* Rows fold into two lines: the first column with its number, then the remaining details. */
+  .table tbody tr { --rams-detail-row-fill: var(--rams-detail-surface); position: relative; display: flex; width: 100%; min-height: var(--rams-detail-sortable-table-narrow-row-min-block-size); box-sizing: border-box; flex-wrap: wrap; align-items: baseline; align-content: center; gap: var(--rams-detail-sortable-table-narrow-row-block-gap) var(--rams-detail-space-2); padding: var(--rams-detail-sortable-table-narrow-row-block-padding) var(--rams-detail-space-4); border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); background-color: var(--rams-detail-row-fill); transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+  .table tbody tr::after { order: var(--rams-detail-layout-order-following); flex-basis: 100%; content: ""; }
+  .table[data-selectable] tbody tr { padding-inline-start: var(--rams-detail-sortable-table-select-column-inline-size); }
+  .table[data-selectable] tbody tr[data-selected] { --rams-detail-row-fill: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-sortable-table-selected-fill-share), var(--rams-detail-surface)); }
+  .table tbody tr:last-child { border-bottom: 0; }
+  .table td { order: var(--rams-detail-layout-order-last); display: block; min-width: 0; height: auto; border: 0; padding: 0; background: transparent; color: var(--rams-detail-text-secondary); font-size: var(--type-control-size); text-align: start; }
+  .table[data-selectable] td[data-primary]:not([data-sortable]) { padding-inline-start: 0; }
+  /* Folded rows retain the column names alongside their values. */
+  .table tbody td[data-label]:not([data-primary])::before { content: attr(data-label) ": "; color: var(--rams-detail-text-muted); }
+  .table td[data-primary] { order: var(--rams-detail-layout-order-normal); flex: var(--rams-detail-layout-flex-min-content); overflow-wrap: break-word; color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); }
+  .table td[data-numeric]:not([data-primary]) { order: var(--rams-detail-layout-order-normal); flex: none; margin-inline-start: auto; padding-inline-start: var(--rams-detail-space-2); color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); }
+  .table td[data-numeric] ~ td[data-numeric] { order: var(--rams-detail-layout-order-last); margin-inline-start: 0; padding-inline-start: 0; color: var(--rams-detail-text-secondary); font-size: var(--type-control-size); }
+  /* The sorted value lifts to full contrast, echoing the tinted column on wider screens. */
+  .table td[data-sorted]:not([data-primary]) { color: var(--rams-detail-foreground); }
+  .table td.selectCell { position: absolute; top: 0; bottom: 0; inset-inline-start: var(--rams-detail-space-1); display: flex; inline-size: var(--rams-detail-sortable-table-narrow-select-hit-inline-size); align-items: center; padding: 0; }
+  .table td.selectCell .selectHit { justify-content: center; }
+  .table .empty { flex: var(--rams-detail-layout-flex-unshrinkable-row); height: auto !important; padding: var(--rams-detail-space-6) 0; }
+  .table[data-selectable] tbody tr:has(.empty) { padding-inline-start: var(--rams-detail-space-4); }
+}
+@media (max-width: 620px) {
+  @media (hover: hover) and (pointer: fine) {
+    .table tbody tr:hover { --rams-detail-row-fill: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-sortable-table-hover-fill-share), var(--rams-detail-surface)); }
+    .table[data-selectable] tbody tr[data-selected]:hover { --rams-detail-row-fill: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-sortable-table-selected-hover-fill-share), var(--rams-detail-surface)); }
+    .table tbody tr:hover td { background: transparent; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .table th, .table td, .table tbody tr, .sortInner, .sortHint, .selectBox, .count, .clear, .table th .sortButton { transition: none !important; }
+  .selectInput:active + .selectBox { transform: none; }
+  .table tbody tr { transform: none !important; }
+  .clear { opacity: 1 !important; transform: none !important; filter: none !important; }
+}
+
+@keyframes stripFade { to { opacity: 1; } }
+
+:where(.wrapper,.scroller,.band,.table,.srOnly,.selectCol,.sortButton,.sortInner,.sortIcon,.sortHint,.sortArrow,.selectCell,.selectHit,.selectInput,.selectBox,.selectFill,.selectMark,.footer,.count,.swap,.swapInner,.swapText,.number,.clear,.empty):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.table td[data-numeric] { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* Sort and clear actions keep the table's existing row and footer geometry. */
+.sortButton, .clear { min-inline-size: 0; min-block-size: 0; box-shadow: none; filter: none; }
+
+/* Reserve both the sticky header inset and its complete select-all box. */
+@media (max-width: 620px) { .table th.selectCell { min-inline-size: calc(var(--rams-detail-space-3) + var(--rams-detail-motion-checkbox-glyph-size)); } }
+
+/* Selected count and clear action wrap into independent rows when necessary. */
+.footer { height: auto; min-height: var(--rams-detail-sortable-table-footer-block-size); flex-wrap: wrap; padding-block: min(var(--rams-detail-sortable-table-footer-block-padding), var(--rams-detail-sortable-table-footer-block-padding-max)); }
+.count { flex: none; max-width: 100%; flex-wrap: wrap; white-space: normal; }
+.clear { height: auto; min-height: var(--rams-detail-sortable-table-clear-action-block-size); max-width: 100%; padding-inline: min(var(--rams-detail-space-3), var(--rams-detail-sortable-table-clear-action-inline-padding-max)); white-space: normal; overflow-wrap: normal; }
+
+/* Header labels, row labels and selected-item counts are interface text. */
+.table td[data-numeric]::before, .number { font-family: var(--rams-detail-font-body); font-variant-numeric: normal; }

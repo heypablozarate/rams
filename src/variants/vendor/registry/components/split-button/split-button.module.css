@@ -1,0 +1,73 @@
+/* One pill, two actions. The whole pill presses in for the main action; the menu half answers in color only, because Radix measures it on pointerdown to place the menu. */
+.group { display: inline-flex; align-items: stretch; --rams-detail-split-fill:var(--rams-detail-primary); --rams-detail-split-ink:var(--rams-detail-on-primary); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-split-fill); border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-split-fill); transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.group:has(> .primary:active:not(:disabled)) { transform: scale(var(--rams-motion-split-button-press-scale)); transition-duration: var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard); }
+.primary, .trigger { border: 0; background: var(--rams-detail-split-fill); color: var(--rams-detail-split-ink); font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.primary { position: relative; display: inline-grid; min-height: calc(var(--rams-native-hit) - 2 * var(--rams-detail-primitive-border-width)); place-items: center; padding: 0 var(--rams-detail-space-4); border-radius: calc(var(--rams-detail-radius-control) - var(--rams-detail-primitive-border-width)) 0 0 calc(var(--rams-detail-radius-control) - var(--rams-detail-primitive-border-width)); font-size: var(--rams-detail-text-sm); font-weight: var(--type-primary-action-weight, var(--rams-detail-native-primary-action-weight-fallback)); font-synthesis: none; }
+/* The slot springs to the width of the next label; the content leads from the start edge and is clipped only while it morphs. */
+.primarySlot { display: inline-flex; min-width: 0; align-items: center; }
+.primarySlot[data-morphing] { clip-path: inset(calc(-1 * var(--rams-detail-split-morph-vertical-bleed)) calc(var(--rams-detail-space-2) * -1)); }
+.primaryContent { display: inline-flex; flex: none; align-items: center; gap: var(--rams-detail-space-2); white-space: nowrap; }
+.mainIcon { display: inline-grid; flex: none; place-items: center; }
+.iconPhase { grid-area: 1 / 1; display: inline-flex; align-items: center; justify-content: center; }
+.glyphs { position: relative; display: inline-flex; flex: none; white-space: pre; }
+.glyph { display: inline-block; }
+.trigger { display: grid; width: var(--rams-detail-split-trigger-width); min-height: calc(var(--rams-native-hit) - 2 * var(--rams-detail-primitive-border-width)); place-items: center; border-left: var(--rams-detail-primitive-border-width) solid color-mix(in oklab, var(--rams-detail-background) var(--rams-detail-split-divider-background-share), var(--rams-detail-foreground)); border-radius: 0 calc(var(--rams-detail-radius-control) - var(--rams-detail-primitive-border-width)) calc(var(--rams-detail-radius-control) - var(--rams-detail-primitive-border-width)) 0; }
+.chevron { transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.trigger[data-state="open"] .chevron { transform: var(--rams-detail-disclosure-expanded-glyph-transform); }
+@media (hover: hover) and (pointer: fine) {
+  .primary:hover:not(:disabled), .trigger:hover:not(:disabled) { background: var(--rams-detail-primary-hover); }
+  .secondary .primary:hover:not(:disabled), .secondary .trigger:hover:not(:disabled) { background: var(--rams-detail-surface-muted); }
+}
+.primary:active:not(:disabled), .trigger:active:not(:disabled), .trigger[data-state="open"] { background: var(--rams-detail-primary-pressed); }
+.primary:disabled, .trigger:disabled { cursor: not-allowed; opacity: var(--rams-detail-split-disabled-opacity); }
+.secondary { --rams-detail-split-fill:var(--rams-detail-surface); --rams-detail-split-ink:var(--rams-detail-foreground); border-color: var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface); }
+.secondary .primary, .secondary .trigger { min-height: calc(var(--rams-native-hit) - 2 * var(--rams-detail-primitive-border-width)); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); }
+.secondary .primary { font-weight: var(--type-action-weight, var(--rams-detail-split-secondary-action-weight-fallback)); min-width: var(--rams-detail-split-secondary-primary-min-width); border-radius: var(--rams-detail-radius-pill) 0 0 var(--rams-detail-radius-pill); padding-inline: var(--rams-detail-space-3); font-size: var(--type-control-size); }
+.secondary .trigger { width: var(--rams-detail-split-secondary-trigger-width); border-left-color: var(--rams-detail-border-subtle); border-radius: 0 var(--rams-detail-radius-pill) var(--rams-detail-radius-pill) 0; }
+.secondary .primary:active:not(:disabled), .secondary .trigger:active:not(:disabled), .secondary .trigger[data-state="open"] { background: color-mix(in oklab, var(--rams-detail-surface-muted), var(--rams-detail-border) var(--rams-detail-split-secondary-pressed-border-share)); }
+.icon { display: inline-flex; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+/* The menu grows from the trigger edge: offset toward the trigger, scale from the Radix origin, fade quickly; it leaves faster than it arrives.
+   Transitions instead of keyframes, so a close that interrupts the open reverses from where the menu is instead of snapping to rest first. */
+.menu { --rams-detail-native-enter-animation: none; --rams-detail-menu-x: var(--rams-detail-menu-rest-offset); --rams-detail-menu-y: calc(-1 * var(--rams-motion-split-button-menu-travel)); z-index: var(--rams-detail-split-menu-layer); min-width: min(var(--rams-detail-split-menu-min-width), var(--radix-dropdown-menu-content-available-width)); max-width: var(--radix-dropdown-menu-content-available-width); padding: var(--rams-detail-split-menu-padding); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface-raised); color: var(--rams-detail-foreground); box-shadow: var(--rams-detail-shadow-floating); transform-origin: var(--radix-dropdown-menu-content-transform-origin); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-enter), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.menu[data-side="top"] { --rams-detail-menu-y: var(--rams-motion-split-button-menu-travel); }
+.menu[data-side="left"] { --rams-detail-menu-x: var(--rams-motion-split-button-menu-travel); --rams-detail-menu-y: var(--rams-detail-menu-rest-offset); }
+.menu[data-side="right"] { --rams-detail-menu-x: calc(-1 * var(--rams-motion-split-button-menu-travel)); --rams-detail-menu-y: var(--rams-detail-menu-rest-offset); }
+@starting-style {
+  .menu[data-state="open"] { opacity: 0; transform: translate(var(--rams-detail-menu-x), var(--rams-detail-menu-y)) scale(var(--rams-motion-split-button-menu-enter-scale)); }
+  .menu[data-state="open"] .item { opacity: 0; transform: translate(calc(var(--rams-detail-menu-x) * var(--rams-motion-split-button-menu-item-travel-ratio)), calc(var(--rams-detail-menu-y) * var(--rams-motion-split-button-menu-item-travel-ratio))); }
+}
+/* Radix unmounts when the exit animation ends, so a no-op keyframe times the exit while the transition does the visual work. */
+.menu[data-state="closed"] { opacity: 0; transform: translate(calc(var(--rams-detail-menu-x) * var(--rams-motion-split-button-menu-exit-travel-ratio)), calc(var(--rams-detail-menu-y) * var(--rams-motion-split-button-menu-exit-travel-ratio))) scale(var(--rams-motion-split-button-menu-exit-scale)); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); animation: menu-exit var(--rams-detail-duration-fast) var(--rams-motion-uniform-ease) both; pointer-events: none; }
+/* Highlight follows the pointer and arrow keys instantly, like a native menu. */
+.item { display: flex; min-height: var(--rams-detail-control-height-sm); align-items: center; gap: var(--rams-detail-action-menu-row-gap); padding: 0 var(--rams-detail-action-menu-row-padding-inline); border-radius: var(--radius-menu-item); font-size: var(--rams-detail-text-sm); cursor: pointer; outline: none; transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-enter) calc(min(var(--rams-detail-i, var(--rams-detail-split-button-i-fallback)), var(--rams-motion-split-button-menu-stagger-limit)) * var(--rams-detail-duration-instant)), transform var(--rams-detail-duration-standard) var(--rams-detail-ease-enter) calc(min(var(--rams-detail-i, var(--rams-detail-split-button-i-fallback)), var(--rams-motion-split-button-menu-stagger-limit)) * var(--rams-detail-duration-instant)); }
+.item[data-highlighted] { background: var(--rams-detail-surface-muted); }
+.item[data-disabled] { cursor: default; opacity: var(--rams-detail-split-menu-disabled-opacity); }
+.destructive { color: var(--rams-detail-danger); }
+.destructive[data-highlighted] { background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-split-danger-hover-share), var(--rams-detail-surface)); }
+@keyframes menu-exit { to { --rams-detail-menu-exit: var(--rams-detail-menu-exit-complete); } }
+@media (prefers-reduced-motion: reduce) {
+  .group, .primary, .trigger, .chevron { transition: none; }
+  .group:has(> .primary:active:not(:disabled)) { transform: none; }
+  .item { transition: none; transform: none !important; }
+  .item:not([data-disabled]) { opacity: 1 !important; }
+  .menu[data-state="open"] { transform: none !important; opacity: 1 !important; transition: none !important; }
+  .menu[data-state="closed"] { transform: none !important; opacity: 0 !important; visibility: hidden !important; transition: none !important; animation: menu-exit var(--rams-detail-duration-reduced) var(--rams-motion-uniform-ease) both !important; }
+}
+:where(.group,.primary,.trigger,.primarySlot,.primaryContent,.mainIcon,.iconPhase,.glyphs,.glyph,.chevron,.secondary,.icon,.srOnly,.menu,.item,.destructive):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The narrow menu half keeps the joined control geometry. */
+.trigger { padding: 0; min-inline-size: 0; }
+/* The menu half retains its target; the label wraps at real word boundaries. */
+.group { min-inline-size: 0; max-inline-size: 100%; }
+/* Definite flex insets participate in intrinsic measurement and yield before the
+   measured label; percentage padding previously appeared only after sizing. */
+.primary { --rams-detail-split-inset: var(--rams-button-padding-inline); display: flex; flex-wrap: nowrap; gap: 0; justify-content: center; flex: 1 1 auto; filter: none; min-inline-size: 0; padding: var(--rams-detail-split-primary-block-padding) 0; }
+.secondary .primary { --rams-detail-split-inset: var(--rams-button-padding-inline); padding-inline: 0; }
+.primary::before, .primary::after { content: ""; inline-size: var(--rams-detail-split-inset); flex: 0 1 var(--rams-detail-split-inset); min-inline-size: 0; }
+.trigger { flex: 0 0 auto; min-inline-size: var(--rams-detail-split-trigger-width); filter: none; }
+.primarySlot { flex: 0 0 auto; max-inline-size: 100%; }
+.primaryContent { width: max-content; max-inline-size: var(--rams-detail-split-available, var(--rams-detail-split-available-fallback)); min-inline-size: 0; flex: none; flex-wrap: wrap; justify-content: center; white-space: normal; }
+.glyphs { display: block; min-inline-size: 0; max-inline-size: 100%; flex: 1 1 auto; white-space: normal; }
+.word { display: inline-flex; position: relative; max-inline-size: 100%; flex-wrap: wrap; }
+.wordSpace { display: inline; white-space: normal; }

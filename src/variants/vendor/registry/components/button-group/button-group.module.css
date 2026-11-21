@@ -1,0 +1,95 @@
+/* One surface, several actions: a shared border and radius, hairline dividers, no gaps. A single soft highlight travels under the
+   segments instead of each one lighting up; the dividers beside it step aside so it reads as one shape. */
+.group { --rams-detail-bg-h: var(--rams-detail-control-height-md); --rams-detail-bg-pad-x: var(--rams-detail-button-group-motion-segment-padding-inline); --rams-detail-bg-inset: var(--rams-detail-button-group-motion-highlight-inset); --rams-detail-bg-radius: var(--rams-detail-radius-control); --rams-detail-bg-divider: var(--rams-detail-border); --rams-detail-bg-divider-inset: var(--rams-detail-button-group-motion-divider-inset); --rams-detail-bg-highlight: var(--rams-detail-surface-muted); --rams-detail-bg-highlight-pressed: color-mix(in oklab, var(--rams-detail-surface-muted), var(--rams-detail-border-strong) var(--rams-detail-button-group-motion-outline-pressed-mix)); --rams-detail-bg-muted-ink: var(--rams-detail-text-secondary);
+  position: relative; isolation: isolate; display: inline-flex; max-width: 100%; align-items: stretch; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-bg-radius); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); vertical-align: middle; }
+.group::-webkit-scrollbar { display: none; }
+.sm { --rams-detail-bg-h: var(--rams-detail-control-height-sm); --rams-detail-bg-pad-x: var(--rams-detail-button-group-motion-segment-padding-inline-small); --rams-detail-bg-divider-inset: var(--rams-detail-button-group-motion-divider-inset-small); }
+.md { --rams-detail-bg-h: var(--rams-detail-control-height-md); }
+/* Solid is the primary group: the foreground fill of a primary button, with the highlight and dividers mixed from the page color. */
+.solid { --rams-detail-bg-divider: color-mix(in oklab, var(--rams-detail-background) var(--rams-detail-button-group-motion-solid-divider-mix), var(--rams-detail-foreground)); --rams-detail-bg-highlight: color-mix(in oklab, var(--rams-detail-background) var(--rams-detail-button-group-motion-solid-highlight-mix), var(--rams-detail-foreground)); --rams-detail-bg-highlight-pressed: color-mix(in oklab, var(--rams-detail-background) var(--rams-detail-button-group-motion-solid-pressed-mix), var(--rams-detail-foreground)); --rams-detail-bg-muted-ink: color-mix(in oklab, var(--rams-detail-background) var(--rams-detail-button-group-motion-solid-muted-ink-mix), var(--rams-detail-foreground)); border-color: var(--rams-detail-foreground); background: var(--rams-detail-foreground); color: var(--rams-detail-background); }
+.vertical { flex-direction: column; overflow: visible; --rams-detail-bg-divider-inset: var(--rams-detail-button-group-motion-divider-inset-vertical); }
+.group[aria-disabled="true"] { opacity: var(--rams-detail-button-group-motion-disabled-opacity); }
+
+/* The travelling highlight. Motion sets its box to the active segment; the visible shape sits inset so the border stays crisp. */
+.highlight { position: absolute; z-index: var(--rams-detail-layer-base); top: 0; left: 0; pointer-events: none; }
+.highlight::before { position: absolute; inset: var(--rams-detail-bg-inset); border-radius: calc(var(--rams-detail-bg-radius) - var(--rams-detail-bg-inset) - var(--rams-detail-primitive-border-width)); background: var(--rams-detail-bg-highlight); content: ""; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.highlight[data-pressed]::before { background: var(--rams-detail-bg-highlight-pressed); transition-duration: var(--rams-detail-duration-instant); }
+
+.segment { position: relative; z-index: var(--rams-detail-local-overlay-layer); display: inline-flex; flex: none; min-width: calc(var(--rams-detail-bg-h) - 2 * var(--rams-detail-primitive-border-width)); height: calc(var(--rams-detail-bg-h) - 2 * var(--rams-detail-primitive-border-width)); align-items: center; justify-content: center; margin: 0; padding: 0 var(--rams-detail-bg-pad-x); border: 0; border-radius: var(--rams-detail-flush-corner-radius); background: transparent; color: inherit; font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--type-action-weight); letter-spacing: var(--rams-detail-tracking-body); line-height: var(--rams-detail-button-group-motion-line-height); white-space: nowrap; text-decoration: none; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+.vertical .segment { width: 100%; justify-content: flex-start; }
+.vertical .iconOnly, .vertical .trigger { justify-content: center; padding: 0; }
+.iconOnly { width: calc(var(--rams-detail-bg-h) - 2 * var(--rams-detail-primitive-border-width)); padding: 0; }
+.trigger { width: calc(var(--rams-detail-bg-h) - var(--rams-detail-button-group-motion-menu-trigger-reduction)); min-width: 0; padding: 0; color: var(--rams-detail-bg-muted-ink); transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.trigger[data-state="open"] { color: inherit; }
+.segment[aria-disabled="true"] { cursor: not-allowed; }
+.segment[aria-disabled="true"] .content { opacity: var(--rams-detail-button-group-motion-segment-disabled-opacity); }
+.group[aria-disabled="true"] .segment { cursor: not-allowed; }
+/* Collapsed rows keep the icon and drop the label; the label moves to aria-label and the tooltip. */
+.compact .segment[data-collapsible] { width: calc(var(--rams-detail-bg-h) - 2 * var(--rams-detail-primitive-border-width)); padding: 0; }
+.compact .label[data-collapsible] { display: none; }
+
+/* Hairline dividers sit between segments and fade where the highlight arrives, so it never sits beside a line. */
+.segment + .segment::before { position: absolute; top: var(--rams-detail-bg-divider-inset); bottom: var(--rams-detail-bg-divider-inset); left: calc(var(--rams-detail-primitive-border-width) / -2); width: var(--rams-detail-primitive-border-width); background: var(--rams-detail-bg-divider); content: ""; pointer-events: none; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.vertical .segment + .segment::before { top: calc(var(--rams-detail-primitive-border-width) / -2); right: var(--rams-detail-bg-divider-inset); bottom: auto; left: var(--rams-detail-bg-divider-inset); width: auto; height: var(--rams-detail-primitive-border-width); }
+.segment[data-quiet]::before { opacity: 0; }
+
+/* The press answers inside the segment: content dips and springs back, the group and its neighbours stay still. */
+.content { position: relative; display: inline-flex; align-items: center; transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.segment:active:not([aria-disabled="true"]) .content { transform: scale(var(--rams-motion-button-group-segment-press-scale)); transition-duration: var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard); }
+.iconOnly:active:not([aria-disabled="true"]) .content { transform: scale(var(--rams-motion-button-group-icon-press-scale)); }
+/* The chevron anchors the menu, so it answers with the deeper highlight only. */
+.trigger:active .content { transform: none; }
+.chevron { width: var(--rams-detail-button-group-motion-glyph-size); height: var(--rams-detail-button-group-motion-glyph-size); stroke-width: var(--rams-detail-button-group-motion-glyph-stroke); transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.trigger[data-state="open"] .chevron { transform: rotate(var(--rams-detail-menu-turn-open)); }
+
+/* Reserved labels and the visible one share one grid cell, so the widest state sets the width and a change crossfades in place.
+   A label nobody reserved springs the slot to its width instead; content is clipped only while that happens. */
+.slot { position: relative; display: inline-flex; min-width: 0; align-items: center; justify-content: center; }
+.slot[data-morphing] { clip-path: inset(calc(-1 * var(--rams-detail-action-label-morph-clip-block-overdraw)) calc(var(--rams-detail-space-3) * -1)); }
+.slotContent { display: inline-grid; flex: none; align-items: center; justify-items: center; }
+.slotContent > * { grid-area: 1 / 1; }
+.phase { display: inline-flex; align-items: center; gap: var(--rams-detail-space-2); white-space: nowrap; }
+.sizer { visibility: hidden; pointer-events: none; }
+.iconBox { display: inline-block; width: var(--rams-detail-button-group-motion-glyph-size); height: var(--rams-detail-button-group-motion-glyph-size); flex: none; }
+.sm .phase { gap: var(--rams-detail-button-group-motion-small-content-gap); }
+.icon { display: inline-flex; flex: none; }
+.icon svg { width: var(--rams-detail-button-group-motion-glyph-size); height: var(--rams-detail-button-group-motion-glyph-size); stroke-width: var(--rams-detail-button-group-motion-glyph-stroke); }
+.value { display: inline-flex; align-items: center; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.label { display: inline-block; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+/* The menu grows from the group's edge: offset toward it, scale from the Radix origin, and leave faster than it arrives.
+   Transitions instead of keyframes, so a close that interrupts the open reverses from where the menu is. */
+.menu { --rams-detail-menu-x: var(--rams-detail-menu-rest-offset); --rams-detail-menu-y: calc(-1 * var(--rams-motion-button-group-menu-enter-travel)); z-index: var(--rams-detail-surface-floating-z); min-width: min(var(--rams-detail-button-group-motion-menu-min-inline-size), var(--radix-dropdown-menu-content-available-width)); max-width: var(--radix-dropdown-menu-content-available-width); padding: var(--rams-detail-menu-padding); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface-raised); color: var(--rams-detail-foreground); box-shadow: var(--rams-detail-shadow-floating); transform-origin: var(--radix-dropdown-menu-content-transform-origin); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-enter), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.menu[data-side="top"] { --rams-detail-menu-y: var(--rams-motion-button-group-menu-enter-travel); }
+.menu[data-side="left"] { --rams-detail-menu-x: var(--rams-motion-button-group-menu-enter-travel); --rams-detail-menu-y: var(--rams-detail-menu-rest-offset); }
+.menu[data-side="right"] { --rams-detail-menu-x: calc(-1 * var(--rams-motion-button-group-menu-enter-travel)); --rams-detail-menu-y: var(--rams-detail-menu-rest-offset); }
+@starting-style {
+  .menu[data-state="open"] { opacity: 0; transform: translate(var(--rams-detail-menu-x), var(--rams-detail-menu-y)) scale(var(--rams-motion-button-group-menu-enter-scale)); }
+  .menu[data-state="open"] .item { opacity: 0; transform: translate(calc(var(--rams-detail-menu-x) * var(--rams-motion-button-group-menu-row-enter-travel-ratio)), calc(var(--rams-detail-menu-y) * var(--rams-motion-button-group-menu-row-enter-travel-ratio))); }
+}
+/* Radix unmounts when the exit animation ends, so a no-op keyframe times the exit while the transition does the visual work. */
+.menu[data-state="closed"] { opacity: 0; transform: translate(calc(var(--rams-detail-menu-x) * var(--rams-motion-button-group-menu-exit-travel-ratio)), calc(var(--rams-detail-menu-y) * var(--rams-motion-button-group-menu-exit-travel-ratio))) scale(var(--rams-motion-button-group-menu-exit-scale)); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); animation: menu-exit var(--rams-detail-duration-fast) var(--rams-motion-uniform-ease) both; pointer-events: none; }
+.item { display: flex; min-height: var(--rams-detail-button-group-motion-menu-item-block-size); align-items: center; gap: var(--rams-detail-button-group-motion-menu-item-gap); padding: 0 var(--rams-detail-button-group-motion-menu-item-padding-inline); border-radius: var(--radius-menu-item); color: inherit; font-size: var(--rams-detail-text-sm); text-decoration: none; cursor: pointer; outline: none; transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-enter) calc(var(--rams-detail-i, var(--rams-detail-button-group-i-fallback)) * var(--rams-detail-duration-instant)), transform var(--rams-detail-duration-standard) var(--rams-detail-ease-enter) calc(var(--rams-detail-i, var(--rams-detail-button-group-i-fallback)) * var(--rams-detail-duration-instant)); }
+.item[data-highlighted] { background: var(--rams-detail-surface-muted); }
+.item[data-disabled] { cursor: default; opacity: var(--rams-detail-button-group-motion-menu-item-disabled-opacity); }
+.itemIcon { display: inline-flex; flex: none; color: var(--rams-detail-text-secondary); }
+.itemIcon svg { width: var(--rams-detail-button-group-motion-glyph-size); height: var(--rams-detail-button-group-motion-glyph-size); stroke-width: var(--rams-detail-button-group-motion-glyph-stroke); }
+.itemLabel { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.destructive, .destructive .itemIcon { color: var(--rams-detail-danger); }
+.destructive[data-highlighted] { background: var(--rams-detail-menu-danger-highlight-fill); }
+@keyframes menu-exit { to { --rams-detail-menu-exit: var(--rams-detail-menu-exit-complete); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .content, .chevron, .segment::before, .highlight::before, .item { transition: none; }
+  .segment:active .content, .iconOnly:active .content { transform: none; }
+  .menu, .menu[data-state="closed"] { transform: none; transition: opacity var(--rams-detail-duration-instant) var(--rams-motion-uniform-ease); }
+}
+
+:where(.group,.sm,.md,.solid,.vertical,.highlight,.segment,.iconOnly,.trigger,.content,.compact,.label,.chevron,.slot,.slotContent,.phase,.sizer,.iconBox,.icon,.value,.srOnly,.menu,.item,.itemIcon,.itemLabel,.destructive):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The motion adapter owns its measured control height. */
+.segment { min-block-size: 0; }
+
+/* Action heights follow the same canonical scale as Button. */
+.group { --rams-detail-bg-h:var(--rams-native-hit); }

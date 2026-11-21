@@ -1,0 +1,31 @@
+/* The frame is a size container, so the divider's line can span any angle with container units. Vertical pans still scroll the page on touch. */
+.root { --rams-detail-image-compare-caption-inset: var(--rams-detail-space-3); position: relative; display: block; width: 100%; overflow: clip; container-type: size; isolation: isolate; border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface-muted); cursor: ew-resize; touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+.root[data-orientation="vertical"] { cursor: ns-resize; touch-action: pan-x; }
+/* A hairline keeps light photos from bleeding into the page. */
+.root::after { content: ""; position: absolute; z-index: var(--rams-detail-layer-front); inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 var(--rams-detail-primitive-border-width) color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-image-compare-frame-wash), transparent); pointer-events: none; }
+.layer { position: absolute; inset: 0; }
+.layer :where(img, picture, video) { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; -webkit-user-drag: none; }
+/* Measure offset changes even when their boxes keep the same size. */
+.captionInsetProbe { position: absolute; width: var(--rams-detail-image-compare-caption-inset); height: 0; visibility: hidden; pointer-events: none; }
+/* Captions sit on a frosted chip so they read over any photo, below the divider. */
+.chip { position: absolute; z-index: var(--rams-detail-local-overlay-layer); top: var(--rams-detail-image-compare-caption-inset); left: var(--rams-detail-image-compare-caption-inset); padding: var(--rams-detail-image-compare-caption-block-padding) var(--rams-detail-image-compare-caption-inline-padding); border-radius: var(--rams-detail-radius-pill); background: color-mix(in oklab, var(--rams-detail-background) var(--rams-detail-image-compare-caption-wash), transparent); color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-label-weight); line-height: var(--type-caption-leading); letter-spacing: var(--rams-detail-tracking-body); pointer-events: none; -webkit-backdrop-filter: blur(var(--rams-detail-image-compare-caption-blur)) saturate(var(--rams-detail-image-compare-caption-saturation)); backdrop-filter: blur(var(--rams-detail-image-compare-caption-blur)) saturate(var(--rams-detail-image-compare-caption-saturation)); }
+.chip[data-place="end"] { right: var(--rams-detail-image-compare-caption-inset); left: auto; }
+.chip[data-place="bottom"] { top: auto; bottom: var(--rams-detail-image-compare-caption-inset); }
+/* The pivot is a frame-sized layer moved by a percentage of itself; its top-left corner is the divider's center. */
+.pivot { position: absolute; z-index: var(--rams-detail-layer-above-overlay); inset: 0; pointer-events: none; }
+.rotor { position: absolute; top: 0; left: 0; width: 0; height: 0; }
+.line { position: absolute; top: var(--rams-detail-image-compare-divider-start); left: calc(var(--rams-detail-image-compare-divider-stroke) / -2); width: var(--rams-detail-image-compare-divider-stroke); height: var(--rams-detail-image-compare-divider-rotated-length); background: var(--rams-detail-surface-raised); box-shadow: 0 0 0 var(--rams-detail-image-compare-divider-halo) var(--rams-detail-detail-image-compare-box-shadow-c71b06d1); }
+/* The line sits on photography, not on the theme, so it stays light in dark mode too. */
+:global(:root.dark) .line { background: var(--rams-detail-foreground); }
+.handleSlot { position: absolute; top: 0; left: 0; }
+/* Centered with the translate property; Motion only animates its width and height, so the shape morphs without scaling the icons. */
+.handle { position: absolute; top: 0; left: 0; display: grid; box-sizing: border-box; width: var(--rams-detail-image-compare-handle-width); height: var(--rams-detail-image-compare-handle-height); place-items: center; translate: -50% -50%; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-raised); color: var(--rams-detail-foreground); pointer-events: auto; outline: var(--rams-detail-image-compare-inactive-outline); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.handle::after { content: ""; position: absolute; inset: calc(-1 * var(--rams-detail-image-compare-handle-hit-outset)); border-radius: inherit; }
+@media (hover: hover) and (pointer: fine) { .root:hover .handle { border-color: var(--rams-detail-border-strong); } }
+.chevrons { display: flex; align-items: center; }
+.chevron { display: grid; margin-inline: calc(-1 * var(--rams-detail-image-compare-chevron-overlap)); place-items: center; }
+@media (prefers-reduced-motion: reduce) {
+  .handle { width: var(--rams-detail-image-compare-handle-width) !important; height: var(--rams-detail-image-compare-handle-height) !important; transition: none; }
+  .chevron { transform: none !important; }
+}
+:where(.root,.layer,.chip,.pivot,.rotor,.line,.handleSlot,.handle,.chevrons,.chevron):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

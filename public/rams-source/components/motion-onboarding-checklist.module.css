@@ -1,0 +1,92 @@
+/* The card holds no padding of its own: the header pads itself, so hiding the body leaves an evenly padded bar. */
+.card { container: checklist / inline-size; box-sizing: border-box; width: 100%; min-width: 0; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-surface); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); }
+.header { box-sizing: border-box; display: grid; grid-template-columns: var(--rams-detail-onboarding-checklist-ring-size) minmax(0, 1fr) auto; align-items: center; column-gap: var(--rams-detail-space-3); padding: var(--rams-detail-space-5); padding-inline: min(var(--rams-detail-space-5), var(--rams-detail-onboarding-checklist-inset-cap)); }
+.heading { display: grid; min-width: 0; gap: var(--rams-detail-onboarding-checklist-heading-gap); }
+.title { margin: 0; color: var(--rams-detail-foreground); font-family: var(--type-title-family); font-size: var(--type-title-size); font-weight: var(--type-title-weight); letter-spacing: var(--type-title-tracking); line-height: var(--type-title-leading); }
+.count { margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); }
+.countVisual, .groupLabel { display: inline-flex; align-items: baseline; }
+.groupLabel { min-width: 0; column-gap: var(--rams-detail-onboarding-checklist-group-label-gap); }
+.groupWord { flex: none; }
+.ring { position: relative; display: grid; width: var(--rams-detail-onboarding-checklist-ring-size); height: var(--rams-detail-onboarding-checklist-ring-size); color: var(--rams-detail-accent); }
+.ringArc, .ringTick { grid-area: 1 / 1; width: var(--rams-detail-onboarding-checklist-ring-size); height: var(--rams-detail-onboarding-checklist-ring-size); }
+.ringTrack { stroke: var(--rams-detail-border); }
+.ringFill { stroke: var(--rams-detail-accent); }
+/* Hide is a quiet text button; it anchors nothing, so a press only changes its color. */
+.hide { display: inline-flex; min-height: var(--rams-detail-control-height-sm); align-items: center; justify-content: center; gap: var(--rams-detail-space-1); padding: 0 var(--rams-detail-space-2) 0 var(--rams-detail-space-3); border: 0; border-radius: var(--rams-detail-radius-control); background: transparent; color: var(--rams-detail-text-secondary); font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .hide:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } }
+.hide:active { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+.chevron { display: grid; place-items: center; }
+
+.body { overflow: hidden; }
+.bodyInner { padding: var(--rams-detail-space-2); padding-inline: min(var(--rams-detail-space-2), var(--rams-detail-onboarding-checklist-inset-cap)); border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); }
+.list { margin: 0; padding: 0; list-style: none; }
+/* Rows fold from their measured height and clip while they do. */
+.step { overflow: hidden; }
+.stepInner { display: grid; grid-template-columns: var(--rams-detail-onboarding-checklist-check-target-size) minmax(0, 1fr); column-gap: var(--rams-detail-space-3); padding: var(--rams-detail-space-1) var(--rams-detail-space-3); border-radius: var(--rams-detail-radius-panel); transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.step[data-current] .stepInner { background: var(--rams-detail-surface-muted); }
+@media (hover: hover) and (pointer: fine) { .step:not([data-current]) .stepInner:hover { background: color-mix(in oklab, var(--rams-detail-surface-muted) var(--rams-detail-onboarding-checklist-row-hover-mix), transparent); } }
+.check { display: grid; width: var(--rams-detail-onboarding-checklist-check-target-size); height: var(--rams-detail-onboarding-checklist-check-target-size); place-items: center; padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-accent-foreground); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+/* Only the circle answers a press, so the row and its label never move. */
+.checkVisual { position: relative; display: block; width: var(--rams-detail-onboarding-checklist-check-indicator-size); height: var(--rams-detail-onboarding-checklist-check-indicator-size); border: var(--rams-detail-onboarding-checklist-check-indicator-border-width) solid var(--rams-detail-border-strong); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+@media (hover: hover) and (pointer: fine) { .check[aria-checked="false"]:hover .checkVisual { border-color: var(--rams-detail-text-muted); } }
+.check:active .checkVisual { transform: scale(var(--rams-motion-onboarding-check-press-scale)); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.check[aria-checked="true"] .checkVisual { border-color: var(--rams-detail-accent); }
+.checkFill { position: absolute; inset: calc(var(--rams-detail-onboarding-checklist-check-indicator-border-width) * -1); border-radius: inherit; background: var(--rams-detail-accent); }
+.checkMark { position: absolute; inset: calc(var(--rams-detail-onboarding-checklist-check-indicator-border-width) * -1); width: var(--rams-detail-onboarding-checklist-check-indicator-size); height: var(--rams-detail-onboarding-checklist-check-indicator-size); }
+.stepMain { display: grid; min-width: 0; }
+.stepTitle { display: flex; width: 100%; min-height: var(--rams-detail-onboarding-checklist-check-target-size); align-items: center; padding: 0; border: 0; border-radius: var(--radius-control); background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.completedTitle { display: flex; min-height: var(--rams-detail-onboarding-checklist-check-target-size); min-width: 0; align-items: center; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); }
+/* The strike is a one pixel line of the text color that draws across, line by line when a title wraps; unchecking wipes it back quickly. */
+.titleText { background-image: linear-gradient(currentColor, currentColor); background-position: 0 var(--rams-detail-onboarding-checklist-strike-offset-block); background-repeat: no-repeat; background-size: 0% var(--rams-detail-onboarding-checklist-strike-thickness); transition: background-size var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+[data-done] .titleText { background-size: 100% var(--rams-detail-onboarding-checklist-strike-thickness); color: var(--rams-detail-text-muted); transition: background-size var(--rams-detail-duration-considered) var(--rams-detail-ease-enter) var(--rams-detail-duration-instant), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.panel { overflow: hidden; }
+.panelInner { padding: 0 0 var(--rams-detail-space-3); }
+.description { max-width: var(--rams-detail-onboarding-checklist-description-measure); margin: 0; color: var(--rams-detail-text-secondary); font-size: var(--type-body-size); line-height: var(--rams-detail-leading-body); }
+.errorSlot { overflow: hidden; }
+.error { margin: 0; padding-top: var(--rams-detail-space-2); color: var(--rams-detail-danger); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); }
+.action { box-sizing: border-box; display: inline-flex; flex-wrap: wrap; min-width: 0; max-width: 100%; min-height: var(--rams-detail-control-height-sm); align-items: center; gap: var(--rams-detail-space-2); margin-top: var(--rams-detail-space-3); padding: var(--rams-detail-space-2) min(var(--rams-detail-space-3), var(--rams-detail-onboarding-checklist-inset-cap)); border: 0; border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-foreground); color: var(--rams-detail-background); font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); white-space: normal; overflow-wrap: normal; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: box-shadow var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+@media (hover: hover) and (pointer: fine) { .action[data-state="idle"]:hover { box-shadow: var(--rams-detail-shadow-resting); } }
+.action[data-state="idle"]:active { transform: scale(var(--rams-motion-onboarding-action-press-scale)); transition: box-shadow var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.action[data-state="pending"] { cursor: progress; }
+.action[data-state="done"] { cursor: default; }
+.actionLabel { min-width: 0; max-width: 100%; flex: 0 1 auto; }
+.actionIcon { display: grid; flex: none; width: var(--rams-detail-onboarding-checklist-glyph-size); height: var(--rams-detail-onboarding-checklist-glyph-size); place-items: center; }
+.actionGlyph { grid-area: 1 / 1; display: grid; width: var(--rams-detail-onboarding-checklist-glyph-size); height: var(--rams-detail-onboarding-checklist-glyph-size); place-items: center; }
+.spinner { width: var(--rams-detail-onboarding-checklist-spinner-size); height: var(--rams-detail-onboarding-checklist-spinner-size); border: var(--rams-detail-onboarding-checklist-spinner-stroke-width) solid currentColor; border-right-color: transparent; border-radius: var(--rams-detail-radius-pill); animation: spin var(--rams-motion-activity-duration) var(--rams-motion-activity-ease) var(--rams-motion-active-iterations); }
+@keyframes spin { to { transform: var(--rams-detail-native-activity-cycle-transform); } }
+.group { overflow: hidden; }
+.groupToggle { display: grid; width: 100%; min-height: var(--rams-detail-onboarding-checklist-group-toggle-min-height); grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--rams-detail-space-3); margin-top: var(--rams-detail-onboarding-checklist-group-toggle-offset); padding: 0 var(--rams-detail-space-3) 0 var(--rams-detail-onboarding-checklist-group-toggle-indent); border: 0; border-radius: var(--rams-detail-radius-panel); background: transparent; color: var(--rams-detail-text-secondary); font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .groupToggle:hover { background: color-mix(in oklab, var(--rams-detail-surface-muted) var(--rams-detail-onboarding-checklist-row-hover-mix), transparent); color: var(--rams-detail-foreground); } }
+.groupPanel { overflow: hidden; }
+.swap { position: relative; display: inline-grid; max-width: 100%; vertical-align: top; }
+.swapSizer { grid-area: 1 / 1; visibility: hidden; }
+.swapText { grid-area: 1 / 1; }
+.number { display: inline-flex; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+/* Places clip sideways only, so a narrowing column never shows half a digit and a turning digit is never cut. */
+.place { position: relative; display: inline-block; overflow-x: clip; }
+.digit { display: inline-block; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+/* Narrow cards reserve full rows for readable task text; the hide control retains its spoken name. */
+@container checklist (max-width: 380px) {
+  .header { grid-template-columns: var(--rams-detail-onboarding-checklist-ring-size) minmax(0, 1fr); row-gap: var(--rams-detail-space-3); padding: var(--rams-detail-space-3); padding-inline: min(var(--rams-detail-space-3), var(--rams-detail-onboarding-checklist-inset-cap)); }
+  .ring { grid-column: 1; grid-row: 1; }
+  .hide { grid-column: 2; grid-row: 1; justify-self: end; flex-wrap: wrap; width: auto; min-width: 0; max-width: 100%; height: auto; padding: var(--rams-detail-space-1) min(var(--rams-detail-space-2), var(--rams-detail-onboarding-checklist-inset-cap)); }
+  .heading { grid-column: 1 / -1; grid-row: 2; }
+  .stepInner { grid-template-columns: minmax(0, 1fr); padding-inline: 0; }
+  .stepMain { display: contents; }
+  .stepTitle, .completedTitle, .panel { grid-column: 1 / -1; }
+  .groupToggle { grid-template-columns: minmax(0, 1fr); row-gap: var(--rams-detail-space-1); padding: var(--rams-detail-space-2) 0; }
+  .groupLabel { flex-wrap: wrap; width: 100%; max-width: 100%; }
+  .groupToggle > .chevron { justify-self: end; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hide, .stepInner, .checkVisual, .titleText, [data-done] .titleText, .action, .groupToggle { transition: none; }
+  .check:active .checkVisual, .action[data-state="idle"]:active { transform: none; }
+  .spinner { animation: none; }
+}
+:where(.card,.header,.heading,.title,.count,.countVisual,.groupLabel,.ring,.ringArc,.ringTick,.ringTrack,.ringFill,.hide,.chevron,.hideLabel,.body,.bodyInner,.list,.step,.stepInner,.check,.checkVisual,.checkFill,.checkMark,.stepMain,.stepTitle,.completedTitle,.titleText,.panel,.panelInner,.description,.errorSlot,.error,.action,.actionIcon,.actionGlyph,.spinner,.group,.groupToggle,.groupPanel,.swap,.swapSizer,.swapText,.number,.place,.digit,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The collapsing group clips height; reserve the complete outer focus stroke
+   inside that clipping owner rather than reducing or drawing over its edges. */
+.group { padding: calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset)); }

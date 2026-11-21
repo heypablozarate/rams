@@ -1,0 +1,30 @@
+/* Set --rams-detail-histogram-height, --rams-detail-histogram-thumb, and --rams-detail-histogram-track to resize. Chart and track share an inset of half a thumb, so every bar sits over the values it counts. */
+.root { display: grid; width: 100%; min-width: 0; gap: var(--rams-detail-space-3); color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); letter-spacing: var(--rams-detail-tracking-body); user-select: none; -webkit-user-select: none; }
+.header { display: flex; flex-wrap: wrap; min-width: 0; align-items: baseline; justify-content: space-between; gap: var(--rams-detail-space-4); }
+.label { min-width: 0; flex: 1 1 var(--rams-detail-histogram-label-basis); font-weight: var(--rams-detail-label-weight); }
+.readout { display: inline-flex; flex: 0 1 auto; flex-wrap: wrap; max-width: 100%; align-items: baseline; gap: var(--rams-detail-motion-slider-readout-gap); color: var(--rams-detail-text-secondary); font-family: var(--rams-detail-font-body); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.dash { color: var(--rams-detail-text-muted); }
+/* The chart and the track are one hit area; vertical pans still scroll the page on touch. */
+.control { position: relative; display: grid; cursor: pointer; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.chart { position: relative; height: var(--rams-detail-histogram-height, var(--rams-detail-histogram-height-default)); margin: 0 calc(var(--rams-detail-histogram-thumb, var(--rams-detail-histogram-thumb-default)) / 2); }
+/* Bin order follows the physical axis used by the thumbs and clip. */
+.bars { position: absolute; inset: 0; display: flex; direction: ltr; align-items: flex-end; gap: var(--rams-detail-histogram-bar-gap); }
+.bar { flex: var(--rams-detail-layout-flex-zero-basis); min-width: 0; border-radius: var(--rams-detail-histogram-bar-top-radius) var(--rams-detail-histogram-bar-top-radius) var(--rams-detail-histogram-bar-bottom-radius) var(--rams-detail-histogram-bar-bottom-radius); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-histogram-bar-idle-wash), transparent); }
+/* The lit copy sits on top and is revealed between the thumbs, so a bar a thumb stops in is cut exactly there. */
+.lit .bar { background: var(--rams-detail-control-fill); }
+.row { position: relative; height: var(--rams-detail-control-height-sm); }
+.track { position: absolute; top: 50%; right: calc(var(--rams-detail-histogram-thumb, var(--rams-detail-histogram-thumb-default)) / 2); left: calc(var(--rams-detail-histogram-thumb, var(--rams-detail-histogram-thumb-default)) / 2); height: var(--rams-detail-histogram-track, var(--rams-detail-histogram-track-default)); margin-top: calc(var(--rams-detail-histogram-track, var(--rams-detail-histogram-track-default)) / -2); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-control-track); }
+.fill { position: absolute; inset: 0; border-radius: inherit; background: var(--rams-detail-control-fill); }
+.thumbs { position: absolute; inset: 0 calc(var(--rams-detail-histogram-thumb, var(--rams-detail-histogram-thumb-default)) / 2); pointer-events: none; }
+.layer { position: absolute; inset: 0; z-index: var(--rams-detail-motion-slider-thumb-layer); }
+.layer[data-front] { z-index: var(--rams-detail-motion-slider-active-thumb-layer); }
+/* While a thumb is held, a hairline rises from it through the chart to show exactly where the range cuts. */
+.guide { position: absolute; right: 0; bottom: 50%; width: var(--rams-detail-primitive-border-width); height: calc(var(--rams-detail-histogram-height, var(--rams-detail-histogram-height-default)) + var(--rams-detail-histogram-guide-midpoint) + var(--rams-detail-histogram-guide-extension)); translate: 50% 0; background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-histogram-guide-wash), transparent); opacity: 0; transform: scaleY(var(--rams-motion-range-histogram-guide-rest-scale)); transform-origin: 50% 100%; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-standard) var(--rams-detail-ease-enter); }
+.guide[data-on] { opacity: 1; transform: none; }
+.thumb { position: absolute; top: 50%; right: 0; box-sizing: border-box; width: var(--rams-detail-histogram-thumb, var(--rams-detail-histogram-thumb-default)); height: var(--rams-detail-histogram-thumb, var(--rams-detail-histogram-thumb-default)); translate: 50% -50%; border: 0; border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-control-thumb); box-shadow: var(--rams-detail-control-thumb-shadow); pointer-events: auto; cursor: grab; }
+.thumb::after { content: ""; position: absolute; inset: min(0px, calc((var(--rams-detail-histogram-thumb, var(--rams-detail-histogram-thumb-default)) - var(--rams-detail-histogram-thumb-min-hit-size)) / 2)); border-radius: inherit; }
+.root[data-dragging], .root[data-dragging] .control, .root[data-dragging] .thumb { cursor: grabbing; }
+.root[data-disabled] { opacity: var(--rams-detail-control-disabled-opacity); }
+.root[data-disabled] .control, .root[data-disabled] .thumb { cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) { .guide { transition: none; } .guide { transform: none; } }
+:where(.root,.header,.label,.readout,.dash,.control,.chart,.bars,.bar,.lit,.row,.track,.fill,.thumbs,.layer,.guide,.thumb):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

@@ -1,0 +1,23 @@
+.presence { min-width: 0; }
+.alert { display: flex; flex-wrap: wrap; align-items: start; column-gap: var(--rams-detail-alert-column-gap); row-gap: var(--rams-detail-alert-row-gap); }
+.icon, .glyph { position: relative; display: grid; flex: 0 0 auto; place-items: center; }
+.icon { width: calc(var(--spacing) * var(--rams-detail-alert-icon-size-steps)); height: calc(var(--spacing) * var(--rams-detail-alert-icon-size-steps)); top: calc(var(--spacing) * var(--rams-detail-alert-icon-offset-steps)); }
+.glyph { width: 100%; height: 100%; }
+.icon svg { display: block; width: 100%; height: 100%; }
+.copy { flex: 1 1 var(--rams-detail-alert-copy-basis); min-width: 0; }
+.content { position: relative; }
+.title { position: relative; display: block; overflow-wrap: anywhere; }
+.line { display: block; }
+.description { position: relative; margin: calc(var(--spacing) * var(--rams-detail-alert-description-gap-steps)) 0 0; }
+.info .icon { color: var(--rams-detail-accent); } .success .icon { color: inherit; } .warning .icon { color: var(--rams-detail-warning); } .danger .icon { color: var(--rams-detail-danger); }
+.dismiss { display: grid; width: var(--rams-detail-alert-dismiss-size); height: var(--rams-detail-alert-dismiss-size); flex: 0 0 auto; place-items: center; margin: var(--rams-detail-alert-dismiss-margin); border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-text-muted); cursor: pointer; transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.dismiss svg { width: var(--rams-detail-alert-dismiss-icon-size); height: var(--rams-detail-alert-dismiss-icon-size); stroke-width: var(--rams-detail-alert-dismiss-icon-stroke); }
+.dismiss:active { transform: scale(var(--rams-motion-dismiss-press-scale)); transition-duration: var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .dismiss:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } }
+@media (prefers-reduced-motion: reduce) { .dismiss { transition: none; } .dismiss:active { transform: none; } }
+.description :global(button) { max-width: 100%; }
+.description :global(button span) { white-space: normal; max-width: 100%; overflow-wrap: anywhere; }
+:where(.presence,.alert,.icon,.glyph,.copy,.content,.title,.line,.description,.info,.success,.warning,.danger,.dismiss):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The destructive body uses the same foreground pair as the canonical Alert. */
+.danger .description { color: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-alert-danger-description-mix), transparent); }

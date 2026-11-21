@@ -1,0 +1,23 @@
+.field { display: grid; gap: var(--rams-detail-space-2); min-width: 0; }
+.field label { font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); letter-spacing: var(--rams-detail-tracking-body); }
+/* Focus darkens the border; the shell never changes size. */
+.shell { display: flex; min-height: var(--rams-detail-control-height-md); align-items: center; gap: var(--rams-detail-space-2); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-strong); border-radius: var(--rams-detail-radius-control); padding: 0 var(--rams-detail-space-3); background: var(--rams-detail-surface); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .shell:hover:not(:focus-within) { border-color: var(--rams-detail-foreground); } }
+.shell:focus-within { border-color: var(--rams-detail-foreground); }
+/* The glass wakes up with the field: muted at rest, full contrast while searching. */
+.shell > svg { flex: 0 0 auto; inline-size: var(--rams-detail-search-field-leading-glyph-size); block-size: var(--rams-detail-search-field-leading-glyph-size); color: var(--rams-detail-text-muted); transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.shell:focus-within > svg, .shell[data-filled="true"] > svg { color: var(--rams-detail-foreground); }
+.input { width: 100%; min-width: 0; border: 0; background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--type-input-size); letter-spacing: var(--rams-detail-tracking-body); outline: 0; }
+.input:focus-visible { outline: 0; }
+.input::placeholder { color: var(--rams-detail-text-muted); }
+.input::-webkit-search-cancel-button { display: none; }
+.clearSlot { display: grid; width: var(--rams-detail-field-clear-hit-size); height: var(--rams-detail-field-clear-hit-size); flex: 0 0 auto; place-items: center; }
+.shell button { display: grid; width: var(--rams-detail-field-clear-hit-size); height: var(--rams-detail-field-clear-hit-size); flex: 0 0 auto; place-items: center; border: 0; border-radius: var(--rams-detail-radius-control); background: transparent; color: var(--rams-detail-text-muted); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .shell button:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } }
+@media (prefers-reduced-motion: reduce) { .shell, .shell > svg, .shell button { transition: none; } }
+:where(.field,.shell,.input,.clearSlot):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Preserve the composite geometry while consuming owned native primitives. */
+.clearSlot button { min-inline-size: 0; min-block-size: 0; padding: 0; }
+.clearSlot button > svg { inline-size: var(--rams-detail-search-field-clear-glyph-size); block-size: var(--rams-detail-search-field-clear-glyph-size); }
+.input { min-block-size: 0; padding-inline: 0; box-shadow: none; }

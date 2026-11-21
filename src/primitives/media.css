@@ -1,0 +1,156 @@
+.rams-avatar {
+  font-size:calc(var(--rams-avatar-size, var(--rams-detail-space-8)) * var(--rams-detail-avatar-initials-scale));
+  font-weight:var(--rams-detail-avatar-initials-weight);
+  line-height:var(--rams-detail-avatar-initials-leading);
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  inline-size: var(--rams-avatar-size, var(--rams-detail-space-8));
+  block-size: var(--rams-avatar-size, var(--rams-detail-space-8));
+  border-radius: var(--rams-detail-elliptical-corner-radius);
+  vertical-align: middle;
+}
+.rams-avatar--size-default { --rams-avatar-size: var(--rams-detail-space-8); }
+.rams-avatar--size-sm { --rams-avatar-size: var(--rams-detail-space-6); }
+.rams-avatar--size-lg { --rams-avatar-size: var(--rams-detail-space-10); }
+.rams-avatar--size-xl { --rams-avatar-size: var(--rams-detail-avatar-size-xl); }
+.rams-avatar__image,
+.rams-avatar__fallback {
+  grid-area: 1 / 1;
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: var(--rams-detail-elliptical-corner-radius);
+}
+.rams-avatar__image {
+  display: block;
+  object-fit: cover;
+}
+.rams-avatar__fallback {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--muted, var(--rams-subtle));
+  color: var(--muted-foreground, var(--rams-muted));
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: var(--rams-detail-avatar-initials-leading);
+}
+.rams-avatar__badge {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  z-index: var(--rams-detail-local-overlay-layer);
+  inline-size: var(--rams-detail-avatar-badge-size);
+  min-inline-size: var(--rams-detail-avatar-badge-min-size);
+  aspect-ratio: var(--rams-detail-square-aspect-ratio);
+  border: var(--rams-detail-avatar-badge-border-width) solid var(--background, var(--rams-surface));
+  border-radius: var(--rams-detail-elliptical-corner-radius);
+  background: var(--rams-brand-accent, var(--rams-control-selected, var(--primary, var(--rams-primary))));
+}
+.rams-avatar-group {
+  display: inline-flex;
+  align-items: center;
+  padding-inline-start: calc(var(--spacing) * var(--rams-detail-avatar-group-overlap-factor));
+}
+.rams-avatar-group > .rams-avatar,
+.rams-avatar-group > .rams-avatar-group__count {
+  margin-inline-start: calc(var(--spacing) * -1 * var(--rams-detail-avatar-group-overlap-factor));
+  outline: var(--rams-detail-avatar-badge-border-width) solid var(--background, var(--rams-surface));
+}
+.rams-avatar-group--size-sm > .rams-avatar,
+.rams-avatar-group--size-sm > .rams-avatar-group__count {
+  inline-size: var(--rams-detail-space-6);
+  block-size: var(--rams-detail-space-6);
+}
+.rams-avatar-group--size-lg > .rams-avatar,
+.rams-avatar-group--size-lg > .rams-avatar-group__count {
+  inline-size: var(--rams-detail-space-10);
+  block-size: var(--rams-detail-space-10);
+}
+.rams-avatar-group--size-xl > .rams-avatar,
+.rams-avatar-group--size-xl > .rams-avatar-group__count {
+  inline-size: var(--rams-detail-avatar-size-xl);
+  block-size: var(--rams-detail-avatar-size-xl);
+}
+.rams-avatar-group__count {
+  display: inline-grid;
+  flex: none;
+  inline-size: var(--rams-detail-space-8);
+  block-size: var(--rams-detail-space-8);
+  place-items: center;
+  border-radius: var(--rams-detail-elliptical-corner-radius);
+  background: var(--muted, var(--rams-subtle));
+  color: var(--muted-foreground, var(--rams-muted));
+  font-size: var(--rams-detail-avatar-group-count-size);
+  font-weight: var(--rams-detail-avatar-group-count-weight);
+}
+
+.rams-scroll-area {
+  position: relative;
+  min-inline-size: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.rams-scroll-area__viewport {
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: inherit;
+}
+.rams-scroll-area__viewport:focus-visible {
+  outline: var(--rams-detail-focus-outline-width) solid var(--ring, var(--rams-focus, currentColor));
+  outline-offset: calc(-1 * var(--rams-detail-focus-outline-width));
+}
+.rams-scroll-area__scrollbar {
+  display: flex;
+  touch-action: none;
+  user-select: none;
+  padding: var(--rams-detail-scrollbar-padding);
+  background: transparent;
+}
+.rams-scroll-area__scrollbar--vertical {
+  inline-size: var(--rams-detail-scrollbar-thickness);
+  /* Fill the cross axis; Radix owns the thumb's proportional block size. */
+  flex-direction: row;
+}
+.rams-scroll-area__scrollbar--horizontal {
+  block-size: var(--rams-detail-scrollbar-thickness);
+  flex-direction: column;
+}
+.rams-scroll-area__thumb {
+  position: relative;
+  flex: var(--rams-detail-layout-flex-fill);
+  border-radius: var(--radius-pill);
+  background: transparent;
+}
+.rams-scroll-area__thumb::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--muted-foreground, var(--rams-muted));
+  content: "";
+}
+.rams-scroll-area__scrollbar--vertical .rams-scroll-area__thumb::after {
+  inset-inline: var(--rams-detail-scrollbar-track-inset);
+}
+.rams-scroll-area__scrollbar--horizontal .rams-scroll-area__thumb::after {
+  inset-block: var(--rams-detail-scrollbar-track-inset);
+}
+.rams-scroll-area:has(.rams-scroll-area__viewport:focus-visible) .rams-scroll-area__thumb::after,
+.rams-scroll-area__scrollbar:hover .rams-scroll-area__thumb::after,
+.rams-scroll-area__scrollbar[data-state="visible"]:active .rams-scroll-area__thumb::after {
+  inset: 0;
+  background: var(--rams-detail-text-secondary, var(--muted-foreground, var(--rams-muted)));
+}
+.rams-scroll-area__thumb::before {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: var(--rams-detail-scrollbar-min-target);
+  min-block-size: var(--rams-detail-scrollbar-min-target);
+  content: "";
+}
+.rams-scroll-area__corner {
+  background: transparent;
+}

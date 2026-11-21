@@ -1,0 +1,98 @@
+.rams-public-glass-scope {
+  --glass-bg: var(--rams-detail-public-header-glass-bg);
+  --glass-line: var(--rams-detail-public-header-glass-line);
+  --glass-engine: var(--rams-detail-public-header-glass-engine);
+  --glass-refraction: var(--rams-detail-public-header-glass-refraction);
+  --glass-edge-fade: var(--rams-detail-public-header-glass-edge-fade);
+  --glass-shimmer: var(--rams-detail-public-header-glass-shimmer);
+  --glass-chroma-shift: var(--rams-detail-public-header-glass-chroma-shift);
+  --glass-animation-speed: var(--rams-detail-public-header-glass-animation-speed);
+  --glass-fallback-blur: var(--rams-detail-public-header-glass-fallback-blur);
+  --glass-fallback-saturation: var(--rams-detail-public-header-glass-fallback-saturation);
+  --glass-fallback-contrast: var(--rams-detail-public-header-glass-fallback-contrast);
+  --glass-fallback-brightness: var(--rams-detail-public-header-glass-fallback-brightness);
+  --glass-fallback-highlight-opacity: var(--rams-detail-public-header-glass-fallback-highlight-opacity);
+  --rams-page-max: var(--rams-detail-public-header-page-measure);
+}
+.rams-public-glass-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+  pointer-events: none;
+  will-change: opacity, box-shadow, backdrop-filter;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  transition:
+    background var(--rams-detail-public-header-glass-duration) var(--rams-detail-public-header-ease),
+    box-shadow var(--rams-detail-public-header-glass-duration) var(--rams-detail-public-header-ease),
+    backdrop-filter var(--rams-detail-public-header-glass-duration) var(--rams-detail-public-header-ease),
+    -webkit-backdrop-filter var(--rams-detail-public-header-glass-duration) var(--rams-detail-public-header-ease);
+}
+
+.rams-public-glass-layer::before,
+.rams-public-glass-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--rams-detail-public-header-glass-duration) var(--rams-detail-public-header-ease);
+}
+
+.rams-public-glass-layer::before {
+  background:
+    var(--rams-detail-public-header-glass-reflection);
+  mix-blend-mode: var(--rams-detail-public-header-glass-highlight-blend);
+}
+
+.rams-public-glass-layer::after {
+  background:
+    var(--rams-detail-public-header-glass-shading);
+}
+
+.rams-public-glass-layer[data-active="true"] {
+  background:
+    var(--rams-detail-public-header-glass-active-fill);
+  box-shadow:
+    var(--rams-detail-public-header-glass-active-shadow);
+}
+
+.rams-public-glass-layer[data-active="true"]::before,
+.rams-public-glass-layer[data-active="true"]::after {
+  opacity: 1;
+}
+
+.rams-public-glass-shader {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  will-change: opacity, transform;
+  transform: translateZ(0);
+  opacity: 0;
+  mix-blend-mode: var(--rams-detail-public-header-glass-highlight-blend);
+  transition: opacity var(--rams-detail-public-header-glass-duration) var(--rams-detail-public-header-ease);
+}
+
+.rams-public-glass-layer[data-webgl="true"] .rams-public-glass-shader {
+  opacity: 1;
+}
+
+.rams-public-glass-layer[data-hairline="true"] {
+  box-shadow:
+    var(--rams-detail-public-header-glass-hairline-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rams-public-glass-layer,
+  .rams-public-glass-layer::before,
+  .rams-public-glass-layer::after,
+  .rams-public-glass-shader {
+    transition: none;
+  }
+}

@@ -1,0 +1,73 @@
+.figure { position: relative; min-width: 0; margin: 0; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); container-type: inline-size; }
+
+/* Series colors (--rams-detail-series-1 to --rams-detail-series-4) come from registry/foundation.css. */
+.body { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr); align-items: center; gap: var(--rams-detail-space-6); }
+@container (min-width: 420px) {
+  .figure[data-legend] .body { grid-template-columns: minmax(0, var(--rams-detail-waffle-board-column)) minmax(0, 1fr); gap: var(--rams-detail-space-6); }
+}
+
+.board { min-width: 0; }
+.grid { position: relative; width: 100%; max-width: var(--rams-detail-waffle-grid-max-inline); margin-inline: auto; outline: none; touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; cursor: default; }
+
+/* Each cell is one unit. Its colour changes mid-flight with the same stagger as its travel. */
+.cell { --rams-detail-inner: var(--rams-detail-waffle-empty-shadow); --rams-detail-outer: var(--rams-detail-waffle-empty-shadow); position: absolute; top: 0; left: 0; border-radius: var(--rams-detail-waffle-cell-corner); background: var(--rams-detail-cell); box-shadow: var(--rams-detail-inner), var(--rams-detail-outer); will-change: transform; transition: background-color var(--rams-detail-duration-considered) var(--rams-detail-ease-standard) var(--rams-detail-delay, var(--rams-detail-duration-no-interpolation)), border-radius var(--rams-detail-duration-considered) var(--rams-detail-ease-standard) var(--rams-detail-delay, var(--rams-detail-duration-no-interpolation)), box-shadow var(--rams-detail-duration-considered) var(--rams-detail-ease-standard) var(--rams-detail-delay, var(--rams-detail-duration-no-interpolation)), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.grid[data-active] .cell:not([data-on]) { opacity: var(--rams-detail-waffle-cell-dim-opacity) !important; transition: background-color var(--rams-detail-duration-considered) var(--rams-detail-ease-standard) var(--rams-detail-delay, var(--rams-detail-duration-no-interpolation)), border-radius var(--rams-detail-duration-considered) var(--rams-detail-ease-standard) var(--rams-detail-delay, var(--rams-detail-duration-no-interpolation)), opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.cell[data-cursor] { --rams-detail-outer: 0 0 0 var(--rams-detail-waffle-cursor-gap) var(--rams-detail-surface), 0 0 0 var(--rams-detail-waffle-cursor-outline) color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-waffle-cursor-ink-share), transparent); }
+
+/* Shape is the colour-free second channel: a cell morphs between these as it changes category. */
+.cell[data-shape="round"], .swatch[data-shape="round"], .tipSwatch[data-shape="round"] { border-radius: var(--rams-detail-elliptical-corner-radius); }
+.cell[data-shape="framed"] { --rams-detail-inner: inset 0 0 0 var(--rams-detail-waffle-cell-frame-ink) var(--rams-detail-cell), inset 0 0 0 var(--rams-detail-waffle-cell-frame-surface) var(--rams-detail-surface); }
+.swatch[data-shape="framed"], .tipSwatch[data-shape="framed"] { box-shadow: inset 0 0 0 var(--rams-detail-waffle-swatch-frame-ink) var(--rams-detail-cell), inset 0 0 0 var(--rams-detail-waffle-swatch-frame-surface) var(--rams-detail-surface); }
+
+.tooltip { position: absolute; top: 0; left: 0; z-index: var(--rams-detail-waffle-tooltip-layer); display: grid; box-sizing: border-box; min-width: min(calc(var(--rams-detail-waffle-tooltip-min-content) + 2 * var(--rams-detail-waffle-tooltip-padding-inline) + 2 * var(--rams-detail-primitive-border-width)), 100%); max-width: min(calc(var(--rams-detail-waffle-tooltip-max-content) + 2 * var(--rams-detail-waffle-tooltip-padding-inline) + 2 * var(--rams-detail-primitive-border-width)), 100%); gap: var(--rams-detail-waffle-tooltip-gap); padding: var(--rams-detail-waffle-tooltip-padding-block) var(--rams-detail-waffle-tooltip-padding-inline); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-panel); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); opacity: 0; pointer-events: none; scale: var(--rams-motion-waffle-chart-tooltip-start-scale); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), scale var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.tooltip[data-shown] { opacity: 1; scale: var(--rams-detail-transform-rest-scale); }
+.tipRow { display: flex; min-width: 0; align-items: center; gap: var(--rams-detail-chart-tooltip-row-gap-fixed); margin: 0; font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-waffle-tooltip-leading); }
+.tipSwatch { width: var(--rams-detail-waffle-swatch-size); height: var(--rams-detail-waffle-swatch-size); flex: none; border-radius: var(--rams-detail-waffle-swatch-corner); background: var(--rams-detail-cell); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.tipName { min-width: 0; flex: var(--rams-detail-layout-flex-fill); overflow: hidden; color: var(--rams-detail-text-secondary); text-overflow: ellipsis; white-space: nowrap; }
+.tipValue { flex: none; margin-inline-start: var(--rams-detail-waffle-tooltip-value-gap); font-weight: var(--rams-detail-chart-value-weight); }
+.tipMeta { margin: 0; margin-inline-start: var(--rams-detail-waffle-tooltip-meta-indent); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); white-space: nowrap; }
+
+.message { display: grid; min-height: var(--rams-detail-waffle-empty-min-block); place-items: center; margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); }
+
+/* The legend doubles as the reading: each share rolls to its new value. */
+/* Stacked, the legend shares the grid's measure and its row padding hangs outside, so swatches and shares line up with the cell edges. */
+.legend { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-waffle-legend-row-gap) var(--rams-detail-space-2); margin: 0; margin-inline: max(calc(-1 * var(--rams-detail-waffle-legend-bleed)), calc((100% - var(--rams-detail-waffle-legend-center-measure)) / 2)); padding: 0; list-style: none; }
+@container (min-width: 420px) { .figure[data-legend] .legend { margin-inline: 0; } }
+.item { display: grid; width: 100%; min-height: var(--rams-detail-waffle-legend-row-min-block); grid-template-columns: var(--rams-detail-waffle-swatch-size) minmax(0, 1fr) auto; align-items: center; gap: var(--rams-detail-waffle-legend-column-gap); padding: var(--rams-detail-waffle-legend-padding-block) var(--rams-detail-waffle-legend-padding-inline); border: 0; border-radius: var(--radius-control); background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer; font: inherit; font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); text-align: start; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.item:active { transform: scale(var(--rams-motion-waffle-chart-legend-press-scale)); }
+.item[data-on] { color: var(--rams-detail-foreground); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-waffle-legend-active-fill-share), transparent); }
+.item[data-dim] .swatch { opacity: var(--rams-detail-waffle-legend-dim-opacity); }
+.item[aria-pressed="true"] { color: var(--rams-detail-foreground); }
+@media (hover: hover) and (pointer: fine) { .item:hover { color: var(--rams-detail-foreground); } }
+.swatch { width: var(--rams-detail-waffle-swatch-size); height: var(--rams-detail-waffle-swatch-size); border-radius: var(--rams-detail-waffle-swatch-corner); background: var(--rams-detail-cell); }
+.itemLabel { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.itemShare { color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-base); font-weight: var(--rams-detail-chart-value-weight); text-align: end; min-width: var(--rams-detail-waffle-share-min-inline); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cell, .grid[data-active] .cell:not([data-on]), .tooltip, .tipSwatch, .item { transition: none; }
+  .item:active { transform: none; }
+}
+
+:where(.figure,.body,.board,.grid,.cell,.swatch,.tipSwatch,.tooltip,.tipRow,.tipName,.tipValue,.tipMeta,.message,.legend,.item,.itemLabel,.itemShare,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.tipValue, .tipMeta, .itemShare { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* Preserve the native action minimum outside the historical identity context. */
+.item { min-inline-size: 0; min-block-size: var(--rams-detail-waffle-legend-row-min-block); }
+
+/* Legend names wrap beside their unchanged numeric share at enlarged text sizes. */
+.itemLabel { white-space: normal; overflow: visible; overflow-wrap: normal; text-overflow: clip; }
+
+/* At a narrow typographic measure, give the name and value their own lines. */
+@container (max-width: 12rem) {
+  .tooltip { padding-inline: var(--rams-detail-space-1); }
+  .tipRow { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-space-1); }
+  .tipName { white-space: normal; overflow: visible; overflow-wrap: anywhere; text-overflow: clip; }
+  .tipValue { margin: 0; }
+  .tipMeta { margin: 0; white-space: normal; overflow-wrap: anywhere; }
+  .item { grid-template-columns: var(--rams-detail-waffle-swatch-size) minmax(0, 1fr); align-items: baseline; }
+  .itemLabel, .itemShare { grid-column: 2; }
+  .itemShare { text-align: start; min-width: 0; }
+}

@@ -1,0 +1,36 @@
+/* Each transition uses the same library Button, which owns the press scale; this file only animates the icon in place. */
+.themeSwitch {
+  position: relative;
+  width: auto;
+  padding-inline: var(--rams-detail-space-3);
+}
+.iconOnly { inline-size: var(--rams-detail-theme-switch-icon-control-size); min-inline-size: var(--rams-detail-theme-switch-icon-control-size); block-size: var(--rams-detail-theme-switch-icon-control-size); min-block-size: var(--rams-detail-theme-switch-icon-control-size); border-radius: var(--radius-control); padding: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .themeSwitch:hover:not(:disabled) { border-color: var(--rams-detail-border-strong); }
+  .iconOnly:hover:not(:disabled) { background: var(--rams-detail-surface-muted); box-shadow: none; }
+}
+.iconWrap {
+  position: relative;
+  display: inline-grid;
+  inline-size: var(--rams-detail-theme-switch-icon-wrap-size);
+  block-size: var(--rams-detail-theme-switch-icon-wrap-size);
+  flex: 0 0 var(--rams-detail-theme-switch-icon-wrap-size);
+  place-items: center;
+}
+/* The nudge only eases once the switch has settled, so a theme that arrives during hydration lands without motion. */
+.settled .iconWrap { transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.icon { position: absolute; display: grid; inline-size: var(--rams-detail-theme-switch-icon-slot-size); block-size: var(--rams-detail-theme-switch-icon-slot-size); place-items: center; }
+.icon > svg { inline-size: var(--rams-detail-motion-button-glyph-size); block-size: var(--rams-detail-motion-button-glyph-size); }
+/* Each variant nudges the icon the way its page transition travels, and eases back when the theme returns. */
+.themeSwitch.reveal[data-theme="dark"] .iconWrap { transform: scale(var(--rams-motion-theme-switch-reveal-icon-scale)); }
+.themeSwitch.eclipse[data-theme="dark"] .iconWrap { transform: translateX(var(--rams-motion-theme-switch-eclipse-icon-offset)); }
+.themeSwitch.split[data-theme="dark"] .iconWrap { transform: translateX(var(--rams-motion-theme-switch-split-icon-offset)); }
+.themeSwitch.rise[data-theme="dark"] .iconWrap { transform: translateY(var(--rams-motion-theme-switch-rise-icon-offset)); }
+.themeSwitch.staticIcon[data-theme] .iconWrap { transform: none; transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .settled .iconWrap { transition: none; }
+}
+:where(.themeSwitch,.iconOnly,.iconWrap,.settled,.icon,.label,.reveal,.eclipse,.split,.rise):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Let the shared Button reserve the icon and wrap a full-size label. */
+.label { min-width: 0; white-space: normal; }

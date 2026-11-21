@@ -1,0 +1,49 @@
+.dispatch-proof {
+  max-inline-size: var(--rams-detail-example-page-measure-standard);
+  margin-inline: auto;
+  padding: var(--rams-detail-example-page-inset);
+  color: var(--rams-ink);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-leading);
+  overflow-wrap: anywhere;
+}
+.dispatch-proof header {
+  max-inline-size: var(--rams-detail-example-intro-measure);
+  margin-block-end: var(--rams-detail-example-section-gap-wide);
+}
+.dispatch-proof header p {
+  font-size: var(--type-control-size);
+  color: var(--rams-muted);
+}
+.dispatch-proof-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rams-detail-preview-element-gap);
+  margin-block-start: var(--rams-detail-example-section-gap);
+}
+.dispatch-proof .rams-field[data-orientation="horizontal"] > .rams-checkbox,
+.dispatch-proof .rams-field[data-orientation="horizontal"] > .rams-switch {
+  margin-block-start: var(--rams-detail-example-horizontal-field-optical-offset);
+}
+.dispatch-proof-record {
+  margin-block-start: var(--rams-detail-example-section-gap-wide);
+}
+.dispatch-proof-record h2 {
+  font-size: var(--type-heading-size);
+}
+.dispatch-proof-record dl {
+  margin: 0;
+}
+.dispatch-proof-record dl > div {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--rams-detail-example-section-gap);
+  row-gap: var(--rams-detail-example-record-row-gap);
+  margin-block: var(--rams-detail-preview-element-gap);
+}
+.dispatch-proof-record dt {
+  font-weight: var(--rams-detail-label-weight);
+}
+.dispatch-proof-record dd {
+  margin: 0;
+}

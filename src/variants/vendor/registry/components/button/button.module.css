@@ -1,0 +1,19 @@
+/* Press scale is driven by Motion (whileTap) alone, so transform never gets a CSS transition here. */
+.button { position:relative; height:auto; -webkit-tap-highlight-color:transparent; transition:color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+
+.button[aria-busy="true"] { cursor: progress; }
+/* Anchors of floating layers never scale: Radix opens on pointerdown and would measure a shrunken trigger. */
+.button:is([aria-haspopup]:not([aria-haspopup="false"]), [data-state], [role="combobox"]) { transform: none !important; }
+/* The slot's width follows the incoming label on a spring. The label wraps inside the available width and the button grows with its height;
+   the outgoing label pops out of flow against the slot itself, so it keeps its place instead of following the new content box. */
+.labelSlot { position: relative; display: inline-flex; flex: none; min-width: 0; max-width: 100%; align-items: center; justify-content: center; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.labelSlot[data-morphing] { clip-path: inset(calc(-1 * var(--rams-detail-action-label-morph-clip-block-overdraw)) calc(var(--rams-detail-space-3) * -1)); }
+.labelContent { display: inline-flex; width: max-content; max-inline-size: var(--rams-detail-button-label-available, var(--rams-detail-button-label-available-fallback)); min-width: 0; flex: none; align-items: center; }
+.labelPhase { display: inline-flex; min-width: 0; max-width: 100%; overflow-wrap: anywhere; text-align: center; align-items: center; justify-content: center; gap: var(--rams-detail-space-2); white-space: normal; }
+.labelPhase svg { flex: none; }
+.loader { position: absolute; left: 50%; top: 50%; display: grid; width: var(--rams-detail-space-4); height: var(--rams-detail-space-4); margin: calc(var(--rams-detail-space-4) / -2); }
+.spinner { border: var(--rams-detail-activity-indicator-stroke-width) solid currentColor; border-right-color: transparent; border-radius: var(--rams-detail-elliptical-corner-radius); animation: spin var(--rams-motion-activity-duration) var(--rams-motion-activity-ease) var(--rams-motion-active-iterations); }
+.loadingLabel { opacity: 0; }
+@keyframes spin { to { transform: var(--rams-detail-native-activity-cycle-transform); } }
+@media (prefers-reduced-motion: reduce) { .button { transition: none; } .labelSlot { transition: opacity var(--rams-detail-duration-instant) var(--rams-motion-uniform-ease); } .spinner { animation-duration: var(--rams-detail-duration-instant); animation-iteration-count: var(--rams-motion-reduced-iterations); } }
+:where(.button,.labelSlot,.labelContent,.labelPhase,.primary,.secondary,.ghost,.danger,.sm,.md,.lg,.loader,.spinner,.loadingLabel):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

@@ -1,0 +1,27 @@
+// Generated from tokens.json componentExtensions.details.collectionPresentation.
+export const collectionPresentation = {
+  "jsonSearchLimit": 2000,
+  "jsonCollapsedKeys": 3,
+  "jsonStringTitleThreshold": 40,
+  "jsonTreeExpandDepth": 1,
+  "jsonTreePageSize": 50,
+  "colorPickerMaxSwatches": 7,
+  "colorPickerLargeStep": 10,
+  "colorPickerStep": 1,
+  "calendarDefaultMonths": 1,
+  "avatarGroupMaxMembers": 4,
+  "blogGridPageSize": 6,
+  "journalDemoPageSize": 2,
+  "faqContextBeforeChars": 36,
+  "faqContextAfterChars": 60,
+  "chatGroupWindowMinutes": 5,
+  "avatarInitialsDemoStations": 3,
+  "avatarGroupDemoCollapsedStations": 3,
+  "chatGalleryMaxImages": 4,
+  "threadAvatarInitials": 2,
+  "commentMentionMatches": 5,
+  "commentParticipantStack": 3,
+  "printTicketPageSize": 4,
+  "weekdayLabelCharacters": 2,
+  "timePickerDefaultStepMinutes": 15
+} as const;

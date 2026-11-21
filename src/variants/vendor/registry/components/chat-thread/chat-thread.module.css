@@ -1,0 +1,257 @@
+.root {
+  display: flex;
+  height: var(--rams-detail-chat-thread-thread-height);
+  min-height: var(--rams-detail-chat-thread-thread-min-height);
+  flex-direction: column;
+  color: var(--rams-detail-foreground);
+  font-family: var(--rams-detail-font-body);
+  font-size: var(--rams-detail-text-sm);
+  letter-spacing: var(--rams-detail-tracking-body);
+  line-height: var(--rams-detail-leading-body);
+}
+
+.viewport { position: relative; display: flex; min-height: var(--rams-detail-chat-thread-viewport-min-height); flex: var(--rams-detail-chat-thread-viewport-flex); flex-direction: column; }
+.scroller { min-height: var(--rams-detail-chat-thread-scroller-min-height); flex: var(--rams-detail-chat-thread-scroller-flex); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-gutter: stable; }
+/* The content springs up from where it was when the thread grows; the clip keeps that travel out of the scroll range. */
+.track { overflow: clip; }
+.content { padding: var(--rams-detail-chat-thread-content-padding); will-change: transform; }
+
+.list { display: flex; flex-direction: column; margin: var(--rams-detail-chat-thread-message-list-margin); padding: var(--rams-detail-chat-thread-message-list-padding); list-style: none; }
+
+.day { display: flex; align-items: center; gap: var(--rams-detail-chat-thread-day-gap); padding: var(--rams-detail-chat-thread-day-padding); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-chat-thread-day-font-weight); }
+.day::before, .day::after { height: var(--rams-detail-chat-thread-day-separator-height); flex: var(--rams-detail-chat-thread-day-divider-flex); background: var(--rams-detail-border-subtle); content: ""; }
+.day:first-child { padding-top: var(--rams-detail-chat-thread-day-first-padding-top); }
+.day > span:empty::before { content: "\00a0"; }
+
+.row { position: relative; display: flex; align-items: flex-end; gap: var(--rams-detail-chat-thread-row-gap); margin-top: var(--rams-detail-chat-thread-row-margin-top); }
+.row[data-first] { margin-top: var(--rams-detail-chat-thread-row-group-start-margin-top); }
+.day + .row { margin-top: var(--rams-detail-chat-thread-row-after-day-margin-top); }
+.row[data-mine] { justify-content: flex-end; }
+
+.gutter { width: var(--rams-detail-chat-thread-gutter-width); flex: none; align-self: flex-end; }
+.stack { display: flex; min-width: var(--rams-detail-chat-thread-message-stack-min-width); max-width: var(--rams-detail-chat-thread-stack-max-width); flex-direction: column; align-items: flex-start; gap: var(--rams-detail-chat-thread-stack-gap); }
+.row[data-mine] .stack { align-items: flex-end; }
+
+.meta { display: flex; align-items: baseline; gap: var(--rams-detail-chat-thread-meta-gap); margin: var(--rams-detail-chat-thread-meta-margin); padding: var(--rams-detail-chat-thread-meta-padding); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.author { color: var(--rams-detail-text-secondary); font-weight: var(--rams-detail-chat-thread-author-font-weight); }
+
+.line { position: relative; display: flex; max-width: var(--rams-detail-chat-thread-message-line-max-width); align-items: center; gap: var(--rams-detail-chat-thread-line-gap); }
+/* The author's face sits in the gutter, level with the bottom of their last bubble rather than the reactions under it. */
+.face { position: absolute; bottom: var(--rams-detail-chat-thread-sender-avatar-anchor-bottom); left: var(--rams-detail-chat-thread-face-left); display: flex; }
+.row[data-mine] .line { flex-direction: row-reverse; }
+.parts { display: flex; min-width: var(--rams-detail-chat-thread-message-parts-min-width); flex-direction: column; align-items: flex-start; gap: var(--rams-detail-chat-thread-parts-gap); }
+.row[data-mine] .parts { align-items: flex-end; }
+
+/* Bubbles in a group share a soft edge on the author's side, so a run of messages reads as one voice. */
+.bubble {
+  --rams-detail-r: var(--rams-detail-chat-thread-bubble-radius);
+  --rams-detail-tight: var(--rams-detail-chat-thread-bubble-joined-radius);
+  max-width: var(--rams-detail-chat-thread-bubble-max-width);
+  padding: var(--rams-detail-chat-thread-bubble-padding);
+  border-radius: var(--rams-detail-r);
+  background: var(--rams-detail-surface-muted);
+  color: var(--rams-detail-foreground);
+  font-size: var(--rams-detail-text-sm);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.row:not([data-mine]):not([data-first]) .bubble { border-top-left-radius: var(--rams-detail-tight); }
+.row:not([data-mine]):not([data-last]) .bubble { border-bottom-left-radius: var(--rams-detail-tight); }
+.row[data-mine] .bubble { background: var(--rams-detail-accent); color: var(--rams-detail-accent-foreground); }
+:global(:root.dark) .row:not([data-mine]) .bubble { background: var(--rams-detail-surface-raised); }
+.row[data-mine]:not([data-first]) .bubble { border-top-right-radius: var(--rams-detail-tight); }
+.row[data-mine]:not([data-last]) .bubble { border-bottom-right-radius: var(--rams-detail-tight); }
+.row[data-failed] .bubble { opacity: var(--rams-detail-chat-thread-failed-bubble-opacity); }
+
+.gallery { display: grid; width: var(--rams-detail-chat-thread-gallery-width); gap: var(--rams-detail-chat-thread-gallery-gap); grid-template-columns: var(--rams-detail-chat-thread-gallery-grid-template-columns); }
+.gallery[data-count="2"],
+.gallery[data-count="3"],
+.gallery[data-count="4"] { grid-template-columns: var(--rams-detail-chat-thread-gallery-multiple-grid-template-columns); }
+.gallery[data-count="3"] > :first-child { grid-column: var(--rams-detail-chat-thread-gallery-featured-grid-column); aspect-ratio: var(--rams-detail-chat-thread-gallery-featured-aspect-ratio); }
+.image { position: relative; display: block; overflow: hidden; aspect-ratio: var(--rams-detail-chat-thread-image-aspect-ratio); border-radius: var(--radius-inset); background: var(--rams-detail-surface-muted); }
+.gallery[data-count="1"] .image { aspect-ratio: var(--rams-detail-chat-thread-gallery-single-aspect-ratio); }
+.gallery:not([data-count="1"]) .image { border-radius: var(--radius-inset); }
+.gallery:not([data-count="1"]) { overflow: hidden; border-radius: var(--radius-panel); }
+.image img { display: block; width: var(--rams-detail-chat-thread-gallery-image-content-width); height: var(--rams-detail-chat-thread-gallery-image-content-height); object-fit: cover; }
+.more { position: absolute; inset: var(--rams-detail-chat-thread-gallery-more-overlay-inset); display: grid; place-items: center; background: var(--rams-detail-detail-chat-thread-background-7da77ba8); color: var(--rams-detail-detail-chat-thread-color-e08de713); font-size: var(--rams-detail-text-lg); font-weight: var(--rams-detail-chat-thread-more-font-weight); }
+
+.file {
+  display: flex; max-width: var(--rams-detail-chat-thread-file-max-width); align-items: center; gap: var(--rams-detail-chat-thread-file-gap); padding: var(--rams-detail-chat-thread-file-padding);
+  border: var(--rams-detail-chat-thread-file-border-width) solid var(--rams-detail-border); border-radius: var(--radius-control); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); text-decoration: none;
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.file > svg { flex: none; color: var(--rams-detail-text-secondary); }
+.fileText { display: grid; min-width: var(--rams-detail-chat-thread-file-text-min-width); }
+.fileName { overflow: hidden; font-weight: var(--rams-detail-chat-thread-file-name-font-weight); text-overflow: ellipsis; white-space: nowrap; }
+.fileSize { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+@media (hover: hover) and (pointer: fine) { .file:hover { background: var(--rams-detail-surface-muted); } }
+
+/* The reaction button waits beside the bubble and shows on hover or keyboard focus. */
+/* The picker positions against the whole line, so it opens over the bubble and stays inside the thread. */
+.pickerWrap { position: static; flex: none; }
+.reactButton {
+  display: grid; width: var(--rams-detail-chat-thread-reaction-trigger-width); height: var(--rams-detail-chat-thread-reaction-trigger-height); place-items: center; padding: var(--rams-detail-chat-thread-reaction-trigger-padding);
+  border: var(--rams-detail-chat-thread-reaction-trigger-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-chat-thread-reaction-trigger-background); color: var(--rams-detail-text-muted); cursor: pointer; opacity: var(--rams-detail-chat-thread-reaction-trigger-opacity);
+  -webkit-tap-highlight-color: var(--rams-detail-chat-thread-touch-highlight-color);
+  transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.row:hover .reactButton,
+.row:focus-within .reactButton,
+.pickerWrap[data-open] .reactButton { opacity: var(--rams-detail-chat-thread-reaction-trigger-visible-opacity); }
+.pickerWrap[data-open] .reactButton { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+@media (hover: hover) and (pointer: fine) { .reactButton:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } }
+@media (hover: none) { .reactButton { opacity: var(--rams-detail-chat-thread-reaction-trigger-touch-opacity); } }
+
+.picker {
+  position: absolute; z-index: var(--rams-detail-chat-thread-reaction-picker-z-index); bottom: var(--rams-detail-chat-thread-reaction-picker-bottom); right: var(--rams-detail-chat-thread-reaction-picker-right);
+  display: flex; gap: var(--rams-detail-chat-thread-reaction-picker-gap); padding: var(--rams-detail-chat-thread-reaction-picker-padding);
+  border: var(--rams-detail-chat-thread-reaction-picker-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating);
+  transform-origin: var(--rams-detail-chat-thread-reaction-picker-transform-origin);
+}
+.picker[data-mine] { right: auto; left: var(--rams-detail-chat-thread-reaction-picker-own-left); transform-origin: var(--rams-detail-chat-thread-reaction-picker-own-transform-origin); }
+.pickerWrap[data-below] .picker { top: var(--rams-detail-chat-thread-reaction-picker-below-top); bottom: auto; transform-origin: var(--rams-detail-chat-thread-reaction-picker-below-transform-origin); }
+.pickerWrap[data-below] .picker[data-mine] { transform-origin: var(--rams-detail-chat-thread-reaction-picker-below-own-transform-origin); }
+.emoji {
+  display: grid; width: var(--rams-detail-chat-thread-picker-emoji-width); height: var(--rams-detail-chat-thread-picker-emoji-height); place-items: center; padding: var(--rams-detail-chat-thread-picker-emoji-padding);
+  border: var(--rams-detail-chat-thread-picker-emoji-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-chat-thread-picker-emoji-background); cursor: pointer; font-size: var(--rams-detail-chat-thread-picker-emoji-font-size); line-height: var(--rams-detail-chat-thread-picker-emoji-line-height);
+  -webkit-tap-highlight-color: var(--rams-detail-chat-thread-touch-highlight-color);
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard);
+}
+.emoji:focus-visible { background: var(--rams-detail-surface-muted); }
+.emoji:active { transform: var(--rams-detail-chat-thread-picker-emoji-pressed-transform); }
+@media (hover: hover) and (pointer: fine) { .emoji:hover { background: var(--rams-detail-surface-muted); transform: var(--rams-detail-chat-thread-picker-emoji-hover-transform); } }
+
+.reactionClip { overflow: hidden; margin: var(--rams-detail-chat-thread-reaction-clip-margin); padding: var(--rams-detail-chat-thread-reaction-clip-padding); }
+.row[data-mine] .reactionClip { padding: var(--rams-detail-chat-thread-own-reaction-clip-padding); }
+.reactions { display: flex; flex-wrap: wrap; gap: var(--rams-detail-chat-thread-reactions-gap, var(--rams-detail-conversation-reactions-gap)); margin: var(--rams-detail-chat-thread-reaction-list-margin); padding: var(--rams-detail-chat-thread-reaction-list-padding); list-style: none; }
+.row[data-mine] .reactions { justify-content: flex-end; }
+.reaction {
+  display: inline-flex; height: var(--rams-detail-chat-thread-reaction-height, var(--rams-detail-conversation-reaction-height)); align-items: center; gap: var(--rams-detail-chat-thread-reaction-gap, var(--rams-detail-conversation-reaction-gap)); padding: var(--rams-detail-chat-thread-reaction-padding, var(--rams-detail-conversation-reaction-padding));
+  border: var(--rams-detail-chat-thread-reaction-border-width) solid var(--rams-detail-border-subtle); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface); color: var(--rams-detail-text-secondary); cursor: pointer;
+  font: inherit; font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-chat-thread-reaction-font-weight, var(--rams-detail-conversation-reaction-font-weight)); line-height: var(--rams-detail-chat-thread-reaction-line-height); font-variant-numeric: var(--rams-detail-numeric-column-variant);
+  -webkit-tap-highlight-color: var(--rams-detail-chat-thread-touch-highlight-color);
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard);
+}
+.reaction > span:first-child { font-size: var(--rams-detail-chat-thread-reaction-first-font-size); }
+.reaction[aria-pressed="true"] { border-color: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-chat-thread-reaction-selected-border-color-mix), transparent); background: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-chat-thread-reaction-selected-background-mix), var(--rams-detail-surface)); color: var(--rams-detail-foreground); }
+@media (hover: hover) and (pointer: fine) { .reaction:hover { border-color: var(--rams-detail-border-strong); } }
+.reaction:active { transform: var(--rams-detail-chat-thread-reaction-pressed-transform); }
+.countRoll { display: inline-grid; overflow: hidden; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.countRoll > span { grid-area: var(--rams-detail-chat-thread-reaction-count-grid-area, var(--rams-detail-conversation-reaction-count-grid-area)); }
+
+.receipts { display: flex; min-height: var(--rams-detail-chat-thread-receipts-min-height); align-items: center; gap: var(--rams-detail-chat-thread-receipts-gap); padding: var(--rams-detail-chat-thread-receipts-padding); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.readers { display: inline-flex; }
+.reader { display: inline-flex; border-radius: var(--rams-detail-chat-thread-reader-border-radius); box-shadow: var(--rams-detail-chat-thread-reader-box-shadow-offset-inline) var(--rams-detail-chat-thread-reader-box-shadow-offset-block) var(--rams-detail-chat-thread-reader-box-shadow-blur) var(--rams-detail-chat-thread-reader-box-shadow-spread) var(--rams-detail-surface); }
+.reader + .reader { margin-left: var(--rams-detail-chat-thread-reader-overlap-margin-left); }
+.status[data-status="failed"] { display: inline-flex; align-items: center; gap: var(--rams-detail-chat-thread-status-failed-gap); color: var(--rams-detail-danger); }
+.retry {
+  display: inline-flex; align-items: center; gap: var(--rams-detail-chat-thread-retry-gap); padding: var(--rams-detail-chat-thread-retry-padding);
+  border: var(--rams-detail-chat-thread-retry-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); cursor: pointer;
+  font: inherit; font-weight: var(--rams-detail-chat-thread-retry-font-weight); line-height: var(--rams-detail-chat-thread-retry-line-height);
+  -webkit-tap-highlight-color: var(--rams-detail-chat-thread-touch-highlight-color);
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.retry > svg { color: var(--rams-detail-text-secondary); }
+@media (hover: hover) and (pointer: fine) { .retry:hover { background: var(--rams-detail-surface-muted); border-color: var(--rams-detail-border-strong); } }
+
+.avatar { display: inline-grid; flex: none; overflow: hidden; place-items: center; border-radius: var(--rams-detail-chat-thread-avatar-border-radius, var(--rams-detail-conversation-avatar-border-radius)); background: var(--rams-detail-surface-muted); color: var(--rams-detail-text-secondary); font-weight: var(--rams-detail-chat-thread-avatar-font-weight, var(--rams-detail-conversation-avatar-font-weight)); }
+.avatar img { width: var(--rams-detail-chat-thread-avatar-content-width); height: var(--rams-detail-chat-thread-avatar-content-height); object-fit: cover; }
+
+.typing { display: grid; height: var(--rams-detail-chat-thread-typing-height); box-sizing: border-box; place-items: center; padding: var(--rams-detail-chat-thread-typing-padding); }
+.dots { display: inline-flex; gap: var(--rams-detail-chat-thread-typing-dots-gap); }
+.dots i { width: var(--rams-detail-chat-thread-typing-dots-width); height: var(--rams-detail-chat-thread-typing-dots-height); border-radius: var(--rams-detail-chat-thread-typing-dots-border-radius); background: var(--rams-detail-text-muted); animation: breathe var(--rams-motion-breathing-duration) var(--rams-detail-ease-in-out) var(--rams-motion-active-iterations); }
+.dots i:nth-child(2) { animation-delay: var(--rams-detail-duration-fast); }
+.dots i:nth-child(3) { animation-delay: var(--rams-detail-duration-standard); }
+@keyframes breathe {
+  0%, 60%, 100% { opacity: var(--rams-detail-chat-thread-typing-rest-opacity); transform: var(--rams-detail-chat-thread-typing-rest-transform); }
+  30% { opacity: var(--rams-detail-chat-thread-typing-peak-opacity); transform: var(--rams-detail-chat-thread-typing-peak-transform); }
+}
+@media (prefers-reduced-motion: reduce) { .row { opacity: 1 !important; transform: none !important; filter: none !important; } .dots i { animation: none; opacity: var(--rams-detail-chat-thread-typing-dots-reduced-opacity); } }
+
+.pill {
+  position: absolute; z-index: var(--rams-detail-chat-thread-latest-message-pill-z-index); bottom: var(--rams-detail-chat-thread-latest-message-pill-bottom); left: var(--rams-detail-chat-thread-latest-message-pill-left); translate: var(--rams-detail-chat-thread-latest-message-pill-translate);
+  display: inline-flex; height: var(--rams-detail-chat-thread-latest-message-pill-height); align-items: center; gap: var(--rams-detail-chat-thread-latest-message-pill-gap); padding: var(--rams-detail-chat-thread-latest-message-pill-padding);
+  border: var(--rams-detail-chat-thread-latest-message-pill-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); color: var(--rams-detail-foreground); cursor: pointer;
+  font: inherit; font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-chat-thread-latest-message-pill-font-weight); white-space: nowrap;
+  -webkit-tap-highlight-color: var(--rams-detail-chat-thread-touch-highlight-color);
+}
+.pill > span { display: inline-flex; gap: var(--rams-detail-chat-thread-latest-message-pill-label-gap); }
+.pill > .pillIcon { display: inline-grid; place-items: center; }
+.pill:active { scale: var(--rams-detail-chat-thread-latest-message-pill-pressed-scale); }
+
+/* Composer. */
+.composer { display: grid; padding: var(--rams-detail-chat-thread-composer-padding, var(--rams-detail-conversation-composer-padding)); border-top: var(--rams-detail-chat-thread-composer-border-top-width) solid var(--rams-detail-border-subtle); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.composer[data-dragging] { background: var(--rams-detail-accent-subtle); }
+.trayClip { overflow: hidden; }
+.tray { display: flex; gap: var(--rams-detail-chat-thread-tray-gap); margin: var(--rams-detail-chat-thread-attachment-tray-margin); padding: var(--rams-detail-chat-thread-tray-padding); overflow-x: auto; list-style: none; scrollbar-width: none; }
+.pending { position: relative; flex: none; }
+.pendingImage { display: block; width: var(--rams-detail-chat-thread-pending-image-width); height: var(--rams-detail-chat-thread-pending-image-height); border-radius: var(--radius-inset); object-fit: cover; }
+.pendingFile { display: grid; width: var(--rams-detail-chat-thread-pending-file-width); height: var(--rams-detail-chat-thread-pending-file-height); box-sizing: border-box; align-content: center; column-gap: var(--rams-detail-chat-thread-pending-file-column-gap); padding: var(--rams-detail-chat-thread-pending-file-padding); border: var(--rams-detail-chat-thread-pending-file-border-width) solid var(--rams-detail-border); border-radius: var(--radius-control); background: var(--rams-detail-surface); grid-template-columns: var(--rams-detail-chat-thread-pending-file-grid-template-columns); }
+.pendingFile > svg { grid-row: var(--rams-detail-chat-thread-pending-file-icon-grid-row); align-self: center; color: var(--rams-detail-text-secondary); }
+.pendingName { overflow: hidden; font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-chat-thread-pending-name-font-weight); text-overflow: ellipsis; white-space: nowrap; }
+.pendingSize { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.remove {
+  position: absolute; top: var(--rams-detail-chat-thread-attachment-remove-top); right: var(--rams-detail-chat-thread-attachment-remove-right); display: grid; width: var(--rams-detail-chat-thread-attachment-remove-width); height: var(--rams-detail-chat-thread-attachment-remove-height); place-items: center; padding: var(--rams-detail-chat-thread-attachment-remove-padding);
+  border: var(--rams-detail-chat-thread-attachment-remove-border-width) solid var(--rams-detail-surface); border-radius: var(--rams-detail-chat-thread-attachment-remove-border-radius); background: var(--rams-detail-foreground); color: var(--rams-detail-background); cursor: pointer;
+}
+
+.inputRow { display: flex; align-items: flex-end; gap: var(--rams-detail-chat-thread-input-row-gap); }
+.attach {
+  display: grid; width: var(--rams-detail-chat-thread-attachment-trigger-width); height: var(--rams-detail-chat-thread-attachment-trigger-height); flex: none; place-items: center; margin-bottom: var(--rams-detail-chat-thread-attachment-trigger-margin-bottom); padding: var(--rams-detail-chat-thread-attachment-trigger-padding);
+  border: var(--rams-detail-chat-thread-attachment-trigger-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-chat-thread-attachment-trigger-background); color: var(--rams-detail-text-secondary); cursor: pointer;
+  -webkit-tap-highlight-color: var(--rams-detail-chat-thread-touch-highlight-color);
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard);
+}
+.attach:active { transform: var(--rams-detail-chat-thread-attachment-trigger-pressed-transform); }
+@media (hover: hover) and (pointer: fine) { .attach:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } }
+
+/* The field and the send button share one rounded box; the button rides the bottom edge as the text grows. */
+.box {
+  position: relative; display: flex; min-width: var(--rams-detail-chat-thread-composer-box-min-width); flex: var(--rams-detail-chat-thread-composer-box-flex); align-items: flex-end;
+  border: var(--rams-detail-chat-thread-composer-box-border-width) solid var(--rams-detail-border); border-radius: var(--radius-control); background: var(--rams-detail-surface);
+  transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.box:focus-within { border-color: var(--rams-detail-border-strong); }
+.composer[data-dragging] .box { border-color: var(--rams-detail-accent); border-style: dashed; }
+.field { position: relative; min-width: var(--rams-detail-chat-thread-composer-field-min-width); flex: var(--rams-detail-chat-thread-composer-field-flex); overflow: hidden; border-radius: max(var(--rams-detail-chat-thread-composer-field-border-radius-floor), calc(var(--radius-control) - var(--rams-detail-chat-thread-composer-field-border-radius-inset) - var(--rams-detail-chat-thread-composer-field-border-radius-border-width))); }
+.mirror,
+.textarea {
+  box-sizing: border-box; width: var(--rams-detail-chat-thread-composer-text-width); margin: var(--rams-detail-chat-thread-composer-text-margin); padding: var(--rams-detail-chat-thread-composer-text-padding); border: var(--rams-detail-chat-thread-composer-text-border);
+  font: inherit; font-size: var(--type-input-size); letter-spacing: var(--rams-detail-tracking-body); line-height: var(--type-control-leading);
+  overflow-wrap: break-word; white-space: pre-wrap; word-break: break-word;
+}
+.mirror { position: absolute; top: var(--rams-detail-chat-thread-composer-text-top); left: var(--rams-detail-chat-thread-composer-text-left); visibility: hidden; pointer-events: none; }
+.textarea { position: absolute; inset: var(--rams-detail-chat-thread-textarea-inset); height: var(--rams-detail-chat-thread-textarea-height); display: block; resize: none; overflow-y: auto; background: var(--rams-detail-chat-thread-textarea-background); color: var(--rams-detail-foreground); outline: none; scrollbar-width: none; }
+.textarea::placeholder { color: var(--rams-detail-text-muted); }
+
+.send {
+  position: relative; display: grid; width: var(--rams-detail-chat-thread-send-width); height: var(--rams-detail-chat-thread-send-height); flex: none; place-items: center; margin: var(--rams-detail-chat-thread-send-margin); overflow: hidden; padding: var(--rams-detail-chat-thread-send-padding);
+  border: var(--rams-detail-chat-thread-send-border); border-radius: var(--rams-detail-chat-thread-send-border-radius); background: var(--rams-detail-chat-thread-send-background); color: var(--rams-detail-text-muted); cursor: default;
+  -webkit-tap-highlight-color: var(--rams-detail-chat-thread-touch-highlight-color);
+  transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard);
+}
+.send[data-ready] { background: var(--rams-detail-primary); color: var(--rams-detail-on-primary); cursor: pointer; font-weight: var(--type-primary-action-weight, var(--rams-detail-chat-thread-send-font-weight-fallback)); font-synthesis: none; }
+@media (hover: hover) and (pointer: fine) { .send[data-ready]:hover { background: var(--rams-detail-primary-hover); } }
+.send[data-ready]:active { background: var(--rams-detail-primary-pressed); transform: var(--rams-detail-chat-thread-send-pressed-transform); }
+.sendIcon { display: grid; grid-area: var(--rams-detail-chat-thread-send-icon-grid-area); place-items: center; }
+
+.srOnly { position: absolute; width: var(--rams-detail-chat-thread-screen-reader-width); height: var(--rams-detail-chat-thread-screen-reader-height); overflow: hidden; clip-path: var(--rams-detail-chat-thread-screen-reader-clip-path); white-space: nowrap; }
+
+@media (max-width: 420px) {
+  .content { padding-inline: var(--rams-detail-chat-thread-content-narrow-viewport-padding-inline); }
+  .stack { max-width: var(--rams-detail-chat-thread-stack-narrow-viewport-max-width); }
+}
+
+:where(.root,.viewport,.scroller,.track,.content,.list,.day,.row,.gutter,.stack,.meta,.author,.line,.face,.parts,.bubble,.gallery,.image,.more,.file,.fileText,.fileName,.fileSize,.pickerWrap,.reactButton,.picker,.emoji,.reactionClip,.reactions,.reaction,.countRoll,.receipts,.readers,.reader,.status,.retry,.avatar,.typing,.dots,.pill,.pillIcon,.composer,.trayClip,.tray,.pending,.pendingImage,.pendingFile,.pendingName,.pendingSize,.remove,.inputRow,.attach,.box,.field,.mirror,.textarea,.send,.sendIcon,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Narrow threads reserve their inline measure for readable messages, not avatar gutters. */
+.root { min-width: var(--rams-detail-chat-thread-thread-min-width); width: var(--rams-detail-chat-thread-thread-width); container-type: inline-size; }
+@container (max-width: 24rem) {
+  .gutter, .face { display: none; }
+  .stack { width: var(--rams-detail-chat-thread-message-stack-width); max-width: var(--rams-detail-chat-thread-message-stack-max-width); }
+  .line, .parts { width: var(--rams-detail-chat-thread-message-line-width); }
+  .meta { min-width: var(--rams-detail-chat-thread-message-meta-min-width); max-width: var(--rams-detail-chat-thread-message-meta-max-width); flex-wrap: wrap; padding-inline: var(--rams-detail-chat-thread-message-meta-padding-inline); }
+  .bubble { padding-inline: var(--rams-detail-chat-thread-bubble-narrow-container-padding-inline); }
+}
+/* The rolling count retains a full font line box; its chip grows with enlarged text. */
+.countRoll { line-height: var(--rams-detail-leading-body); }
+.reaction { height: auto; min-height: var(--rams-detail-chat-thread-reaction-adaptive-min-height); padding-block: var(--rams-detail-chat-thread-reaction-padding-block); }

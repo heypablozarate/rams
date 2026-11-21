@@ -1,0 +1,673 @@
+{
+  "schema": "rams-motion-exceptions",
+  "schemaVersion": 1,
+  "scope": "Exact AST numeric animation properties, computed phases, timing defaults and physical calls; CSS parsed by declarations. No folder-wide exemptions.",
+  "entries": [
+    {
+      "file": "src/variants/vendor/registry/blocks/site-header/site-header.tsx",
+      "line": 95,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "site-header: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/blocks/site-header/site-header.tsx",
+      "line": 95,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "site-header: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/announcement-bar/announcement-bar.tsx",
+      "line": 74,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "announcement-bar: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/announcement-bar/announcement-bar.tsx",
+      "line": 74,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "announcement-bar: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/announcement-bar/announcement-bar.tsx",
+      "line": 261,
+      "property": "duration",
+      "literal": "1000",
+      "evidence": "duration: interval / 1000 * (1 - progress.get())",
+      "category": "dimensionless-domain-factor",
+      "reason": "announcement-bar: 1000 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/announcement-bar/announcement-bar.tsx",
+      "line": 261,
+      "property": "duration",
+      "literal": "1",
+      "evidence": "duration: interval / 1000 * (1 - progress.get())",
+      "category": "dimensionless-domain-factor",
+      "reason": "announcement-bar: 1 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/bar-chart/bar-chart.tsx",
+      "line": 44,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "bar-chart: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/bar-chart/bar-chart.tsx",
+      "line": 44,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "bar-chart: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/brush-chart/brush-chart.tsx",
+      "line": 60,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "brush-chart: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/brush-chart/brush-chart.tsx",
+      "line": 60,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "brush-chart: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/card-stack/card-stack.tsx",
+      "line": 314,
+      "property": "delay",
+      "literal": "1",
+      "evidence": "delay: Math.min((count - 1 - index) * motionTokens.stagger.item, motionTokens.sequence.maxStagger)",
+      "category": "dimensionless-domain-factor",
+      "reason": "card-stack: 1 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/carousel/carousel.tsx",
+      "line": 186,
+      "property": "duration",
+      "literal": "1",
+      "evidence": "duration: (1 - drain.get()) * interval / 1000",
+      "category": "dimensionless-domain-factor",
+      "reason": "carousel: 1 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/carousel/carousel.tsx",
+      "line": 186,
+      "property": "duration",
+      "literal": "1000",
+      "evidence": "duration: (1 - drain.get()) * interval / 1000",
+      "category": "dimensionless-domain-factor",
+      "reason": "carousel: 1000 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/chat-thread/chat-thread.tsx",
+      "line": 183,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "chat-thread: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/chat-thread/chat-thread.tsx",
+      "line": 183,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "chat-thread: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/color-picker/color-picker.tsx",
+      "line": 50,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "color-picker: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/color-picker/color-picker.tsx",
+      "line": 50,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "color-picker: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/comment-thread/comment-thread.tsx",
+      "line": 164,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "comment-thread: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/comment-thread/comment-thread.tsx",
+      "line": 164,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "comment-thread: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/confirm-morph/confirm-morph.tsx",
+      "line": 87,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "confirm-morph: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/confirm-morph/confirm-morph.tsx",
+      "line": 87,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "confirm-morph: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/confirm-morph/confirm-morph.tsx",
+      "line": 342,
+      "property": "duration",
+      "literal": "1000",
+      "evidence": "duration: timeout / 1000",
+      "category": "dimensionless-domain-factor",
+      "reason": "confirm-morph: 1000 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/confirm-morph/confirm-morph.tsx",
+      "line": 374,
+      "property": "duration",
+      "literal": "1000",
+      "evidence": "duration: holdDuration / 1000 * (1 - hold.get())",
+      "category": "dimensionless-domain-factor",
+      "reason": "confirm-morph: 1000 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/confirm-morph/confirm-morph.tsx",
+      "line": 374,
+      "property": "duration",
+      "literal": "1",
+      "evidence": "duration: holdDuration / 1000 * (1 - hold.get())",
+      "category": "dimensionless-domain-factor",
+      "reason": "confirm-morph: 1 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/cookie-consent/cookie-consent.tsx",
+      "line": 142,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "cookie-consent: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/cookie-consent/cookie-consent.tsx",
+      "line": 142,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "cookie-consent: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/date-range-picker/date-range-picker.tsx",
+      "line": 106,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "date-range-picker: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/date-range-picker/date-range-picker.tsx",
+      "line": 106,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "date-range-picker: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/donut-chart/donut-chart.tsx",
+      "line": 65,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "donut-chart: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/donut-chart/donut-chart.tsx",
+      "line": 65,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "donut-chart: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/elastic-slider/elastic-slider.tsx",
+      "line": 47,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "elastic-slider: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/elastic-slider/elastic-slider.tsx",
+      "line": 47,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "elastic-slider: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/hold-to-confirm/hold-to-confirm.tsx",
+      "line": 191,
+      "property": "duration",
+      "literal": "1",
+      "evidence": "duration: (1 - progress.get()) * duration / 1000",
+      "category": "dimensionless-domain-factor",
+      "reason": "hold-to-confirm: 1 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/hold-to-confirm/hold-to-confirm.tsx",
+      "line": 191,
+      "property": "duration",
+      "literal": "1000",
+      "evidence": "duration: (1 - progress.get()) * duration / 1000",
+      "category": "dimensionless-domain-factor",
+      "reason": "hold-to-confirm: 1000 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/image-compare/image-compare.tsx",
+      "line": 35,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "image-compare: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/image-compare/image-compare.tsx",
+      "line": 35,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "image-compare: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/line-chart/line-chart.tsx",
+      "line": 75,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "line-chart: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/line-chart/line-chart.tsx",
+      "line": 75,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "line-chart: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/mention-input/mention-input.tsx",
+      "line": 96,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "mention-input: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/mention-input/mention-input.tsx",
+      "line": 96,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "mention-input: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/money-input/money-input.tsx",
+      "line": 69,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "money-input: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/money-input/money-input.tsx",
+      "line": 69,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "money-input: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/morph-select/morph-select.tsx",
+      "line": 75,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "morph-select: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/morph-select/morph-select.tsx",
+      "line": 75,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "morph-select: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/number-field/number-field.tsx",
+      "line": 64,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - spring.morph.bounce) * root",
+      "category": "physical-parameter",
+      "reason": "number-field: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/number-field/number-field.tsx",
+      "line": 64,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - spring.morph.bounce) * root",
+      "category": "physical-parameter",
+      "reason": "number-field: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/phone-input/phone-input.tsx",
+      "line": 217,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "phone-input: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/phone-input/phone-input.tsx",
+      "line": 217,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "phone-input: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/radio-cards/radio-cards.tsx",
+      "line": 50,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "radio-cards: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/radio-cards/radio-cards.tsx",
+      "line": 50,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "radio-cards: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/range-histogram-slider/range-histogram-slider.tsx",
+      "line": 44,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "range-histogram-slider: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/range-histogram-slider/range-histogram-slider.tsx",
+      "line": 44,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "range-histogram-slider: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/rating/rating.tsx",
+      "line": 45,
+      "property": "stiffness",
+      "literal": "2",
+      "evidence": "stiffness: snappyRoot ** 2",
+      "category": "physical-parameter",
+      "reason": "rating: preserve this explicit stiffness for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/rating/rating.tsx",
+      "line": 45,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - motionTokens.spring.snappy.bounce) * snappyRoot",
+      "category": "physical-parameter",
+      "reason": "rating: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/rating/rating.tsx",
+      "line": 45,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - motionTokens.spring.snappy.bounce) * snappyRoot",
+      "category": "physical-parameter",
+      "reason": "rating: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/rich-text-editor/rich-text-editor.tsx",
+      "line": 615,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "rich-text-editor: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/rich-text-editor/rich-text-editor.tsx",
+      "line": 615,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "rich-text-editor: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/ridgeline/ridgeline.tsx",
+      "line": 54,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "ridgeline: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/ridgeline/ridgeline.tsx",
+      "line": 54,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "Ridgeline derives the damping ratio from the complement of bounce for the unit-mass spring equation."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/scrub-input/scrub-input.tsx",
+      "line": 75,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "scrub-input: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/scrub-input/scrub-input.tsx",
+      "line": 75,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "scrub-input: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/slider/slider.tsx",
+      "line": 55,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "slider: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/slider/slider.tsx",
+      "line": 55,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "slider: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/streamgraph/streamgraph.tsx",
+      "line": 66,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "streamgraph: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/streamgraph/streamgraph.tsx",
+      "line": 66,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "streamgraph: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/text-shimmer/text-shimmer.tsx",
+      "line": 71,
+      "property": "duration",
+      "literal": "1",
+      "evidence": "duration: duration * (1 - sweep.get())",
+      "category": "dimensionless-domain-factor",
+      "reason": "text-shimmer: 1 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/text-shimmer/text-shimmer.tsx",
+      "line": 84,
+      "property": "duration",
+      "literal": "1",
+      "evidence": "duration: Math.min(motionTokens.duration.considered, duration * (1 - t) * motionTokens.keyframes.textShimmer.finishGlideRatio)",
+      "category": "dimensionless-domain-factor",
+      "reason": "Text Shimmer subtracts the current normalized sweep position from its end at 1 to calculate the remaining distance. The editable finish ratio is supplied by the motion token."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/toast/toast.tsx",
+      "line": 63,
+      "property": "timing-default-or-sequence",
+      "literal": "4500",
+      "evidence": "duration = 4500",
+      "category": "behavior-time",
+      "reason": "toast: this exact value is an interaction/reading wait in milliseconds, not the duration of a transition. Preserve tooltip/hover intent, feedback lifetime or dismissal behavior independently of decorative motion."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/toast-stack/toast-stack.tsx",
+      "line": 165,
+      "property": "timing-default-or-sequence",
+      "literal": "5000",
+      "evidence": "duration = 5000",
+      "category": "behavior-time",
+      "reason": "toast-stack: this exact value is an interaction/reading wait in milliseconds, not the duration of a transition. Preserve tooltip/hover intent, feedback lifetime or dismissal behavior independently of decorative motion."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/tree-view/tree-view.tsx",
+      "line": 172,
+      "property": "timing-default-or-sequence",
+      "literal": "1",
+      "evidence": "delay = openedIndex >= 0 && index > openedIndex ? Math.min((index - openedIndex - 1) * motionTokens.stagger.item, motionTokens.sequence.maxStagger) : 0",
+      "category": "dimensionless-domain-factor",
+      "reason": "tree-view: 1 in this exact expression is an index/count bound, unit conversion, normalized progress or phase ratio applied to an existing duration. It is not an independently editable time. Preserve the domain calculation; the shared timing remains its input."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/treemap/treemap.tsx",
+      "line": 59,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "treemap: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/treemap/treemap.tsx",
+      "line": 59,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "treemap: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/usage-meter/usage-meter.tsx",
+      "line": 40,
+      "property": "damping",
+      "literal": "2",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "usage-meter: coefficient 2 is dimensionless in the physical damping equation, not a duration."
+    },
+    {
+      "file": "src/variants/vendor/registry/components/usage-meter/usage-meter.tsx",
+      "line": 40,
+      "property": "damping",
+      "literal": "1",
+      "evidence": "damping: 2 * (1 - bounce) * root",
+      "category": "physical-parameter",
+      "reason": "usage-meter: preserve this explicit damping for the component's gesture or data spring; it governs response/overshoot rather than a CSS timing. The recorded expression is the entire exception."
+    }
+  ]
+}

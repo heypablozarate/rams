@@ -1,0 +1,672 @@
+@import "tailwindcss" source(".");
+@import "tw-animate-css";
+@import "./baseline/theme.css";
+@import "./baseline/shape.css";
+@import "./baseline/supporting-theme.css";
+@import "./baseline/brand-theme.css";
+@import "./baseline/foundation-theme.css";
+@import "./variants/foundations.css";
+@import "./baseline/motion.css";
+@import "./baseline/motion-guide.css";
+@import "./variants/theme-transition.css";
+@import "./fonts.css";
+@import "./baseline/density.css";
+@import "./baseline/anatomy.css";
+@import "./baseline/numerals.css";
+
+@source "../index.html";
+
+/* Native focus/validation scrolling must keep controls below the measured header. */
+html {
+  scroll-padding-block-start: calc(var(--docs-header-height, var(--rams-detail-docs-header-height-fallback)) + var(--rams-detail-space-3));
+}
+@layer base {
+  * {
+    @apply border-border;
+    outline-color: var(--ring);
+    outline-color: color-mix(in oklab, var(--ring) var(--rams-detail-docs-outline-ring-share), transparent);
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-synthesis: none;
+  }
+}
+/* Viewer layout. The generated shape layer separately adapts semantic component slots. */
+.docs-prose :not(pre) > code {
+  overflow-wrap: anywhere;
+}
+.docs-prose p + p {
+  margin-top: var(--rams-detail-docs-paragraph-spacing);
+}
+.docs-underlined-link {
+  text-decoration: underline;
+  text-underline-offset: var(--rams-detail-docs-inline-link-underline-offset);
+}
+.docs-skip-link:focus {
+  z-index: var(--rams-detail-docs-skip-link-layer);
+  outline: var(--rams-detail-focus-outline-width) solid currentColor;
+}
+.docs-shell-header {
+  z-index: var(--rams-detail-docs-header-layer);
+  border-bottom-width: var(--rams-detail-primitive-border-width);
+}
+.catalog-grid { display: grid; }
+.catalog-link:focus-visible {
+  outline: var(--rams-detail-focus-outline-width) solid var(--ring);
+}
+.docs-footer { border-top-width: var(--rams-detail-primitive-border-width); }
+.docs-code {
+  tab-size: var(--rams-detail-docs-code-tab-size);
+}
+
+/* Documentation reflow follows root-relative container sizes and measured header. */
+.docs-page {
+  container-type: inline-size;
+  container-name: rams-page;
+}
+.docs-demo-region {
+  container-type: inline-size;
+  container-name: rams-demo;
+}
+.docs-header-row {
+  flex-wrap: wrap;
+  padding-block: var(--rams-detail-space-2);
+}
+.docs-brand-link { min-inline-size:0; max-inline-size:100%; }
+@media(max-width:640px) { .docs-brand-link { order:var(--rams-detail-layout-order-leading); flex-basis:100%; } }
+.docs-layout {
+  grid-template-columns: var(--rams-detail-docs-sidebar-inline-size) minmax(0, 1fr);
+}
+.docs-sidebar {
+  position: sticky;
+  inset-block-start: var(--docs-header-height, var(--rams-detail-docs-header-height-fallback));
+  block-size: calc(var(--rams-detail-surface-viewport-block-size) - var(--docs-header-height, var(--rams-detail-docs-header-height-fallback)));
+}
+.docs-menu-trigger {
+  display: none;
+}
+@container rams-page (width < 48rem) {
+  .docs-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .docs-sidebar {
+    display: none;
+  }
+  .docs-menu-trigger {
+    display: inline-flex;
+  }
+}
+@container rams-page (width < 64rem) {
+  .docs-header-badge,
+  .docs-search-label {
+    display: none;
+  }
+  .docs-search-button {
+    width: var(--rams-detail-control-height-md);
+    padding-inline: 0;
+    justify-content: center;
+  }
+}
+
+/* One component page, with the selected variant shared by preview, API and source. */
+.component-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rams-detail-docs-tabs-gap);
+  margin-bottom: var(--rams-detail-docs-tabs-margin-block-end);
+}
+.component-preview-stage {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: var(--rams-detail-docs-preview-min-block-size);
+  min-width: 0;
+  padding: var(--rams-detail-docs-preview-padding-block) var(--rams-detail-docs-preview-padding-inline);
+  border: var(--rams-detail-menu-border-width) solid var(--rams-detail-docs-preview-border);
+  border-radius: var(--radius-surface);
+  background: var(--rams-detail-docs-preview-fill);
+}
+.preview-component {
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.preview-component:is([data-component-preview="baseline-accordion-demo"], [data-component-preview="motion-accordion"], [data-component-preview="baseline-collapsible-demo"]) {
+  max-width: var(--rams-detail-preview-measure-wide);
+  margin-inline: auto;
+}
+@layer base {
+  .preview-component > * {
+    max-width: 100%;
+  }
+}
+.component-preview-block {
+  padding: 0;
+  min-height: var(--rams-detail-docs-preview-block-min-block-size);
+  display: block;
+}
+.component-preview-block .preview-component {
+  display: block;
+}
+.preview-isolated {
+  width: 100%;
+  height: var(--rams-detail-docs-preview-isolated-block-size);
+  border: 0;
+}
+.component-code {
+  max-width: 100%;
+  max-height: var(--rams-detail-docs-code-max-block-size);
+  overflow: auto;
+  border: var(--rams-detail-menu-border-width) solid var(--rams-detail-docs-preview-border);
+  border-radius: var(--radius-panel);
+  padding: var(--rams-detail-docs-code-padding);
+  background: var(--muted);
+  font-size: var(--type-code-size);
+  line-height: var(--rams-detail-docs-code-leading);
+  white-space: pre;
+}
+.component-guide h2 {
+  font-size: var(--text-xl);
+  font-weight: var(--type-title-weight);
+  margin-bottom: var(--rams-detail-docs-heading-spacing);
+}
+.component-guide p {
+  max-inline-size: var(--rams-detail-docs-guide-reading-measure);
+  line-height: var(--type-body-leading);
+  color: var(--foreground);
+  margin-top: var(--rams-detail-docs-subheading-spacing);
+}
+.component-guide th,
+.component-guide td {
+  padding: var(--rams-detail-docs-table-cell-padding-block) var(--rams-detail-docs-table-cell-padding-inline);
+  vertical-align: top;
+  border-bottom: var(--rams-detail-primitive-border-width) solid var(--border);
+}
+.component-guide td code {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 640px) {
+  [data-slot="hover-card-content"] {
+    max-width: calc(var(--rams-detail-surface-viewport-inline-size) - var(--rams-detail-docs-floating-preview-viewport-inset));
+    overflow-wrap: anywhere;
+  }
+  .component-preview-stage {
+    padding: var(--rams-detail-docs-preview-compact-padding-block) var(--rams-detail-docs-preview-compact-padding-inline);
+    min-height: var(--rams-detail-docs-preview-compact-min-block-size);
+  }
+  .component-preview-block {
+    padding: 0;
+  }
+  .component-tabs {
+    gap: var(--rams-detail-docs-tabs-compact-gap);
+  }
+  .component-code {
+    padding: var(--rams-detail-docs-code-compact-padding);
+    font-size: var(--type-code-size);
+  }
+  .component-guide th,
+  .component-guide td {
+    padding: var(--rams-detail-docs-table-cell-compact-padding);
+  }
+  [data-component-family="avatar"] .component-preview-stage {
+    padding-inline: var(--rams-detail-docs-preview-avatar-compact-inset);
+  }
+}
+
+/* Grouped OTP cells share the available measure instead of clipping the last cell. */
+.preview-component [data-slot="input-otp-group"] {
+  min-width: 0;
+  flex-shrink: 1;
+}
+.preview-component [data-slot="input-otp-slot"] {
+  min-width: 0;
+  flex-shrink: 1;
+}
+.preview-component [data-slot="alert-title"] {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  overflow-wrap: anywhere;
+}
+.countdown-agenda-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+@container rams-page (width < 40rem) {
+  .countdown-agenda-row {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+  }
+}
+@media (max-width: 640px) {
+  .countdown-agenda-row {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+  }
+}
+@media (max-width: 420px) {
+  .component-tabs [role="tablist"] {
+    width: 100%;
+    min-width: 0;
+  }
+  .component-tabs [role="tab"] {
+    min-width: 0;
+    padding-inline: var(--rams-detail-docs-tabs-compact-padding-inline);
+    font-size: var(--type-control-size);
+  }
+  .component-tabs {
+    max-width: 100%;
+  }
+  .component-tabs > button {
+    margin-left: auto;
+  }
+}
+
+.component-tabs [role="tablist"] {
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  flex-wrap: wrap;
+}
+.component-tabs [role="tab"] {
+  flex: var(--rams-detail-layout-flex-grow-intrinsic);
+  max-width: 100%;
+  height: auto;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.component-variant-field [data-slot="native-select-wrapper"] {
+  max-width: 100%;
+}
+.component-title {
+  overflow-wrap: anywhere;
+}
+/* Text enlargement can make a row wider than the viewport even when it fits at
+   the default font size. Cap empty gutters and let controls form new rows. */
+@media (max-width: 640px) {
+  .docs-header-row {
+    padding-inline: var(--rams-detail-docs-header-narrow-padding-inline);
+  }
+  .docs-main {
+    padding-inline: var(--rams-detail-docs-main-narrow-padding-inline);
+  }
+  .component-preview-stage:not(.component-preview-block) {
+    padding-inline: var(--rams-detail-docs-preview-narrow-padding-inline);
+  }
+}
+/* These classes belong to the examples, not the component implementation. */
+/* Keep reflow at the control boundary. Shared Button owns label wrapping and width measurement;
+   examples only constrain the outer control. */
+button.demo-reflow-action {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.demo-data-frame {
+  padding: var(--rams-detail-preview-data-inset);
+}
+.demo-reflow-badge {
+  min-width: 0;
+  max-width: 100%;
+}
+.demo-badge-state-slot,
+.demo-badge-action-label {
+  display: inline-grid;
+  grid-template-areas: "state";
+}
+.demo-badge-state-slot > *,
+.demo-badge-action-label > * {
+  grid-area: state;
+  justify-self: start;
+}
+.demo-badge-measure {
+  visibility: hidden;
+  pointer-events: none;
+}
+/* A local status change must not wrap the action mid-morph or re-center siblings. */
+button.demo-badge-action span {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+/* At large text sizes, retain usable columns rather than scaling empty gutters. */
+@container rams-page (width < 20rem) {
+  .demo-data-frame-card {
+    padding-inline: var(--rams-detail-preview-data-narrow-inset);
+  }
+  .demo-data-frame-badge {
+    padding-inline: 0;
+  }
+}
+/* Keep the toolbar's own insets at narrow widths, including exactly 320px. */
+@container rams-page (width <= 24rem) {
+  .demo-data-frame-filter-toolbar {
+    padding-inline: 0;
+  }
+}
+@media (max-width: 640px) {
+  [data-slot="select-content"] {
+    max-width: min(var(--radix-select-content-available-width, var(--rams-detail-surface-viewport-inline-size)), calc(var(--rams-detail-surface-viewport-inline-size) - var(--rams-detail-docs-select-viewport-inset)));
+  }
+  [data-slot="select-item"] {
+    padding-right: var(--rams-detail-docs-select-item-end-padding);
+  }
+  .preview-component [data-slot="select-trigger"] {
+    padding-inline: var(--rams-detail-docs-select-trigger-padding-inline);
+  }
+  [data-slot="select-item-indicator"] {
+    right: 0;
+  }
+  body:has([data-component-preview="motion-select"])
+    [role="listbox"]:not([data-slot]) {
+    width: max-content;
+    max-width: calc(var(--rams-detail-surface-viewport-inline-size) - var(--rams-detail-docs-floating-preview-viewport-inset));
+  }
+  [data-slot="dialog-content"] {
+    max-height: var(--rams-detail-surface-max-block-size);
+    overflow-y: auto;
+  }
+  .demo-reflow-popover[role="dialog"] {
+    min-width: var(--rams-detail-space-0);
+  }
+  [data-slot="popover-content"]:not([data-rams-primitive]),
+  .demo-reflow-popover[role="dialog"] {
+    max-width: calc(var(--rams-detail-surface-viewport-inline-size) - var(--rams-detail-surface-viewport-inset));
+    max-height: min(
+      var(--rams-detail-surface-max-block-size),
+      var(--radix-popover-content-available-height, var(--rams-detail-surface-viewport-block-size))
+    );
+    overflow: auto;
+  }
+}
+/* Portal content is attached to body, outside the page's named container. */
+@media (max-width: 640px) {
+  [data-slot="dialog-content"][role="dialog"]:not([data-rams-primitive]):not(:has(> [data-slot="command"])),
+  [data-slot="popover-content"]:not([data-rams-primitive]),
+  .demo-reflow-popover[role="dialog"] {
+    padding: var(--rams-detail-surface-padding);
+  }
+  [data-slot="dialog-content"] .grid-cols-4,
+  [data-slot="popover-content"] .grid-cols-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  :is([data-slot="dialog-content"], [data-slot="popover-content"])
+    [class*="col-span-"] {
+    grid-column: auto;
+    min-width: 0;
+  }
+  [data-slot="dialog-content"] button:not([data-slot="dialog-close"]):not([data-rams-primitive]) {
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: var(--rams-detail-control-height-md);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  /* Owned surfaces already reserve close clearance on the title. */
+  [data-slot="dialog-content"]:not([data-rams-primitive]) > [data-slot="dialog-close"] {
+    top: var(--rams-detail-surface-close-inset);
+    right: var(--rams-detail-surface-close-inset);
+    min-width: var(--rams-detail-surface-close-size);
+    min-height: var(--rams-detail-surface-close-size);
+  }
+}
+.preview-component[data-component-preview^="baseline-chart-"] {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+.preview-component[data-component-preview^="baseline-chart-"] > * {
+  width: 100%;
+  min-width: 0;
+}
+[data-component-family="chart"] .component-preview-stage {
+  display: block;
+  overflow-x: auto;
+}
+/* Preserve pinned examples at narrow widths; their wide data/control groups scroll locally. */
+.component-preview-stage[data-selected-variant^="baseline-"] {
+  overflow-x: auto;
+}
+/* A menu owns its open panel; the host measures it instead of clipping it at the canvas edge. */
+[data-component-family="navigation-menu"] .component-preview-stage {
+  overflow: visible;
+  align-items: flex-start;
+}
+/* Responsive width changes are immediate; only visual button states animate. */
+.docs-search-button {
+  transition-property: color, background-color, border-color, box-shadow;
+}
+
+/* Full-page sections have a straight viewport edge; never mask their interactive content. */
+.component-preview-block {
+  border-radius: var(--rams-detail-flush-corner-radius);
+  border: 0;
+  padding-block: var(--rams-detail-space-6);
+}
+
+.shape-example {
+  width: 100%;
+  height: var(--rams-detail-docs-shape-specimen-block-size);
+  border: var(--rams-detail-primitive-border-width) solid var(--border);
+  background: var(--muted);
+}
+
+/* Documentation examples expose their source without overlaying copy controls. */
+.code-block {
+  min-width: 0;
+  overflow: hidden;
+  border: var(--rams-detail-primitive-border-width) solid var(--border);
+  border-radius: var(--radius-panel);
+  background: var(--muted);
+}
+.code-block-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--rams-detail-docs-code-toolbar-gap);
+  padding: var(--rams-detail-docs-code-toolbar-padding);
+  border-bottom: var(--rams-detail-primitive-border-width) solid var(--border);
+}
+.code-block-source {
+  max-width: 100%;
+  max-height: var(--rams-detail-docs-code-block-max-size);
+  padding: var(--rams-detail-docs-code-example-padding);
+  overflow: auto;
+  font-size: var(--type-code-size);
+  line-height: var(--rams-detail-docs-code-leading);
+  tab-size: var(--rams-detail-docs-code-tab-size);
+}
+.foundation-table {
+  width: 100%;
+  text-align: left;
+  font-size: var(--type-control-size);
+}
+.foundation-table :is(th, td) {
+  padding: var(--rams-detail-docs-reference-cell-padding-block) var(--rams-detail-docs-table-cell-padding-inline);
+  vertical-align: top;
+}
+.foundation-table tbody tr {
+  border-top: var(--rams-detail-primitive-border-width) solid var(--border);
+}
+.foundation-guidelines {
+  max-inline-size: var(--rams-detail-docs-guideline-measure);
+  padding-inline-start: var(--rams-detail-docs-list-inset);
+  list-style: disc;
+  color: var(--foreground);
+}
+.foundation-guidelines > li + li {
+  margin-top: var(--rams-detail-docs-list-gap);
+}
+
+/* Field previews retain a readable measure when their source leaves width fluid. */
+:is(
+    [data-component-family="input"],
+    [data-component-family="textarea"],
+    [data-component-family="slider"],
+    [data-component-family="progress"]
+  )
+  .preview-component {
+  max-width: var(--rams-detail-preview-field-measure);
+  margin-inline: auto;
+}
+/* On narrow documents, keep carousel navigation inside the preview canvas. */
+@container rams-page (width < 40rem) {
+  [data-component-family="carousel"]
+    [data-component-preview^="baseline-"]
+    [data-slot="carousel"] {
+    display: grid;
+    grid-template-columns: var(--rams-detail-layout-grid-two-columns);
+    gap: var(--rams-detail-preview-carousel-gap);
+  }
+  [data-component-family="carousel"]
+    [data-component-preview^="baseline-"]
+    [data-slot="carousel-content"] {
+    grid-column: 1 / -1;
+  }
+  [data-component-family="carousel"]
+    [data-component-preview^="baseline-"]
+    :is([data-slot="carousel-previous"], [data-slot="carousel-next"]) {
+    position: static;
+    transform: none;
+    translate: none;
+    align-self: center;
+  }
+  [data-component-family="carousel"]
+    [data-component-preview^="baseline-"]
+    [data-slot="carousel-previous"] {
+    justify-self: end;
+  }
+  [data-component-family="carousel"]
+    [data-component-preview^="baseline-"]
+    [data-slot="carousel-next"] {
+    justify-self: start;
+  }
+}
+
+/* Viewer adapters for inherited example utilities; semantic foundations stay authoritative. */
+[data-component-preview="baseline-checkbox-demo"] label:has([data-slot="checkbox"][aria-checked="true"]) {
+  border-color: var(--rams-detail-control-on) !important;
+  background: var(--rams-detail-docs-preview-selection-fill) !important;
+}
+[data-component-preview="baseline-checkbox-demo"] #toggle-2[data-state="checked"] {
+  border-color: var(--rams-detail-control-on) !important;
+  background: var(--rams-detail-control-on) !important;
+  color: var(--rams-detail-control-glyph) !important;
+}
+[data-component-preview="baseline-badge-demo"] [data-slot="badge"].bg-blue-500 {
+  background: var(--secondary) !important;
+  color: var(--secondary-foreground) !important;
+}
+[data-component-preview="baseline-button-group-size"] {
+  justify-content: flex-start;
+  overflow-x: auto;
+  padding: var(--rams-detail-preview-button-group-inset);
+}
+[data-component-preview="baseline-button-group-size"] > * {
+  flex-shrink: 0;
+  max-width: none;
+}
+
+/* Keep the SlopeChart demo selector inside its narrow preview column. */
+.demo-data-frame-slope-chart > div > section { min-width: 0; grid-template-columns: minmax(0, 1fr); }
+.demo-data-frame-slope-chart > div > section > div[role="group"] { min-width: 0; max-width: 100%; overflow-x: auto; }
+
+/* The positioned shell hosts the shared glass material. */
+.docs-shell-header { background:transparent; }
+
+/* Reference values stay comparable without forcing horizontal reading on phones. */
+.density-reference { container: density-reference / inline-size; }
+.density-reference-table { width:100%; text-align:left; font-size:var(--type-control-size); }
+.density-reference-table caption { text-align:left; color:var(--muted-foreground); padding-bottom:var(--rams-detail-docs-space-standard); }
+.density-reference-table :is(th,td) { padding:var(--rams-detail-docs-table-cell-padding-block) var(--rams-detail-docs-table-cell-padding-inline) var(--rams-detail-docs-table-cell-padding-block) 0; vertical-align:top; }
+.density-reference-table tbody tr { border-top:var(--rams-detail-primitive-border-width) solid var(--border); }
+.density-reference-table td { white-space:nowrap; }
+.density-value-label { display:none; }
+@container density-reference (max-width:32rem) {
+ .density-reference-table thead { position:absolute; width:var(--rams-detail-accessible-hidden-inline-size); height:var(--rams-detail-accessible-hidden-block-size); overflow:hidden; clip-path:var(--rams-detail-accessible-hidden-clip-path); }
+ .density-reference-table,.density-reference-table :is(caption,tbody,tr,th,td) { display:block; }
+ .density-reference-table caption { width:100%; }
+ .density-reference-table tr { padding-block:var(--rams-detail-docs-space-standard); }
+ .density-reference-table :is(th,td) { padding:var(--rams-detail-docs-reference-stacked-cell-padding-block) 0; }
+ .density-reference-table td { display:flex; justify-content:space-between; gap:var(--rams-detail-docs-space-standard); white-space:normal; }
+ .density-value-label { display:inline; color:var(--muted-foreground); }
+}
+
+/* API identifiers keep a readable measure inside their existing scroll region. */
+.component-guide table { min-width:var(--rams-detail-docs-api-table-min-inline-size); }
+.component-guide td:first-child code { white-space:nowrap; overflow-wrap:normal; }
+.component-guide td:nth-child(2) { min-width:var(--rams-detail-docs-api-type-min-inline-size); }
+
+/* A tall header must not consume the reading viewport while scrolling. */
+.docs-shell-header[data-tall] { position: relative; }
+
+/* Reading hierarchy belongs to documentation, never to the component specimen. */
+.component-guide > section + section { margin-block-start:var(--rams-detail-docs-section-spacing); }
+.component-guide h3 { font-size:var(--type-body-size); font-weight:var(--rams-detail-docs-subheading-weight); line-height:var(--type-title-leading); margin-bottom:var(--rams-detail-docs-subheading-spacing); }
+.preview-scope > h2 { font-size:var(--type-title-size); line-height:var(--type-title-leading); }
+.preview-scope h3 { font-size:var(--type-control-size); font-weight:var(--rams-detail-docs-subheading-weight); margin-bottom:var(--rams-detail-docs-subheading-spacing); }
+.preview-scope .foundation-guidelines { color:inherit; }
+.catalog-link { border-block-start:var(--rams-detail-primitive-border-width) solid var(--border); }
+.catalog-link:hover h2 { text-decoration:underline; text-underline-offset:var(--rams-detail-docs-link-underline-offset); }
+
+/* The documentation frame gives space to the example rather than imposing a
+   universal poster-sized canvas on every primitive. Component geometry stays owned
+   by the component; only the viewer's empty area and gutters change here. */
+.component-preview-stage:where(:not(.component-preview-block)) { min-height:var(--rams-detail-docs-preview-standard-min-block-size); padding:var(--rams-detail-docs-preview-standard-padding); }
+[data-component-family]:is([data-component-family="spinner"], [data-component-family="badge"], [data-component-family="input"], [data-component-family="toggle"], [data-component-family="label"]) .component-preview-stage { min-height:0; }
+@media(max-width:640px) {
+  .docs-main { padding-block-start:var(--rams-detail-docs-main-compact-block-start); }
+  .component-description { margin-block-start:var(--rams-detail-docs-subheading-spacing); }
+  .component-variant-field { margin-block:var(--rams-detail-docs-variant-compact-margin); }
+  .component-variant-field > label { margin-block-end:var(--rams-detail-docs-variant-label-gap); }
+  .component-tabs { margin-block-end:var(--rams-detail-docs-tabs-compact-margin-block-end); }
+  .component-preview-stage { min-height:0; padding-block:var(--rams-detail-docs-preview-narrow-padding-block); }
+  .component-preview-block { padding:0; }
+}
+
+/* Optical title roles use the real variable-font axis; reading/control tracking stays neutral. */
+.docs-page-title { font-family:var(--type-heading-family); font-size:var(--type-heading-size); line-height:var(--type-heading-leading); font-weight:var(--type-heading-weight); letter-spacing:var(--type-heading-tracking); font-kerning:normal; }
+
+.component-guide h2, .preview-scope > h2 { font-weight:var(--type-title-weight); letter-spacing:var(--type-title-tracking); }
+
+.docs-page-title, .component-guide h2, .preview-scope > h2 { min-width:0; overflow-wrap:anywhere; }
+
+/* A discretionary hyphen may paint at a line end without changing title text. */
+.docs-discretionary-break::after { content: "\00ad"; }
+
+/* Color specifications retain their full reading measure as text grows. */
+[data-color-palette] { container-type:inline-size; container-name:rams-color-palette; min-inline-size:0; }
+[data-color-grid], [data-color-body] { min-inline-size:0; }
+[data-color-value] { max-inline-size:100%; overflow-wrap:anywhere; word-break:normal; }
+@container rams-color-palette (width < 42rem) {
+  [data-color-grid] { grid-template-columns:minmax(0,1fr); }
+  [data-color-group], [data-color-role-card] { flex-direction:column; gap:var(--rams-detail-docs-color-specimen-inset); padding:var(--rams-detail-docs-color-specimen-inset); }
+  [data-color-swatch] { inline-size:var(--rams-detail-docs-color-specimen-size); block-size:var(--rams-detail-docs-color-specimen-size); }
+  [data-color-body] { inline-size:100%; }
+}
+
+/* Header icons use geometric hit areas; text and the identity keep their type roles. */
+@media (max-width:640px) {
+  .docs-header-row { gap:var(--rams-detail-docs-shell-compact-gap); padding-block:var(--rams-detail-docs-shell-compact-gap); }
+  .docs-header-controls { flex:var(--rams-detail-layout-flex-wrap-row); flex-wrap:nowrap; justify-content:flex-start; gap:var(--rams-detail-docs-shell-compact-gap); margin-inline-start:0; }
+  .docs-header-controls :is(.docs-menu-trigger,.docs-search-button,.docs-theme-button) {
+    flex:0 0 var(--rams-detail-docs-shell-touch-target); inline-size:var(--rams-detail-docs-shell-touch-target); min-inline-size:var(--rams-detail-docs-shell-touch-target); max-inline-size:var(--rams-detail-docs-shell-touch-target); block-size:var(--rams-detail-docs-shell-touch-target); min-block-size:var(--rams-detail-docs-shell-touch-target); padding:0;
+  }
+  .docs-header-controls .docs-auto-button { flex:0 1 auto; min-inline-size:0; min-block-size:var(--rams-detail-docs-shell-touch-target); padding:0 var(--rams-detail-docs-shell-compact-text-action-inset); }
+  .docs-header-controls .docs-search-label { display:none; }
+  .docs-header-controls .docs-search-button { justify-content:center; }
+}
+
+.docs-section-title { font-family:var(--type-title-family); font-size:var(--type-title-size); font-weight:var(--type-title-weight); line-height:var(--type-title-leading); letter-spacing:var(--type-title-tracking); }
+
+/* The Motion guide's examples, specification fields and policy panel stack together. */
+@media (max-width: 720px) {
+  .motion-demo-grid { grid-template-columns: var(--rams-detail-layout-grid-fill-track); }
+  .motion-policy-panel { flex-direction: column; align-items: flex-start; }
+  .motion-guide .motion-policy-panel > div { width: 100%; }
+  .motion-spec-fields { grid-template-columns: minmax(0, 1fr); }
+}

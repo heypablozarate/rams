@@ -1,0 +1,39 @@
+{
+  "name": "rams-by-pablozarate",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Source-owned React components, fluid typography and accessible interface foundations.",
+  "author": {
+    "name": "Pablo Zarate",
+    "url": "https://pablozarate.com"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "dependencies": {
+    "radix-ui": "1.4.3",
+    "@radix-ui/react-compose-refs": "1.1.2",
+    "input-otp": "1.5.0",
+    "react-hook-form": "7.62.0",
+    "cmdk": "1.1.1",
+    "@base-ui/react": "1.6.0",
+    "embla-carousel-react": "8.6.0",
+    "react-resizable-panels": "4.14.8",
+    "sonner": "2.0.7",
+    "react-day-picker": "9.14.0",
+    "recharts": "3.8.0",
+    "vaul": "1.1.2",
+    "motion": "13.4.0",
+    "lucide-react": "1.47.0",
+    "next-themes": "0.4.6"
+  },
+  "scripts": {
+    "agent:index": "node tools/build-index.mjs --write"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

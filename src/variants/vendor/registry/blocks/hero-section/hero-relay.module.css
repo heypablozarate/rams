@@ -1,0 +1,104 @@
+/* Split, one full screen: the whole hero is a workflow canvas. A dot grid fills the screen, strongest behind the graph, and the
+   copy sits on the quiet side of it. */
+.hero {
+  --rams-detail-dot: var(--rams-detail-hero-relay-hero-rams-detail-dot);
+  --rams-detail-wire: var(--rams-detail-hero-relay-hero-rams-detail-wire);
+  --rams-detail-node-shadow: var(--rams-detail-hero-relay-hero-rams-detail-node-shadow);
+  isolation: isolate;
+  display: grid;
+  align-items: center;
+  background: var(--rams-detail-hero-relay-hero-background);
+}
+:global(:root.dark) .hero {
+  --rams-detail-dot: var(--rams-detail-hero-relay-dark-hero-rams-detail-dot);
+  --rams-detail-wire: var(--rams-detail-hero-relay-dark-hero-rams-detail-wire);
+  --rams-detail-node-shadow: var(--rams-detail-hero-relay-dark-hero-rams-detail-node-shadow);
+}
+.hero::before {
+  content: ""; position: absolute; z-index: var(--rams-detail-hero-relay-hero-before-z-index); inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle at var(--rams-detail-hero-relay-hero-before-background-image-center-x) var(--rams-detail-hero-relay-hero-before-background-image-center-y), var(--rams-detail-dot) var(--rams-detail-hero-relay-hero-before-background-image-radius), transparent var(--rams-detail-hero-relay-hero-before-background-image-feather));
+  background-size: var(--rams-detail-hero-relay-hero-before-background-size);
+  -webkit-mask-image: var(--rams-detail-hero-relay-hero-before-webkit-mask-image);
+  mask-image: var(--rams-detail-hero-relay-hero-before-mask-image);
+}
+
+.inner { display: grid; box-sizing: border-box; width: 100%; max-width: var(--rams-detail-hero-relay-inner-max-width); grid-template-columns: var(--rams-detail-hero-relay-inner-grid-template-columns); align-items: center; gap: var(--rams-detail-space-16); margin: 0 auto; padding: var(--rams-detail-hero-relay-inner-padding); }
+
+.copy { display: grid; justify-items: start; gap: var(--rams-detail-space-5); text-align: left; }
+.title { max-width: var(--rams-detail-hero-relay-title-max-width); font-size: var(--rams-detail-hero-relay-title-font-size); }
+.description { max-width: var(--rams-detail-hero-relay-description-max-width); }
+.actions { display: flex; flex-wrap: wrap; gap: var(--rams-detail-space-3); margin-top: var(--rams-detail-space-3); }
+.fine { margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); }
+
+/* The graph column: a small toolbar and the scaled graph under it. */
+.canvas { display: grid; justify-items: center; gap: var(--rams-detail-space-4); min-width: 0; }
+.toolbar { display: flex; width: var(--rams-detail-hero-relay-toolbar-width); align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3); }
+.file { display: inline-flex; min-width: 0; align-items: center; gap: var(--rams-detail-space-2); color: var(--rams-detail-text-secondary); font-family: var(--rams-detail-font-mono); font-size: var(--type-caption-size); }
+.live { width: var(--rams-detail-hero-relay-live-width); height: var(--rams-detail-hero-relay-live-height); flex: none; border-radius: var(--rams-detail-hero-relay-live-border-radius); background: var(--rams-detail-text-muted); transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.live[data-on] { background: var(--rams-detail-success); }
+
+.stage { position: relative; width: var(--rams-detail-hero-relay-stage-width); }
+.graph { position: absolute; top: 0; left: 50%; translate: var(--rams-detail-hero-relay-graph-translate); transform-origin: 50% 0; }
+.edges { position: absolute; inset: 0; overflow: visible; }
+.wire { fill: none; stroke: var(--rams-detail-wire); stroke-width: var(--rams-detail-hero-relay-wire-stroke-width); }
+.wire[data-skipped] { stroke-dasharray: var(--rams-detail-hero-relay-wire-skipped-stroke-dasharray); opacity: var(--rams-detail-hero-relay-wire-skipped-opacity); }
+.flow { fill: none; stroke: var(--rams-detail-accent); stroke-width: var(--rams-detail-hero-relay-flow-stroke-width); stroke-linecap: var(--rams-detail-glyph-stroke-cap); }
+
+/* A node: what the step is, what it found, and its state. The running step takes the accent. */
+.node {
+  position: absolute; display: flex; align-items: center; gap: var(--rams-detail-space-3);
+  border: var(--shape-inset-border) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); padding: var(--rams-detail-hero-relay-node-padding);
+  background: var(--rams-detail-surface); box-shadow: var(--rams-detail-node-shadow);
+  font-size: var(--type-control-size); line-height: var(--rams-detail-hero-relay-node-line-height);
+  transition: border-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard);
+}
+.node[data-status="running"] { border-color: var(--rams-detail-hero-relay-node-status-running-border-color); background: var(--rams-detail-hero-relay-node-status-running-background); }
+.node[data-status="skipped"] { opacity: var(--rams-detail-hero-relay-node-status-skipped-opacity); box-shadow: none; }
+.icon { display: grid; width: var(--rams-detail-hero-relay-icon-width); height: var(--rams-detail-hero-relay-icon-height); flex: none; place-items: center; }
+.logo { width: var(--rams-detail-hero-relay-logo-width); height: var(--rams-detail-hero-relay-logo-height); background: center / contain no-repeat; }
+.glyph { color: var(--rams-detail-text-secondary); }
+.text { display: grid; flex: var(--rams-detail-layout-flex-fill); min-width: 0; }
+.text strong { overflow: hidden; font-weight: var(--type-title-weight); text-overflow: ellipsis; white-space: nowrap; }
+.text small { overflow: hidden; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); text-overflow: ellipsis; white-space: nowrap; }
+.state { display: grid; flex: none; justify-items: end; }
+.stateInner { display: inline-flex; align-items: center; gap: var(--rams-detail-hero-relay-state-inner-gap); }
+.meta { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.check { color: var(--rams-detail-success); }
+.skip { color: var(--rams-detail-text-muted); }
+.pending { display: block; width: var(--rams-detail-hero-relay-pending-width); height: var(--rams-detail-hero-relay-pending-height); border: var(--rams-detail-hero-relay-pending-border-stroke) solid var(--rams-detail-wire); border-radius: var(--rams-detail-hero-relay-pending-border-radius); }
+.spinner { display: block; width: var(--rams-detail-hero-relay-spinner-width); height: var(--rams-detail-hero-relay-spinner-height); flex: none; border: var(--rams-detail-hero-relay-spinner-border); border-top-color: var(--rams-detail-accent); border-radius: var(--rams-detail-hero-relay-spinner-border-radius); animation: spin var(--rams-motion-activity-duration) var(--rams-motion-activity-ease) var(--rams-motion-active-iterations); }
+@keyframes spin { to { rotate: var(--rams-detail-hero-relay-to-rotate-spin); } }
+
+/* Compact nodes on a phone: icon and state on top, the name and its result under them. */
+.node[data-compact] { display: grid; grid-template-columns: var(--rams-detail-hero-relay-node-compact-grid-template-columns); grid-template-rows: var(--rams-detail-layout-grid-two-intrinsic-rows); align-content: center; gap: var(--rams-detail-space-2) var(--rams-detail-space-1); padding: var(--rams-detail-hero-relay-node-compact-padding); }
+@container hero (max-width: 560px) { .node[data-compact] { gap: var(--rams-detail-hero-relay-node-compact-gap-compact); padding: var(--rams-detail-hero-relay-node-compact-padding-compact); } }
+.node[data-compact] .text { grid-column: 1 / -1; }
+.node[data-compact] .state { grid-column: var(--rams-detail-hero-relay-node-compact-state-grid-column); grid-row: 1; }
+
+/* The run summary under the graph. */
+.summary { position: absolute; left: 0; display: flex; height: var(--rams-detail-hero-relay-summary-height); align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3); border-top: var(--shape-inset-border) solid var(--rams-detail-border-subtle); padding: var(--rams-detail-hero-relay-summary-padding); color: var(--rams-detail-text-muted); font-size: var(--type-caption-size); }
+.event { display: inline-flex; align-items: center; gap: var(--rams-detail-space-3); }
+.event code { border: var(--shape-inset-border) solid var(--rams-detail-border-subtle); border-radius: var(--rams-detail-hero-relay-event-code-border-radius); padding: var(--rams-detail-hero-relay-event-code-padding); background: var(--rams-detail-surface); color: var(--rams-detail-text-secondary); font-family: var(--rams-detail-font-mono); font-size: var(--rams-detail-text-xs); }
+.num { font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.result { display: inline-flex; align-items: center; gap: var(--rams-detail-hero-relay-result-gap); }
+.result[data-done] { color: var(--rams-detail-foreground); }
+.result[data-done] svg { color: var(--rams-detail-success); }
+
+@container hero (max-width: 900px) {
+  .inner { grid-template-columns: var(--rams-detail-hero-relay-inner-grid-template-columns-workflow-stacked); gap: var(--rams-detail-space-10); }
+  .hero::before { -webkit-mask-image: var(--rams-detail-hero-relay-hero-before-webkit-mask-image-workflow-stacked); mask-image: var(--rams-detail-hero-relay-hero-before-mask-image-workflow-stacked); }
+}
+@container hero (max-width: 560px) {
+  .inner { gap: var(--rams-detail-space-8); padding: var(--rams-detail-space-20) var(--rams-detail-space-4) var(--rams-detail-space-6); }
+  .copy { gap: var(--rams-detail-space-4); }
+  .actions { width: 100%; margin-top: var(--rams-detail-space-1); }
+  .actions > * { flex: 1 1 auto; }
+  .canvas { gap: var(--rams-detail-space-3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation: none; }
+  .node, .live { transition: none; }
+}
+
+:where(.hero,.inner,.copy,.title,.description,.actions,.fine,.canvas,.toolbar,.file,.live,.stage,.graph,.edges,.wire,.flow,.node,.icon,.logo,.glyph,.text,.state,.stateInner,.meta,.check,.skip,.pending,.spinner,.summary,.event,.num,.result):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

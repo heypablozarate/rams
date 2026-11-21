@@ -1,0 +1,48 @@
+.field { display: grid; gap: var(--rams-detail-date-picker-motion-field-gap); min-width: 0; }
+.label { color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); }
+.anchor { position: relative; min-width: 0; }
+/* The trigger anchors the calendar, so press feedback stays in color; it never scales. */
+.trigger { position: relative; display: flex; width: 100%; min-height: var(--rams-detail-control-height-md); align-items: center; gap: var(--rams-detail-date-picker-motion-trigger-gap); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-date-picker-motion-trigger-padding); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); font: inherit; font-size: var(--rams-detail-text-sm); text-align: left; cursor: pointer; transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .trigger:hover:not(:disabled) { border-color: var(--rams-detail-border-strong); background: var(--rams-detail-surface-muted); } }
+.trigger:active:not(:disabled), .trigger[aria-expanded="true"] { border-color: var(--rams-detail-border-strong); background: var(--rams-detail-surface-muted); }
+.trigger:disabled { cursor: not-allowed; opacity: var(--rams-detail-control-disabled-opacity); }
+.trigger > svg:first-child { flex: 0 0 auto; color: var(--rams-detail-text-muted); }
+/* Old and new values cross in place; each part of a date is its own box so a wider day or month moves the rest along on a spring. */
+.valueText { position: relative; display: flex; flex: var(--rams-detail-layout-flex-fill); min-width: 0; }
+.value, .part { position: relative; display: inline-flex; white-space: pre; }
+.value { font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.partValue { display: inline-block; white-space: pre; }
+.placeholder { min-width: 0; overflow: hidden; color: var(--rams-detail-text-muted); text-overflow: ellipsis; white-space: nowrap; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: var(--rams-detail-accessible-hidden-margin); padding: var(--rams-detail-accessible-hidden-padding); overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: var(--rams-detail-accessible-hidden-border); }
+.chevron { flex: 0 0 auto; color: var(--rams-detail-text-muted); transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.trigger[aria-expanded="true"] .chevron { transform: var(--rams-detail-disclosure-expanded-glyph-transform); }
+/* Grows out of the trigger's calendar icon and returns there on close. */
+.popover { box-sizing: border-box; z-index: var(--rams-detail-date-picker-motion-panel-z); width: min(var(--rams-detail-date-picker-motion-panel-inline-size), calc(100vw - var(--rams-detail-date-picker-motion-viewport-inline-reserve))); max-width: var(--radix-popover-content-available-width); max-height: var(--radix-popover-content-available-height); overflow: auto; overscroll-behavior: contain; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); padding: var(--rams-detail-date-picker-motion-panel-padding); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); transform-origin: var(--radix-popover-content-transform-origin); will-change: transform, opacity; }
+/* Narrow viewports keep a full calendar with tighter insets inside its available portal space. */
+@media (max-width: 360px) { .popover { padding: var(--rams-detail-date-picker-motion-panel-padding-compact); } }
+.footer { display: flex; align-items: center; justify-content: space-between; gap: var(--rams-detail-date-picker-motion-footer-gap); margin-top: var(--rams-detail-date-picker-motion-footer-margin-block-start); border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); padding-top: var(--rams-detail-date-picker-motion-footer-padding-block-start); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+/* Old and new status lines share one cell, pinned to the trailing edge so a shorter line never shifts. */
+.status { display: grid; min-width: 0; justify-items: end; }
+.status > span { grid-area: 1 / 1; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.footer button { border: 0; border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-date-picker-motion-footer-action-padding); background: transparent; color: var(--rams-detail-text-secondary); font: inherit; cursor: pointer; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+@media (hover: hover) and (pointer: fine) { .footer button:hover:not(:disabled) { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } }
+.footer button:active:not(:disabled) { transform: scale(var(--rams-motion-date-picker-footer-action-press-scale)); transition-duration: var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard); }
+.footer button:disabled { cursor: not-allowed; opacity: var(--rams-detail-date-picker-motion-footer-action-disabled-opacity); }
+.description { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+/* The open calendar covers the hint; fading it keeps its first letters from peeking past the popover's rounded corner. */
+.field[data-open] .description { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .trigger, .chevron, .footer button, .description { transition: none; } .footer button:active:not(:disabled) { transform: none; } }
+:where(.field,.label,.anchor,.trigger,.valueText,.value,.part,.partValue,.placeholder,.srOnly,.chevron,.popover,.footer,.status,.description):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Keep the owned clear action and trigger glyphs in their existing geometry. */
+.footer button { min-block-size: 0; }
+.trigger > svg { inline-size: var(--rams-detail-date-picker-motion-trigger-glyph-size); block-size: var(--rams-detail-date-picker-motion-trigger-glyph-size); stroke-width: var(--rams-detail-date-picker-motion-trigger-glyph-stroke); }
+
+/* Date parts wrap at their boundaries instead of losing a year or a field affordance. */
+.value { min-width: 0; flex-wrap: wrap; white-space: normal; }
+
+/* Keep the clear action whole; the selected-date status can use another line. */
+.footer { flex-wrap: wrap; }
+.footer button { flex: none; white-space: nowrap; }
+.status { flex: 1 1 var(--rams-detail-date-picker-motion-status-inline-basis); justify-items: start; }
+.status > span { white-space: normal; overflow: visible; text-overflow: clip; }

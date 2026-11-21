@@ -1,0 +1,35 @@
+// Generated from tokens.json/componentExtensions.details.fileDropzone.geometry.
+export const fileDropzoneGeometry = {
+  "textRise": "0.3em",
+  "textExit": "-0.3em",
+  "wordRise": "0.35em",
+  "wordExit": "-0.35em",
+  "shake": [
+    0,
+    -7,
+    6,
+    -4,
+    3,
+    -1.5,
+    0
+  ],
+  "typeIconSize": 20,
+  "typeIconStroke": 1.75,
+  "stateIconSize": 14,
+  "stateIconStroke": 2.25,
+  "actionIconSize": 14,
+  "actionIconStroke": 2,
+  "removeIconSize": 16,
+  "removeIconStroke": 1.75,
+  "rowEnterY": -22,
+  "rowEnterScale": 0.94,
+  "rowExitScale": 0.97,
+  "retryEnterScale": 0.8,
+  "edgeGlowRadius": 180,
+  "washGlowRadius": 260,
+  "glowFalloff": 70,
+  "washMix": 6,
+  "initialEdgeRadius": 33.5,
+  "initialEdgePathLength": 1358,
+  "thumbnailSize": 40
+} as const;

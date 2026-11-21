@@ -1,0 +1,179 @@
+/* The root holds the control in the flow of the page; the pill inside it springs between faces. */
+.root {
+  --rams-detail-confirm-inline-inset: var(--rams-detail-confirm-face-inline-inset);
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  vertical-align: middle;
+  color: var(--rams-detail-foreground);
+  font-family: var(--rams-detail-font-body);
+  font-size: var(--rams-detail-text-sm);
+  letter-spacing: var(--rams-detail-tracking-body);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * One neutral pill for every state. Only its width moves; corners, text and border never scale, so nothing distorts.
+ * Every face sits at its natural width against the pill's leading edge, so text never slides or squeezes: the question
+ * starts where the label was, and the springing edge reveals the rest. The border is an overlay so it never changes a measurement.
+ */
+.surface {
+  position: relative;
+  display: flex;
+  height: var(--rams-detail-control-height-sm);
+  max-width: 100%;
+  justify-content: flex-start;
+  overflow: clip;
+  border-radius: var(--rams-detail-radius-pill);
+  background: var(--rams-detail-surface-raised);
+  box-shadow: var(--rams-detail-shadow-resting);
+  transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-standard) var(--rams-detail-ease-standard);
+}
+.surface::after { content: ""; position: absolute; inset: 0; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: inherit; pointer-events: none; transition: border-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.root[data-disabled][data-state="idle"] .surface { box-shadow: none; }
+.root[data-disabled][data-state="idle"] .surface::after { border-color: var(--rams-detail-border-subtle); }
+
+.face { display: flex; flex: none; height: 100%; align-items: center; gap: var(--rams-detail-confirm-face-part-gap); padding: 0 var(--rams-detail-confirm-inline-inset); white-space: nowrap; }
+.face[data-face="idle"] { padding: 0; }
+/* A leaving face steps out of the flow, exactly where it was, and fades while the pill springs to the next one. */
+.face[inert] { position: absolute; top: 0; inset-inline-start: 0; pointer-events: none; }
+.part { display: inline-flex; height: 100%; align-items: center; }
+
+.trigger {
+  display: inline-flex;
+  height: 100%;
+  align-items: center;
+  gap: var(--rams-detail-confirm-trigger-glyph-gap);
+  padding: var(--rams-detail-confirm-trigger-padding);
+  border: 0;
+  border-radius: var(--rams-detail-radius-pill);
+  background: transparent;
+  color: var(--rams-detail-foreground);
+  cursor: pointer;
+  font: inherit;
+  font-weight: var(--rams-detail-label-weight);
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.trigger:active:not(:disabled) { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-confirm-trigger-pressed-wash), transparent); transition-duration: var(--rams-detail-duration-no-interpolation); }
+.trigger:disabled { color: var(--rams-detail-text-muted); cursor: not-allowed; }
+.trigger:disabled .icon { opacity: var(--rams-detail-confirm-disabled-trigger-glyph-opacity); }
+.icon { display: grid; width: var(--rams-detail-confirm-trigger-glyph-size); height: var(--rams-detail-confirm-trigger-glyph-size); place-items: center; color: var(--rams-detail-text-secondary); }
+.trigger:disabled .icon { color: inherit; }
+.icon > svg { width: var(--rams-detail-confirm-trigger-glyph-size); height: var(--rams-detail-confirm-trigger-glyph-size); }
+
+.prompt { overflow: hidden; padding: var(--rams-detail-confirm-prompt-padding); color: var(--rams-detail-foreground); font-weight: var(--rams-detail-label-weight); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.prompt > span { overflow: hidden; text-overflow: ellipsis; }
+
+.secondary,
+.confirm {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  height: calc(var(--rams-detail-control-height-sm) - var(--rams-detail-confirm-face-action-block-reserve));
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--rams-detail-confirm-face-action-padding-inline);
+  border: 0;
+  border-radius: var(--rams-detail-radius-pill);
+  cursor: pointer;
+  font: inherit;
+  font-weight: var(--type-action-weight);
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+  touch-action: manipulation;
+}
+.secondary { background: transparent; color: var(--rams-detail-text-secondary); }
+.face:is([data-face="done"], [data-face="error"]) .secondary { color: var(--rams-detail-foreground); }
+.secondary:active { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-confirm-secondary-pressed-wash), transparent); color: var(--rams-detail-foreground); transition-duration: var(--rams-detail-duration-no-interpolation); }
+
+/* Destructive confirmation keeps its semantic color; reversible confirmation uses the primary action pair. */
+.confirm { overflow: clip; background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-confirm-danger-action-wash), transparent); color: var(--rams-detail-danger); }
+.confirm:active { background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-confirm-danger-action-pressed-wash), transparent); transition-duration: var(--rams-detail-duration-no-interpolation); }
+.root[data-tone="neutral"] .confirm { background: var(--rams-detail-primary); color: var(--rams-detail-on-primary); font-weight: var(--type-primary-action-weight, var(--rams-detail-native-primary-action-weight-fallback)); font-synthesis: none; }
+.root[data-tone="neutral"] .confirm:active { background: var(--rams-detail-primary-pressed); }
+
+/* Hold: a solid copy of the button, label and all, revealed from the left as the hold fills; the label inverts as the edge passes. */
+.root[data-mode="hold"] .confirm { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.fill { position: absolute; inset: 0; display: inline-flex; align-items: center; justify-content: center; background: var(--rams-detail-danger); color: var(--rams-detail-background); pointer-events: none; }
+.root[data-tone="neutral"] .fill { background: var(--rams-detail-primary); color: var(--rams-detail-on-primary); }
+
+.status { gap: var(--rams-detail-confirm-status-glyph-gap); padding: var(--rams-detail-confirm-status-padding); color: var(--rams-detail-foreground); font-weight: var(--rams-detail-label-weight); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.status > svg { flex: none; }
+.statusText { display: inline-flex; align-items: baseline; gap: var(--rams-detail-confirm-status-text-gap); }
+.face[data-face="pending"] .status { padding-inline: var(--rams-detail-confirm-status-pending-padding-inline); color: var(--rams-detail-text-secondary); }
+.face[data-face="done"]:not(:has(.secondary)) .status { padding-right: var(--rams-detail-confirm-status-terminal-end-inset); }
+.face[data-face="counting"] .status { padding-right: var(--rams-detail-confirm-status-counting-end-inset); color: var(--rams-detail-text-secondary); }
+.alert { color: var(--rams-detail-danger); }
+.check { width: var(--rams-detail-confirm-status-check-size); height: var(--rams-detail-confirm-status-check-size); }
+.checkDisc { fill: var(--rams-detail-success); }
+.checkTick { stroke: var(--rams-detail-background); stroke-width: var(--rams-detail-confirm-status-check-stroke); }
+.spinner { animation: spin var(--rams-motion-activity-duration) var(--rams-motion-activity-ease) var(--rams-motion-active-iterations); }
+@keyframes spin { to { transform: var(--rams-detail-native-activity-cycle-transform); } }
+
+.ring, .spinner, .alert {
+  width: var(--rams-detail-confirm-status-outline-glyph-size);
+  height: var(--rams-detail-confirm-status-outline-glyph-size);
+}
+.ringTrack, .ringFill, .spinner, .alert { stroke-width: var(--rams-detail-confirm-status-outline-stroke); }
+.ringTrack { stroke: var(--rams-detail-border); }
+.ringFill { stroke: var(--rams-detail-danger); }
+.root[data-tone="neutral"] .ringFill { stroke: var(--rams-detail-accent); }
+/* Seconds keep one tabular width while the digits swap. */
+.seconds { display: inline-grid; min-width: var(--rams-detail-confirm-morph-counter-min-width); color: var(--rams-detail-foreground); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.digit { grid-area: 1 / 1; }
+
+/* No focus rings anywhere in the control; keyboard focus reads through fill (below). */
+.root, .root :focus { outline: none; }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: var(--rams-detail-accessible-hidden-margin); padding: var(--rams-detail-accessible-hidden-padding); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; border: var(--rams-detail-accessible-hidden-border); }
+
+@media (hover: hover) and (pointer: fine) {
+  .trigger:hover:not(:disabled):not(:active) { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-confirm-trigger-hover-wash), transparent); }
+  .secondary:hover:not(:active) { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-confirm-secondary-hover-wash), transparent); color: var(--rams-detail-foreground); }
+  .confirm:hover:not(:active) { background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-confirm-danger-action-hover-wash), transparent); }
+  .root[data-tone="neutral"] .confirm:hover:not(:active) { background: var(--rams-detail-primary-hover); }
+}
+/* Keyboard focus reads through fill, never a ring. */
+.trigger:focus-visible { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-confirm-trigger-focus-wash), transparent); }
+.secondary:focus-visible { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-confirm-secondary-focus-wash), transparent); color: var(--rams-detail-foreground); }
+.confirm:focus-visible { background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-confirm-danger-action-focus-wash), transparent); }
+.root[data-tone="neutral"] .confirm:focus-visible:not(:active) { background: var(--rams-detail-primary); }
+
+@media (prefers-reduced-motion: reduce) {
+  .surface, .surface::after, .trigger, .secondary, .confirm { transition-duration: var(--rams-detail-duration-reduced); }
+  .spinner { animation: none; }
+}
+
+@media (prefers-contrast: more) {
+  .surface::after { border-color: var(--rams-detail-border-strong); }
+  .confirm { background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-confirm-danger-action-contrast-wash), transparent); }
+}
+
+:where(.root,.surface,.face,.part,.trigger,.icon,.prompt,.secondary,.confirm,.fill,.status,.statusText,.alert,.check,.checkDisc,.checkTick,.spinner,.ring,.ringTrack,.ringFill,.seconds,.digit,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Constrained faces wrap at their real type size instead of hiding consequences. */
+.root { line-height: var(--rams-detail-leading-body); }
+.surface { height: auto; min-height: var(--rams-detail-control-height-sm); align-items: flex-start; }
+.face { box-sizing: border-box; min-width: 0; width: max-content; max-width: var(--rams-detail-confirm-available-inline, var(--rams-detail-confirm-available-inline-fallback)); height: auto; min-height: var(--rams-detail-control-height-sm); flex-wrap: wrap; row-gap: var(--rams-detail-space-1); padding-block: var(--rams-detail-space-1); white-space: normal; }
+.face[data-face="idle"] { padding: 0; }
+.part { min-width: 0; max-width: 100%; height: auto; }
+.prompt { flex: 1 1 var(--rams-detail-confirm-prompt-wrap-basis); max-width: 100%; overflow: visible; padding-block: var(--rams-detail-space-1); }
+.prompt > span, .statusText { overflow: visible; text-overflow: clip; white-space: normal; }
+.status { min-width: 0; max-width: 100%; flex: 1 1 var(--rams-detail-confirm-status-wrap-basis); white-space: normal; }
+.statusText { min-width: 0; }
+.face[data-face="confirming"] { gap: var(--rams-detail-inline-confirm-message-action-gap); }
+.face[data-face="confirming"] .prompt { padding-inline-end: 0; overflow-wrap: anywhere; }
+.confirmationActions { flex-wrap: wrap; gap: var(--rams-detail-inline-confirm-action-gap); }
+.confirmationActions > button { overflow-wrap: anywhere; }
+.trigger, .secondary, .confirm { box-sizing: border-box; min-width: 0; max-width: 100%; height: auto; padding-block: var(--rams-detail-space-1); white-space: normal; }
+.trigger { min-height: var(--rams-detail-control-height-sm); }
+.secondary, .confirm { min-height: calc(var(--rams-detail-control-height-sm) - var(--rams-detail-confirm-face-action-block-reserve)); }
+/* The existing face observer selects a safe canonical corner for taller faces. */
+.root[data-multiline] .surface { border-radius: var(--rams-detail-radius-control); }
+
+/* Only taller wrapped surfaces need derived inner counterforms. Single-line
+   parent/child capsules retain their existing geometry. The surface border is
+   an overlay, so the face insets already include the full contour distance. */
+.root[data-multiline] :is(.confirm, .secondary) {
+  border-radius: max(0px, calc(var(--rams-detail-radius-control) - var(--rams-detail-confirm-inline-inset))) / max(0px, calc(var(--rams-detail-radius-control) - var(--rams-detail-space-1)));
+}

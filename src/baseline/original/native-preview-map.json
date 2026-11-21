@@ -1,0 +1,573 @@
+{
+  "alert-demo": {
+    "file": "src/baseline/original/alert.tsx",
+    "exportName": "AlertDemo"
+  },
+  "alert-destructive": {
+    "file": "src/baseline/original/alert.tsx",
+    "exportName": "AlertDestructive"
+  },
+  "aspect-ratio-demo": {
+    "file": "src/baseline/original/aspect-ratio.tsx",
+    "exportName": "AspectRatioDemo"
+  },
+  "badge-demo": {
+    "file": "src/baseline/original/badge.tsx",
+    "exportName": "BadgeDemo"
+  },
+  "badge-secondary": {
+    "file": "src/baseline/original/badge.tsx",
+    "exportName": "BadgeSecondary"
+  },
+  "badge-outline": {
+    "file": "src/baseline/original/badge.tsx",
+    "exportName": "BadgeOutline"
+  },
+  "badge-destructive": {
+    "file": "src/baseline/original/badge.tsx",
+    "exportName": "BadgeDestructive"
+  },
+  "button-demo": {
+    "file": "src/baseline/original/button.tsx",
+    "exportName": "ButtonDemo"
+  },
+  "button-outline": {
+    "file": "src/baseline/original/button.tsx",
+    "exportName": "ButtonOutline"
+  },
+  "button-secondary": {
+    "file": "src/baseline/original/button.tsx",
+    "exportName": "ButtonSecondary"
+  },
+  "button-ghost": {
+    "file": "src/baseline/original/button.tsx",
+    "exportName": "ButtonGhost"
+  },
+  "button-link": {
+    "file": "src/baseline/original/button.tsx",
+    "exportName": "ButtonLink"
+  },
+  "button-destructive": {
+    "file": "src/baseline/original/button.tsx",
+    "exportName": "ButtonDestructive"
+  },
+  "button-size": {
+    "file": "src/baseline/original/button.tsx",
+    "exportName": "ButtonSize"
+  },
+  "button-icon": {
+    "file": "src/baseline/original/button.tsx",
+    "exportName": "ButtonIcon"
+  },
+  "button-loading": {
+    "file": "src/baseline/original/button.tsx",
+    "exportName": "ButtonLoading"
+  },
+  "card-demo": {
+    "file": "src/baseline/original/card.tsx",
+    "exportName": "CardDemo"
+  },
+  "card-with-form": {
+    "file": "src/baseline/original/card.tsx",
+    "exportName": "CardWithForm"
+  },
+  "input-demo": {
+    "file": "src/baseline/original/input.tsx",
+    "exportName": "InputDemo"
+  },
+  "input-with-label": {
+    "file": "src/baseline/original/input.tsx",
+    "exportName": "InputWithLabel"
+  },
+  "input-disabled": {
+    "file": "src/baseline/original/input.tsx",
+    "exportName": "InputDisabled"
+  },
+  "input-file": {
+    "file": "src/baseline/original/input.tsx",
+    "exportName": "InputFile"
+  },
+  "kbd-demo": {
+    "file": "src/baseline/original/kbd.tsx",
+    "exportName": "KbdDemo"
+  },
+  "kbd-group": {
+    "file": "src/baseline/original/kbd.tsx",
+    "exportName": "KbdGroupDemo"
+  },
+  "label-demo": {
+    "file": "src/baseline/original/label.tsx",
+    "exportName": "LabelDemo"
+  },
+  "native-select-demo": {
+    "file": "src/baseline/original/native-select.tsx",
+    "exportName": "NativeSelectDemo"
+  },
+  "native-select-groups": {
+    "file": "src/baseline/original/native-select.tsx",
+    "exportName": "NativeSelectGroups"
+  },
+  "native-select-invalid": {
+    "file": "src/baseline/original/native-select.tsx",
+    "exportName": "NativeSelectInvalid"
+  },
+  "native-select-disabled": {
+    "file": "src/baseline/original/native-select.tsx",
+    "exportName": "NativeSelectDisabled"
+  },
+  "progress-demo": {
+    "file": "src/baseline/original/progress.tsx",
+    "exportName": "ProgressDemo"
+  },
+  "separator-demo": {
+    "file": "src/baseline/original/separator.tsx",
+    "exportName": "SeparatorDemo"
+  },
+  "skeleton-demo": {
+    "file": "src/baseline/original/skeleton.tsx",
+    "exportName": "SkeletonDemo"
+  },
+  "skeleton-card": {
+    "file": "src/baseline/original/skeleton.tsx",
+    "exportName": "SkeletonCard"
+  },
+  "spinner-demo": {
+    "file": "src/baseline/original/spinner.tsx",
+    "exportName": "SpinnerDemo"
+  },
+  "spinner-size": {
+    "file": "src/baseline/original/spinner.tsx",
+    "exportName": "SpinnerSize"
+  },
+  "spinner-button": {
+    "file": "src/baseline/original/spinner.tsx",
+    "exportName": "SpinnerButton"
+  },
+  "table-demo": {
+    "file": "src/baseline/original/table.tsx",
+    "exportName": "TableDemo",
+    "sourceFiles": ["src/primitives/table.tsx", "src/variants/print-preview-geometry.ts"]
+  },
+  "data-table-demo": {
+    "file": "src/baseline/original/table.tsx",
+    "exportName": "DataTableDemo",
+    "sourceFiles": ["src/primitives/table.tsx", "src/variants/print-preview-geometry.ts"]
+  },
+  "textarea-demo": {
+    "file": "src/baseline/original/textarea.tsx",
+    "exportName": "TextareaDemo"
+  },
+  "textarea-disabled": {
+    "file": "src/baseline/original/textarea.tsx",
+    "exportName": "TextareaDisabled"
+  },
+  "textarea-with-label": {
+    "file": "src/baseline/original/textarea.tsx",
+    "exportName": "TextareaWithLabel"
+  },
+  "checkbox-demo": {
+    "file": "src/baseline/original/checkbox.tsx",
+    "exportName": "CheckboxDemo"
+  },
+  "checkbox-disabled": {
+    "file": "src/baseline/original/checkbox.tsx",
+    "exportName": "CheckboxDisabled"
+  },
+  "checkbox-with-text": {
+    "file": "src/baseline/original/checkbox.tsx",
+    "exportName": "CheckboxWithText"
+  },
+  "switch-demo": {
+    "file": "src/baseline/original/switch.tsx",
+    "exportName": "SwitchDemo"
+  },
+  "toggle-demo": {
+    "file": "src/baseline/original/toggle.tsx",
+    "exportName": "ToggleDemo"
+  },
+  "toggle-outline": {
+    "file": "src/baseline/original/toggle.tsx",
+    "exportName": "ToggleOutline"
+  },
+  "toggle-disabled": {
+    "file": "src/baseline/original/toggle.tsx",
+    "exportName": "ToggleDisabled"
+  },
+  "toggle-group-demo": {
+    "file": "src/baseline/original/toggle-group.tsx",
+    "exportName": "ToggleGroupDemo"
+  },
+  "toggle-group-single": {
+    "file": "src/baseline/original/toggle-group.tsx",
+    "exportName": "ToggleGroupSingle"
+  },
+  "toggle-group-disabled": {
+    "file": "src/baseline/original/toggle-group.tsx",
+    "exportName": "ToggleGroupDisabled"
+  },
+  "accordion-demo": {
+    "file": "src/baseline/original/accordion.tsx",
+    "exportName": "AccordionDemo"
+  },
+  "collapsible-demo": {
+    "file": "src/baseline/original/collapsible.tsx",
+    "exportName": "CollapsibleDemo"
+  },
+  "tabs-demo": {
+    "file": "src/baseline/original/tabs.tsx",
+    "exportName": "TabsDemo"
+  },
+  "dialog-demo": {
+    "file": "src/baseline/original/dialog.tsx",
+    "exportName": "DialogDemo"
+  },
+  "dialog-close-button": {
+    "file": "src/baseline/original/dialog.tsx",
+    "exportName": "DialogCloseButton"
+  },
+  "alert-dialog-demo": {
+    "file": "src/baseline/original/alert-dialog.tsx",
+    "exportName": "AlertDialogDemo"
+  },
+  "sheet-demo": {
+    "file": "src/baseline/original/sheet.tsx",
+    "exportName": "SheetDemo"
+  },
+  "sheet-side": {
+    "file": "src/baseline/original/sheet.tsx",
+    "exportName": "SheetSide"
+  },
+  "popover-demo": {
+    "file": "src/baseline/original/popover.tsx",
+    "exportName": "PopoverDemo"
+  },
+  "hover-card-demo": {
+    "file": "src/baseline/original/hover-card.tsx",
+    "exportName": "HoverCardDemo"
+  },
+  "tooltip-demo": {
+    "file": "src/baseline/original/tooltip.tsx",
+    "exportName": "TooltipDemo"
+  },
+  "select-demo": {
+    "file": "src/baseline/original/select.tsx",
+    "exportName": "SelectDemo"
+  },
+  "select-scrollable": {
+    "file": "src/baseline/original/select.tsx",
+    "exportName": "SelectScrollable"
+  },
+  "dropdown-menu-demo": {
+    "file": "src/baseline/original/dropdown-menu.tsx",
+    "exportName": "DropdownMenuDemo"
+  },
+  "dropdown-menu-checkboxes": {
+    "file": "src/baseline/original/dropdown-menu.tsx",
+    "exportName": "DropdownMenuCheckboxes"
+  },
+  "dropdown-menu-radio-group": {
+    "file": "src/baseline/original/dropdown-menu.tsx",
+    "exportName": "DropdownMenuRadioGroup"
+  },
+  "context-menu-demo": {
+    "file": "src/baseline/original/context-menu.tsx",
+    "exportName": "ContextMenuDemo"
+  },
+  "menubar-demo": {
+    "file": "src/baseline/original/menubar.tsx",
+    "exportName": "MenubarDemo",
+    "sourceFiles": ["src/primitives/menubar.tsx", "src/primitives/menu-parts.tsx", "src/primitives/menus.css"]
+  },
+  "navigation-menu-demo": {
+    "file": "src/baseline/original/navigation-menu.tsx",
+    "exportName": "NavigationMenuDemo",
+    "sourceFiles": ["src/primitives/navigation-menu.tsx", "src/primitives/menu-parts.tsx", "src/primitives/menus.css"]
+  },
+  "command-demo": {
+    "file": "src/baseline/original/command.tsx",
+    "exportName": "CommandDemo"
+  },
+  "command-dialog": {
+    "file": "src/baseline/original/command.tsx",
+    "exportName": "CommandDialog"
+  },
+  "combobox-demo": {
+    "file": "src/baseline/original/combobox.tsx",
+    "exportName": "ComboboxDemo"
+  },
+  "combobox-responsive": {
+    "file": "src/baseline/original/combobox.tsx",
+    "exportName": "ComboboxResponsive",
+    "sourceFiles": [
+      "src/primitives/command.tsx",
+      "src/primitives/drawer.tsx",
+      "src/primitives/popover.tsx",
+      "src/primitives/use-media-query.ts"
+    ]
+  },
+  "combobox-dropdown-menu": {
+    "file": "src/baseline/original/combobox.tsx",
+    "exportName": "ComboboxDropdownMenu",
+    "sourceFiles": [
+      "src/primitives/command.tsx",
+      "src/primitives/dropdown-menu.tsx"
+    ]
+  },
+  "field-demo": {
+    "file": "src/baseline/original/field.tsx",
+    "exportName": "FieldDemo"
+  },
+  "field-checkbox": {
+    "file": "src/baseline/original/field.tsx",
+    "exportName": "FieldCheckbox"
+  },
+  "field-responsive": {
+    "file": "src/baseline/original/field.tsx",
+    "exportName": "FieldResponsive"
+  },
+  "input-group-demo": {
+    "file": "src/baseline/original/input-group.tsx",
+    "exportName": "InputGroupDemo"
+  },
+  "input-group-dropdown": {
+    "file": "src/baseline/original/input-group.tsx",
+    "exportName": "InputGroupDropdown",
+    "sourceFiles": [
+      "src/primitives/input-group.tsx",
+      "src/primitives/dropdown-menu.tsx"
+    ]
+  },
+  "input-group-spinner": {
+    "file": "src/baseline/original/input-group.tsx",
+    "exportName": "InputGroupSpinner"
+  },
+  "form-rhf-demo": {
+    "file": "src/baseline/original/form.tsx",
+    "exportName": "FormRhfDemo"
+  },
+  "form-rhf-select": {
+    "file": "src/baseline/original/form.tsx",
+    "exportName": "FormRhfSelect",
+    "sourceFiles": [
+      "src/primitives/form.tsx",
+      "src/primitives/select.tsx"
+    ]
+  },
+  "form-rhf-checkbox": {
+    "file": "src/baseline/reviewed/form.tsx",
+    "exportName": "FormRhfCheckbox",
+    "sourceFiles": [
+      "src/primitives/form.tsx",
+      "src/primitives/field.tsx",
+      "src/primitives/checkbox.tsx"
+    ]
+  },
+  "button-group-demo": {
+    "file": "src/baseline/original/button-group.tsx",
+    "exportName": "ButtonGroupDemo",
+    "sourceFiles": [
+      "src/primitives/button-group.tsx",
+      "src/primitives/button.tsx",
+      "src/primitives/scroll-area.tsx",
+      "src/primitives/toggle.tsx"
+    ]
+  },
+  "button-group-size": {
+    "file": "src/baseline/original/button-group.tsx",
+    "exportName": "ButtonGroupSize",
+    "sourceFiles": [
+      "src/primitives/button-group.tsx",
+      "src/primitives/button.tsx",
+      "src/primitives/scroll-area.tsx"
+    ]
+  },
+  "button-group-orientation": {
+    "file": "src/baseline/original/button-group.tsx",
+    "exportName": "ButtonGroupOrientation",
+    "sourceFiles": [
+      "src/primitives/button-group.tsx",
+      "src/primitives/button.tsx",
+      "src/primitives/scroll-area.tsx"
+    ]
+  },
+  "button-group-dropdown": {
+    "file": "src/baseline/original/button-group.tsx",
+    "exportName": "ButtonGroupDropdown",
+    "sourceFiles": [
+      "src/primitives/button-group.tsx",
+      "src/primitives/button.tsx",
+      "src/primitives/scroll-area.tsx",
+      "src/primitives/dropdown-menu.tsx"
+    ]
+  },
+  "breadcrumb-demo": {
+    "file": "src/baseline/original/breadcrumb.tsx",
+    "exportName": "BreadcrumbDemo",
+    "sourceFiles": [
+      "src/primitives/breadcrumb.tsx",
+      "src/primitives/dropdown-menu.tsx"
+    ]
+  },
+  "breadcrumb-responsive": {
+    "file": "src/baseline/original/breadcrumb.tsx",
+    "exportName": "BreadcrumbResponsive",
+    "sourceFiles": [
+      "src/primitives/breadcrumb.tsx",
+      "src/primitives/dropdown-menu.tsx",
+      "src/primitives/drawer.tsx",
+      "src/primitives/use-media-query.ts"
+    ]
+  },
+  "pagination-demo": {
+    "file": "src/baseline/original/pagination.tsx",
+    "exportName": "PaginationDemo"
+  },
+  "empty-demo": {
+    "file": "src/baseline/original/empty.tsx",
+    "exportName": "EmptyDemo"
+  },
+  "empty-input-group": {
+    "file": "src/baseline/original/empty.tsx",
+    "exportName": "EmptyInputGroup",
+    "sourceFiles": [
+      "src/primitives/empty.tsx",
+      "src/primitives/input-group.tsx"
+    ]
+  },
+  "item-demo": {
+    "file": "src/baseline/original/item.tsx",
+    "exportName": "ItemDemo"
+  },
+  "item-variant": {
+    "file": "src/baseline/original/item.tsx",
+    "exportName": "ItemVariant"
+  },
+  "avatar-demo": {
+    "file": "src/baseline/original/avatar.tsx",
+    "exportName": "AvatarDemo",
+    "sourceFiles": [
+      "src/primitives/avatar.tsx",
+      "src/variants/print-preview-geometry.ts"
+    ]
+  },
+  "scroll-area-demo": {
+    "file": "src/baseline/original/scroll-area.tsx",
+    "exportName": "ScrollAreaDemo"
+  },
+  "scroll-area-horizontal-demo": {
+    "file": "src/baseline/original/scroll-area.tsx",
+    "exportName": "ScrollAreaHorizontalDemo"
+  },
+  "slider-demo": {
+    "file": "src/baseline/original/slider.tsx",
+    "exportName": "SliderDemo"
+  },
+  "input-otp-demo": {
+    "file": "src/baseline/original/input-otp.tsx",
+    "exportName": "InputOTPDefaultPreview"
+  },
+  "input-otp-controlled": {
+    "file": "src/baseline/original/input-otp.tsx",
+    "exportName": "InputOTPControlledPreview"
+  },
+  "input-otp-pattern": {
+    "file": "src/baseline/original/input-otp.tsx",
+    "exportName": "InputOTPPatternPreview"
+  },
+  "calendar-demo": {
+    "file": "src/baseline/original/calendar.tsx",
+    "exportName": "CalendarDemo",
+    "sourceFiles": ["src/primitives/calendar.tsx", "src/primitives/collection-presentation.ts", "src/variants/print-preview-geometry.ts"]
+  },
+  "date-picker-demo": {
+    "file": "src/baseline/original/calendar.tsx",
+    "exportName": "DatePickerDemo",
+    "sourceFiles": ["src/primitives/calendar.tsx", "src/primitives/collection-presentation.ts", "src/variants/print-preview-geometry.ts"]
+  },
+  "date-picker-with-range": {
+    "file": "src/baseline/original/calendar.tsx",
+    "exportName": "DatePickerWithRange",
+    "sourceFiles": ["src/primitives/calendar.tsx", "src/primitives/collection-presentation.ts", "src/variants/print-preview-geometry.ts"]
+  },
+  "date-picker-with-presets": {
+    "file": "src/baseline/original/calendar.tsx",
+    "exportName": "DatePickerWithPresets",
+    "sourceFiles": ["src/primitives/calendar.tsx", "src/primitives/collection-presentation.ts", "src/variants/print-preview-geometry.ts"]
+  },
+  "sidebar-demo": {
+    "file": "src/baseline/original/sidebar.tsx",
+    "exportName": "SidebarDemo",
+    "sourceFiles": ["src/primitives/sidebar.tsx", "src/primitives/sidebars.css", "src/primitives/use-mobile.ts", "src/primitives/mobile-viewport-query.ts"]
+  },
+  "sidebar-controlled": {
+    "file": "src/baseline/original/sidebar.tsx",
+    "exportName": "SidebarControlled",
+    "sourceFiles": ["src/primitives/sidebar.tsx", "src/primitives/sidebars.css", "src/primitives/use-mobile.ts", "src/primitives/mobile-viewport-query.ts"]
+  },
+  "drawer-demo": {
+    "file": "src/baseline/original/drawer.tsx",
+    "exportName": "DrawerDemo"
+  },
+  "drawer-dialog": {
+    "file": "src/baseline/original/drawer.tsx",
+    "exportName": "DrawerDialog"
+  },
+  "sonner-demo": {
+    "file": "src/baseline/original/sonner.tsx",
+    "exportName": "SonnerDemo"
+  },
+  "sonner-types": {
+    "file": "src/baseline/original/sonner.tsx",
+    "exportName": "SonnerTypes"
+  },
+  "resizable-demo": {
+    "file": "src/baseline/original/resizable.tsx",
+    "exportName": "ResizableDemo",
+    "sourceFiles": ["src/primitives/resizable.tsx", "src/variants/print-preview-geometry.ts"]
+  },
+  "resizable-demo-with-handle": {
+    "file": "src/baseline/original/resizable.tsx",
+    "exportName": "ResizableWithHandle",
+    "sourceFiles": ["src/primitives/resizable.tsx", "src/variants/print-preview-geometry.ts"]
+  },
+  "resizable-vertical": {
+    "file": "src/baseline/original/resizable.tsx",
+    "exportName": "ResizableVertical",
+    "sourceFiles": ["src/primitives/resizable.tsx", "src/variants/print-preview-geometry.ts"]
+  },
+  "carousel-demo": {
+    "file": "src/baseline/original/carousel.tsx",
+    "exportName": "CarouselDemo"
+  },
+  "carousel-size": {
+    "file": "src/baseline/original/carousel.tsx",
+    "exportName": "CarouselSize"
+  },
+  "carousel-orientation": {
+    "file": "src/baseline/original/carousel.tsx",
+    "exportName": "CarouselOrientation"
+  },
+  "carousel-api": {
+    "file": "src/baseline/original/carousel.tsx",
+    "exportName": "CarouselApiDemo"
+  },
+  "chart-bar-interactive": {
+    "file": "src/baseline/original/chart.tsx",
+    "exportName": "ChartBarInteractive",
+    "sourceFiles": ["src/primitives/chart.tsx", "src/primitives/native-chart-geometry.ts", "src/variants/print-preview-geometry.ts", "src/variants/use-chart-motion.ts", "src/variants/use-motion-preference.ts"]
+  },
+  "chart-area-interactive": {
+    "file": "src/baseline/original/chart.tsx",
+    "exportName": "ChartAreaInteractive",
+    "sourceFiles": ["src/primitives/chart.tsx", "src/primitives/native-chart-geometry.ts", "src/variants/print-preview-geometry.ts", "src/variants/use-chart-motion.ts", "src/variants/use-motion-preference.ts"]
+  },
+  "chart-line-interactive": {
+    "file": "src/baseline/original/chart.tsx",
+    "exportName": "ChartLineInteractive",
+    "sourceFiles": ["src/primitives/chart.tsx", "src/primitives/native-chart-geometry.ts", "src/variants/print-preview-geometry.ts", "src/variants/use-chart-motion.ts", "src/variants/use-motion-preference.ts"]
+  },
+  "radio-group-demo": {
+    "file": "src/baseline/original/radio-group.tsx",
+    "exportName": "NativeFoldPatternDemo"
+  }
+}

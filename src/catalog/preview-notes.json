@@ -1,0 +1,13 @@
+{
+  "motion-action-button": "Creates a fingerprint of this sample only; it does not inspect or certify a proof. Requires Web Crypto in a secure context.",
+  "motion-expanding-button-group": "On touch, tap once to reveal a collapsed action label, then tap again to activate.",
+  "motion-copy-button": "Clipboard access depends on browser support, a secure context and permission.",
+  "motion-resizable-panels": "The proof canvas scrolls within a narrow pane so its text keeps the selected size.",
+  "motion-otp-input": "This compares a sample code locally; no code is delivered and no identity is verified.",
+  "motion-user-menu": "No account service is connected. Sign out closes this menu; theme selection affects only its paper sample.",
+  "motion-chat-thread": "Messages and reactions stay in this preview; nothing is sent to another person or service.",
+  "motion-comment-thread": "Comments, mentions and resolution stay in this preview; no one is notified.",
+  "motion-signup-form": "Local form example only. No account or subscription is created.",
+  "motion-sign-in": "Local code comparison and method choices only; no identity, provider account or passkey is verified.",
+  "motion-login-centered": "Local method records only; no account, email delivery or passkey verification is connected."
+}

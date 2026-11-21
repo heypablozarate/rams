@@ -1,0 +1,60 @@
+.screen { container: login-centered / inline-size; position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: var(--rams-detail-login-centered-page-rows); gap: var(--rams-detail-space-4); width: 100%; min-width: 0; overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-background); color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+.fullScreen { min-height: var(--rams-detail-surface-viewport-block-size); border: 0; border-radius: var(--rams-detail-flush-corner-radius); }
+.backdrop { position: absolute; inset: 0; z-index: var(--rams-detail-layer-behind); pointer-events: none; }
+.lines { width: 100%; height: 100%; stroke: var(--rams-detail-border-subtle); stroke-width: var(--rams-detail-login-centered-backdrop-stroke-width); }
+.bar, .foot { display: flex; flex-wrap: wrap; min-width: 0; align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3); padding: var(--rams-detail-space-4) clamp(var(--rams-detail-auth-card-inset-min), var(--rams-detail-login-centered-chrome-inset-preferred), var(--rams-detail-space-6)); }
+.mark { font-size: var(--rams-detail-text-base); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); overflow-wrap: anywhere; }
+.switch { display: flex; flex-wrap: wrap; align-items: center; gap: var(--rams-detail-space-2); min-width: 0; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); }
+.switchButton { min-height: var(--rams-detail-control-height-sm); border: 0; border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-space-1) var(--rams-detail-space-2); background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); font: inherit; font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); overflow-wrap: anywhere; cursor: pointer; }
+.stage { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; place-items: center; padding: clamp(var(--rams-detail-login-centered-stage-inset-min), var(--rams-detail-login-centered-stage-inset-preferred), var(--rams-detail-space-6)); }
+.card { container: reader-card / inline-size; width: 100%; max-width: var(--rams-detail-login-centered-card-measure); min-width: 0; overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-surface); background: var(--rams-detail-surface); box-shadow: var(--rams-detail-shadow-resting); }
+
+.viewport { overflow: hidden; }
+.track { position: relative; min-width: 0; }
+.step { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; padding: clamp(var(--rams-detail-auth-card-inset-min), var(--rams-detail-auth-card-inset-preferred), var(--rams-detail-space-8)); }
+.heading { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-space-2); min-width: 0; margin-bottom: var(--rams-detail-space-6); }
+.heading h2 { margin: 0; font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-text-3xl); font-weight: var(--type-body-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-leading-display); text-wrap: balance; overflow-wrap: anywhere; }
+.heading p { margin: 0; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); overflow-wrap: anywhere; }
+.address, .email { color: var(--rams-detail-foreground); overflow-wrap: anywhere; }
+.form, .fieldGroup, .actions, .alternatives { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; gap: var(--rams-detail-space-4); }
+.fieldGroup { gap: 0; }
+.actions, .alternatives { gap: var(--rams-detail-space-2); }
+.wide { width: 100%; min-width: 0; height: auto; white-space: normal; }
+.wide > span, .wide > span > span, .wide > span > span > span, .ssoButton > span { min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+.sso { display: grid; grid-template-columns: repeat(var(--rams-detail-auth-card-provider-columns), minmax(0, 1fr)); gap: var(--rams-detail-space-2); }
+.sso .ssoButton { min-width: 0; padding-inline: var(--rams-detail-space-2); white-space: normal; }
+.providerLabel { line-height: inherit; }
+.divider { display: flex; align-items: center; gap: var(--rams-detail-space-3); margin-block: var(--rams-detail-space-5); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); overflow-wrap: anywhere; }
+.divider::before, .divider::after { flex: var(--rams-detail-layout-flex-fill); height: var(--rams-detail-separator-thickness); min-width: var(--rams-detail-auth-card-divider-min-inline-size); background: var(--rams-detail-border); content: ""; }
+.textButton, .inlineButton, .resend { border: 0; border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-space-1) 0; background: none; color: var(--rams-detail-foreground); font: inherit; font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); text-decoration: underline; text-underline-offset: var(--rams-detail-auth-card-text-underline-offset); overflow-wrap: anywhere; cursor: pointer; }
+.details { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; margin: 0 0 var(--rams-detail-space-6); border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); }
+.details div { display: grid; grid-template-columns: var(--rams-detail-layout-grid-shrinkable-pair); gap: var(--rams-detail-space-3); padding-block: var(--rams-detail-space-3); border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); overflow-wrap: anywhere; }
+.details dt { color: var(--rams-detail-text-secondary); }
+.details dd { margin: 0; text-align: end; }
+.status { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.error, .submitError { margin: var(--rams-detail-space-3) 0 0; color: var(--rams-detail-danger); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); overflow-wrap: anywhere; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+:where(.textButton, .inlineButton, .resend, .legal a, .legal summary, .switchButton):focus-visible { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: var(--rams-detail-focus-outline-offset); }
+
+.textButton { margin-top: var(--rams-detail-space-4); justify-self: center; font-size: var(--rams-detail-text-sm); }
+.success { width: var(--rams-detail-login-centered-receipt-mark-size); height: var(--rams-detail-login-centered-receipt-mark-size); margin-bottom: var(--rams-detail-space-6); color: var(--rams-detail-accent); }
+.foot { align-items: start; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.status { flex: 1 1 var(--rams-detail-login-centered-status-basis); }
+.legal { display: flex; flex-wrap: wrap; gap: var(--rams-detail-space-3); min-width: 0; }
+.legal a, .legal summary { display: block; padding-block: var(--rams-detail-space-1); color: var(--rams-detail-text-secondary); text-underline-offset: var(--rams-detail-auth-card-text-underline-offset); cursor: pointer; }
+.legal details { min-width: 0; max-width: var(--rams-detail-login-centered-legal-measure); }
+.legal p { margin: var(--rams-detail-space-2) 0 0; overflow-wrap: anywhere; }
+@container reader-card (max-width: 24rem) { .sso { grid-template-columns: minmax(0, 1fr); } }
+
+/* Framed titles stay between existing subheading/heading roles as their measure changes. */
+.heading h2 { font-size: clamp(var(--rams-detail-text-xl), var(--rams-detail-auth-card-heading-preferred-size), var(--rams-detail-text-3xl)); }
+
+/* At enlarged/narrow measures, preserve whole words before decorative gutters. */
+.step .wide { padding-inline: min(var(--rams-detail-space-4), var(--rams-detail-auth-card-action-padding-cap)); }
+.sso .ssoButton { padding-inline: min(var(--rams-detail-space-2), var(--rams-detail-auth-card-provider-padding-cap)); }
+@container reader-card (max-width: 24rem) {
+  .details div { grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-space-1); overflow-wrap: normal; }
+  .details dd { text-align: start; }
+  .divider { display: block; }
+  .divider::before, .divider::after { content: none; }
+}

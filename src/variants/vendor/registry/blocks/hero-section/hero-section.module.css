@@ -1,0 +1,32 @@
+/* Shared shell for the three hero variants. Each variant adds its own module for its one idea. */
+.hero { position: relative; container-type: inline-size; overflow: clip; background: var(--rams-detail-background); color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+.title { margin: 0; font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-hero-section-title-font-size); font-weight: var(--type-title-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-leading-display); text-wrap: balance; }
+.description { margin: 0; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-lg); line-height: var(--rams-detail-leading-body); text-wrap: pretty; }
+
+@container (max-width: 560px) {
+  .description { font-size: var(--rams-detail-text-base); }
+}
+
+/* The designed variants are one full screen each, edge to edge, like Hero signup. The small viewport unit keeps them from
+   hiding under mobile browser bars. Your own content (HeroContent) keeps its natural height inside your page. */
+.screen { width: 100%; min-height: var(--rams-detail-hero-section-screen-min-height); min-height: var(--rams-detail-hero-section-screen-min-height-small-viewport); }
+
+/* The editorial preview follows its content; explicit legacy layouts retain .screen. */
+.preview { position: relative; display: grid; width: 100%; }
+.switcher {
+  position: absolute; z-index: var(--rams-detail-hero-section-switcher-z-index); top: var(--rams-detail-space-4); left: 50%; translate: var(--rams-detail-hero-section-switcher-translate);
+  display: flex; max-width: var(--rams-detail-hero-section-switcher-max-width);
+  border: var(--rams-detail-hero-section-switcher-border); border-radius: var(--rams-detail-radius-pill);
+  background: var(--rams-detail-hero-section-switcher-background);
+  -webkit-backdrop-filter: var(--rams-detail-hero-section-switcher-webkit-backdrop-filter); backdrop-filter: var(--rams-detail-hero-section-switcher-backdrop-filter);
+  box-shadow: var(--rams-detail-hero-section-switcher-box-shadow);
+}
+:global(:root.dark) .switcher { border-color: var(--rams-detail-hero-section-dark-switcher-border-color); background: var(--rams-detail-hero-section-dark-switcher-background); box-shadow: var(--rams-detail-hero-section-dark-switcher-box-shadow); }
+/* The segmented control drops its own well; the glass is its surface. */
+.switcher .switch { border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; }
+.switcher .switch :global(button) { border-radius: var(--rams-detail-radius-pill); }
+
+.srOnly { position: absolute; width: var(--rams-detail-hero-section-sr-only-width); height: var(--rams-detail-hero-section-sr-only-height); overflow: hidden; clip-path: var(--rams-detail-hero-section-sr-only-clip-path); white-space: nowrap; }
+
+:where(.hero,.title,.description,.screen,.preview,.switcher,.switch,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

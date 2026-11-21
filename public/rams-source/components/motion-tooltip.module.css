@@ -1,0 +1,20 @@
+.tooltip { box-sizing: border-box; --rams-detail-tooltip-y: var(--rams-motion-tooltip-enter-travel); z-index: var(--rams-detail-tooltip-motion-z); max-width: var(--rams-detail-tooltip-motion-inline-max); padding: var(--rams-detail-space-3) var(--rams-detail-space-4); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-tooltip-motion-border); border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-foreground); color: var(--rams-detail-background); box-shadow: var(--rams-detail-shadow-raised); font-size: var(--type-caption-size); font-weight: var(--type-caption-weight); line-height: var(--type-caption-leading); transform-origin: var(--radix-tooltip-content-transform-origin); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-enter), transform var(--rams-detail-duration-fast) var(--rams-detail-ease-enter); }
+.tooltip[data-side="bottom"] { --rams-detail-tooltip-y: calc(-1 * var(--rams-motion-tooltip-enter-travel)); }
+/* The first tooltip waits, then rises a few pixels from its trigger. Within the skip window the next one only fades.
+   Transitions instead of keyframes, so returning to the trigger while it fades out reverses the fade instead of restarting it. */
+@starting-style {
+  .tooltip[data-state$="-open"] { opacity: 0; transform: translateY(var(--rams-detail-tooltip-y)) scale(var(--rams-motion-tooltip-enter-scale)); }
+  .tooltip[data-instant][data-state$="-open"] { transform: none; }
+}
+.tooltip[data-instant][data-state$="-open"] { transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+/* Radix unmounts when the exit animation ends, so a no-op keyframe times the exit while the transition does the visual work. */
+.tooltip[data-state="closed"] { opacity: 0; transform: scale(var(--rams-motion-tooltip-exit-scale)); transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); animation: tooltip-exit var(--rams-detail-duration-instant) var(--rams-motion-uniform-ease) both; }
+.text { position: relative; display: block; overflow: clip; overflow-clip-margin: var(--rams-detail-space-2); }
+.measure, .line { width: max-content; max-width: calc(var(--rams-detail-tooltip-motion-inline-max) - 2 * (var(--rams-detail-space-4) + var(--rams-detail-primitive-border-width))); }
+.measure { position: absolute; top: 0; left: 0; visibility: hidden; pointer-events: none; }
+.line { display: block; }
+@keyframes tooltip-exit { to { --rams-detail-tooltip-exit: var(--rams-detail-tooltip-exit-complete); } }
+@media (prefers-reduced-motion: reduce) {
+  .tooltip, .tooltip[data-state="closed"], .tooltip[data-instant][data-state$="-open"] { transform: none; transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+}
+:where(.tooltip,.text,.measure,.line):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

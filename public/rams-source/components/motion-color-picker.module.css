@@ -1,0 +1,119 @@
+/* The swatch is the panel's top left corner: the panel opens over it and grows out of its box. Leave room below and to the right. */
+.root {
+  --rams-detail-picker-fill: var(--rams-detail-surface);
+  --rams-detail-picker-width: min(var(--rams-detail-color-picker-panel-inline-max), calc(100vw - var(--rams-detail-color-picker-viewport-inline-reserve)));
+  --rams-detail-checker: repeating-conic-gradient(var(--rams-detail-detail-color-picker-source-checker-29e8f092) 0 var(--rams-detail-checker-quarter-stop), var(--rams-detail-detail-color-picker-source-checker-fe69925c) 0 var(--rams-detail-checker-half-stop)) 0 0 / var(--rams-detail-color-picker-checker-tile-size) var(--rams-detail-color-picker-checker-tile-size);
+  position: relative;
+  display: inline-block;
+  font-family: var(--rams-detail-font-body);
+  letter-spacing: var(--rams-detail-tracking-body);
+  color: var(--rams-detail-foreground);
+}
+:global(:root.dark) .root { --rams-detail-picker-fill: var(--rams-detail-surface-raised); --rams-detail-checker: repeating-conic-gradient(var(--rams-detail-detail-color-picker-source-checker-1be6e5f7) 0 var(--rams-detail-checker-quarter-stop), var(--rams-detail-detail-color-picker-source-checker-6ff51840) 0 var(--rams-detail-checker-half-stop)) 0 0 / var(--rams-detail-color-picker-checker-tile-size) var(--rams-detail-color-picker-checker-tile-size); }
+
+.trigger, .head { display: flex; min-height: var(--rams-detail-color-picker-header-min-block); height: auto; align-items: center; gap: var(--rams-detail-color-picker-control-gap); padding: var(--rams-detail-color-picker-header-inset) var(--rams-detail-color-picker-header-trailing-inset) var(--rams-detail-color-picker-header-inset) var(--rams-detail-color-picker-header-inset); }
+.trigger {
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-pill); background: var(--rams-detail-picker-fill); box-shadow: var(--rams-detail-shadow-resting); color: inherit; font: inherit; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.triggerText { display: grid; min-width: 0; text-align: start; line-height: var(--rams-detail-color-picker-header-leading); }
+.name { color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); }
+.hex { font-size: var(--rams-detail-text-sm); font-variant-numeric: var(--rams-detail-numeric-column-variant); font-weight: var(--rams-detail-label-weight); }
+
+/* A chip over a checkerboard, so opacity reads as opacity. */
+.chip { position: relative; display: block; width: var(--rams-detail-color-picker-chip-size); height: var(--rams-detail-color-picker-chip-size); flex: none; overflow: hidden; border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-checker); }
+.chip > span { position: absolute; inset: 0; border-radius: inherit; box-shadow: var(--rams-detail-color-picker-chip-inset-ring); }
+
+/* The floating layer. Its drop shadow follows the clipped shape, so the shadow grows with the panel. */
+.float { position: absolute; z-index: var(--rams-detail-color-picker-panel-z); top: calc(-1 * var(--rams-detail-primitive-border-width)); left: calc(-1 * var(--rams-detail-primitive-border-width)); filter: var(--rams-detail-color-picker-panel-filter); pointer-events: none; }
+.float[data-open] { pointer-events: auto; }
+.panel { box-sizing: border-box; container-type: inline-size; overflow-y: auto; overscroll-behavior: contain; width: var(--rams-detail-picker-width); padding-bottom: var(--rams-detail-color-picker-panel-inset); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-picker-fill); will-change: clip-path; }
+.head { flex-wrap: wrap; gap: var(--rams-detail-color-picker-control-gap); padding-right: var(--rams-detail-color-picker-header-inset); }
+.head .triggerText { flex: 1 1 var(--rams-detail-color-picker-header-copy-basis); }
+.headActions { display: flex; gap: var(--rams-detail-color-picker-header-action-gap); margin-inline-start: auto; }
+.iconButton {
+  display: grid; width: var(--rams-detail-color-picker-header-action-size); height: var(--rams-detail-color-picker-header-action-size); place-items: center; padding: 0; border: 0; border-radius: var(--radius-control); background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer;
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.iconButton:active { transform: scale(var(--rams-motion-color-picker-header-press-scale)); }
+/* One column locked to the panel: a wider grade label ("AA large") must never widen the area and sliders mid drag. */
+.body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-color-picker-panel-inset); padding: var(--rams-detail-color-picker-panel-header-gap) var(--rams-detail-color-picker-panel-inset) 0; }
+
+/* Saturation runs left to right, brightness bottom to top, over the pure hue. */
+.area {
+  position: relative; height: var(--rams-detail-color-picker-area-block-size); border-radius: var(--radius-inset); cursor: crosshair; touch-action: none;
+  background: linear-gradient(to top, var(--rams-detail-detail-color-picker-background-81ef715e), transparent), linear-gradient(to right, var(--rams-detail-detail-color-picker-background-e08de713), transparent), var(--rams-detail-picker-hue);
+  box-shadow: var(--rams-detail-color-picker-control-inset-ring);
+}
+.areaThumb, .sliderThumb {
+  position: absolute; width: var(--rams-detail-color-picker-thumb-size); height: var(--rams-detail-color-picker-thumb-size); border-radius: var(--rams-detail-elliptical-corner-radius); translate: -50% -50%; cursor: grab;
+  box-shadow: var(--rams-detail-color-picker-thumb-shadow);
+  transition: scale var(--rams-detail-duration-spring) var(--rams-detail-ease-spring);
+}
+.areaThumb { background: var(--rams-detail-picker-opaque); }
+.area[data-active] .areaThumb, .sliderThumb[data-active] { scale: var(--rams-motion-color-picker-thumb-active-scale); cursor: grabbing; }
+
+.slider { position: relative; height: var(--rams-detail-color-picker-track-block-size); margin: 0 calc(var(--rams-detail-color-picker-thumb-size) / 2); border-radius: var(--rams-detail-radius-pill); cursor: pointer; touch-action: none; }
+.slider::before { content: ""; position: absolute; inset: 0 calc(var(--rams-detail-color-picker-thumb-size) / -2); border-radius: inherit; background: var(--rams-detail-track); box-shadow: var(--rams-detail-color-picker-control-inset-ring); }
+.sliderThumb { top: 50%; background: var(--rams-detail-checker); }
+.sliderThumb::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--rams-detail-thumb-fill); }
+/* The gradient stops sit at the thumb's travel ends, so the color under the thumb is the value it reports. */
+.hue { --rams-detail-track: linear-gradient(to right, var(--rams-detail-detail-color-picker-source-track-d18869db) calc(var(--rams-detail-color-picker-thumb-size) / 2), var(--rams-detail-detail-color-picker-source-track-b75afe22) calc(var(--rams-detail-color-picker-thumb-size) / 2 + (100% - var(--rams-detail-color-picker-thumb-size)) * var(--rams-detail-color-picker-yellow-hue-stop)), var(--rams-detail-detail-color-picker-source-track-13f92115) calc(var(--rams-detail-color-picker-thumb-size) / 2 + (100% - var(--rams-detail-color-picker-thumb-size)) * var(--rams-detail-color-picker-green-hue-stop)), var(--rams-detail-detail-color-picker-source-track-4d6a01b7) var(--rams-detail-color-picker-cyan-hue-stop), var(--rams-detail-detail-color-picker-source-track-f85f345b) calc(var(--rams-detail-color-picker-thumb-size) / 2 + (100% - var(--rams-detail-color-picker-thumb-size)) * var(--rams-detail-color-picker-blue-hue-stop)), var(--rams-detail-detail-color-picker-source-track-6468cace) calc(var(--rams-detail-color-picker-thumb-size) / 2 + (100% - var(--rams-detail-color-picker-thumb-size)) * var(--rams-detail-color-picker-magenta-hue-stop)), var(--rams-detail-detail-color-picker-source-track-d18869db) calc(100% - var(--rams-detail-color-picker-thumb-size) / 2)); }
+.alpha { --rams-detail-track: linear-gradient(to right, transparent calc(var(--rams-detail-color-picker-thumb-size) / 2), var(--rams-detail-picker-opaque) calc(100% - var(--rams-detail-color-picker-thumb-size) / 2)), var(--rams-detail-checker); }
+
+.field { display: flex; height: var(--rams-detail-color-picker-field-height); align-items: stretch; overflow: hidden; margin-top: var(--rams-detail-color-picker-field-top-gap); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-control); background: var(--rams-detail-surface-muted); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.field[data-invalid] { border-color: var(--rams-detail-danger); }
+.format {
+  display: flex; min-width: var(--rams-detail-color-picker-format-inline-min); align-items: center; justify-content: center; padding: 0 var(--rams-detail-color-picker-control-gap); border: 0; border-right: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); background: transparent;
+  color: var(--rams-detail-foreground); font: inherit; font-size: var(--type-control-size); font-weight: var(--type-action-weight); cursor: pointer; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.inputWrap { position: relative; display: flex; min-width: 0; flex: var(--rams-detail-layout-flex-fill); }
+.input, .morph { padding: 0 var(--rams-detail-color-picker-control-gap); font: inherit; font-size: var(--type-input-size); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.input { width: 100%; min-width: 0; border: 0; background: transparent; color: var(--rams-detail-foreground); caret-color: var(--rams-detail-foreground); }
+.input[data-morphing] { color: transparent; }
+.morph { position: absolute; inset: 0; display: flex; align-items: center; overflow: hidden; color: var(--rams-detail-foreground); pointer-events: none; white-space: nowrap; }
+.error { min-height: 0; margin: var(--rams-detail-color-picker-error-margin); color: var(--rams-detail-danger); font-size: var(--rams-detail-text-xs); }
+.error:empty { display: none; }
+
+.contrast { display: flex; flex-wrap: wrap; align-items: center; gap: var(--rams-detail-color-picker-control-gap); font-size: var(--rams-detail-text-sm); }
+.sample { display: grid; width: max(var(--rams-detail-color-picker-sample-inline-min), var(--rams-detail-color-picker-sample-inline-em)); height: max(var(--rams-detail-color-picker-sample-block-min), var(--rams-detail-color-picker-sample-block-em)); flex: none; place-items: center; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-inset); background: var(--rams-detail-picker-bg); color: var(--rams-detail-picker-color); font-weight: var(--rams-detail-label-weight); }
+.ratio { font-family: var(--rams-detail-font-body); font-variant-numeric: var(--rams-detail-numeric-column-variant); font-weight: var(--rams-detail-label-weight); min-width: var(--rams-detail-color-picker-ratio-inline-min); }
+.against { display: grid; align-content: center; flex: 1 1 var(--rams-detail-color-picker-against-inline-basis); min-width: 0; min-block-size: var(--rams-detail-color-picker-fallback-min-height); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); }
+.grade { position: relative; display: inline-grid; min-height: max(var(--rams-detail-color-picker-grade-block-min), var(--rams-detail-color-picker-grade-block-em)); align-items: center; padding: 0 var(--rams-detail-color-picker-grade-inline-inset); border-radius: var(--rams-detail-radius-pill); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-label-weight); white-space: nowrap; transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.gradeMeasure, .gradeText { grid-area: 1 / 1; text-align: center; }
+.gradeMeasure { visibility: hidden; pointer-events: none; }
+.grade[data-grade="pass"] { background: color-mix(in oklab, var(--rams-detail-success) var(--rams-detail-color-picker-grade-pass-wash), transparent); color: var(--rams-detail-success); }
+.grade[data-grade="large"] { background: color-mix(in oklab, var(--rams-detail-warning) var(--rams-detail-color-picker-grade-large-wash), transparent); color: var(--rams-detail-warning); }
+.grade[data-grade="fail"] { background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-color-picker-grade-fail-wash), transparent); color: var(--rams-detail-danger); }
+
+.swatches { display: flex; align-items: center; gap: var(--rams-detail-color-picker-swatch-gap); min-height: var(--rams-detail-color-picker-swatch-row-min-block); }
+.add {
+  display: grid; width: var(--rams-detail-color-picker-swatch-control-size); height: var(--rams-detail-color-picker-swatch-control-size); flex: none; place-items: center; padding: 0; border: var(--rams-detail-primitive-border-width) dashed var(--rams-detail-border-strong); border-radius: var(--rams-detail-elliptical-corner-radius); background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer;
+  transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.add:active { transform: scale(var(--rams-motion-color-picker-add-press-scale)); }
+.swatchList { display: flex; min-width: 0; flex: var(--rams-detail-layout-flex-fill); gap: var(--rams-detail-color-picker-swatch-gap); }
+.swatchSlot { position: relative; flex: none; touch-action: pan-y; }
+.swatch { display: grid; width: var(--rams-detail-color-picker-swatch-control-size); height: var(--rams-detail-color-picker-swatch-control-size); place-items: center; padding: 0; border: 0; border-radius: var(--rams-detail-elliptical-corner-radius); background: transparent; cursor: pointer; }
+.swatchChip { width: var(--rams-detail-color-picker-swatch-chip-size); height: var(--rams-detail-color-picker-swatch-chip-size); transition: scale var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.swatch[data-current] { box-shadow: inset 0 0 0 var(--rams-detail-color-picker-selected-ring-width) var(--rams-detail-foreground); }
+.swatch[data-current] .swatchChip { scale: var(--rams-motion-color-picker-selected-swatch-scale); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (hover: hover) and (pointer: fine) {
+  .trigger:hover { border-color: var(--rams-detail-border-strong); }
+  .iconButton:hover, .format:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+  .format:hover { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-color-picker-format-hover-wash), transparent); }
+  .add:hover { border-color: var(--rams-detail-foreground); color: var(--rams-detail-foreground); }
+}
+@media (max-width: 360px) { .against { display: none; } }
+@media (prefers-contrast: more) { .trigger, .panel, .field { border-color: var(--rams-detail-border-strong); } }
+@media (prefers-reduced-motion: reduce) { .areaThumb, .sliderThumb, .swatchChip, .iconButton, .add { transition: none; } .field { transform: none !important; } .input[data-morphing] { color: var(--rams-detail-foreground); } .morph { display: none; } }
+:where(.root,.trigger,.head,.triggerText,.name,.hex,.chip,.float,.panel,.headActions,.iconButton,.body,.area,.areaThumb,.sliderThumb,.slider,.hue,.alpha,.field,.format,.inputWrap,.input,.morph,.error,.contrast,.sample,.ratio,.against,.grade,.swatches,.add,.swatchList,.swatchSlot,.swatch,.swatchChip,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+@container (max-width: 15em) {
+  .field { flex-direction: column; height: auto; min-height: var(--rams-detail-control-height-md); }
+  .format { min-height: var(--rams-detail-control-height-md); border-right: 0; border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); }
+  .inputWrap { min-height: var(--rams-detail-control-height-md); }
+}

@@ -1,0 +1,58 @@
+.avatar {
+  position: relative;
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  overflow: visible;
+  border-radius: var(--rams-detail-radius-pill);
+  background: var(--rams-detail-surface-muted);
+  font-weight: var(--rams-detail-avatar-initials-weight);
+}
+
+.avatar img {
+  pointer-events: none;
+  border-radius: inherit;
+  object-fit: cover;
+  transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-enter), filter var(--rams-detail-duration-standard) var(--rams-detail-ease-enter);
+}
+
+/* Set only while a photo is still downloading after mount, so cached photos never fade. */
+.avatar img[data-loading] {
+  opacity: 0;
+  filter: blur(var(--rams-motion-blur-soft));
+  transition: none;
+}
+
+.fallback { animation: avatar-fallback-in var(--rams-detail-duration-standard) var(--rams-detail-ease-enter) both; }
+.avatar .initials { font:inherit; }
+.avatar .status { min-inline-size: 0; }
+.avatar .statusFill { display: block; position: static; inline-size: 100%; block-size: 100%; min-inline-size: 0; border: 0; aspect-ratio: auto; }
+
+
+.status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: var(--rams-detail-avatar-status-layer);
+  width: var(--rams-detail-avatar-status-size-default);
+  height: var(--rams-detail-avatar-status-size-default);
+  border: var(--rams-detail-avatar-badge-border-width) solid var(--rams-detail-surface);
+  border-radius: var(--rams-detail-radius-pill);
+  box-shadow: 0 0 0 var(--rams-detail-primitive-border-width) color-mix(in oklab, var(--rams-detail-border) var(--rams-detail-avatar-status-ring-alpha), transparent);
+}
+
+.sm .status { width: var(--rams-detail-avatar-status-size-sm); height: var(--rams-detail-avatar-status-size-sm); border-width: var(--rams-detail-avatar-status-border-width-sm); }
+.lg .status { width: var(--rams-detail-avatar-status-size-lg); height: var(--rams-detail-avatar-status-size-lg); }
+.xl .status { width: var(--rams-detail-avatar-status-size-xl); height: var(--rams-detail-avatar-status-size-xl); right: var(--rams-detail-avatar-status-xl-inset); bottom: var(--rams-detail-avatar-status-xl-inset); }
+.online { background: var(--rams-detail-success); }
+.offline { background: var(--rams-detail-text-muted); }
+
+@keyframes avatar-fallback-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar img { transition: none; }
+  .avatar img[data-loading] { filter: none; }
+  .fallback { animation: none; }
+}
+
+:where(.avatar,.fallback,.sm,.md,.lg,.xl,.status,.online,.offline):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

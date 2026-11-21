@@ -1,0 +1,877 @@
+{
+  "schemaVersion": 1,
+  "sourcePath": "scripts/motion-guidelines.mjs",
+  "authority": {
+    "owner": "RAMS",
+    "statement": "Normative RAMS policy, synthesized and adapted from identified primary sources. Design guides contribute principles; engine documentation contributes implementation details; WCAG retains its own scope and conformance levels.",
+    "history": "The principles above are RAMS syntheses and adaptations; they must not be presented as a formal standard published by the source libraries.",
+    "provenanceBoundary": "Component provenance describes implementation and licenses; it does not grant authority over these rules. Their marks are retained in legal and provenance records.",
+    "tokenAuthority": "tokens.json/componentExtensions.details.motionTS",
+    "numericPolicy": "Exact durations, curves, springs, and budgets are RAMS decisions, not values required by external sources. There is no universal 500 ms minimum.",
+    "claimBoundary": "Adoption is required across all consumers. This contract and its examples do not certify WCAG conformance, visual quality, or execution of the checks."
+  },
+  "scope": [
+    "component",
+    "variant",
+    "composition",
+    "preview",
+    "portable-recipe",
+    "css-adapter",
+    "imperative-animation",
+    "portal",
+    "chart",
+    "page-transition"
+  ],
+  "vocabulary": {
+    "MUST": "Mandatory requirement for accepting a RAMS change. Do not hide a failure: fix it or record a reviewed deviation with an exact scope.",
+    "SHOULD": "Strong recommendation. Deviating requires contextual reasoning and evidence; it is not equivalent to passing the recommendation.",
+    "severity": {
+      "critical": "Loss of operation, information, focus, control, or reduced-motion support. Blocks acceptance of the transition until fixed; an aesthetic exception does not resolve it.",
+      "major": "Incomplete contract, consistency, geometry, or evidence. Requires a fix or an explicitly reviewed deviation before accepting the change.",
+      "advisory": "Composition recommendation. Review the context and record the decision if deviating from it."
+    }
+  },
+  "sources": [
+    {
+      "id": "carbon-overview",
+      "title": "Carbon · Motion overview",
+      "url": "https://www.carbondesignsystem.com/building-blocks/foundations/motion/overview",
+      "kind": "design-guidance",
+      "supports": "Distinguishes productive from expressive motion; relates duration to distance and size, and easing curves to enter, exit, and continuity.",
+      "verifiedOn": "2026-10-26"
+    },
+    {
+      "id": "carbon-choreography",
+      "title": "Carbon · Choreography",
+      "url": "https://www.carbondesignsystem.com/building-blocks/foundations/motion/choreography",
+      "kind": "design-guidance",
+      "supports": "Relates meaning, space, and continuity; proposes sequences with a bounded total duration. Its figures and trajectory constraints are not adopted as RAMS values.",
+      "verifiedOn": "2026-10-26"
+    },
+    {
+      "id": "fluent-motion",
+      "title": "Fluent 2 · Motion",
+      "url": "https://fluent2.microsoft.design/motion",
+      "kind": "design-guidance",
+      "supports": "Connects purpose, consistency, size, and distance; describes easing and parent-child coordination. RAMS defines its own roles, curves, and budgets.",
+      "verifiedOn": "2026-10-26"
+    },
+    {
+      "id": "wcag-233",
+      "title": "WCAG 2.2 · SC 2.3.3 (AAA)",
+      "url": "https://www.w3.org/TR/WCAG22/#animation-from-interactions",
+      "kind": "accessibility-standard",
+      "supports": "Allows disabling interaction-triggered motion animation, except when essential. Adopting this rule does not declare AAA conformance for the product.",
+      "verifiedOn": "2026-10-26"
+    },
+    {
+      "id": "wai-233",
+      "title": "WAI · Understanding Animation from Interactions",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html",
+      "kind": "informative-explanation",
+      "supports": "Explains how to prevent non-essential motion and honor the reduced-motion preference. This is an informative explanation of the criterion, not a separate standard.",
+      "verifiedOn": "2026-10-26"
+    },
+    {
+      "id": "wcag-222",
+      "title": "WCAG 2.2 · SC 2.2.2 (A)",
+      "url": "https://www.w3.org/TR/WCAG22/#pause-stop-hide",
+      "kind": "accessibility-standard",
+      "supports": "For nonessential moving, blinking, or scrolling information that starts automatically, lasts more than five seconds, and appears alongside other content, provide a way to pause, stop, or hide it. For nonessential automatic information updates alongside other content, provide a way to pause, stop, or hide them, or let the user control their frequency; no five-second threshold applies.",
+      "verifiedOn": "2026-10-26"
+    },
+    {
+      "id": "wai-222",
+      "title": "WAI · Understanding Pause, Stop, Hide",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html",
+      "kind": "informative-explanation",
+      "supports": "Clarifies that a pause must persist while a person uses the rest of the page; relying only on hover or focus is insufficient.",
+      "verifiedOn": "2026-10-26"
+    },
+    {
+      "id": "wai-dialog",
+      "title": "WAI APG · Modal dialog",
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+      "kind": "implementation-pattern",
+      "supports": "Describes initial focus, keyboard behavior, an inert background, and focus return for a modal dialog; focus-return exceptions depend on the flow.",
+      "verifiedOn": "2026-10-26"
+    },
+    {
+      "id": "motion-accessibility",
+      "title": "Motion · React accessibility",
+      "url": "https://motion.dev/docs/react-accessibility",
+      "kind": "engine-documentation",
+      "supports": "MotionConfig with reducedMotion=user disables transform/layout animations but preserves other animations. useReducedMotion enables a custom alternative.",
+      "verifiedOn": "2026-10-26"
+    },
+    {
+      "id": "motion-layout",
+      "title": "Motion · Layout animations",
+      "url": "https://motion.dev/docs/react-layout-animations",
+      "kind": "engine-documentation",
+      "supports": "layout and layoutId interpolate geometry; for layout, the destination is set in style/className. The guide describes crossfades, measurement, and engine options; it is not a RAMS aesthetic standard.",
+      "verifiedOn": "2026-10-26"
+    }
+  ],
+  "specification": {
+    "requiredFields": [
+      {
+        "name": "trigger",
+        "required": true,
+        "description": "Precise event, origin (person, system, data), activation condition, and whether it can repeat."
+      },
+      {
+        "name": "states",
+        "required": true,
+        "description": "Previous state, functional destination, visual end state, and applicable empty, error, loading, or cancellation cases."
+      },
+      {
+        "name": "object",
+        "required": true,
+        "description": "Persistent element or identity, selector/slot, component, and containing composition."
+      },
+      {
+        "name": "properties",
+        "required": true,
+        "description": "List of properties with start, destination, units, and layout-derived values; do not “animate everything.”"
+      },
+      {
+        "name": "role",
+        "required": true,
+        "description": "Semantic role, reason for selection, and references to duration, curve/spring, and sequence tokens."
+      },
+      {
+        "name": "geometry",
+        "required": true,
+        "description": "Owner of position/size, measurement, clipping, scrolling, ancestors, and continuity; use none with a reason if unchanged."
+      },
+      {
+        "name": "sequence",
+        "required": true,
+        "description": "Start time for each part, dependencies, maximum count, wait limit, and distinction between wait and total duration."
+      },
+      {
+        "name": "interruption",
+        "required": true,
+        "description": "Destination for new input, cancellation/retargeting, invalidated callbacks, and cleanup on unmount."
+      },
+      {
+        "name": "reducedMotion",
+        "required": true,
+        "description": "Result when reduced motion is enabled on load and midway through a transition; solution for each engine used."
+      },
+      {
+        "name": "focus",
+        "required": true,
+        "description": "Focused element before/during/after, semantics, keyboard behavior, exiting elements, and modal background when applicable."
+      },
+      {
+        "name": "repetition",
+        "required": true,
+        "description": "Automatic/intentional start, end condition, persistent pause, static alternative, and SC 2.2.2 evaluation."
+      },
+      {
+        "name": "evidence",
+        "required": true,
+        "description": "Acceptance cases by ID, consumer, file/version, environment, observed result, evidence, and verification status."
+      }
+    ],
+    "absentValue": "none",
+    "absentValueRequiresReason": true
+  },
+  "roles": [
+    {
+      "name": "feedback",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.feedback",
+      "when": "Hover, press, or state-change response of a control.",
+      "whenNot": "Does not indicate progress or confirm an operation that is still pending.",
+      "useWhen": "Hover, press, or state-change response of a control.",
+      "behavior": "Change the control’s color or opacity without delaying its action.",
+      "avoid": "Does not indicate progress or confirm an operation that is still pending.",
+      "properties": [
+        "color",
+        "backgroundColor",
+        "borderColor",
+        "opacity"
+      ],
+      "reduced": "Apply the latest destination immediately, without transform, blur, wait, or sequence; preserve information and focus.",
+      "invariants": [
+        "Change the control’s color or opacity without delaying its action.",
+        "Does not indicate progress or confirm an operation that is still pending.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "enter",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.enter",
+      "when": "A new surface or content appears.",
+      "whenNot": "Do not use it to move an object that retains its identity in both states.",
+      "useWhen": "A new surface or content appears.",
+      "behavior": "Specify its origin, destination, and relationship to its trigger.",
+      "avoid": "Do not use it to move an object that retains its identity in both states.",
+      "properties": [
+        "opacity",
+        "entry transform if it expresses origin"
+      ],
+      "reduced": "Apply the latest destination immediately, without transform, blur, wait, or sequence; preserve information and focus.",
+      "invariants": [
+        "Specify its origin, destination, and relationship to its trigger.",
+        "Do not use it to move an object that retains its identity in both states.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "exit",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.exit",
+      "when": "A surface or content becomes unavailable.",
+      "whenNot": "Visual exit does not delay a cancellation, error, or result.",
+      "useWhen": "A surface or content becomes unavailable.",
+      "behavior": "Remove interaction and manage focus according to the pattern when the state changes.",
+      "avoid": "Visual exit does not delay a cancellation, error, or result.",
+      "properties": [
+        "opacity",
+        "exit transform if it expresses a destination"
+      ],
+      "reduced": "Apply the latest destination immediately, without transform, blur, wait, or sequence; preserve information and focus.",
+      "invariants": [
+        "Remove interaction and manage focus according to the pattern when the state changes.",
+        "Visual exit does not delay a cancellation, error, or result.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "replace",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.replace",
+      "when": "One content object replaces another in the same region.",
+      "whenNot": "Do not present distinct content as the same shared object.",
+      "useWhen": "One content object replaces another in the same region.",
+      "behavior": "One owner coordinates presence and semantics.",
+      "avoid": "Do not present distinct content as the same shared object.",
+      "properties": [
+        "opacity of the replaced content"
+      ],
+      "reduced": "Apply the latest destination immediately, without transform, blur, wait, or sequence; preserve information and focus.",
+      "invariants": [
+        "One owner coordinates presence and semantics.",
+        "Do not present distinct content as the same shared object.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "selection",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.selection",
+      "when": "An indicator identifies the selected option.",
+      "whenNot": "The text or control does not become a moving target.",
+      "useWhen": "An indicator identifies the selected option.",
+      "behavior": "Update selected/pressed immediately and move only the indicator.",
+      "avoid": "The text or control does not become a moving target.",
+      "properties": [
+        "indicator position and size"
+      ],
+      "reduced": "Apply the latest destination immediately, without transform, blur, wait, or sequence; preserve information and focus.",
+      "invariants": [
+        "Update selected/pressed immediately and move only the indicator.",
+        "The text or control does not become a moving target.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "resize",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.resize",
+      "when": "A single container changes size.",
+      "whenNot": "Do not add another layout transform for the same dimension.",
+      "useWhen": "A single container changes size.",
+      "behavior": "Specify who measures and animates the dimension and how content is handled.",
+      "avoid": "Do not add another layout transform for the same dimension.",
+      "properties": [
+        "container height or width, or layout as the sole owner"
+      ],
+      "reduced": "Apply the latest destination immediately, without transform, blur, wait, or sequence; preserve information and focus.",
+      "invariants": [
+        "Specify who measures and animates the dimension and how content is handled.",
+        "Do not add another layout transform for the same dimension.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "morph",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.morph",
+      "when": "The same identifiable object changes geometry or position.",
+      "whenNot": "Do not combine with an ancestor fade or concurrent smooth scrolling.",
+      "useWhen": "The same identifiable object changes geometry or position.",
+      "behavior": "Preserve identity, spatial ownership, and the measured destination.",
+      "avoid": "Do not combine with an ancestor fade or concurrent smooth scrolling.",
+      "properties": [
+        "position and size layout for the identified object",
+        "radius derived from the shape role"
+      ],
+      "reduced": "Apply the latest destination immediately, without transform, blur, wait, or sequence; preserve information and focus.",
+      "invariants": [
+        "Preserve identity, spatial ownership, and the measured destination.",
+        "Do not combine with an ancestor fade or concurrent smooth scrolling.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "displayReveal",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.displayReveal",
+      "when": "Presentation of a composition on a defined occasion.",
+      "whenNot": "Do not hide needed information until the presentation finishes.",
+      "useWhen": "Presentation of a composition on a defined occasion.",
+      "behavior": "Specify whether it repeats on remount and apply the item or text budget.",
+      "avoid": "Do not hide needed information until the presentation finishes.",
+      "properties": [
+        "opacity",
+        "bounded presentation transform"
+      ],
+      "reduced": "Apply the latest destination immediately, without transform, blur, wait, or sequence; preserve information and focus.",
+      "invariants": [
+        "Specify whether it repeats on remount and apply the item or text budget.",
+        "Do not hide needed information until the presentation finishes.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "data",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.data",
+      "when": "Visual representation of new data.",
+      "whenNot": "Do not withhold results, animate false data, or confuse progress with elapsed time.",
+      "useWhen": "Visual representation of new data.",
+      "behavior": "Show the true value in a readable form and retarget new inputs.",
+      "avoid": "Do not withhold results, animate false data, or confuse progress with elapsed time.",
+      "properties": [
+        "visual numeric value",
+        "geometry of the mark or path"
+      ],
+      "reduced": "Apply the latest destination immediately, without transform, blur, wait, or sequence; preserve information and focus.",
+      "invariants": [
+        "Show the true value in a readable form and retarget new inputs.",
+        "Do not withhold results, animate false data, or confuse progress with elapsed time.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "activity",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.activity",
+      "when": "A real operation is in progress.",
+      "whenNot": "Do not create a wait just to justify the indicator.",
+      "useWhen": "A real operation is in progress.",
+      "behavior": "The operation state starts/ends the loop; provide a static alternative.",
+      "avoid": "Do not create a wait just to justify the indicator.",
+      "properties": [
+        "indicator rotation",
+        "travel of an activity mark"
+      ],
+      "reduced": "Static indicator and status text; the real operation continues and its end is communicated without a loop.",
+      "invariants": [
+        "The operation state starts/ends the loop; provide a static alternative.",
+        "Do not create a wait just to justify the indicator.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "breathing",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.breathing",
+      "when": "A pulse accompanies a justified activity state.",
+      "whenNot": "Do not repeat to draw attention to an action or data that is already available.",
+      "useWhen": "A pulse accompanies a justified activity state.",
+      "behavior": "Define start, end, and stable status text; provide controls where applicable.",
+      "avoid": "Do not repeat to draw attention to an action or data that is already available.",
+      "properties": [
+        "opacity of the activity indicator"
+      ],
+      "reduced": "Static indicator and status text; the real operation continues and its end is communicated without a loop.",
+      "invariants": [
+        "Define start, end, and stable status text; provide controls where applicable.",
+        "Do not repeat to draw attention to an action or data that is already available.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "themeReveal",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.themeReveal",
+      "when": "An action changes the page theme.",
+      "whenNot": "Without engine support or with reduced motion, the theme changes immediately.",
+      "useWhen": "An action changes the page theme.",
+      "behavior": "Apply the current theme and cancel the previous transition when a new choice arrives.",
+      "avoid": "Without engine support or with reduced motion, the theme changes immediately.",
+      "properties": [
+        "theme overlay clipPath when supported by the engine"
+      ],
+      "reduced": "Apply the latest destination immediately, without transform, blur, wait, or sequence; preserve information and focus.",
+      "invariants": [
+        "Apply the current theme and cancel the previous transition when a new choice arrives.",
+        "Without engine support or with reduced motion, the theme changes immediately.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    },
+    {
+      "name": "emphasis",
+      "tokenPath": "tokens.json/componentExtensions.details.motionTS.roles.emphasis",
+      "when": "A one-time update needs an additional cue.",
+      "whenNot": "Do not loop or make meaning depend on animation.",
+      "useWhen": "A one-time update needs an additional cue.",
+      "behavior": "Run once per event, with persistent information available outside the effect.",
+      "avoid": "Do not loop or make meaning depend on animation.",
+      "properties": [
+        "opacity",
+        "color of a one-time cue"
+      ],
+      "reduced": "Apply the latest destination immediately, without transform, blur, wait, or sequence; preserve information and focus.",
+      "invariants": [
+        "Run once per event, with persistent information available outside the effect.",
+        "Do not loop or make meaning depend on animation.",
+        "Property examples bound a recommendation: declare the actual properties and review the full composition."
+      ]
+    }
+  ],
+  "budgets": {
+    "itemInterval": {
+      "tokenPath": "stagger.item"
+    },
+    "itemMaximumDelay": {
+      "tokenPath": "sequence.maxStagger"
+    },
+    "textMaximumDelay": {
+      "tokenPath": "sequence.textBudget"
+    },
+    "interpretation": "These are wait limits before starting, not a universal maximum total duration. Values are read from tokens; they are not edited here."
+  },
+  "rules": [
+    {
+      "id": "RAMS-M01",
+      "title": "Specify before animating",
+      "level": "MUST",
+      "severity": "major",
+      "basis": "rams-synthesis",
+      "requirement": "Every transition MUST specify its trigger, states, object, properties, role, geometry, interruption behavior, reduced-motion behavior, focus, repetition, and evidence. Use none with a reason when a field does not apply; never omit a field or invent an animation to fill it.",
+      "rationale": "An instruction such as “animate smoothly” does not tell another agent what to observe or implement.",
+      "sourceIds": [],
+      "acceptance": [
+        {
+          "id": "M01.1",
+          "method": "spec-review",
+          "instruction": "Compare each real trigger with specification.requiredFields.",
+          "expected": "Every transition has a complete specification; the no-motion state is documented too."
+        },
+        {
+          "id": "M01.2",
+          "method": "source-review",
+          "instruction": "Trace the specification to the component, wrapper, portal, and engine that implement it.",
+          "expected": "Every property has an owner and a concrete implementation path."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M02",
+      "title": "Choose by function",
+      "level": "MUST",
+      "severity": "major",
+      "basis": "rams-synthesis",
+      "requirement": "Every transition MUST use the role that explains its state change. Do not choose a duration by preference or reuse morph to replace distinct objects. If motion adds no information, use the static state.",
+      "rationale": "Role selection is a RAMS decision: similar appearance does not imply the same semantic change.",
+      "sourceIds": [
+        "carbon-overview",
+        "carbon-choreography",
+        "fluent-motion"
+      ],
+      "acceptance": [
+        {
+          "id": "M02.1",
+          "method": "spec-review",
+          "instruction": "Compare purpose and object with guidelines.roles.",
+          "expected": "The role has a functional reason; continuity identifies the same object."
+        },
+        {
+          "id": "M02.2",
+          "method": "browser-observation",
+          "instruction": "Run equivalent transitions in two components and with the keyboard.",
+          "expected": "Differences have a documented contextual reason; they do not come from copied literals."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M03",
+      "title": "Resolve values from tokens",
+      "level": "MUST",
+      "severity": "major",
+      "basis": "rams-synthesis",
+      "requirement": "Durations, curves, springs, and decorative delays MUST resolve from motionTS through generated roles, helpers, or aliases. CSS, Motion, SVG, canvas, Web Animations, and chart engines require explicit review. A business clock or physical parameter must be classified, not mechanically substituted.",
+      "rationale": "Exact values are RAMS decisions; a token change must reach all its consumers without changing reading time or product logic.",
+      "sourceIds": [
+        "carbon-overview",
+        "fluent-motion"
+      ],
+      "acceptance": [
+        {
+          "id": "M03.1",
+          "method": "static-contract",
+          "instruction": "Inspect timing and easing properties, including imperative calls, CSS, and external libraries.",
+          "expected": "Every value resolves to a shared source or an exact documented exception."
+        },
+        {
+          "id": "M03.2",
+          "method": "source-review",
+          "instruction": "Distinguish seconds, milliseconds, visualDuration, and physical constants.",
+          "expected": "Units match; a spring’s visual duration is not used as a business deadline."
+        },
+        {
+          "id": "M03.3",
+          "method": "browser-observation",
+          "instruction": "Observe the component’s shortest and longest actual sizes and travel distances.",
+          "expected": "The role retains a legible response; review any mismatch with evidence instead of adding another local literal."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M04",
+      "title": "Animate deliberate properties",
+      "level": "MUST",
+      "severity": "major",
+      "basis": "rams-synthesis",
+      "requirement": "The specification MUST list each property, its start and destination, and its unit. Avoid transition:all. Do not animate reading text, focus, or hit-target size in a way that prevents operation. Changes to blur, color, and opacity do not replace content or its semantic state.",
+      "rationale": "Explicit scope prevents unintentionally animating a new property when styles, themes, or density change.",
+      "sourceIds": [],
+      "acceptance": [
+        {
+          "id": "M04.1",
+          "method": "source-review",
+          "instruction": "Compare every animated property with the specification and review inherited styles.",
+          "expected": "No properties animate accidentally, and no transforms remain in the final state."
+        },
+        {
+          "id": "M04.2",
+          "method": "browser-observation",
+          "instruction": "Use the interface during the transition with long text, visible focus, and available density settings.",
+          "expected": "Reading, hit targets, and operation remain usable; no information is clipped."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M05",
+      "title": "One geometry owner",
+      "level": "MUST",
+      "severity": "major",
+      "basis": "rams-synthesis",
+      "requirement": "Every position or size change MUST have one owner. Do not combine layout with another interpolation of the same geometry, fade an ancestor of a shared object during its transition, or overlap smooth scrolling and morph during the same navigation. Measure the destination after the layout change; preserve stable identity and intentional clipping.",
+      "rationale": "This composition constraint is RAMS policy. It prevents duplicate motion and visual loss of the object in integrations using multiple engines.",
+      "sourceIds": [
+        "motion-layout",
+        "carbon-choreography"
+      ],
+      "acceptance": [
+        {
+          "id": "M05.1",
+          "method": "source-review",
+          "instruction": "Trace ancestors, layoutId, transform, width/height, scroll, and the object’s presence.",
+          "expected": "Every geometric property has an owner; identifiers are stable and scoped to the composition."
+        },
+        {
+          "id": "M05.2",
+          "method": "browser-observation",
+          "instruction": "Open, close, and return with prior scrolling and in a narrow viewport.",
+          "expected": "The object retains its identity without jumps, duplicate travel, disappearing ancestors, or accidental overflow."
+        },
+        {
+          "id": "M05.3",
+          "method": "browser-observation",
+          "instruction": "Observe and measure during interpolation, including in reverse: text proportions and effective horizontal/vertical radius. With Motion layout, record the shape-derived radius as a node style and compensate reading children.",
+          "expected": "Text does not stretch, and corners retain their semantic radius on both axes throughout the transition, not only at the endpoints."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M06",
+      "title": "Sequence with a budget",
+      "level": "MUST",
+      "severity": "major",
+      "basis": "rams-synthesis",
+      "requirement": "Stagger MUST use the interval and cumulative-limit tokens; text presentation uses its separate budget. Declaring a dependency does not permit delaying a functional response. Reduced motion also removes handoff and decorative waits. Do not add a per-item delay without a count-dependent limit.",
+      "rationale": "RAMS sets its own wait budget, distinct from the last item’s duration and illustrative figures in other guides.",
+      "sourceIds": [
+        "carbon-choreography",
+        "fluent-motion"
+      ],
+      "acceptance": [
+        {
+          "id": "M06.1",
+          "method": "static-contract",
+          "instruction": "Calculate the last start time for a short list, a long list, and long text.",
+          "expected": "The delay respects sequence.maxStagger or sequence.textBudget as applicable; it does not grow indefinitely."
+        },
+        {
+          "id": "M06.2",
+          "method": "browser-observation",
+          "instruction": "Filter or paginate before entrance finishes; repeat with reduced motion.",
+          "expected": "The action responds during the sequence; reduced motion retains no queues or waiting gaps."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M07",
+      "title": "The latest intent wins",
+      "level": "MUST",
+      "severity": "critical",
+      "basis": "rams-synthesis",
+      "requirement": "Input MUST update the functional destination immediately. A subsequent interaction cancels or redirects the prior animation; invalidate its callbacks, timers, and completion listeners. Do not block clicks or keyboard input for decoration. Unmounting or switching to reduced motion stops pending work and preserves the latest valid state.",
+      "rationale": "An animation may accompany an operation; it cannot determine whether the operation occurred.",
+      "sourceIds": [],
+      "acceptance": [
+        {
+          "id": "M07.1",
+          "method": "browser-interaction",
+          "instruction": "Run open-close-open and A-B-A before the first transition finishes.",
+          "expected": "The latest destination prevails; no stale callback is applied and no subsequent input is lost."
+        },
+        {
+          "id": "M07.2",
+          "method": "browser-interaction",
+          "instruction": "Unmount and enable reduced motion during movement, including for imperative controls.",
+          "expected": "No orphaned work remains; the current destination appears without waiting for the prior callback."
+        },
+        {
+          "id": "M07.3",
+          "method": "source-review",
+          "instruction": "Review onComplete, timeout, promises, and effect cleanup.",
+          "expected": "Business logic does not depend on an animation completing; real asynchronous operations retain their own state."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M08",
+      "title": "Reduce motion across all engines",
+      "level": "MUST",
+      "severity": "critical",
+      "basis": "rams-policy-with-accessibility-reference",
+      "requirement": "MUST honor prefers-reduced-motion on load and when it changes. The RAMS alternative applies the final state without transform, blur, stagger, decorative autoplay, or smooth scrolling, at zero duration. Preserve content, data, accessible state, and controls. Review CSS, Motion, imperative animation, charts, portals, and page transitions separately.",
+      "rationale": "RAMS chooses an immediate alternative more specific than the engine documentation. MotionConfig alone does not implement this entire policy.",
+      "sourceIds": [
+        "wcag-233",
+        "wai-233",
+        "motion-accessibility"
+      ],
+      "acceptance": [
+        {
+          "id": "M08.1",
+          "method": "browser-interaction",
+          "instruction": "Load with the system reduced-motion preference enabled; repeat by enabling it midway through a transition or loop.",
+          "expected": "No travel or residual wait remains; content and final state are unchanged."
+        },
+        {
+          "id": "M08.2",
+          "method": "source-review",
+          "instruction": "Inventory engines and sample-level preferences.",
+          "expected": "Each engine has a branch or adapter; no local preference overrides the system preference."
+        },
+        {
+          "id": "M08.3",
+          "method": "browser-interaction",
+          "instruction": "Return to the normal preference after reducing motion.",
+          "expected": "It does not automatically restart a paused loop or replay a queue of prior actions."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M09",
+      "title": "Focus and semantics follow state",
+      "level": "MUST",
+      "severity": "critical",
+      "basis": "rams-synthesis",
+      "requirement": "The transition MUST preserve the pattern’s focus and keyboard behavior. Exiting content cannot remain interactive; aria-hidden alone does not prevent focus. Apply the accessible state when the functional state changes, without waiting for decoration. In a modal, keep the background inert, focus within the dialog, and return focus appropriately on close.",
+      "rationale": "Intermediate frames are not a second interactive interface. The specific pattern determines where focus belongs.",
+      "sourceIds": [
+        "wai-dialog"
+      ],
+      "acceptance": [
+        {
+          "id": "M09.1",
+          "method": "browser-interaction",
+          "instruction": "Use Tab, Shift+Tab, and Escape during entry/exit; close from the last control.",
+          "expected": "Focus never reaches exiting or hidden elements or the inert background, and returns to a valid destination."
+        },
+        {
+          "id": "M09.2",
+          "method": "accessibility-observation",
+          "instruction": "Inspect expanded/selected/busy, duplicated content, and announcements during rapid replacements.",
+          "expected": "Semantics and functional destination match; visual clones do not duplicate accessible content or announcements."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M10",
+      "title": "Controlled repetition",
+      "level": "MUST",
+      "severity": "critical",
+      "basis": "rams-policy-with-accessibility-reference",
+      "requirement": "Loops MUST have a purpose and start/end conditions; activity represents real work. Samples start paused. Rotating presentations provide a persistent pause control when autoplay is enabled. Evaluate prolonged automatic motion and automatic information updates separately under SC 2.2.2; a short duration does not exempt the latter category.",
+      "rationale": "RAMS requires playback controls in its samples and rotating content; the sources identify the precise applicability of WCAG.",
+      "sourceIds": [
+        "wcag-222",
+        "wai-222"
+      ],
+      "acceptance": [
+        {
+          "id": "M10.1",
+          "method": "spec-review",
+          "instruction": "Classify whether playback starts automatically or intentionally, repetition, total duration, accompanying information, and whether it is essential.",
+          "expected": "The evaluation distinguishes motion from auto-updating content; essentiality requires explaining why an alternative would not preserve function or information."
+        },
+        {
+          "id": "M10.2",
+          "method": "browser-interaction",
+          "instruction": "Pause, move the pointer away/remove focus, and use another region; then resume or reduce motion.",
+          "expected": "The pause persists and the control works with the keyboard; reduced motion provides an informative static alternative."
+        },
+        {
+          "id": "M10.3",
+          "method": "browser-interaction",
+          "instruction": "Complete or cancel the real operation driving an indicator.",
+          "expected": "The loop ends with the operation; it does not add a simulated wait or hide an available result."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M11",
+      "title": "Data available without waiting",
+      "level": "MUST",
+      "severity": "critical",
+      "basis": "rams-synthesis",
+      "requirement": "Data, confirmations, errors, and results MUST be available without depending on the last frame. Interpolation changes presentation, never the actual value. Reduced motion disables interpolation without freezing the data source. Required controls for automatic updates are evaluated separately from decorative motion.",
+      "rationale": "An animated number cannot turn a real result into a functional wait or invent progress.",
+      "sourceIds": [],
+      "acceptance": [
+        {
+          "id": "M11.1",
+          "method": "browser-interaction",
+          "instruction": "Update the data again before the animation ends; compare labels, table, or accessible value with the source.",
+          "expected": "The new destination is correct, does not revert to the previous one, and has a readable representation of the current result."
+        },
+        {
+          "id": "M11.2",
+          "method": "browser-interaction",
+          "instruction": "Repeat with reduced motion, an error, and an empty set.",
+          "expected": "No information is lost and loading is not prolonged to complete the effect."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M12",
+      "title": "Prefer restrained motion",
+      "level": "SHOULD",
+      "severity": "advisory",
+      "basis": "rams-synthesis",
+      "requirement": "Frequent operations SHOULD use the least variation that explains the change. Reserve presentation and emphasis for justified occasions. Review large travel distances, bounces, blur, and simultaneous effects before adding them; using fewer is a valid choice.",
+      "rationale": "RAMS prioritizes reading and everyday operation; expressive exceptions need context and review, not an arbitrarily slower value.",
+      "sourceIds": [
+        "carbon-overview",
+        "fluent-motion"
+      ],
+      "acceptance": [
+        {
+          "id": "M12.1",
+          "method": "browser-observation",
+          "instruction": "Repeat the common task several times in the full composition.",
+          "expected": "The effect does not dominate a recurring task; any deviation has a reason and reviewable evidence."
+        }
+      ]
+    },
+    {
+      "id": "RAMS-M13",
+      "title": "Evidence by consumer",
+      "level": "MUST",
+      "severity": "major",
+      "basis": "rams-synthesis",
+      "requirement": "Every component, variant, preview, portable recipe, and wrapper with motion MUST follow these rules and record what was verified. A value scanner, successful build, or guide sample does not demonstrate adoption elsewhere. Explicitly report untested cases and failures; pinned sources require adapters or authorized review, never silent correction.",
+      "rationale": "This policy is an acceptance criterion; it does not claim that every consumer has been observed.",
+      "sourceIds": [],
+      "acceptance": [
+        {
+          "id": "M13.1",
+          "method": "static-contract",
+          "instruction": "Run motion contracts, fonts and reproducible import checks, type checks, and the build.",
+          "expected": "Applicable checks passed, and no pinned source changed outside its authorized workflow."
+        },
+        {
+          "id": "M13.2",
+          "method": "browser-interaction",
+          "instruction": "Cover each consumer’s triggers, portals, keyboard, narrow/wide viewports, theme, density, long text, and reduced motion on load/during transitions.",
+          "expected": "The record identifies the environment, steps, expected and observed results, and evidence; it does not generalize from a single sample."
+        },
+        {
+          "id": "M13.3",
+          "method": "evidence-review",
+          "instruction": "Compare the specifications and acceptance cases with the final report.",
+          "expected": "Every case is marked pass, fail, not-tested, or not-applicable with a reason; no numeric exception is presented as visual certification."
+        }
+      ]
+    }
+  ],
+  "exceptions": {
+    "numericInventory": "/motion-exceptions.json",
+    "existingInventoryMeaning": "Inventory of retained numeric properties with file, expression, and reason. It does not establish a design deviation, essentiality, visual review, or accessibility conformance.",
+    "requiredDeviationFields": [
+      "id",
+      "ruleIds",
+      "consumer",
+      "file",
+      "propertyOrTransition",
+      "reason",
+      "alternativeConsidered",
+      "reducedMotion",
+      "focusAndInput",
+      "evidence",
+      "reviewer",
+      "reviewedOn",
+      "revisitWhen",
+      "status"
+    ],
+    "statuses": [
+      "proposed",
+      "accepted",
+      "rejected",
+      "superseded"
+    ],
+    "process": "Record a scoped proposal alongside the consumer specification; do not create permissions by folder, wildcard, or engine. Review the alternative and evidence before marking it accepted. A change in consumer or revisitWhen condition requires a new review.",
+    "nonWaivable": "A local deviation does not redefine WCAG or make an activity essential. Critical failures of operation, information, focus, or reduced-motion support require a fix; documenting a failure does not approve it."
+  },
+  "verification": {
+    "statuses": [
+      "pass",
+      "fail",
+      "not-tested",
+      "not-applicable"
+    ],
+    "requiredEvidenceFields": [
+      "checkId",
+      "consumer",
+      "sourceRevision",
+      "environment",
+      "steps",
+      "expected",
+      "observed",
+      "status",
+      "evidence",
+      "reviewedOn"
+    ],
+    "notApplicableRequiresReason": true,
+    "notTestedIsPass": false,
+    "staticCheckIsVisualCertification": false,
+    "requiredScenarios": [
+      "initial-render",
+      "forward-and-reverse",
+      "rapid-repeated-input",
+      "unmount",
+      "empty-loading-error",
+      "keyboard-and-focus",
+      "reduced-at-load",
+      "reduced-during-animation",
+      "pause-and-resume-if-repeated",
+      "long-content",
+      "narrow-and-wide-viewport",
+      "theme-and-density",
+      "portable-recipe",
+      "portal-and-external-engine-if-used"
+    ],
+    "acceptance": "All applicable MUST requirements must pass; every exclusion needs a reason, and every deviation must retain its status and scope. Deviations from SHOULD recommendations retain their justification. Report every unobserved environment; do not infer catalog-wide coverage from the guide."
+  }
+}

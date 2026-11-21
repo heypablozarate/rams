@@ -1,0 +1,561 @@
+/* Declare order before the first component import: a later host reset must not
+   outrank the components merely because its layer was encountered later. */
+@layer properties, theme, base, components, utilities;
+/* Entry motion belongs to the surface, never the popper's position wrapper.
+   Explicit transition properties prevent measured widths/heights from tweening
+   while the placement engine resolves collisions. Close remains immediate, so
+   hidden controls are not retained as extra keyboard stops. */
+@keyframes rams-native-surface-enter {
+  from { opacity: var(--rams-detail-native-presence-enter-opacity); scale: var(--rams-detail-native-surface-enter-scale); }
+  to { opacity: var(--rams-detail-native-presence-rest-opacity); scale: var(--rams-detail-native-surface-rest-scale); }
+}
+
+/* Primary actions own their emphasis across composed controls. Keep ordinary
+   secondary labels at the action weight and keep Brand Accent independent.
+   This unlayered adapter also reaches imported module compositions. */
+.rams-button.rams-button--variant-default {
+  background: var(--primary, var(--rams-primary, var(--rams-detail-native-primary-action-fill-fallback)));
+  color: var(--primary-foreground, var(--rams-on-primary, var(--rams-detail-native-action-ink-fallback)));
+  font-weight: var(--type-primary-action-weight, var(--rams-detail-native-primary-action-weight-fallback));
+  font-synthesis: none;
+}
+@media (hover: hover) {
+  .rams-button.rams-button--variant-default:hover:not(:disabled):not([aria-disabled="true"]) {
+    background: var(--rams-primary-hover, color-mix(in srgb, var(--primary, var(--rams-primary)) var(--rams-detail-primary-action-hover-mix), var(--primary-foreground, var(--rams-on-primary))));
+    filter: none;
+  }
+}
+.rams-button.rams-button--variant-default:active:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--rams-primary-pressed, color-mix(in srgb, var(--primary, var(--rams-primary)) var(--rams-detail-primary-action-pressed-mix), var(--primary-foreground, var(--rams-on-primary))));
+  filter: none;
+}
+@keyframes rams-native-scrim-enter { from { opacity: var(--rams-detail-native-presence-enter-opacity); } to { opacity: var(--rams-detail-native-presence-rest-opacity); } }
+:where(.rams-popover__content, .rams-hover-card__content, .rams-tooltip__content,
+  .rams-menu__content, .rams-select__content, .rams-combobox__content, .rams-dialog__content) {
+  transition-property: color, background-color, border-color, box-shadow;
+}
+:where(.rams-popover__content, .rams-hover-card__content, .rams-tooltip__content,
+  .rams-menu__content, .rams-select__content, .rams-combobox__content, .rams-dialog__content):is([data-state$="open"], [data-open]) {
+  animation-name: var(--rams-detail-native-enter-animation, var(--rams-detail-native-enter-animation-fallback));
+  animation-duration: var(--rams-motion-enter-duration);
+  animation-timing-function: var(--rams-motion-enter-ease);
+  animation-fill-mode: backwards;
+}
+:where(.rams-surface__overlay):is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-state="open"] {
+  animation: rams-native-scrim-enter var(--rams-motion-enter-duration)
+    var(--rams-motion-enter-ease) backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  :where(.rams-popover__content, .rams-hover-card__content, .rams-tooltip__content,
+    .rams-menu__content, .rams-select__content, .rams-combobox__content, .rams-dialog__content,
+    .rams-surface__overlay) { animation: none !important; }
+}
+@layer components {
+  /* RAMS original native primitives. The host owns color and type tokens. */
+  :where([data-rams-primitive]) {
+    box-sizing: border-box;
+    font-family: inherit;
+    font-synthesis: none;
+  }
+  :where([data-rams-primitive]):focus-visible {
+    outline: var(--rams-detail-focus-outline-width) solid var(--ring, var(--rams-focus, currentColor));
+    outline-offset: var(--rams-detail-primitive-focus-outline-offset);
+  }
+  :where(.rams-button,.rams-button--size-xs,.rams-button--size-sm,.rams-button--size-default,.rams-button--size-lg,.rams-button--size-icon-xs,.rams-button--size-icon-sm,.rams-button--size-icon,.rams-button--size-icon-lg) {
+    --rams-button-leading:var(--type-action-leading, var(--rams-detail-native-action-leading-fallback));
+    --rams-button-padding-inline:var(--rams-detail-button-padding-inline);
+    --rams-button-padding-block:var(--rams-detail-native-button-padding-block-recipe);
+  }
+  .rams-button {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--rams-detail-button-content-gap);
+    max-inline-size: var(--rams-detail-native-inline-control-max-inline-size);
+    min-inline-size: var(--rams-detail-native-content-min-inline-size);
+    --rams-native-hit: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-native-control-height-md-steps));
+    min-block-size: var(--rams-native-hit);
+    padding: var(--rams-button-padding-block) var(--rams-button-padding-inline);
+    border: var(--rams-detail-primitive-border-width) solid transparent;
+    border-radius: var(--radius-control, var(--rams-detail-native-control-radius-fallback));
+    background: var(--primary, var(--rams-primary, var(--rams-detail-native-action-fill-fallback)));
+    color: var(--primary-foreground, var(--rams-on-primary, var(--rams-detail-native-action-ink-fallback)));
+    font-size: var(--type-control-size, var(--rams-detail-native-button-size-fallback));
+    font-family: var(--type-action-family, inherit);
+    font-weight: var(--type-action-weight, var(--rams-detail-native-action-weight-fallback));
+    letter-spacing: var(--type-action-tracking, normal);
+    line-height: var(--rams-button-leading);
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .rams-button svg {
+    flex: none;
+    inline-size: var(--rams-detail-native-inline-glyph-size);
+    block-size: var(--rams-detail-native-inline-glyph-size);
+  }
+  .rams-button:disabled,
+  .rams-button[aria-disabled="true"] {
+    opacity: var(--rams-detail-control-disabled-opacity);
+    cursor: not-allowed;
+  }
+  .rams-button--variant-outline {
+    background: var(--background, var(--rams-surface, var(--rams-detail-native-surface-fill-fallback)));
+    color: var(--foreground, var(--rams-ink, var(--rams-detail-native-content-ink-fallback)));
+    border-color: var(--border, var(--rams-border, var(--rams-detail-native-border-paint-fallback)));
+  }
+  .rams-button--variant-secondary {
+    background: var(--secondary, var(--rams-subtle, var(--rams-detail-native-muted-fill-fallback)));
+    color: var(--secondary-foreground, var(--rams-ink, var(--rams-detail-native-content-ink-fallback)));
+  }
+  .rams-button--variant-ghost,
+  .rams-button--variant-link {
+    background: transparent;
+    color: var(--foreground, var(--rams-ink, var(--rams-detail-native-content-ink-fallback)));
+  }
+  .rams-button--variant-link {
+    text-decoration: underline;
+    text-underline-offset: var(--rams-detail-action-link-underline-offset);
+  }
+  .rams-button--variant-destructive {
+    background: var(--destructive, var(--rams-danger, var(--rams-detail-native-danger-fill-fallback)));
+    color: var(--destructive-foreground, var(--rams-on-danger, var(--rams-detail-native-danger-ink-fallback)));
+  }
+  .rams-button--size-default,
+  .rams-button--size-icon {
+    --rams-native-hit: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-native-control-height-md-steps));
+  }
+  .rams-button--size-xs,
+  .rams-button--size-icon-xs {
+    --rams-native-hit: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-native-control-height-xs-steps));
+  }
+  .rams-button--size-sm,
+  .rams-button--size-icon-sm {
+    --rams-native-hit: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-native-control-height-sm-steps));
+  }
+  .rams-button--size-lg,
+  .rams-button--size-icon-lg {
+    --rams-native-hit: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-native-control-height-lg-steps));
+  }
+  .rams-button:is(
+    .rams-button--size-icon,
+    .rams-button--size-icon-xs,
+    .rams-button--size-icon-sm,
+    .rams-button--size-icon-lg
+  ) {
+    inline-size: var(--rams-native-hit);
+    padding: var(--rams-detail-button-icon-padding);
+  }
+  .rams-input,
+  .rams-textarea {
+    display: block;
+    inline-size: var(--rams-detail-native-field-inline-size);
+    min-inline-size: var(--rams-detail-native-content-min-inline-size);
+    min-block-size: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-native-control-height-md-steps));
+    padding: var(--rams-detail-native-input-padding-recipe);
+    border: var(--rams-detail-primitive-border-width) solid var(--border, var(--rams-border, var(--rams-detail-native-border-paint-fallback)));
+    border-radius: var(--radius-control, var(--rams-detail-native-control-radius-fallback));
+    background: var(--background, var(--rams-surface, var(--rams-detail-native-surface-fill-fallback)));
+    color: var(--foreground, var(--rams-ink, var(--rams-detail-native-content-ink-fallback)));
+    font-size: var(--type-input-size, var(--rams-detail-native-input-size-fallback));
+    line-height: var(--type-control-leading, var(--rams-detail-native-control-leading-fallback));
+  }
+  .rams-input::placeholder,
+  .rams-textarea::placeholder {
+    color: var(--muted-foreground, var(--rams-muted, var(--rams-detail-native-muted-ink-fallback)));
+    opacity: var(--rams-detail-input-placeholder-opacity);
+  }
+  .rams-input:disabled,
+  .rams-textarea:disabled {
+    opacity: var(--rams-detail-control-disabled-opacity);
+    cursor: not-allowed;
+  }
+  .rams-input[aria-invalid="true"],
+  .rams-textarea[aria-invalid="true"] {
+    border-color: var(--destructive, var(--rams-danger, var(--rams-detail-native-danger-fill-fallback)));
+  }
+  .rams-textarea {
+    min-block-size: var(--rams-detail-textarea-min-block-size);
+    resize: vertical;
+    field-sizing: content;
+  }
+  .rams-label {
+    display: inline-block;
+    font-family: var(--type-control-family, inherit);
+    font-size: var(--type-control-size, var(--rams-detail-native-control-size-fallback));
+    font-weight: var(--rams-detail-label-weight);
+    line-height: var(--type-control-leading, var(--rams-detail-native-control-leading-fallback));
+    letter-spacing: var(--type-control-tracking, normal);
+  }
+  .rams-separator {
+    flex: none;
+    background: var(--border, var(--rams-border, var(--rams-detail-native-border-paint-fallback)));
+  }
+  .rams-separator[data-orientation="horizontal"] {
+    block-size: var(--rams-detail-separator-thickness);
+    inline-size: var(--rams-detail-native-separator-inline-size);
+  }
+  .rams-separator[data-orientation="vertical"] {
+    inline-size: var(--rams-detail-separator-thickness);
+    align-self: stretch;
+    min-block-size: var(--rams-detail-separator-min-block-size);
+  }
+  @media (hover: hover) {
+    .rams-button:is(.rams-button--variant-outline,.rams-button--variant-ghost):hover:not(:disabled):not([aria-disabled="true"]) { background:var(--muted, var(--rams-subtle, var(--rams-detail-native-muted-fill-fallback))); }
+    .rams-button--variant-link:hover:not(:disabled):not([aria-disabled="true"]) { text-decoration-thickness:var(--rams-detail-action-link-hover-underline-thickness); }
+    .rams-button:hover:not(:disabled):not([aria-disabled="true"]) {
+      filter: brightness(var(--rams-detail-button-hover-brightness));
+    }
+    /* Primary fills retain their exact color; shadow supplies hover feedback. */
+    .rams-button.rams-button--variant-default:hover:not(:disabled):not([aria-disabled="true"]) {
+      filter: none;
+      box-shadow: var(--rams-detail-shadow-resting, none);
+    }
+  }
+
+  .rams-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--rams-detail-native-badge-content-gap);
+    max-inline-size: var(--rams-detail-native-inline-control-max-inline-size);
+    padding: var(--rams-detail-native-badge-padding);
+    border: var(--rams-detail-primitive-border-width) solid transparent;
+    border-radius: var(--radius-control, var(--rams-detail-native-control-radius-fallback));
+    background: var(--rams-brand-accent, var(--rams-control-selected, var(--primary, var(--rams-primary, var(--rams-detail-native-action-fill-fallback)))));
+    color: var(--rams-brand-accent-foreground, var(--rams-control-selected-foreground, var(--primary-foreground, var(--rams-on-primary, var(--rams-detail-native-action-ink-fallback)))));
+    font-size: var(--type-caption-size, var(--rams-detail-native-caption-size-fallback));
+    line-height: var(--rams-detail-native-badge-leading);
+    font-weight: var(--rams-detail-native-badge-weight);
+    overflow-wrap: anywhere;
+    text-decoration: none;
+  }
+  .rams-badge > svg {
+    inline-size: var(--rams-detail-native-inline-glyph-size);
+    block-size: var(--rams-detail-native-inline-glyph-size);
+    flex: none;
+  }
+  .rams-badge--variant-secondary {
+    background: var(--secondary, var(--rams-subtle, var(--rams-detail-native-muted-fill-fallback)));
+    color: var(--secondary-foreground, var(--rams-ink, var(--rams-detail-native-content-ink-fallback)));
+  }
+  .rams-badge--variant-destructive {
+    background: var(--destructive, var(--rams-danger, var(--rams-detail-native-danger-fill-fallback)));
+    color: var(--destructive-foreground, var(--rams-on-danger, var(--rams-detail-native-danger-ink-fallback)));
+  }
+  .rams-badge--variant-outline {
+    border-color: var(--border, var(--rams-border, var(--rams-detail-native-border-paint-fallback)));
+    background: transparent;
+    color: inherit;
+  }
+  .rams-badge--variant-ghost,
+  .rams-badge--variant-link {
+    background: transparent;
+    color: inherit;
+  }
+  .rams-badge--variant-link {
+    text-decoration: underline;
+    text-underline-offset: var(--rams-detail-action-link-underline-offset);
+  }
+  .rams-card {
+    min-inline-size: var(--rams-detail-native-content-min-inline-size);
+    display: flex;
+    flex-direction: column;
+    gap: var(--rams-detail-card-section-gap);
+    padding-block: var(--rams-detail-card-padding-block);
+    border: var(--rams-detail-primitive-border-width) solid var(--border, var(--rams-border, var(--rams-detail-native-border-paint-fallback)));
+    border-radius: var(--radius-panel, var(--rams-detail-native-panel-radius-fallback));
+    background: var(--card, var(--rams-surface, var(--rams-detail-native-surface-fill-fallback)));
+    color: var(--card-foreground, var(--rams-ink, var(--rams-detail-native-content-ink-fallback)));
+    overflow-wrap: anywhere;
+  }
+  .rams-card__header,
+  .rams-card__content,
+  .rams-card__footer {
+    min-inline-size: var(--rams-detail-native-content-min-inline-size);
+    padding-inline: var(--rams-detail-card-padding-inline);
+  }
+  .rams-card__header {
+    display: grid;
+    grid-template-columns: var(--rams-detail-card-header-content-columns);
+    align-items: start;
+    gap: var(--rams-detail-card-header-gap);
+  }
+  .rams-card__header:has(> .rams-card__action) {
+    grid-template-columns: var(--rams-detail-card-header-action-columns);
+  }
+  .rams-card__title {
+    font-family: var(--type-title-family, inherit);
+    font-size: var(--type-title-size, var(--rams-detail-native-title-size-fallback));
+    font-weight: var(--type-title-weight, var(--rams-detail-native-title-weight-fallback));
+    line-height: var(--type-title-leading, var(--rams-detail-native-title-leading-fallback));
+    letter-spacing: var(--type-title-tracking, normal);
+  }
+  .rams-card__description {
+    color: var(--muted-foreground, var(--rams-muted, var(--rams-detail-native-muted-ink-fallback)));
+    font-family: var(--type-body-family, inherit);
+    font-size: var(--type-body-size, var(--rams-detail-native-body-size-fallback));
+    font-weight: var(--type-body-weight, var(--rams-detail-native-body-weight-fallback));
+    line-height: var(--type-body-leading, var(--rams-detail-native-body-leading-fallback));
+    letter-spacing: var(--type-body-tracking, normal);
+  }
+  .rams-card__title,
+  .rams-card__description {
+    grid-column: var(--rams-detail-card-copy-column);
+  }
+  .rams-card__action {
+    grid-column: var(--rams-detail-card-action-column);
+    grid-row: var(--rams-detail-card-action-row);
+  }
+  .rams-card__footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--rams-detail-card-footer-gap);
+  }
+  .rams-alert {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    gap: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-alert-row-gap-steps)) var(--rams-detail-alert-column-gap);
+    padding: var(--rams-detail-alert-padding);
+    border: var(--rams-detail-primitive-border-width) solid var(--border, var(--rams-border, var(--rams-detail-native-border-paint-fallback)));
+    border-radius: var(--radius-control, var(--rams-detail-native-control-radius-fallback));
+    background: var(--background, var(--rams-surface, var(--rams-detail-native-surface-fill-fallback)));
+    color: var(--foreground, var(--rams-ink, var(--rams-detail-native-content-ink-fallback)));
+    font-size: var(--type-control-size, var(--rams-detail-native-control-size-fallback));
+    line-height: var(--rams-detail-alert-leading);
+    overflow-wrap: anywhere;
+  }
+  .rams-alert > svg {
+    position: relative;
+    top: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-alert-icon-offset-steps));
+    flex: none;
+    inline-size: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-alert-icon-size-steps));
+    block-size: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-alert-icon-size-steps));
+  }
+  .rams-alert__copy {
+    flex: var(--rams-detail-alert-copy-flex);
+    min-inline-size: var(--rams-detail-native-content-min-inline-size);
+  }
+  .rams-alert__title,
+  .rams-alert__description {
+    min-inline-size: var(--rams-detail-native-content-min-inline-size);
+  }
+  .rams-alert__title {
+    font-weight: var(--type-title-weight, var(--rams-detail-native-title-weight-fallback));
+  }
+  .rams-alert__description {
+    color: var(--muted-foreground, var(--rams-muted, var(--rams-detail-native-muted-ink-fallback)));
+  }
+  .rams-alert__copy > .rams-alert__description:not(:first-child) {
+    margin-block-start: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-alert-description-gap-steps));
+  }
+  .rams-alert__description :first-child {
+    margin-block-start: var(--rams-detail-alert-description-edge-margin);
+  }
+  .rams-alert__description :last-child {
+    margin-block-end: var(--rams-detail-alert-description-edge-margin);
+  }
+  .rams-alert--variant-destructive {
+    border-color: var(--destructive, var(--rams-danger, var(--rams-detail-native-danger-fill-fallback)));
+    color: var(--destructive, var(--rams-danger, var(--rams-detail-native-danger-fill-fallback)));
+  }
+  .rams-alert--variant-destructive .rams-alert__description {
+    color: inherit;
+  }
+  .rams-skeleton {
+    min-block-size: var(--rams-detail-skeleton-min-block-size);
+    border-radius: var(--radius-control, var(--rams-detail-native-control-radius-fallback));
+    background: var(--muted, var(--rams-subtle, var(--rams-detail-native-muted-fill-fallback)));
+  }
+  .rams-spinner {
+    inline-size: var(--rams-detail-native-activity-indicator-size);
+    block-size: var(--rams-detail-native-activity-indicator-size);
+    flex: none;
+    animation: rams-native-spin var(--rams-motion-activity-duration)
+      var(--rams-motion-activity-ease) var(--rams-motion-active-iterations);
+  }
+  .rams-spinner circle {
+    stroke-dasharray: var(--rams-detail-spinner-stroke-dasharray);
+  }
+  @keyframes rams-native-spin {
+    to {
+      transform: var(--rams-detail-native-activity-cycle-transform);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rams-spinner {
+      animation: none;
+    }
+  }
+  .rams-kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: var(--rams-detail-kbd-min-size);
+    min-block-size: var(--rams-detail-kbd-min-size);
+    padding: var(--rams-detail-kbd-padding);
+    border: var(--rams-detail-primitive-border-width) solid var(--border, var(--rams-border, var(--rams-detail-native-border-paint-fallback)));
+    border-radius: var(--rams-detail-kbd-radius);
+    background: var(--muted, var(--rams-subtle, var(--rams-detail-native-muted-fill-fallback)));
+    color: var(--muted-foreground, var(--rams-muted, var(--rams-detail-native-muted-ink-fallback)));
+    font-family: inherit;
+    font-size: var(--rams-detail-kbd-size);
+    font-weight: var(--rams-detail-kbd-weight);
+    line-height: var(--rams-detail-kbd-leading);
+  }
+  .rams-kbd-group {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--rams-detail-kbd-group-gap);
+  }
+  .rams-aspect-ratio {
+    position: relative;
+    inline-size: var(--rams-detail-native-ratio-inline-size);
+    min-inline-size: var(--rams-detail-native-content-min-inline-size);
+  }
+  .rams-aspect-ratio > img,
+  .rams-aspect-ratio > video {
+    display: block;
+    inline-size: var(--rams-detail-native-media-inline-size);
+    block-size: var(--rams-detail-native-media-block-size);
+    object-fit: cover;
+  }
+  .rams-table-container {
+    max-inline-size: var(--rams-detail-native-table-viewport-max-inline-size);
+    min-inline-size: var(--rams-detail-native-content-min-inline-size);
+    overflow: auto;
+    outline-offset: var(--rams-detail-primitive-focus-outline-offset);
+  }
+  .rams-table-container:focus-visible {
+    outline: var(--rams-detail-focus-outline-width) solid var(--ring, var(--rams-focus, currentColor));
+  }
+  .rams-table {
+    /* Preserve word minima so the existing local scroller owns narrow tables. */
+    overflow-wrap: normal;
+    word-break: normal;
+    inline-size: var(--rams-detail-native-table-inline-size);
+    border-collapse: collapse;
+    text-align: start;
+    font-size: var(--type-control-size, var(--rams-detail-native-control-size-fallback));
+    line-height: var(--rams-detail-table-leading);
+  }
+  .rams-table__header,
+  .rams-table__body,
+  .rams-table__footer {
+    vertical-align: middle;
+  }
+  .rams-table__head,
+  .rams-table__cell {
+    padding: var(--rams-detail-table-cell-padding);
+    text-align: start;
+    vertical-align: inherit;
+  }
+  .rams-table__head {
+    font-weight: var(--rams-detail-table-heading-weight);
+  }
+  /* Short column actions determine their intrinsic width. A narrow viewport
+     scrolls the table rather than splitting a sort label into fragments. */
+  .rams-table__head .rams-button {
+    white-space: nowrap;
+    overflow-wrap: normal;
+  }
+  .rams-table__row {
+    border-block-end: var(--rams-detail-primitive-border-width) solid var(--border, var(--rams-border, var(--rams-detail-native-border-paint-fallback)));
+  }
+  .rams-table__row[data-state="selected"],
+  .rams-table__footer {
+    background: var(--muted, var(--rams-subtle, var(--rams-detail-native-muted-fill-fallback)));
+  }
+  .rams-table__caption {
+    max-inline-size: var(--rams-table-caption-inline-size, none);
+    overflow-wrap: anywhere;
+    padding-block: var(--rams-detail-table-caption-padding-block);
+    caption-side: bottom;
+    color: var(--muted-foreground, var(--rams-muted, var(--rams-detail-native-muted-ink-fallback)));
+    text-align: start;
+  }
+  .rams-progress {
+    display: block;
+    appearance: none;
+    inline-size: var(--rams-detail-native-progress-inline-size);
+    block-size: var(--rams-detail-progress-block-size);
+    border: var(--rams-detail-native-progress-border);
+    border-radius: var(--rams-detail-progress-radius);
+    overflow: hidden;
+    accent-color: var(--rams-brand-accent, var(--rams-control-selected, var(--primary, var(--rams-primary, var(--rams-detail-native-action-fill-fallback)))));
+    background: var(--muted, var(--rams-subtle, var(--rams-detail-native-muted-fill-fallback)));
+  }
+  .rams-progress::-webkit-progress-bar {
+    background: var(--muted, var(--rams-subtle, var(--rams-detail-native-muted-fill-fallback)));
+    border-radius: inherit;
+  }
+  .rams-progress::-webkit-progress-value {
+    background: var(--rams-brand-accent, var(--rams-control-selected, var(--primary, var(--rams-primary, var(--rams-detail-native-action-fill-fallback)))));
+    border-radius: inherit;
+  }
+  .rams-progress::-moz-progress-bar {
+    background: var(--rams-brand-accent, var(--rams-control-selected, var(--primary, var(--rams-primary, var(--rams-detail-native-action-fill-fallback)))));
+    border-radius: inherit;
+  }
+  .rams-native-select {
+    --rams-select-hit: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-native-control-height-md-steps));
+    display: block;
+    inline-size: var(--rams-detail-native-field-inline-size);
+    min-inline-size: var(--rams-detail-native-content-min-inline-size);
+    min-block-size: var(--rams-select-hit);
+    padding: var(--rams-detail-native-select-padding-recipe);
+    border: var(--rams-detail-primitive-border-width) solid var(--border, var(--rams-border, var(--rams-detail-native-border-paint-fallback)));
+    border-radius: var(--radius-control, var(--rams-detail-native-control-radius-fallback));
+    background: var(--background, var(--rams-surface, var(--rams-detail-native-surface-fill-fallback)));
+    color: var(--foreground, var(--rams-ink, var(--rams-detail-native-content-ink-fallback)));
+    font: inherit;
+    font-size: var(--type-input-size, var(--rams-detail-native-input-size-fallback));
+    line-height: var(--type-control-leading, var(--rams-detail-native-control-leading-fallback));
+  }
+  /* One optical 16px indicator; its reserved space must not scale with text.
+     The select and its option picker remain native, including enlarged labels. */
+  .rams-native-select:not([multiple]) {
+    appearance: none;
+    padding-inline-end: var(--rams-detail-native-select-indicator-reserve);
+    background-image: var(--rams-detail-native-select-indicator-image-light);
+    background-repeat: no-repeat;
+    background-position: var(--rams-detail-native-select-indicator-position);
+    background-size: var(--rams-detail-native-select-indicator-size);
+  }
+  .dark .rams-native-select:not([multiple]) {
+    background-image: var(--rams-detail-native-select-indicator-image-dark);
+  }
+  :dir(rtl).rams-native-select:not([multiple]) { background-position: var(--rams-detail-native-select-indicator-position-rtl); }
+  @media (forced-colors: active) {
+    .rams-native-select:not([multiple]),
+    .dark .rams-native-select:not([multiple]) { appearance: auto; background-image: none; padding-inline-end: var(--rams-detail-input-padding-inline); }
+  }
+  .rams-native-select--size-sm {
+    --rams-select-hit: calc(var(--spacing, var(--rams-detail-native-spacing-fallback)) * var(--rams-detail-native-control-height-sm-steps));
+  }
+  .rams-native-select:disabled {
+    opacity: var(--rams-detail-control-disabled-opacity);
+    cursor: not-allowed;
+  }
+
+  .rams-button[aria-invalid="true"],
+  .rams-badge[aria-invalid="true"],
+  .rams-native-select[aria-invalid="true"] {
+    border-color: var(--destructive, var(--rams-danger, var(--rams-detail-native-danger-fill-fallback)));
+  }
+}
+
+/* Shared surface regions: inset stays with the shell or a bordered region.
+   Text-body and footer layout do not depend on motion or portal implementation. */
+.rams-surface__body { min-inline-size:var(--rams-detail-space-0); font-size:var(--rams-detail-surface-body-size); line-height:var(--rams-detail-surface-body-leading); overflow-wrap:anywhere; }
+.rams-surface__footer { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:var(--rams-detail-surface-footer-gap); }
+.rams-surface__header-gap { gap:var(--rams-detail-surface-header-gap); }
+
+/* Header chrome and action text are not body reading regions. Titles and descriptions retain their explicit roles. */
+.rams-surface__header-gap, .rams-surface__footer { font-size:var(--rams-detail-text-sm); line-height:var(--rams-detail-leading-body); }

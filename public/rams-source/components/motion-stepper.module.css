@@ -1,0 +1,116 @@
+.root { min-width: 0; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+/* A horizontal stepper spans its container, so it can safely measure itself and fold into markers when space runs out. */
+.horizontal { width: 100%; container: stepper / inline-size; }
+.list { display: grid; margin: 0; padding: 0; list-style: none; }
+.item { position: relative; min-width: 0; }
+.horizontal .item:not(:last-child) { padding-inline-end: var(--rams-detail-space-4); }
+.vertical .item:not(:last-child) { padding-bottom: var(--rams-detail-space-5); }
+.compact.vertical .item:not(:last-child) { padding-bottom: var(--rams-detail-space-6); }
+
+/* Buttons and spans share one head, so a chosen step keeps focus as it becomes the current one. */
+.head { display: grid; margin: 0; padding: 0; border: 0; border-radius: var(--rams-detail-space-2); background: none; color: inherit; font: inherit; letter-spacing: inherit; text-align: start; cursor: default; -webkit-tap-highlight-color: transparent; }
+.head[data-clickable] { cursor: pointer; }
+.horizontal .head { width: fit-content; max-width: 100%; justify-items: start; row-gap: var(--rams-detail-space-3); }
+.vertical .head { width: 100%; grid-template-columns: var(--rams-detail-stepper-marker-size) minmax(0, 1fr); column-gap: var(--rams-detail-space-3); align-items: start; }
+.compact.vertical .head { grid-template-columns: var(--rams-detail-stepper-marker-size); column-gap: 0; }
+.head:focus-visible { --rams-detail-focus-outline-offset: var(--rams-detail-stepper-focus-outset); }
+.head:focus:not(:focus-visible) { outline: none; }
+
+/* The ring sits behind the disc and grows out of it; the disc carries the state color and the glyph. */
+.marker { position: relative; display: grid; width: var(--rams-detail-stepper-marker-size); height: var(--rams-detail-stepper-marker-size); flex: none; place-items: center; }
+.ring { position: absolute; inset: calc(var(--rams-detail-stepper-halo-outset) * -1); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-accent-subtle); transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.disc { position: relative; display: grid; width: 100%; height: 100%; place-items: center; border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface); box-shadow: inset 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-border-strong); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-label-weight); font-variant-numeric: var(--rams-detail-numeric-column-variant); line-height: var(--rams-detail-badge-leading); transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.glyph { display: grid; grid-area: 1 / 1; place-items: center; }
+.icon { stroke-linecap: var(--rams-detail-glyph-stroke-cap); stroke-linejoin: var(--rams-detail-glyph-stroke-join); width: var(--rams-detail-stepper-glyph-size); height: var(--rams-detail-stepper-glyph-size); }
+.item[data-status="current"] .disc { box-shadow: inset 0 0 0 var(--rams-detail-stepper-emphasis-outline) var(--rams-detail-accent); color: var(--rams-detail-foreground); }
+.item[data-status="complete"] .disc { background: var(--rams-detail-accent); box-shadow: inset 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-accent); color: var(--rams-detail-accent-foreground); }
+.item[data-status="error"] .disc { background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-stepper-error-disc-wash), var(--rams-detail-surface)); box-shadow: inset 0 0 0 var(--rams-detail-stepper-emphasis-outline) var(--rams-detail-danger); color: var(--rams-detail-danger); }
+.item[data-status="error"] .ring { background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-stepper-error-halo-wash), transparent); }
+
+/* The track stays put; only the fill scales along it on a spring, from the step that was just finished. */
+.connector { position: absolute; overflow: hidden; border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-border); pointer-events: none; }
+.horizontal .connector { top: calc(var(--rams-detail-stepper-marker-size) / 2 - var(--rams-detail-stepper-connector-thickness) / 2); inset-inline: calc(var(--rams-detail-stepper-marker-size) + var(--rams-detail-stepper-halo-outset) + var(--rams-detail-space-1)) calc(var(--rams-detail-stepper-halo-outset) + var(--rams-detail-space-1)); height: var(--rams-detail-stepper-connector-thickness); }
+/* Both ends keep a clear gap from the markers, and from the current step's ring. */
+.vertical .connector { top: calc(var(--rams-detail-stepper-marker-size) + var(--rams-detail-stepper-halo-outset) + var(--rams-detail-stepper-connector-thickness)); bottom: calc(var(--rams-detail-stepper-halo-outset) + var(--rams-detail-stepper-connector-thickness)); inset-inline-start: calc(var(--rams-detail-stepper-marker-size) / 2 - var(--rams-detail-stepper-connector-thickness) / 2); width: var(--rams-detail-stepper-connector-thickness); }
+.fill { position: absolute; inset: 0; border-radius: inherit; background: var(--rams-detail-accent); }
+.horizontal .fill { transform-origin: left center; }
+.horizontal .fill:dir(rtl) { transform-origin: right center; }
+.vertical .fill { transform-origin: center top; }
+
+.text { display: grid; min-width: 0; }
+/* Centers the first line of the label on the marker. */
+.vertical .text { padding-top: calc((var(--rams-detail-stepper-marker-size) - var(--rams-detail-stepper-label-leading)) / 2); }
+.label { display: block; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-stepper-label-leading); overflow-wrap: break-word; transition: color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.item[data-status="complete"] .label { color: var(--rams-detail-text-secondary); }
+.item[data-status="current"] .label, .item[data-status="error"] .label { color: var(--rams-detail-foreground); }
+/* Changing text pops out of flow against this box while it leaves, so it must be the positioned parent. */
+.slot { display: block; }
+.slotInner { position: relative; display: block; }
+.slotReserved { display: grid; }
+.slotReserved > span { grid-area: 1 / 1; }
+.reserve { visibility: hidden; pointer-events: none; }
+.description, .error { display: block; padding-top: var(--rams-detail-stepper-detail-inset); font-size: var(--rams-detail-text-xs); font-weight: var(--type-caption-weight); line-height: var(--type-caption-leading); overflow-wrap: break-word; }
+.description { color: var(--rams-detail-text-muted); }
+.error { color: var(--rams-detail-danger); }
+
+.caption { display: none; margin-top: var(--rams-detail-space-3); }
+.captionCopy { grid-area: 1 / 1; min-width: 0; }
+.captionLabel { display: block; color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-stepper-label-leading); }
+
+@media (hover: hover) and (pointer: fine) {
+  .head[data-clickable]:hover .label { color: var(--rams-detail-foreground); }
+  .item[data-status="complete"] .head[data-clickable]:hover .disc { background: var(--rams-detail-accent); box-shadow: inset 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-accent-strong); }
+  .item[data-status="error"] .head[data-clickable]:hover .disc { background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-stepper-error-hover-wash), var(--rams-detail-surface)); }
+}
+.head[data-clickable]:active .disc { transform: scale(var(--rams-motion-stepper-press-scale)); }
+
+.srOnly, .compact .text { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: 0; padding: 0; overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+.compact.horizontal .caption { display: grid; }
+/* A compact marker rail uses its measured width per stage and scrolls only when the targets cannot fit. */
+.horizontal .viewport {
+  --rams-detail-stepper-compact-clearance: max(var(--rams-detail-stepper-halo-outset), calc(var(--rams-detail-stepper-focus-outset) + var(--rams-detail-focus-outline-width)));
+  --rams-detail-stepper-compact-step-min: calc(var(--rams-detail-stepper-compact-hit-size) + 2 * var(--rams-detail-stepper-compact-clearance));
+}
+.horizontal .viewport .list {
+  min-inline-size: var(--rams-detail-stepper-compact-list-min, var(--rams-detail-stepper-compact-list-min-fallback));
+}
+.horizontal .viewport .head {
+  min-inline-size: var(--rams-detail-stepper-compact-marker-size, var(--rams-detail-stepper-compact-marker-size-fallback));
+  min-block-size: var(--rams-detail-stepper-compact-marker-size, var(--rams-detail-stepper-compact-marker-size-fallback));
+}
+.horizontal .viewport .marker, .horizontal .viewport .connector {
+  --rams-detail-stepper-used-marker-size: var(--rams-detail-stepper-compact-marker-size, var(--rams-detail-stepper-marker-size));
+}
+.horizontal .viewport .marker { width: var(--rams-detail-stepper-used-marker-size); height: var(--rams-detail-stepper-used-marker-size); }
+.horizontal .viewport .connector {
+  top: calc((var(--rams-detail-stepper-used-marker-size) - var(--rams-detail-stepper-connector-thickness)) / 2);
+  inset-inline-start: calc(var(--rams-detail-stepper-used-marker-size) + var(--rams-detail-stepper-halo-outset) + var(--rams-detail-space-1));
+}
+.compact.horizontal .viewport {
+  --rams-detail-stepper-compact-marker-size: clamp(var(--rams-detail-stepper-compact-hit-size), calc(100cqi / var(--rams-detail-stepper-count) - 2 * var(--rams-detail-stepper-compact-clearance)), max(var(--rams-detail-stepper-compact-hit-size), var(--rams-detail-stepper-marker-size)));
+  --rams-detail-stepper-compact-list-min: calc(var(--rams-detail-stepper-count) * var(--rams-detail-stepper-compact-step-min) - 2 * var(--rams-detail-stepper-compact-clearance));
+  padding: var(--rams-detail-stepper-compact-clearance);
+  margin: calc(var(--rams-detail-stepper-compact-clearance) * -1);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+@container stepper (max-width: 30rem) {
+  .horizontal .viewport {
+    --rams-detail-stepper-compact-marker-size: clamp(var(--rams-detail-stepper-compact-hit-size), calc(100cqi / var(--rams-detail-stepper-count) - 2 * var(--rams-detail-stepper-compact-clearance)), max(var(--rams-detail-stepper-compact-hit-size), var(--rams-detail-stepper-marker-size)));
+    --rams-detail-stepper-compact-list-min: calc(var(--rams-detail-stepper-count) * var(--rams-detail-stepper-compact-step-min) - 2 * var(--rams-detail-stepper-compact-clearance));
+    padding: var(--rams-detail-stepper-compact-clearance);
+    margin: calc(var(--rams-detail-stepper-compact-clearance) * -1);
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .horizontal .text { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: 0; padding: 0; overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+  .horizontal .caption { display: grid; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disc, .ring, .label { transition: none; }
+  .head[data-clickable]:active .disc { transform: none; }
+}
+
+:where(.root,.horizontal,.viewport,.list,.item,.vertical,.compact,.head,.marker,.ring,.disc,.glyph,.icon,.connector,.fill,.text,.label,.slot,.slotInner,.description,.error,.caption,.captionLabel,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

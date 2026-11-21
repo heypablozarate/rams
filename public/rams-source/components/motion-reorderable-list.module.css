@@ -1,0 +1,37 @@
+.list { display: grid; gap: var(--rams-detail-reorderable-list-gap); width: 100%; margin: 0; padding: 0; list-style: none; }
+.row { position: relative; display: flex; min-width: 0; align-items: center; column-gap: min(var(--rams-detail-reorderable-row-gap), var(--rams-detail-reorderable-row-gap-cap)); min-block-size: var(--rams-detail-reorderable-row-min-block-size); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-control); padding-block: var(--rams-detail-reorderable-handle-inset); padding-inline: var(--rams-detail-reorderable-handle-inset) var(--rams-detail-reorderable-row-end-inset); background: var(--rams-detail-surface); box-shadow: var(--rams-detail-shadow-resting); color: var(--rams-detail-foreground); user-select: none; }
+/* The lifted shadow lives on its own layer and fades in, so the row never repaints a growing shadow while it moves. */
+.row::after { position: absolute; inset: calc(-1 * var(--rams-detail-primitive-border-width)); border-radius: inherit; box-shadow: var(--rams-detail-shadow-floating); content: ""; opacity: 0; pointer-events: none; transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+/* Reorder.Item writes z-index inline while dragging; a keyboard lift needs the same stacking. */
+.row[data-lifted] { z-index: var(--rams-detail-local-overlay-layer) !important; }
+.row[data-lifted]::after { opacity: 1; transition-duration: var(--rams-detail-duration-fast); }
+/* A 40px handle in a 56px row sits 7px from the top, bottom and left edges, so its corner follows the row's. */
+.handle { display: grid; inline-size: var(--rams-detail-reorderable-handle-size); block-size: var(--rams-detail-reorderable-handle-size); flex: 0 0 auto; place-items: center; border: 0; border-radius: max(0px, calc(var(--rams-detail-radius-control) - var(--rams-detail-reorderable-handle-inset))); background: var(--rams-detail-surface-muted); color: var(--rams-detail-text-muted); cursor: grab; touch-action: none; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.row[data-lifted] .handle { background: var(--rams-detail-border); color: var(--rams-detail-foreground); cursor: grabbing; }
+.handle:active { cursor: grabbing; }
+.copy { display: grid; min-width: 0; gap: var(--rams-detail-reorderable-copy-gap); }
+.copy strong { overflow: hidden; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); text-overflow: ellipsis; white-space: nowrap; }
+.copy small { overflow: hidden; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); text-overflow: ellipsis; white-space: nowrap; }
+.position { position: relative; display: grid; margin-inline-start: auto; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.digits { display: block; grid-area: 1 / 1; }
+
+/* Keep the handle, full section names and two-digit order legible as text grows. */
+.handle { flex: none; }
+.copy { flex: var(--rams-detail-layout-flex-fill); }
+.copy strong, .copy small { white-space: normal; overflow: visible; text-overflow: clip; }
+.position { flex: none; min-inline-size: var(--rams-detail-reorderable-position-measure); }
+.digits { white-space: nowrap; }
+.srOnly { position: absolute; inline-size: var(--rams-detail-accessible-hidden-inline-size); block-size: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+@media (hover: hover) and (pointer: fine) { .handle:hover { color: var(--rams-detail-foreground); } }
+@media (prefers-reduced-motion: reduce) {
+  .row::after, .handle { transition: none; }
+  .row:not([data-dragging]) { transform: none !important; }
+}
+:where(.list,.row,.handle,.copy,.position,.digits,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The owned handle retains its existing drag target and fixed glyph. */
+.handle { min-inline-size: 0; min-block-size: 0; padding: 0; box-shadow: none; filter: none; }
+.handle > svg { inline-size: var(--rams-detail-motion-button-glyph-size); block-size: var(--rams-detail-motion-button-glyph-size); }
+
+/* Allow complete place names between the fixed handle and position. */
+.copy strong, .copy small { overflow-wrap: normal; }

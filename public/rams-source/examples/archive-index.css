@@ -1,0 +1,77 @@
+.archive-index {
+  max-inline-size: var(--rams-detail-example-page-measure-standard);
+  margin-inline: auto;
+  padding: var(--rams-detail-example-page-inset);
+  color: var(--rams-ink);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-leading);
+  overflow-wrap: anywhere;
+}
+.archive-index header {
+  max-inline-size: var(--rams-detail-example-intro-measure);
+  margin-block-end: var(--rams-detail-example-section-gap);
+}
+.archive-index header p {
+  font-size: var(--type-control-size);
+  color: var(--rams-muted);
+}
+.archive-index .rams-breadcrumb {
+  margin-block-end: var(--rams-detail-example-section-gap);
+}
+.archive-index-filter {
+  max-inline-size: var(--rams-detail-example-archive-filter-measure);
+  margin-block-end: var(--rams-detail-preview-scene-gap);
+}
+.archive-index-filter p {
+  color: var(--rams-muted);
+  font-size: var(--type-control-size);
+}
+.archive-index .rams-item__group {
+  gap: var(--rams-detail-preview-element-gap);
+  margin-block-end: var(--rams-detail-preview-field-group-gap);
+}
+.archive-index .rams-item h2,
+.archive-index .rams-empty h2 {
+  margin: 0;
+}
+.archive-index .rams-item p {
+  margin: 0;
+}
+.archive-index-detail {
+  margin-block: var(--rams-detail-example-section-gap);
+}
+.archive-index-strip {
+  margin-block-start: var(--rams-detail-example-section-gap-wide);
+}
+.archive-index-strip h2 {
+  font-size: var(--type-title-size);
+}
+.archive-index-covers {
+  display: flex;
+  gap: var(--rams-detail-preview-scene-gap);
+  padding: var(--rams-detail-example-archive-cover-strip-inset);
+  inline-size: max-content;
+}
+.archive-index-cover {
+  inline-size: var(--rams-detail-example-archive-cover-width);
+  min-block-size: var(--rams-detail-example-archive-cover-min-height);
+  padding: var(--rams-detail-preview-scene-gap);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--rams-detail-docs-space-tight);
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-border);
+  font-size: var(--type-control-size);
+}
+.archive-index-cover strong {
+  font-size: var(--type-heading-size);
+  font-weight: var(--type-heading-weight);
+}
+.archive-index-cover span:last-child {
+  color: var(--rams-muted);
+}
+
+.archive-index :is(h1, h2)[tabindex]:focus-visible {
+  outline: var(--rams-detail-focus-outline-width) solid var(--rams-focus);
+  outline-offset: var(--rams-detail-primitive-focus-outline-offset);
+}

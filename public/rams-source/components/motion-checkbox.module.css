@@ -1,0 +1,30 @@
+.field { display: inline-flex; align-items: flex-start; gap: var(--rams-detail-space-1); min-inline-size: 0; }
+.box { position: relative; flex: 0 0 auto; display: grid; place-items: center; inline-size: var(--rams-detail-control-height-md); block-size: var(--rams-detail-control-height-md); border: 0; border-radius: var(--rams-detail-radius-control); padding: 0; background: transparent; color: var(--rams-detail-control-glyph); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+/* The square is the only part that reacts to a press, so the hit area and label never move. */
+.visual { position: relative; display: block; box-sizing: border-box; inline-size: var(--rams-detail-motion-checkbox-glyph-size); block-size: var(--rams-detail-motion-checkbox-glyph-size); border: var(--rams-detail-primitive-border-width) solid var(--rams-checkbox-outline, var(--rams-detail-text-secondary)); border-radius: var(--radius-indicator); background: var(--rams-detail-surface); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.fill { position: absolute; inset: calc(-1 * var(--rams-detail-primitive-border-width)); border-radius: inherit; background: var(--rams-detail-control-on); }
+.mark { position: absolute; inset: calc(-1 * var(--rams-detail-primitive-border-width)); inline-size: var(--rams-detail-motion-checkbox-glyph-size); block-size: var(--rams-detail-motion-checkbox-glyph-size); overflow: visible; color: var(--rams-detail-control-glyph); }
+.box[data-state="checked"] .visual, .box[data-state="indeterminate"] .visual { border-color: var(--rams-detail-control-on); }
+@media (hover: hover) and (pointer: fine) { .box[data-state="unchecked"]:hover:not(:disabled) .visual { border-color: var(--rams-detail-text-muted); } }
+.box:active:not(:disabled) .visual { transform: scale(var(--rams-motion-checkbox-press-scale)); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.box:disabled { opacity: var(--rams-detail-control-disabled-opacity); cursor: not-allowed; }
+/* Center the label's first line beside the hit area and reserve space for its focus ring. */
+.copy { display: grid; gap: var(--rams-detail-selection-description-gap); min-inline-size: 0; margin-inline-start: calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset)); padding-block-start: max(0px, calc((var(--rams-detail-control-height-md) - var(--type-control-size) * var(--type-control-leading)) / 2)); }
+.copy label { color: var(--rams-detail-foreground); font-family: var(--type-control-family); font-size: var(--type-control-size); font-weight: var(--rams-detail-label-weight); line-height: var(--type-control-leading); letter-spacing: var(--type-control-tracking); overflow-wrap: anywhere; cursor: pointer; }
+.copy span { color: var(--rams-detail-text-muted); font-family: var(--type-caption-family); font-size: var(--type-caption-size); line-height: var(--type-caption-leading); overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: reduce) { .visual, .box:active:not(:disabled) .visual { transition: none; transform: none; } }
+:where(.field,.box,.visual,.fill,.mark,.copy):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The owned checkbox retains semantics and form ownership; this variant draws its animated mark. */
+.box > :global([data-slot="checkbox-indicator"]) { display: none; }
+
+.field .box[data-state] { background: transparent; border: 0; box-shadow: none; }
+
+/* The fixed mark keeps its normal horizontal hit footprint as text grows. */
+.field .box { max-inline-size: var(--rams-detail-motion-checkbox-hit-inline-max); }
+
+/* Match the owned neutral selection palette; the animated mark keeps its own geometry. */
+.box[data-tone="neutral"] {
+  --rams-detail-control-on: var(--rams-detail-foreground);
+  --rams-detail-control-glyph: var(--rams-detail-surface);
+}

@@ -1,0 +1,6 @@
+/* Quantitative values only; dates, identifiers and controls use their interface role. */
+[data-rams-numeric] {
+  font-family: var(--type-data-family);
+  font-variant-numeric: var(--type-data-variant);
+  font-style: normal;
+}

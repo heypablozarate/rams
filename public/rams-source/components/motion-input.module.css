@@ -1,0 +1,17 @@
+/* No row gap: grid tracks clamp a negative margin at zero, so a closed message row would still pay the gap. Each row carries its own space instead. */
+.field { display: grid; min-width: 0; }
+.label { margin-bottom: var(--rams-detail-space-2); color: var(--rams-detail-foreground); font-family: var(--type-control-family); font-size: var(--type-control-size); font-weight: var(--rams-detail-label-weight); line-height: var(--type-control-leading); }
+/* The row's space is padding inside the clipped slot, so the height animates from a true zero. */
+.messageSlot { display: block; overflow: hidden; }
+.description, .error { display: block; padding-top: var(--rams-detail-space-2); font-family: var(--type-caption-family); font-size: var(--type-caption-size); line-height: var(--type-caption-leading); }
+.description { color: var(--rams-detail-text-muted); } .error { color: var(--rams-detail-danger); }
+/* Words are measured against this box when they pop out to leave, so it must be the positioned parent. */
+.words { position: relative; display: block; }
+/* Keep short words together for their animation. A token wider than the row
+   (for example an address) wraps inside its own word box. */
+.word { display: inline-block; max-inline-size: 100%; white-space: pre-wrap; overflow-wrap: anywhere; }
+/* One column per character of a count. Tabular digits keep columns equal, so only a gained or lost digit changes the width. */
+.column { position: relative; display: inline-flex; justify-content: center; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.column > span { display: inline-block; }
+.srOnly { position: absolute; inline-size: var(--rams-detail-accessible-hidden-inline-size); block-size: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+:where(.field,.label,.messageSlot,.description,.error,.words,.word,.column,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

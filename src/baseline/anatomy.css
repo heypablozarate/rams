@@ -1,0 +1,70 @@
+/* RAMS overlay anatomy adapter. The pinned primitive sources retain their recorded bytes. */
+@layer base {
+  [data-slot="dialog-content"] {
+    max-width: min(calc(var(--rams-detail-surface-viewport-inline-size) - var(--rams-detail-surface-viewport-inset)), var(--rams-detail-surface-dialog-inline-size));
+  }
+}
+[data-slot="dialog-content"][role="dialog"]:not([data-rams-primitive]):not(:has(> [data-slot="command"])) {
+  padding: var(--rams-detail-surface-padding);
+}
+[data-slot="dialog-content"]:not([data-rams-primitive]) > [data-slot="dialog-close"]:has(> svg) {
+  position: absolute;
+  top: var(--rams-detail-surface-close-inset);
+  right: var(--rams-detail-surface-close-inset);
+  display: inline-grid;
+  place-items: center;
+  width: var(--rams-detail-surface-close-size);
+  height: var(--rams-detail-surface-close-size);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--rams-detail-radius-control);
+  background: transparent;
+  color: var(--muted-foreground);
+  opacity: 1;
+}
+[data-slot="dialog-content"]:not([data-rams-primitive]) > [data-slot="dialog-close"]:has(> svg) > svg {
+  width: var(--rams-detail-menu-item-icon-size);
+  height: var(--rams-detail-menu-item-icon-size);
+  stroke-width: var(--rams-detail-host-dialog-close-glyph-stroke);
+}
+[data-slot="dialog-content"]:not([data-rams-primitive]) > [data-slot="dialog-close"]:has(> svg):hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+[data-slot="dialog-content"]:not([data-rams-primitive]) > [data-slot="dialog-close"]:has(> svg):focus-visible {
+  outline: var(--rams-detail-focus-outline-width) solid var(--ring);
+  outline-offset: var(--rams-detail-focus-outline-offset);
+  box-shadow: none;
+}
+@layer base {
+  [data-slot="dialog-content"]:not([data-rams-primitive]):has(> [data-slot="dialog-close"] > svg) [data-slot="dialog-header"] {
+    padding-right: var(--rams-detail-surface-close-title-inset);
+  }
+}
+
+/* A moving tab pill owns its resting shadow; the native trigger retains its focus ring. */
+[data-rams-motion-tabs] [data-slot="tabs-trigger"] { --tw-shadow: var(--rams-detail-anatomy-empty-shadow); }
+
+/* Message titles may wrap; long status copy must not disappear behind a line clamp. */
+[data-slot="alert-title"] {
+  display: block;
+  min-width: 0;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  overflow-wrap: anywhere;
+}
+/* A description must wrap within its grid track instead of imposing its min-content width. */
+[data-slot="alert-description"] {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Command owns search/list insets, including a legacy host dialog. */
+[data-slot="dialog-content"][role="dialog"]:has(> [data-slot="command"]) { padding: var(--rams-detail-space-0); }
+
+/* Host-only safe-area placement: unlayered to match the owned surface CSS. */
+.rams-sheet__content[data-rams-preview-sheet] > .rams-surface__close {
+  inset-block-start: max(var(--rams-detail-surface-close-inset), env(safe-area-inset-top));
+  inset-inline-end: max(var(--rams-detail-surface-close-inset), env(safe-area-inset-right));
+}

@@ -1,0 +1,81 @@
+/* No row gap: grid tracks clamp a negative margin at zero, so a closed message row would still pay the gap. Each row carries its own space instead. */
+.field { display: grid; min-width: 0; font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+.label { justify-self: start; margin-bottom: var(--rams-detail-space-2); color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); }
+
+/* One tall shell: the amount on the left, the currency on the right. Set --rams-detail-money-input-height to resize it. */
+.control { position: relative; display: flex; flex-wrap: wrap; min-width: 0; min-height: var(--rams-detail-money-input-height); box-sizing: border-box; align-items: center; gap: var(--rams-detail-space-2); padding: 0 var(--rams-detail-money-input-end-inset) 0 var(--rams-detail-money-input-start-inset); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-strong); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .control:hover:not([data-invalid]) { border-color: var(--rams-detail-foreground); } }
+.control[data-focused] { border-color: var(--rams-detail-foreground); }
+.control[data-invalid] { border-color: var(--rams-detail-danger); }
+.field[data-disabled] .control { opacity: var(--rams-detail-control-disabled-opacity); background: var(--rams-detail-surface-muted); }
+
+/* One native scroll area keeps the animated glyphs and transparent input aligned at the fluent type size. */
+.amountWrap { position: relative; display: flex; min-width: 0; min-height: calc(var(--rams-detail-text-3xl) * var(--rams-detail-money-amount-block-ratio)); flex: 1 1 var(--rams-detail-money-amount-inline-basis); align-items: center; overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; cursor: text; }
+.field[data-disabled] .amountWrap { cursor: not-allowed; }
+.group { display: inline-flex; flex: none; align-items: baseline; transform-origin: 0 50%; white-space: nowrap; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-text-3xl); font-weight: var(--rams-detail-money-amount-weight); line-height: var(--rams-detail-money-amount-leading); letter-spacing: var(--rams-detail-tracking-display); font-variant-numeric: var(--rams-detail-numeric-column-variant); font-kerning: var(--rams-detail-money-amount-kerning); }
+
+.symbol { position: relative; display: inline-block; margin-right: var(--rams-detail-money-symbol-prefix-gap); color: var(--rams-detail-text-secondary); white-space: pre; }
+.group > .symbol:last-child { margin-right: 0; margin-left: var(--rams-detail-money-symbol-suffix-gap); }
+.symbolSizer { position: absolute; top: 0; left: 0; visibility: hidden; white-space: pre; }
+.symbolGlyph { display: inline-block; white-space: pre; }
+
+/* The input only draws the caret and selection. Its text is always painted by the mirror, so settled, rolling, and typed amounts share one position. */
+.number { position: relative; display: inline-flex; }
+.mirror { display: inline-flex; }
+.input { position: absolute; z-index: var(--rams-detail-local-overlay-layer); top: 0; left: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; background: transparent; color: transparent; caret-color: var(--rams-detail-foreground); font: inherit; font-variant-numeric: inherit; font-kerning: var(--rams-detail-money-amount-kerning); letter-spacing: inherit; line-height: inherit; outline: none; }
+.input::selection { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-numeric-edit-selection-wash), transparent); color: transparent; }
+.input:disabled { cursor: not-allowed; }
+
+/* Each character is a column: a hidden sizer holds its width and the glyph rolls inside, feathered at the top and bottom edge. */
+.column { --rams-detail-feather: var(--rams-detail-money-reel-feather); position: relative; display: inline-block; overflow-x: visible; overflow-y: clip; margin-block: calc(var(--rams-detail-feather) * -1); padding-block: var(--rams-detail-feather); mask-image: linear-gradient(to bottom, transparent, var(--rams-detail-detail-money-input-mask-image-81ef715e) calc(var(--rams-detail-feather) * var(--rams-detail-money-reel-feather-stop-ratio)), var(--rams-detail-detail-money-input-mask-image-81ef715e) calc(100% - var(--rams-detail-feather) * var(--rams-detail-money-reel-feather-stop-ratio)), transparent); transition: color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+/* Missing cents wait as ghosts, so settling the amount only changes their color. */
+.column[data-ghost] { color: color-mix(in oklab, var(--rams-detail-text-muted) var(--rams-detail-money-ghost-ink-share), transparent); }
+.sizer { visibility: hidden; white-space: pre; }
+.glyph { position: absolute; inset: var(--rams-detail-feather) 0; text-align: center; white-space: pre; }
+
+/* Currency switch: plain text on the shell, a quiet fill on hover and while open. It answers a press with color, since it anchors a menu. */
+.menuAnchor { position: relative; display: flex; flex: none; align-self: stretch; align-items: center; margin-inline-start: auto; }
+.currencyButton { display: inline-flex; height: var(--rams-detail-money-currency-trigger-min-block); align-items: center; gap: var(--rams-detail-money-currency-trigger-gap); padding: var(--rams-detail-money-currency-trigger-inset); border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-foreground); cursor: pointer; font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .currencyButton:hover:not(:disabled) { background: var(--rams-detail-surface-muted); } }
+.currencyButton:active:not(:disabled), .currencyButton[data-open] { background: var(--rams-detail-surface-muted); }
+.currencyButton:disabled { cursor: not-allowed; }
+.code { font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.codeStatic { flex: none; align-self: center; margin-inline-start: auto; padding: 0 var(--rams-detail-money-currency-static-inset); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); }
+.chevron { display: grid; width: var(--rams-detail-money-currency-glyph-size); height: var(--rams-detail-money-currency-glyph-size); place-items: center; color: var(--rams-detail-text-muted); }
+
+/* The menu is anchored to the currency trigger and uses the shared floating placement authority. */
+.menu { position: relative; z-index: var(--rams-detail-money-currency-panel-layer); width: min(var(--rams-detail-money-currency-panel-max-inline), var(--radix-popover-content-available-width)); max-height: var(--radix-popover-content-available-height); overflow: hidden; box-sizing: border-box; padding: var(--rams-detail-money-currency-panel-inset); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); transform-origin: var(--radix-popover-content-transform-origin); }
+.list { position: relative; display: grid; max-height: min(var(--rams-detail-money-currency-list-max-block), calc(var(--radix-popover-content-available-height) - var(--rams-detail-money-currency-list-viewport-reserve))); gap: var(--rams-detail-money-currency-row-gap); overflow-y: auto; overscroll-behavior: contain; outline: none; scrollbar-width: thin; }
+.highlight { position: absolute; top: 0; right: 0; left: 0; border-radius: max(0px, calc(var(--radius-panel) - var(--rams-detail-money-currency-panel-inset) - var(--rams-detail-primitive-border-width))); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-money-currency-highlight-share), transparent); pointer-events: none; }
+.option { position: relative; display: flex; min-height: var(--rams-detail-money-currency-option-min-block); box-sizing: border-box; align-items: center; gap: var(--rams-detail-money-currency-option-gap); padding: var(--rams-detail-space-1) var(--rams-detail-money-currency-option-inset); border-radius: max(0px, calc(var(--radius-panel) - var(--rams-detail-money-currency-panel-inset) - var(--rams-detail-primitive-border-width))); color: var(--rams-detail-text-secondary); cursor: pointer; font-size: var(--rams-detail-text-sm); user-select: none; -webkit-user-select: none; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.option[data-active], .option[aria-selected="true"] { color: var(--rams-detail-foreground); }
+.optionSymbol { width: var(--rams-detail-money-currency-symbol-column); flex: none; color: var(--rams-detail-text-muted); text-align: center; }
+.optionCode { flex: none; font-weight: var(--rams-detail-label-weight); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.optionName { min-width: 0; flex: var(--rams-detail-layout-flex-fill); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); white-space: normal; overflow-wrap: anywhere; }
+.check { display: grid; width: var(--rams-detail-money-currency-glyph-size); height: var(--rams-detail-money-currency-glyph-size); flex: none; place-items: center; color: var(--rams-detail-foreground); opacity: 0; transform: scale(var(--rams-motion-money-currency-check-entry-scale)); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.check[data-on] { opacity: 1; transform: none; }
+.chevron > svg, .check > svg { width: var(--rams-detail-money-currency-glyph-size); height: var(--rams-detail-money-currency-glyph-size); stroke-width: var(--rams-detail-money-currency-glyph-stroke); }
+
+/* Quick add chips and the allowed range share one row under the shell. */
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rams-detail-space-2) var(--rams-detail-space-3); padding-top: var(--rams-detail-space-3); }
+.chips { display: flex; flex-wrap: wrap; gap: var(--rams-detail-money-quick-add-gap); }
+.chip { min-height: var(--rams-detail-control-height-sm); padding: 0 var(--rams-detail-money-quick-add-inset); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface); color: var(--rams-detail-text-secondary); cursor: pointer; font: inherit; font-size: var(--type-control-size); font-weight: var(--rams-detail-label-weight); font-variant-numeric: var(--rams-detail-numeric-column-variant); -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+@media (hover: hover) and (pointer: fine) { .chip:hover:not(:disabled) { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } }
+.chip:active:not(:disabled) { transform: scale(var(--rams-motion-money-quick-add-press-scale)); transition-duration: var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-instant); }
+.chip[aria-disabled="true"] { opacity: var(--rams-detail-money-quick-add-disabled-opacity); }
+.chip:disabled { opacity: var(--rams-detail-money-quick-add-disabled-opacity); cursor: not-allowed; }
+.range { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); transition: color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.range[data-flash] { color: var(--rams-detail-warning); transition-duration: var(--rams-detail-duration-instant); }
+
+.messageSlot { position: relative; display: block; overflow: hidden; }
+.hint, .error { display: block; padding-top: var(--rams-detail-space-2); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.hint { color: var(--rams-detail-text-muted); }
+.error { color: var(--rams-detail-danger); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip: rect(0 0 0 0); clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (max-width: 420px) { .control { padding-left: var(--rams-detail-money-input-compact-start-inset); } .group { font-size: var(--rams-detail-text-2xl); } }
+@media (prefers-reduced-motion: reduce) { .control, .column, .check, .chip, .range { transition-duration: var(--rams-detail-duration-reduced); } .chip:active:not(:disabled), .check { transform: none; } .symbolGlyph[data-rams-presence="exiting"] { display: none; } .symbolGlyph[data-rams-presence="present"] { opacity: 1 !important; transform: none !important; filter: none !important; } }
+:where(.field,.label,.control,.amountWrap,.group,.symbol,.symbolSizer,.symbolGlyph,.number,.mirror,.input,.column,.sizer,.glyph,.menuAnchor,.currencyButton,.code,.codeStatic,.chevron,.menu,.list,.highlight,.option,.optionSymbol,.optionCode,.optionName,.check,.toolbar,.chips,.chip,.range,.messageSlot,.hint,.error,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+.chip, .range { font-family: var(--rams-detail-font-body); }

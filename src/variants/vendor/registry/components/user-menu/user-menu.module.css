@@ -1,0 +1,103 @@
+.root { position: relative; display: inline-flex; flex: none; vertical-align: middle; }
+
+/* The trigger anchors the menu, so it answers hover and press with color, never with scale. */
+.trigger { --rams-detail-presence-surface: var(--rams-detail-user-menu-surface, var(--rams-detail-surface)); position: relative; display: inline-flex; height: var(--rams-detail-user-menu-trigger-height); flex: none; align-items: center; gap: var(--rams-detail-space-2); margin: 0; padding: var(--rams-detail-user-menu-trigger-padding); border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-foreground); font: inherit; font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-text-sm); letter-spacing: var(--rams-detail-tracking-body); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.trigger[data-name] { padding-inline-end: var(--rams-detail-user-menu-trigger-name-padding); }
+@media (hover: hover) and (pointer: fine) { .trigger:hover { --rams-detail-presence-surface: var(--rams-detail-surface-muted); background: var(--rams-detail-surface-muted); } }
+.trigger[data-state="open"] { --rams-detail-presence-surface: var(--rams-detail-surface-muted); background: var(--rams-detail-surface-muted); }
+.trigger:active { --rams-detail-presence-surface: color-mix(in oklab, var(--rams-detail-surface-muted), var(--rams-detail-foreground) var(--rams-detail-user-menu-trigger-press-ink-share)); background: var(--rams-detail-presence-surface); }
+.triggerName { max-width: var(--rams-detail-user-menu-trigger-name-measure); overflow: hidden; font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-single-line-control-leading); text-overflow: ellipsis; white-space: nowrap; }
+.chevron { flex: none; margin-inline-start: calc(-1 * var(--rams-detail-user-menu-trigger-chevron-overlap)); color: var(--rams-detail-text-muted); transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.trigger:hover .chevron, .trigger[data-state="open"] .chevron { color: var(--rams-detail-foreground); }
+.trigger[data-state="open"] .chevron { transform: var(--rams-detail-disclosure-expanded-glyph-transform); }
+@media (max-width: 639px) {
+  .trigger[data-name] { padding-inline-end: var(--rams-detail-user-menu-trigger-padding); }
+  .triggerName, .chevron { display: none; }
+}
+
+.face { position: relative; display: inline-grid; width: var(--rams-detail-face-size); height: var(--rams-detail-face-size); flex: none; }
+.face[data-size="sm"] { --rams-detail-face-size: var(--rams-detail-user-menu-trigger-face-size); --rams-detail-dot-size: var(--rams-detail-user-menu-trigger-presence-size); }
+.face[data-size="default"] { --rams-detail-face-size: var(--rams-detail-user-menu-panel-face-size); --rams-detail-dot-size: var(--rams-detail-user-menu-presence-size); }
+.portrait { display: block; width: 100%; height: 100%; border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface-muted); object-fit: cover; object-position: 50% var(--rams-detail-user-menu-portrait-object-position-block); outline: var(--rams-detail-primitive-border-width) solid color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-user-menu-detail-outline-ink-share), transparent); outline-offset: calc(-1 * var(--rams-detail-primitive-border-width)); user-select: none; }
+.initials { display: grid; place-items: center; color: var(--rams-detail-text-secondary); font-size: calc(var(--rams-detail-face-size) * var(--rams-detail-user-menu-initials-scale)); font-weight: var(--rams-detail-avatar-initials-weight); line-height: var(--rams-detail-avatar-initials-leading); }
+.face .dot { position: absolute; inset-inline-end: calc(-1 * var(--rams-detail-primitive-border-width)); inset-block-end: calc(-1 * var(--rams-detail-primitive-border-width)); box-shadow: 0 0 0 var(--rams-detail-avatar-badge-border-width) var(--rams-detail-presence-surface, var(--rams-detail-surface)); }
+
+/* One mark, three shapes: solid for available, a bar for busy, a ring for away. Color and shape change together, so status never rests on color alone. */
+.dot { --rams-detail-dot-color: var(--rams-detail-success); position: relative; display: inline-block; width: var(--rams-detail-dot-size, var(--rams-detail-user-menu-presence-size)); height: var(--rams-detail-dot-size, var(--rams-detail-user-menu-presence-size)); flex: none; border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-dot-color); transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.dot::before, .dot::after { content: ""; position: absolute; inset: 0; margin: auto; background: var(--rams-detail-presence-surface, var(--rams-detail-surface)); transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.dot::before { width: var(--rams-detail-user-menu-presence-ring-opening); height: var(--rams-detail-user-menu-presence-ring-opening); border-radius: var(--rams-detail-radius-pill); transform: var(--rams-detail-zoom-collapsed-transform); }
+.dot::after { width: var(--rams-detail-user-menu-presence-bar-inline-share); height: var(--rams-detail-user-menu-presence-bar-block-share); min-height: var(--rams-detail-user-menu-presence-bar-min-block-size); border-radius: var(--rams-detail-user-menu-presence-bar-radius); transform: var(--rams-detail-inline-reveal-collapsed-transform); }
+.dot[data-status="busy"] { --rams-detail-dot-color: var(--rams-detail-danger); }
+.dot[data-status="busy"]::after { transform: var(--rams-detail-inline-reveal-rest-transform); }
+.dot[data-status="away"] { --rams-detail-dot-color: var(--rams-detail-warning); }
+.dot[data-status="away"]::before, .dot[data-status="offline"]::before { transform: var(--rams-detail-zoom-rest-transform); }
+.dot[data-status="offline"] { --rams-detail-dot-color: var(--rams-detail-text-muted); }
+
+/* The panel scales out of the avatar it belongs to; the component sets the origin once it is placed. */
+.panel { --rams-detail-presence-surface: var(--rams-detail-surface-raised); --rams-detail-menu-line: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-user-menu-detail-outline-ink-share), transparent); position: fixed; top: 0; left: 0; z-index: var(--rams-detail-menu-content-z); box-sizing: border-box; width: var(--rams-detail-user-menu-panel-width); max-width: calc(100vw - 2 * var(--rams-motion-user-menu-viewport-margin)); max-height: calc(100dvh - 2 * var(--rams-motion-user-menu-viewport-margin)); overflow-y: auto; overscroll-behavior: contain; padding: var(--rams-menu-padding); border: var(--rams-menu-border) solid var(--rams-detail-menu-border); border-radius: var(--rams-menu-radius); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-user-menu-panel-tracking); line-height: var(--rams-detail-user-menu-detail-leading); text-align: start; outline: none; transform-origin: var(--rams-detail-origin-x, var(--rams-detail-user-menu-origin-x-fallback)) var(--rams-detail-origin-y, var(--rams-detail-user-menu-origin-y-fallback)); --rams-menu-radius: var(--rams-detail-menu-radius); --rams-menu-padding: var(--rams-detail-menu-padding); --rams-menu-border: var(--rams-detail-menu-border-width); }
+.panel[data-inline] { position: absolute; top: calc(100% + var(--rams-motion-user-menu-panel-gap)); left: auto; }
+.panel[data-inline][data-align="end"] { right: 0; }
+.panel[data-inline][data-align="start"] { left: 0; }
+.panel[data-inline][data-align="center"] { left: 50%; margin-left: calc(var(--rams-detail-user-menu-panel-width) / -2); }
+
+.header { display: flex; align-items: center; gap: var(--rams-detail-menu-item-gap); padding: var(--rams-detail-menu-label-padding-block) var(--rams-detail-menu-item-padding-inline); }
+.identity { display: grid; min-width: 0; flex: var(--rams-detail-layout-flex-fill); gap: var(--rams-detail-user-menu-identity-block-gap); }
+/* The name keeps its room; a long plan or role shrinks and truncates first. */
+.nameRow { display: flex; min-width: 0; align-items: center; gap: var(--rams-detail-user-menu-identity-inline-gap); }
+.name { min-width: 0; flex: 0 1 auto; overflow: hidden; color: var(--rams-detail-foreground); font-size: var(--type-control-size); font-weight: var(--rams-detail-label-weight); letter-spacing: var(--rams-detail-user-menu-name-tracking); line-height: var(--rams-detail-user-menu-name-leading); text-overflow: ellipsis; white-space: nowrap; }
+.plan { display: inline-block; min-width: 0; max-width: var(--rams-detail-user-menu-plan-inline-share); flex: 0 var(--rams-detail-user-menu-plan-shrink) auto; overflow: hidden; height: max(var(--rams-detail-user-menu-plan-min-block-size), calc(var(--type-caption-size) * var(--type-caption-leading) + var(--rams-detail-primitive-border-width))); padding: 0 var(--rams-detail-user-menu-plan-padding-inline); border: var(--rams-detail-user-menu-plan-outline-width) solid var(--rams-detail-menu-line); border-radius: var(--radius-indicator); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-user-menu-plan-ink-share), transparent); color: var(--rams-detail-text-secondary); font-size: var(--type-caption-size); font-weight: var(--rams-detail-label-weight); letter-spacing: var(--rams-detail-user-menu-plan-tracking); line-height: var(--type-caption-leading); text-overflow: ellipsis; white-space: nowrap; }
+.email { overflow: hidden; color: var(--rams-detail-text-muted); font-size: var(--type-caption-size); letter-spacing: var(--rams-detail-user-menu-email-tracking); line-height: var(--rams-detail-user-menu-detail-leading); text-overflow: ellipsis; white-space: nowrap; }
+
+.list { position: relative; }
+.separator { block-size: var(--rams-detail-menu-separator-block-size); margin: var(--rams-detail-menu-separator-margin); background: var(--rams-detail-menu-border); }
+
+
+/* One highlight follows the pointer and the keyboard. It is the only hover treatment in the menu. */
+.highlight { position: absolute; top: 0; right: 0; left: 0; border-radius: var(--rams-detail-menu-inner-radius); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-user-menu-highlight-ink-share), transparent); opacity: 0; pointer-events: none; }
+
+.item { position: relative; display: flex; width: 100%; height: auto; box-sizing: border-box; align-items: center; gap: var(--rams-detail-menu-item-gap); margin: 0; padding: var(--rams-detail-menu-item-padding-block) var(--rams-detail-menu-item-padding-inline); border: 0; border-radius: var(--rams-detail-menu-inner-radius); background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--rams-detail-text-sm); text-align: start; cursor: pointer; outline: none; user-select: none; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); min-block-size: var(--rams-detail-menu-item-min-block-size); line-height: var(--rams-detail-menu-leading); white-space: normal; overflow-wrap: anywhere; min-inline-size: 0; }
+.icon { display: inline-grid; width: var(--rams-detail-menu-item-icon-size); flex: none; place-items: center; color: var(--rams-detail-text-secondary); transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.item:focus .icon { color: var(--rams-detail-foreground); }
+.itemLabel { position: relative; display: inline-flex; min-width: 0; flex: var(--rams-detail-layout-flex-fill); }
+.rise { display: inline-block; white-space: normal; overflow-wrap: anywhere; }
+/* Sign out is not destructive, so it stays neutral like every other row. */
+@media (hover: none) { .item:active { background: var(--rams-detail-surface-muted); } }
+
+.keys { display: inline-flex; flex: none; align-items: center; gap: var(--rams-detail-user-menu-shortcut-key-gap); margin-inline-start: auto; color: var(--rams-detail-text-muted); font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-text-xs); letter-spacing: 0; opacity: var(--rams-detail-user-menu-shortcut-opacity); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.key { display: inline-block; min-width: var(--rams-detail-user-menu-shortcut-key-measure); font: inherit; text-align: center; }
+
+.row { position: relative; display: flex; min-block-size: var(--rams-detail-menu-item-min-block-size); align-items: center; gap: var(--rams-detail-menu-item-gap); padding: var(--rams-detail-menu-item-padding-block) var(--rams-detail-menu-item-padding-inline); }
+.rowLabel { min-inline-size: 0; overflow-wrap: anywhere; flex: var(--rams-detail-layout-flex-fill); color: var(--rams-detail-foreground); font-size: var(--type-control-size); }
+.row .icon .dot { --rams-detail-dot-size: var(--rams-detail-user-menu-presence-size); }
+/* The thumb slides under the icons; the group owns the stacking context. */
+.segments { --rams-detail-segment: var(--rams-detail-user-menu-segment-inline-size); --rams-detail-user-menu-segment-inset: var(--rams-detail-user-menu-segment-padding); position: relative; isolation: isolate; display: inline-grid; height: var(--rams-detail-user-menu-segment-block-size); flex: none; grid-auto-columns: var(--rams-detail-segment); grid-auto-flow: column; padding: var(--rams-detail-user-menu-segment-inset); border-radius: var(--radius-control); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-user-menu-segment-track-ink-share), transparent); }
+.thumb { position: absolute; z-index: var(--rams-detail-layer-behind); inset-block: var(--rams-detail-user-menu-segment-inset); inset-inline-start: var(--rams-detail-user-menu-segment-inset); width: var(--rams-detail-segment); border-radius: max(0px, calc(var(--radius-control) - var(--rams-detail-user-menu-segment-inset) - var(--rams-detail-user-menu-thumb-outline-width))); background: var(--rams-detail-surface-raised); box-shadow: 0 var(--rams-detail-user-menu-thumb-shadow-block-offset) var(--rams-detail-user-menu-thumb-shadow-blur) var(--rams-detail-detail-user-menu-box-shadow-36c11a04), 0 0 0 var(--rams-detail-user-menu-thumb-outline-width) var(--rams-detail-menu-line); transform: translateX(calc(var(--rams-detail-index) * 100%)); transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.segments:dir(rtl) .thumb { transform: translateX(calc(var(--rams-detail-index) * -100%)); }
+:global(.dark) .thumb { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-user-menu-thumb-dark-ink-share), var(--rams-detail-surface-raised)); box-shadow: none; }
+.segment { display: grid; place-items: center; margin: 0; padding: 0; border: 0; border-radius: max(0px, calc(var(--radius-control) - var(--rams-detail-user-menu-segment-inset))); background: transparent; color: var(--rams-detail-text-muted); cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.segment .dot { --rams-detail-dot-size: var(--rams-detail-user-menu-option-presence-size); --rams-detail-presence-surface: var(--rams-detail-surface-raised); }
+@media (hover: hover) and (pointer: fine) { .segment:hover { color: var(--rams-detail-text-secondary); } }
+.segment[aria-checked="true"] { color: var(--rams-detail-foreground); }
+
+.spinner { animation: user-menu-spin var(--rams-motion-activity-duration) var(--rams-motion-activity-ease) var(--rams-motion-active-iterations); }
+@keyframes user-menu-spin { to { transform: var(--rams-detail-native-activity-cycle-transform); } }
+
+/* Below 640px the same content rises as a bottom sheet with larger rows. */
+.scrim { position: fixed; inset: 0; z-index: var(--rams-detail-user-menu-sheet-scrim-z); background: var(--rams-detail-detail-user-menu-background-ff9a34f2); -webkit-tap-highlight-color: transparent; }
+.sheet { position: fixed; top: auto; right: 0; bottom: 0; left: 0; z-index: calc(var(--rams-detail-user-menu-sheet-scrim-z) + 1); width: auto; max-width: none; max-height: var(--rams-detail-user-menu-sheet-max-block-size); overflow-y: auto; overscroll-behavior: contain; padding: var(--rams-menu-padding) var(--rams-menu-padding) calc(var(--rams-menu-padding) + env(safe-area-inset-bottom)); border-bottom: 0; border-radius: var(--rams-detail-surface-modal-radius) var(--rams-detail-surface-modal-radius) 0 0; --rams-menu-padding: var(--rams-detail-menu-sheet-padding); --rams-detail-menu-item-min-block-size: var(--rams-detail-menu-sheet-item-min-block-size); }
+.handle { display: block; width: var(--rams-detail-user-menu-sheet-handle-inline-size); height: var(--rams-detail-drag-handle-block-size); margin: 0 auto var(--rams-detail-user-menu-sheet-handle-gap); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-border-strong); cursor: grab; }
+
+.sheet .item, .sheet .rowLabel { font-size: var(--rams-detail-text-base); }
+
+.sheet .segments { --rams-detail-segment: var(--rams-detail-user-menu-sheet-segment-inline-size); height: var(--rams-detail-user-menu-sheet-segment-block-size); }
+.sheet .keys { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger, .chevron, .dot, .dot::before, .dot::after, .segment, .thumb, .item, .icon { transition: none; }
+  .spinner { animation: none; }
+  .panel[data-rams-presence="exiting"], .scrim[data-rams-presence="exiting"], .rise[data-rams-presence="exiting"] { display: none; }
+  .panel[data-rams-presence="present"], .scrim[data-rams-presence="present"], .rise[data-rams-presence="present"],
+  .header, .item, .row { opacity: 1 !important; transform: none !important; filter: none !important; }
+}
+
+:where(.root,.trigger,.triggerName,.chevron,.face,.portrait,.initials,.dot,.panel,.header,.identity,.nameRow,.name,.plan,.email,.list,.separator,.highlight,.item,.icon,.itemLabel,.rise,.keys,.key,.row,.rowLabel,.segments,.thumb,.segment,.spinner,.scrim,.sheet,.handle):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

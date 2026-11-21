@@ -1,0 +1,435 @@
+.guide {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-loose);
+  min-width: 0;
+  font-synthesis: none;
+  container: typography / inline-size;
+}
+.guide p,
+.guide h1,
+.guide h2,
+.guide h3 {
+  margin: 0;
+}
+.intro {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-content);
+  max-width: var(--rams-detail-type-guide-measure-intro);
+}
+.hierarchy {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-group);
+  margin: 0;
+  padding-block: var(--rams-detail-type-guide-space-related) var(--rams-detail-type-guide-space-group);
+}
+.hierarchySample {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-content);
+  max-inline-size: var(--rams-detail-type-guide-measure-reading);
+}
+.hierarchySample h3 {
+  text-wrap: balance;
+}
+.intro h1 {
+  font-size: var(--type-display-size);
+  line-height: var(--type-display-leading);
+  font-weight: var(--type-display-weight);
+  letter-spacing:var(--type-display-tracking);
+}
+.intro > p:last-child {
+  max-inline-size: var(--rams-detail-type-guide-measure-summary);
+  font-size: var(--type-title-size);
+  line-height: var(--type-body-leading);
+}
+.openingSpecimen {
+  display: grid;
+  grid-template-columns: var(--rams-detail-type-guide-opening-fallback-columns);
+  align-items: end;
+  gap: var(--rams-detail-type-guide-space-section);
+  padding-block: var(--rams-detail-type-guide-space-content) var(--rams-detail-type-guide-space-section);
+}
+.openingSpecimen figure {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-group);
+  margin: 0;
+  min-width: 0;
+}
+.openingSpecimen figcaption {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-tight);
+  font-size: var(--type-control-size);
+  line-height: var(--type-control-leading);
+}
+.specimenWord {
+  font-size: var(--rams-detail-type-guide-fallback-specimen-size);
+  line-height: var(--rams-detail-type-guide-specimen-leading);
+  font-weight: var(--rams-detail-type-guide-specimen-weight);
+  font-kerning: normal;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  overflow-wrap: anywhere;
+}
+.groteskSpecimen .specimenWord {
+  font-family: var(--type-family-interface);
+}
+.textSpecimen .specimenWord {
+  font-family: var(--type-family-editorial);
+  font-size: var(--rams-detail-type-guide-fallback-editorial-specimen-size);
+  font-style: normal;
+}
+.eyebrow,
+.caption,
+.note,
+.fontStatus {
+  color: var(--muted-foreground);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-leading);
+}
+.section {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-group);
+  min-width: 0;
+}
+.sectionHeading {
+  display: flex;
+  align-items: baseline;
+  gap: var(--rams-detail-type-guide-space-content);
+  padding-top: var(--rams-detail-type-guide-space-group);
+  border-top: var(--rams-detail-primitive-border-width) solid var(--border);
+}
+.sectionHeading h2 {
+  font-size: var(--type-title-size);
+  line-height: var(--type-title-leading);
+  font-weight: var(--type-title-weight);
+}
+.familyGrid,
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: var(--rams-detail-type-guide-pair-columns);
+  gap: var(--rams-detail-type-guide-space-group);
+}
+.familyGrid {
+  gap: var(--rams-detail-type-guide-space-families);
+}
+.familyCard {
+  display: grid;
+  align-content: start;
+  gap: var(--rams-detail-type-guide-space-content);
+  min-width: 0;
+}
+.familyHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--rams-detail-type-guide-space-related);
+  align-items: baseline;
+}
+.familyHeader h3,
+.comparison h3,
+.ruleGrid h3,
+.scale h3,
+.roleMeta h3 {
+  font-size: var(--type-control-size);
+  font-weight: var(--rams-detail-label-weight);
+  line-height: var(--type-control-leading);
+}
+.familyHeader > span {
+  font-size: var(--type-caption-size);
+  color: var(--muted-foreground);
+}
+.familySpecimen {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-group);
+  font-kerning: normal;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+}
+.familySentence {
+  font-size: var(--type-title-size);
+  line-height: var(--type-title-leading);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.alphabet {
+  font-size: var(--type-control-size);
+  line-height: var(--rams-detail-type-guide-alphabet-leading);
+  overflow-wrap: anywhere;
+}
+.weights {
+  display: grid;
+  grid-template-columns: var(--rams-detail-type-guide-weight-fallback-columns);
+  border-block: var(--rams-detail-primitive-border-width) solid var(--border);
+}
+.weights > div {
+  display: grid;
+  justify-items: start;
+  gap: var(--rams-detail-type-guide-space-related);
+  padding-block: var(--rams-detail-type-guide-space-content);
+}
+.weightValue {
+  color: var(--muted-foreground);
+  font-family: var(--type-family-code);
+  font-size: var(--type-caption-size);
+}
+.weights > div > :last-child {
+  font-size: var(--type-title-size);
+}
+.italics {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-content);
+}
+.italics > div {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-tight);
+}
+.italics > div > :first-child {
+  font-size: var(--type-title-size);
+}
+.italics .caption {
+  font-style: normal;
+  font-family: var(--type-family-interface);
+}
+.fontStatus {
+  padding-top: var(--rams-detail-type-guide-space-content);
+  border-top: var(--rams-detail-primitive-border-width) solid var(--border);
+}
+.roleList {
+  border-block: var(--rams-detail-primitive-border-width) solid var(--border);
+}
+.roleRow {
+  display: grid;
+  grid-template-columns: var(--rams-detail-type-guide-role-columns);
+  align-items: center;
+  gap: var(--rams-detail-type-guide-space-group);
+  padding-block: var(--rams-detail-type-guide-space-group);
+}
+.roleRow + .roleRow {
+  border-top: var(--rams-detail-primitive-border-width) solid var(--border);
+}
+.roleMeta {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-related);
+}
+.roleMeta p,
+.roleSpecs {
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-leading);
+  color: var(--muted-foreground);
+}
+.roleSpecs {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-related);
+  margin: var(--rams-detail-type-guide-space-tight) 0 0;
+}
+.roleSpecs > div {
+  display: grid;
+  grid-template-columns: var(--rams-detail-type-guide-spec-columns);
+  gap: var(--rams-detail-type-guide-space-detail);
+}
+.roleSpecs dt,
+.roleSpecs dd {
+  margin: 0;
+}
+.roleSpecs dd {
+  color: var(--foreground);
+}
+.roleMeta code,
+.guide code,
+.roleSample {
+  overflow-wrap: anywhere;
+}
+.roleSample {
+  font-weight: var(--type-body-weight);
+  min-width: 0;
+}
+.scale {
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-detail);
+  min-width: 0;
+}
+.scaleTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: start;
+  font-size: var(--type-control-size);
+}
+.scaleTable caption {
+  padding-block-end: var(--rams-detail-type-guide-space-content);
+  text-align: start;
+  font-size: var(--type-caption-size);
+  color: var(--muted-foreground);
+}
+.scaleTable th,
+.scaleTable td {
+  padding: var(--rams-detail-type-guide-space-detail) var(--rams-detail-type-guide-space-related);
+  border-top: var(--rams-detail-primitive-border-width) solid var(--border);
+  text-align: start;
+  vertical-align: baseline;
+}
+.scaleTable th:first-child,
+.scaleTable td:first-child { padding-inline-start: 0; }
+.scaleTable th {
+  font-weight: var(--rams-detail-label-weight);
+}
+.scaleTable td {
+  font-family: var(--rams-detail-font-numeric);
+  font-variant-numeric: var(--rams-detail-numeric-column-variant);
+}
+.ruleGrid {
+  display: grid;
+  grid-template-columns: var(--rams-detail-type-guide-rule-columns);
+  gap: var(--rams-detail-type-guide-space-group);
+}
+.ruleGrid article {
+  display: grid;
+  align-content: start;
+  gap: var(--rams-detail-type-guide-space-detail);
+}
+.ruleGrid article > p {
+  color: var(--muted-foreground);
+}
+.readingSample {
+  padding-block: var(--rams-detail-type-guide-space-content);
+}
+.readingSample > p {
+  margin-top: var(--rams-detail-type-guide-space-content);
+  max-inline-size: var(--rams-detail-type-guide-measure-reading);
+  font-family: var(--type-family-editorial);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-leading);
+}
+.code {
+  margin: 0;
+  padding-block: var(--rams-detail-type-guide-space-group);
+  border-top: var(--rams-detail-primitive-border-width) solid var(--border);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--type-code-family);
+  font-size: var(--type-code-size);
+  line-height: var(--type-code-leading);
+}
+.comparison {
+  display: grid;
+  align-content: start;
+  gap: var(--rams-detail-type-guide-space-content);
+  min-width: 0;
+  padding-block: var(--rams-detail-type-guide-space-related) var(--rams-detail-type-guide-space-content);
+}
+.spacingSample {
+  font-family: var(--type-family-interface);
+  font-size: var(--type-heading-size);
+  line-height: var(--type-heading-leading);
+  overflow-wrap: anywhere;
+}
+.comparison code {
+  font-family: var(--type-code-family);
+  font-size: var(--type-code-size);
+  line-height: var(--type-code-leading);
+}
+.leadingSample {
+  font-family: var(--type-body-family);
+  font-size: var(--type-body-size);
+}
+.rules {
+  margin: 0;
+  padding-inline-start: var(--rams-detail-type-guide-space-indent);
+  display: grid;
+  gap: var(--rams-detail-type-guide-space-content);
+  max-width: var(--rams-detail-type-guide-measure-rules);
+}
+.rules strong {
+  font-weight: var(--rams-detail-type-guide-emphasis-weight);
+}
+@media (max-width: 48rem) {
+  .guide {
+    gap: var(--rams-detail-type-guide-space-compact);
+  }
+}
+@container typography (max-width: 48rem) {
+  .scaleTable caption { display:block; inline-size:100%; }
+  .openingSpecimen,
+  .familyGrid,
+  .comparisonGrid,
+  .roleRow,
+  .ruleGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .openingSpecimen {
+    gap: var(--rams-detail-type-guide-space-compact);
+    padding-block: 0;
+  }
+  .roleRow {
+    gap: var(--rams-detail-type-guide-space-content);
+  }
+  .roleSpecs > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rams-detail-type-guide-space-micro);
+  }
+  .scaleTable thead {
+    position: absolute;
+    width: var(--rams-detail-type-guide-visually-hidden-size);
+    height: var(--rams-detail-type-guide-visually-hidden-size);
+    overflow: hidden;
+    clip-path: var(--rams-detail-type-guide-visually-hidden-clip);
+  }
+  .scaleTable,
+  .scaleTable tbody,
+  .scaleTable tr,
+  .scaleTable th,
+  .scaleTable td {
+    display: block;
+  }
+  .scaleTable tr {
+    padding-block: var(--rams-detail-type-guide-space-content);
+    border-top: var(--rams-detail-primitive-border-width) solid var(--border);
+  }
+  .scaleTable th,
+  .scaleTable td {
+    border: 0;
+    padding: var(--rams-detail-type-guide-space-tight) 0;
+  }
+  .scaleTable td {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--rams-detail-type-guide-space-content);
+  }
+  .scaleTable td::before {
+    content: attr(data-label);
+    font-family: var(--type-family-interface);
+    color: var(--muted-foreground);
+  }
+  .weights {
+    grid-template-columns: var(--rams-detail-type-guide-rule-columns);
+  }
+}
+
+/* Specimen rhythm: expressive samples first; instructions keep a consistent reading measure. */
+.guide { gap:var(--rams-detail-type-guide-space-page); }
+.section { gap:var(--rams-detail-type-guide-space-section); }
+.sectionHeading { padding-top:0; border-top:0; }
+.openingSpecimen { grid-template-columns:var(--rams-detail-type-guide-pair-columns); gap:var(--rams-detail-type-guide-space-section); align-items:baseline; padding-block:var(--rams-detail-type-guide-space-group) var(--rams-detail-type-guide-space-families); }
+.groteskSpecimen .specimenWord,.textSpecimen .specimenWord { font-size:var(--rams-detail-type-guide-specimen-size); line-height:var(--rams-detail-type-guide-specimen-leading); letter-spacing:normal; overflow-wrap:anywhere; }
+.hierarchy { padding-block:0 var(--rams-detail-type-guide-space-content); }
+.hierarchySample { max-inline-size:var(--rams-detail-type-guide-measure-hierarchy); gap:var(--rams-detail-type-guide-space-indent); }
+.hierarchySample h3 { max-inline-size:var(--rams-detail-type-guide-measure-heading); letter-spacing:var(--rams-detail-type-guide-weight-tracking); }
+.weights { grid-template-columns:minmax(0,1fr); border:0; gap:var(--rams-detail-type-guide-space-detail); }
+.weights > div { grid-template-columns:var(--rams-detail-type-guide-weight-columns); gap:var(--rams-detail-type-guide-space-content); padding-block:0; align-items:baseline; }
+.weights > div > :last-child { font-size:var(--rams-detail-type-guide-weight-specimen-size); line-height:var(--rams-detail-type-guide-weight-leading); letter-spacing:var(--rams-detail-type-guide-weight-tracking); }
+.readingSample { max-inline-size:var(--rams-detail-type-guide-measure-reading); }
+@container typography (max-width: 40rem) {
+ .openingSpecimen { grid-template-columns:minmax(0,1fr); gap:var(--rams-detail-type-guide-space-compact); }
+ .guide { gap:var(--rams-detail-type-guide-space-narrow); }
+ .familyGrid { gap:var(--rams-detail-type-guide-space-loose); }
+
+}
+
+/* A large text preference must not turn the specimen's intrinsic word width into the grid width. */
+.guide { grid-template-columns:minmax(0,1fr); }
+.intro { min-width:0; }
+.intro h1,.sectionHeading h2 { min-width:0; overflow-wrap:anywhere; }
+.roleSpecs dt,.roleSpecs dd { min-width:0; overflow-wrap:anywhere; }
+
+.sectionHeading h2 { font-weight:var(--type-title-weight); letter-spacing:var(--type-title-tracking); }
+
+/* Enlarged specimens wrap the word rather than shrink the text below its rem minimum. */
+.weights > div > :last-child { min-width:0; overflow-wrap:anywhere; }

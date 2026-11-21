@@ -1,0 +1,79 @@
+.field { position: relative; display: grid; gap: var(--rams-detail-space-2); min-width: 0; }
+.control { position: relative; min-width: 0; }
+.label { font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-menu-text-weight); line-height: var(--rams-detail-leading-body); }
+/* The trigger anchors the menu, so press feedback stays in color; it never scales. */
+.trigger { position: relative; display: flex; width: 100%; min-height: var(--rams-detail-control-height-md); align-items: center; gap: var(--rams-detail-space-2); border: var(--rams-detail-menu-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-menu-control-padding-block) var(--rams-detail-space-3); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); font: inherit; font-size: var(--rams-detail-text-sm); text-align: start; cursor: pointer; transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .trigger:hover:not(:disabled) { border-color: var(--rams-detail-border-strong); background: var(--rams-detail-surface-muted); } }
+.trigger:active:not(:disabled), .trigger[aria-expanded="true"] { border-color: var(--rams-detail-border-strong); background: var(--rams-detail-surface-muted); }
+.trigger:disabled { opacity: var(--rams-detail-menu-disabled-opacity); cursor: not-allowed; }
+/* The chevron stays pinned to the trailing edge; a selection only reserves room for the clear button beside it, so nothing jumps. */
+.hasClear .chevron { margin-inline-start: var(--rams-detail-menu-dismiss-size); }
+.value { position: relative; display: flex; flex-wrap: wrap; row-gap: var(--rams-detail-menu-chip-gap); min-width: 0; min-height: var(--rams-detail-menu-dismiss-size); flex: var(--rams-detail-layout-flex-fill); align-items: center; overflow: hidden; }
+.placeholder, .description { color: var(--rams-detail-text-muted); }
+/* The placeholder sits outside the flow so the first chip can open its slot from the leading edge. */
+.placeholder { position: absolute; inset: 0; display: flex; align-items: center; overflow: hidden; white-space: nowrap; }
+/* The slot clips while its width springs open or closed; the chip keeps its natural width so the label never re-truncates mid-flight. */
+.slot { display: flex; flex: 0 0 auto; max-width: 100%; min-width: 0; overflow: hidden; }
+.slot:has(.more) { flex-shrink: 0; }
+.chip, .more { box-sizing: border-box; flex: 0 1 auto; min-width: 0; max-width: var(--rams-detail-menu-chip-max-inline-size); overflow: hidden; margin-inline-end: var(--rams-detail-menu-chip-gap); border-radius: var(--rams-detail-radius-pill); padding: var(--rams-detail-menu-control-padding-block) var(--rams-detail-menu-control-padding-inline); background: var(--rams-detail-surface-muted); box-shadow: inset 0 0 0 var(--rams-detail-menu-border-width) var(--rams-detail-border-subtle); color: var(--rams-detail-foreground); text-overflow: ellipsis; white-space: nowrap; font-size: var(--type-control-size); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.trigger[aria-expanded="true"] .chip, .trigger[aria-expanded="true"] .more { background: var(--rams-detail-surface); }
+@media (hover: hover) and (pointer: fine) { .trigger:hover:not(:disabled) .chip, .trigger:hover:not(:disabled) .more { background: var(--rams-detail-surface); } }
+.more { direction: ltr; unicode-bidi: isolate; display: inline-flex; color: var(--rams-detail-text-secondary); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.count { display: inline-grid; }
+.count > span { grid-area: 1 / 1; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: var(--rams-detail-accessible-hidden-margin); padding: var(--rams-detail-accessible-hidden-padding); overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: var(--rams-detail-accessible-hidden-border); }
+.clear { position: absolute; top: 0; bottom: 0; inset-inline-end: calc(var(--rams-detail-space-3) + var(--rams-detail-menu-glyph-size) + var(--rams-detail-space-2)); display: grid; width: var(--rams-detail-menu-dismiss-size); height: var(--rams-detail-menu-dismiss-size); margin: auto 0; place-items: center; border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-text-muted); cursor: pointer; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .clear:hover { background: var(--rams-detail-surface); color: var(--rams-detail-foreground); } }
+.chevron { flex: 0 0 auto; color: var(--rams-detail-text-muted); transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.trigger[aria-expanded="true"] .chevron { transform: rotate(var(--rams-detail-menu-turn-open)); }
+.description { font-size: var(--rams-detail-text-xs); }
+.menu { box-sizing: border-box; position: relative; z-index: var(--rams-detail-menu-content-z); width: var(--radix-popover-trigger-width); max-width: var(--radix-popover-content-available-width); max-height: var(--radix-popover-content-available-height); overflow-y: auto; overscroll-behavior: contain; border: var(--rams-detail-menu-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); padding: var(--rams-detail-menu-padding); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-menu-elevation); transform-origin: var(--radix-popover-content-transform-origin); will-change: transform, opacity; }
+/* Arrow keys move the highlight often, so it changes almost instantly. Selection is shown by the check, not by weight, so labels never reflow. */
+.option { display: flex; width: 100%; min-height: var(--rams-detail-menu-item-min-block-size); align-items: center; justify-content: space-between; gap: var(--rams-detail-menu-item-gap); border: 0; border-radius: var(--rams-detail-menu-inner-radius); padding: var(--rams-detail-menu-item-padding-block) var(--rams-detail-menu-item-padding-inline); background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--rams-detail-text-sm); text-align: start; cursor: pointer; transition: background-color var(--rams-detail-duration-instant) var(--rams-detail-ease-standard), color var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.option > span:first-child { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+.option[data-active="true"] { background: var(--rams-detail-menu-highlight-fill); color: var(--rams-detail-menu-highlight-ink); }
+.option:focus-visible { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: calc(-1 * var(--rams-detail-focus-outline-width)); }
+.option:disabled { opacity: var(--rams-detail-menu-disabled-opacity); cursor: not-allowed; }
+.check { flex: 0 0 auto; }
+@media (prefers-reduced-motion: reduce) { .trigger, .chevron, .option, .clear, .chip, .more { transition: none; } }
+:where(.field,.control,.label,.trigger,.hasClear,.chevron,.value,.placeholder,.description,.slot,.more,.chip,.count,.srOnly,.clear,.menu,.option,.check):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Preserve the composite geometry while consuming owned native primitives. */
+.field .clear { min-inline-size: 0; min-block-size: 0; padding: 0; }
+.trigger, .option { flex-wrap: nowrap; }
+.clear > svg { inline-size: var(--rams-detail-menu-glyph-size); block-size: var(--rams-detail-menu-glyph-size); }
+
+/* Shared menu anatomy; scoped inner radius is recomputed at the surface. */
+.menu { --rams-menu-padding: var(--rams-detail-menu-padding); --rams-menu-border: var(--rams-detail-menu-border-width); --rams-menu-radius: var(--rams-detail-menu-radius); color: var(--rams-detail-menu-ink); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-menu-leading); }
+ .menu { border-color: var(--rams-detail-menu-border); border-radius: var(--rams-detail-menu-radius); background: var(--rams-detail-menu-fill); }
+
+.option { color: var(--rams-detail-menu-ink); line-height: var(--rams-detail-menu-leading); }
+
+/* Resolve placement in the actual panel, including per-panel and inherited theme/density overrides. */
+.placement { position: absolute; visibility: hidden; pointer-events: none; width: var(--rams-detail-menu-anchor-offset); height: var(--rams-detail-menu-collision-inset); padding: 0; border: 0; }
+
+.placementMeasure { position: absolute; inset: 0; overflow: clip; visibility: hidden; pointer-events: none; }
+
+/* Settle the active count immediately and keep it stable across preference changes. */
+.count[data-settled] > [data-exiting] { display: none !important; }
+.count[data-settled] > :not([data-exiting]) { opacity: 1 !important; transform: none !important; filter: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .count > [data-exiting] { display: none !important; }
+  .count > :not([data-exiting]) { opacity: 1 !important; transform: none !important; filter: none !important; }
+}
+
+/* Settle selection glyphs and chip slots after a live preference change. */
+.value[data-settled] .slot[data-exiting], .menu[data-settled] .check[data-exiting] { display: none !important; }
+.value[data-settled] .slot:not([data-exiting]) { width: auto !important; opacity: 1 !important; }
+.value[data-settled] .slot:not([data-exiting]) > :is(.chip, .more) { transform: none !important; filter: none !important; }
+.menu[data-settled] .check:not([data-exiting]) path { opacity: 1 !important; stroke-dasharray: var(--rams-detail-normalized-path-drawn-dash) !important; stroke-dashoffset: 0 !important; }
+@media (prefers-reduced-motion: reduce) {
+  .value .slot[data-exiting], .menu .check[data-exiting] { display: none !important; }
+  .value .slot:not([data-exiting]) { width: auto !important; opacity: 1 !important; }
+  .value .slot:not([data-exiting]) > :is(.chip, .more) { transform: none !important; filter: none !important; }
+  .menu .check:not([data-exiting]) path { opacity: 1 !important; stroke-dasharray: var(--rams-detail-normalized-path-drawn-dash) !important; stroke-dashoffset: 0 !important; }
+}
+
+/* Keep a menu retired if reduced motion was enabled during its exit. */
+.menu[data-retired] { display: none !important; }
+@media (prefers-reduced-motion: reduce) { .menu[inert] { display: none !important; } }

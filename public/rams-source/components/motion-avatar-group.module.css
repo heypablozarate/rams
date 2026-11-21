@@ -1,0 +1,37 @@
+.group { display: inline-flex; height: var(--rams-detail-avatar-size); align-items: center; padding-left: var(--rams-detail-avatar-group-motion-overlap); }
+/* Each slot is the avatar's visible width, so a slot that opens or closes moves the rest of the stack smoothly. */
+.slot { position: relative; display: inline-flex; flex: 0 0 auto; height: var(--rams-detail-avatar-size); align-items: center; }
+/* One wrapper per person carries every hover move as a single translate, so the stack never changes size. */
+.lift { --rams-detail-fan: var(--rams-detail-avatar-group-rest-offset); --rams-detail-aside: var(--rams-detail-avatar-group-rest-offset); --rams-detail-rise: var(--rams-detail-avatar-group-rest-offset); position: relative; display: inline-flex; margin-left: calc(-1 * var(--rams-detail-avatar-group-motion-overlap)); border-radius: var(--rams-detail-radius-pill); transform: translate(calc(var(--rams-detail-fan) + var(--rams-detail-aside)), var(--rams-detail-rise)); transition: transform var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.avatar, .overflow { border: var(--rams-detail-avatar-badge-border-width) solid var(--rams-detail-surface); box-shadow: 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-border); transition: box-shadow var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.overflow { position: relative; display: inline-grid; place-items: center; overflow: hidden; border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface-muted); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-avatar-group-motion-count-weight); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.count { display: inline-block; }
+.overflow.sm { font-size: var(--type-caption-size); }
+.overflow.lg { font-size: var(--rams-detail-text-sm); }
+/* The name floats above the stack, outside the layout, so showing it never moves anything. */
+.tip { display: none; position: absolute; z-index: var(--rams-detail-avatar-group-motion-name-layer); bottom: calc(100% + var(--rams-detail-avatar-group-motion-name-gap)); left: 50%; padding: var(--rams-detail-avatar-group-motion-name-padding); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-foreground); color: var(--rams-detail-background); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-label-weight); line-height: var(--type-caption-leading); white-space: nowrap; pointer-events: none; opacity: 0; transform: translate(-50%, var(--rams-motion-avatar-group-name-travel)); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+/* Pointing at the stack loosens its overlap from the center; the person under the pointer lifts with a crisp ring and names themselves, and their neighbors ease aside. */
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .lift { --rams-detail-fan: calc((var(--rams-detail-index) - (var(--rams-detail-count) - var(--rams-detail-avatar-group-index-origin)) / 2) * var(--rams-motion-avatar-group-fan-step)); }
+  .slot:hover { z-index: var(--rams-detail-local-overlay-layer); }
+  .slot:hover .lift { --rams-detail-rise: var(--rams-motion-avatar-group-hover-rise); }
+  .slot:hover ~ .slot .lift { --rams-detail-aside: var(--rams-motion-avatar-group-hover-neighbor); }
+  .slot:has(~ .slot:hover) .lift { --rams-detail-aside: calc(-1 * var(--rams-motion-avatar-group-hover-neighbor)); }
+  .slot:hover .avatar, .slot:hover .overflow { box-shadow: 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-border-strong); }
+  .slot:hover .tip { display: block; opacity: 1; transform: translate(-50%, 0); transition-delay: var(--rams-detail-duration-instant); }
+  @starting-style {
+    .slot:hover .tip { opacity: 0; transform: translate(-50%, var(--rams-motion-avatar-group-name-travel)); }
+  }
+}
+/* Reduced motion keeps the stack still; the ring and name still answer the pointer. */
+@media (prefers-reduced-motion: reduce) { .lift { transform: none !important; transition: none; } .tip { transform: translate(-50%, 0); transition: none; } }
+:where(.group,.sm,.lg,.slot,.lift,.avatar,.overflow,.count,.default,.tip):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Quantitative overflow uses the same verified numeric face as other RAMS readouts. */
+.count { font-family: var(--rams-detail-font-body); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+/* Artwork retains its optical size; quantitative text can grow into a pill. */
+.group, .slot { height: auto; min-height: var(--rams-detail-avatar-size); }
+.overflow:is(.sm,.default,.lg) { box-sizing: border-box; width: max-content; height: auto; min-width: var(--rams-detail-avatar-size); min-height: var(--rams-detail-avatar-size); padding: var(--rams-detail-avatar-group-motion-count-padding); line-height: var(--rams-detail-badge-leading); }
+
+/* Standalone and grouped avatars share the same size source. */
+.group:is(.sm,.default,.lg) { --rams-detail-avatar-size:var(--rams-avatar-size); }
+.group { height:auto; min-height:var(--rams-detail-avatar-size); max-inline-size:100%; flex-wrap:wrap; row-gap:var(--rams-detail-space-2); }

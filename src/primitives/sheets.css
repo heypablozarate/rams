@@ -1,0 +1,51 @@
+/* A single CSS transition owns the panel position. Closing retains the Radix
+   presentation long enough to reverse from its current position on reopen. */
+.rams-sheet__content {
+  --rams-sheet-from-x: var(--rams-detail-sheet-rest-offset);
+  --rams-sheet-from-y: var(--rams-detail-sheet-rest-offset);
+}
+.rams-sheet__content[data-slot="sheet-content"][data-state] {
+  transform: translate(0, 0);
+  transition: transform var(--rams-detail-duration-fast)
+    var(--rams-detail-ease-enter);
+}
+.rams-sheet__content[data-side="left"] { --rams-sheet-from-x: var(--rams-detail-sheet-offscreen-start); }
+.rams-sheet__content[data-side="right"] { --rams-sheet-from-x: var(--rams-detail-sheet-offscreen-end); }
+.rams-sheet__content[data-side="top"] { --rams-sheet-from-y: var(--rams-detail-sheet-offscreen-start); }
+.rams-sheet__content[data-side="bottom"] { --rams-sheet-from-y: var(--rams-detail-sheet-offscreen-end); }
+.rams-sheet__overlay[data-slot="sheet-overlay"][data-state] {
+  opacity: 1;
+  transition: opacity var(--rams-detail-duration-fast)
+    var(--rams-detail-ease-enter);
+}
+@starting-style {
+  .rams-sheet__content[data-slot="sheet-content"][data-state="open"] {
+    transform: translate(var(--rams-sheet-from-x), var(--rams-sheet-from-y));
+  }
+  .rams-sheet__overlay[data-slot="sheet-overlay"][data-state="open"] {
+    opacity: 0;
+  }
+}
+.rams-sheet__content[data-slot="sheet-content"][data-state="closed"] {
+  transform: translate(var(--rams-sheet-from-x), var(--rams-sheet-from-y));
+  pointer-events: none !important;
+}
+.rams-sheet__overlay[data-slot="sheet-overlay"][data-state="closed"] {
+  opacity: 0;
+  pointer-events: none !important;
+}
+.rams-sheet__content[data-slot="sheet-content"][data-state="closed"],
+.rams-sheet__overlay[data-slot="sheet-overlay"][data-state="closed"] {
+  transition-duration: var(--rams-detail-duration-instant);
+  transition-timing-function: var(--rams-detail-ease-exit);
+  /* Radix Presence observes animationend; this clock never controls app state. */
+  animation: rams-sheet-retain var(--rams-detail-duration-instant) var(--rams-motion-uniform-ease) both;
+}
+@keyframes rams-sheet-retain { to { --rams-sheet-retained: var(--rams-detail-sheet-retained-state); } }
+@media (prefers-reduced-motion: reduce) {
+  .rams-sheet__content[data-slot="sheet-content"][data-state],
+  .rams-sheet__overlay[data-slot="sheet-overlay"][data-state] {
+    transition: none;
+    animation: none;
+  }
+}

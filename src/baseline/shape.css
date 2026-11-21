@@ -1,0 +1,66 @@
+/* Generated from tokens.json shapeCustomization. Shared by every implementation. */
+:root {
+  --radius-value-r5: .3125rem;
+  --radius-value-r10: .625rem;
+  --radius-value-r18: 1.125rem;
+  --radius-value-r26: 1.625rem;
+  --radius-value-r34: 2.125rem;
+  --radius-value-full: 9999px;
+  --shape-inset-menu: .3125rem;
+  --shape-inset-border: 1px;
+  --shape-inset-tabs: 3px;
+  --radius-control: var(--radius-value-r18);
+  --radius-panel: var(--radius-value-r26);
+  --radius-surface: var(--radius-value-r34);
+  --radius-select-panel: max(0px, calc(var(--radius-control) + .125rem));
+  --radius-select-item: max(0px, calc(var(--radius-select-panel) - var(--shape-inset-menu) - var(--shape-inset-border)));
+  --radius-menu-item: max(0px, calc(var(--radius-panel) - var(--shape-inset-menu) - var(--shape-inset-border)));
+  --radius-tab-item: max(0px, calc(var(--radius-control) - var(--shape-inset-tabs)));
+  --radius-indicator: var(--radius-value-r5);
+  --radius-inset: var(--radius-value-r10);
+  --radius-pill: var(--radius-value-full);
+}
+@theme inline {
+  --radius-sm: var(--radius-inset);
+  --radius-md: var(--radius-control);
+  --radius-lg: var(--radius-select-panel);
+  --radius-xl: var(--radius-panel);
+  --radius-2xl: var(--radius-surface);
+  --radius-3xl: calc(var(--radius-surface) + .5rem);
+  --radius-4xl: calc(var(--radius-surface) + 1rem);
+}
+[data-slot="dialog-content"],
+[data-slot="alert-dialog-content"] { border-radius: var(--rams-detail-surface-modal-radius, var(--radius-surface)); }
+[data-slot="popover-content"],
+[data-slot="hover-card-content"] { border-radius: var(--rams-detail-surface-popover-radius, var(--radius-panel)); }
+[data-slot="dropdown-menu-content"],
+[data-slot="dropdown-menu-sub-content"],
+[data-slot="context-menu-content"],
+[data-slot="context-menu-sub-content"],
+[data-slot="menubar-content"],
+[data-slot="menubar-sub-content"],
+[data-slot="combobox-content"],
+[data-slot="calendar"] { border-radius: var(--radius-panel); }
+[data-slot="select-content"] { border-radius: var(--radius-select-panel); }
+[data-slot="select-item"] { border-radius: var(--radius-select-item); }
+[data-slot="dropdown-menu-item"],
+[data-slot="dropdown-menu-sub-trigger"],
+[data-slot="dropdown-menu-checkbox-item"],
+[data-slot="dropdown-menu-radio-item"],
+[data-slot="context-menu-item"],
+[data-slot="context-menu-sub-trigger"],
+[data-slot="context-menu-checkbox-item"],
+[data-slot="context-menu-radio-item"],
+[data-slot="menubar-item"],
+[data-slot="menubar-sub-trigger"],
+[data-slot="menubar-checkbox-item"],
+[data-slot="menubar-radio-item"] { border-radius: var(--radius-menu-item); }
+[data-slot="command-item"],
+[data-slot="combobox-item"],
+[data-slot="navigation-menu-trigger"],
+[data-slot="navigation-menu-link"] { border-radius: var(--radius-control); }
+[data-slot="checkbox"] { border-radius: var(--radius-indicator); }
+[data-slot="tabs-list"][data-variant="default"] {border-radius:var(--radius-control);padding:var(--shape-inset-tabs); }
+[data-slot="tabs-list"][data-variant="default"] > [data-slot="tabs-trigger"] {border-radius:var(--radius-tab-item);}
+[data-slot="select-content"] > [data-radix-select-viewport] {padding:var(--shape-inset-menu); }
+[data-slot="dropdown-menu-content"], [data-slot="dropdown-menu-sub-content"], [data-slot="context-menu-content"], [data-slot="context-menu-sub-content"], [data-slot="menubar-content"], [data-slot="menubar-sub-content"] {padding:var(--shape-inset-menu); }

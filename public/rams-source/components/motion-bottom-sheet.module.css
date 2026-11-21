@@ -1,0 +1,75 @@
+/* The dim follows the sheet's position in JS; only its color lives here. */
+.overlay { position: fixed; inset: 0; z-index: var(--rams-detail-surface-overlay-z); background: var(--rams-detail-surface-overlay-paint); }
+/* While it leaves, nothing underneath is blocked and the sheet cannot be grabbed again.
+   Radix sets pointer-events: auto inline on the overlay, so only !important lets a click reach the trigger and reverse the exit. */
+.overlay[data-state="closed"], .sheet[data-state="closed"] { pointer-events: none !important; }
+
+/* The sheet is as tall as its largest detent plus a hidden extension below the fold; detents are translateY offsets from there. */
+.sheet {
+  position: fixed;
+  box-sizing: border-box;
+  z-index: var(--rams-detail-surface-content-z);
+  right: 0;
+  bottom: calc(var(--rams-detail-sheet-extension) * -1);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, var(--rams-detail-bottom-sheet-max-inline-size));
+  height: calc(var(--rams-detail-sheet-max) * var(--rams-detail-sheet-legacy-viewport-height) + var(--rams-detail-sheet-extension));
+  height: calc(var(--rams-detail-sheet-max) * var(--rams-detail-surface-viewport-block-size) + var(--rams-detail-sheet-extension));
+  margin-inline: auto;
+  overflow: hidden;
+  padding-bottom: calc(var(--rams-detail-sheet-extension) + env(safe-area-inset-bottom, 0px));
+  border: var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border);
+  border-bottom: 0;
+  border-radius: var(--rams-detail-surface-modal-radius) var(--rams-detail-surface-modal-radius) 0 0;
+  background: var(--rams-detail-surface-raised);
+  color: var(--rams-detail-foreground);
+  box-shadow: var(--rams-detail-surface-elevation);
+  font-family: var(--rams-detail-font-body);
+  letter-spacing: var(--rams-detail-tracking-body);
+  outline: none;
+  will-change: transform;
+}
+
+/* The whole header is the handle, so a drag can start anywhere above the content. */
+.header { position: relative; flex: none; padding: var(--rams-detail-surface-padding) var(--rams-detail-surface-padding) var(--rams-detail-space-0); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.sheet[data-dragging] .header { cursor: grabbing; }
+/* A hairline appears only once the content scrolls under the header. */
+.header::after { position: absolute; right: 0; bottom: 0; left: 0; height: var(--rams-detail-menu-border-width); background: var(--rams-detail-surface-border); content: ""; opacity: 0; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.sheet[data-scrolled] .header::after { opacity: 1; }
+
+.grabber { display: flex; width: var(--rams-detail-bottom-sheet-grabber-inline-size); height: var(--rams-detail-bottom-sheet-grabber-block-size); align-items: center; justify-content: center; margin: 0 auto var(--rams-detail-space-1); padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; cursor: inherit; -webkit-tap-highlight-color: transparent; }
+.grabberBar { width: var(--rams-detail-bottom-sheet-grip-inline-size); height: var(--rams-detail-drag-handle-block-size); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-border-strong); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .grabber:hover .grabberBar { background: var(--rams-detail-text-muted); } }
+.sheet[data-dragging] .grabberBar { background: var(--rams-detail-text-muted); }
+
+.headRow { display: flex; align-items: flex-start; justify-content: space-between; }
+.headText { display: grid; min-width: 0; }
+.title { margin: 0; font-family: var(--type-title-family); font-size: var(--rams-detail-surface-title-size); font-weight: var(--rams-detail-surface-title-weight); letter-spacing: var(--rams-detail-surface-title-tracking); line-height: var(--rams-detail-surface-title-leading); }
+.description { margin: var(--rams-detail-space-0); color: var(--rams-detail-surface-muted-ink); font-size: var(--rams-detail-surface-body-size); line-height: var(--rams-detail-surface-body-leading); }
+
+.close { display: grid; flex: none; width: var(--rams-detail-surface-close-size); height: var(--rams-detail-surface-close-size); place-items: center; margin-top: var(--rams-detail-space-0); padding: 0; border: var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface-muted); color: var(--rams-detail-text-secondary); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .close:hover { color: var(--rams-detail-foreground); border-color: var(--rams-detail-border-strong); } }
+.close:active { color: var(--rams-detail-foreground); }
+
+/* The content scrolls only at the tallest detent; below it, a drag or scroll opens the sheet first. */
+.body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: var(--rams-detail-surface-stack-gap) var(--rams-detail-surface-padding) var(--rams-detail-surface-padding); overscroll-behavior: contain; scrollbar-width: thin; touch-action: pan-y;  }
+.sheet:not([data-expanded]) .body { overflow: hidden; touch-action: none; }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay[data-state="closed"], .sheet[data-state="closed"] { display: none; }
+  .header::after, .grabberBar, .close { transition: none; }
+}
+
+:where(.overlay,.sheet,.header,.grabber,.grabberBar,.headRow,.headText,.title,.description,.close,.body,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+.title, .description, .body { overflow-wrap: anywhere; }
+.description { font-family: var(--type-body-family); font-weight: var(--rams-detail-surface-body-weight); letter-spacing: var(--rams-detail-surface-body-tracking); }
+
+.footer { min-inline-size: var(--rams-detail-space-0); }
+.footer { flex: none; padding: var(--rams-detail-surface-padding); border-block-start: var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border); }

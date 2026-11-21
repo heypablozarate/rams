@@ -1,0 +1,94 @@
+.root {
+  position: relative;
+  display: grid;
+  gap: var(--rams-detail-radio-cards-grid-gap);
+  color: var(--rams-detail-foreground);
+  font-family: var(--rams-detail-font-body);
+  font-size: var(--rams-detail-text-sm);
+  letter-spacing: var(--rams-detail-tracking-body);
+  line-height: var(--rams-detail-leading-body);
+}
+.root *, .root *::before, .root *::after { box-sizing: border-box; }
+.root[data-layout="grid"] { grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--rams-detail-min-column)), 1fr)); }
+.root[data-layout="list"] { grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-radio-cards-list-gap); }
+
+/* The one moving part: a ring that springs from card to card. It sits over the card border so the card itself never changes size. */
+.ring {
+  position: absolute;
+  z-index: var(--rams-detail-local-overlay-layer);
+  top: 0;
+  left: 0;
+  border: var(--rams-detail-radio-cards-selection-ring-stroke) solid var(--rams-detail-control-on);
+  border-radius: var(--radius-panel);
+  pointer-events: none;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  align-items: start;
+  gap: var(--rams-detail-radio-cards-card-row-gap) var(--rams-detail-radio-cards-card-inline-gap);
+  padding: var(--rams-detail-radio-cards-grid-card-block-inset) var(--rams-detail-radio-cards-card-inline-inset);
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border);
+  border-radius: var(--radius-panel);
+  background: var(--rams-detail-surface);
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+/* The body row takes any spare height, so prices sit on one baseline across a row even when a description wraps. */
+.root[data-layout="grid"] .card { grid-template-areas: "body indicator" "meta meta"; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: minmax(0, 1fr) auto; }
+.root[data-layout="list"] .card { grid-template-areas: "indicator body meta"; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; padding-block: var(--rams-detail-radio-cards-list-card-block-inset); padding-inline: var(--rams-detail-radio-cards-list-card-start-inset) var(--rams-detail-radio-cards-card-inline-inset); }
+.card[data-checked] { background: color-mix(in oklab, var(--rams-detail-control-on) var(--rams-detail-radio-cards-selected-wash), var(--rams-detail-surface)); }
+.card[aria-disabled="true"] { background: var(--rams-detail-surface-muted); cursor: not-allowed; }
+.card[aria-disabled="true"] :is(.label, .meta) { color: var(--rams-detail-text-muted); }
+
+.indicator {
+  display: grid;
+  width: var(--rams-detail-radio-cards-indicator-size);
+  height: var(--rams-detail-radio-cards-indicator-size);
+  flex: none;
+  place-items: center;
+  grid-area: indicator;
+  border: var(--rams-detail-radio-cards-indicator-stroke) solid var(--rams-detail-border-strong);
+  border-radius: var(--rams-detail-elliptical-corner-radius);
+  transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.root[data-layout="grid"] .indicator { margin-block-start: var(--rams-detail-radio-cards-grid-indicator-offset); }
+.card[data-checked] .indicator { border-color: var(--rams-detail-control-on); background: var(--rams-detail-control-on); }
+.indicatorDot { width: var(--rams-detail-radio-cards-dot-size); height: var(--rams-detail-radio-cards-dot-size); border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-control-glyph); }
+.card[aria-disabled="true"] .indicator { border-color: var(--rams-detail-border); }
+
+.body { display: grid; min-width: 0; gap: var(--rams-detail-radio-cards-body-gap); grid-area: body; }
+.label { display: flex; min-width: 0; align-items: center; gap: var(--rams-detail-radio-cards-label-icon-gap); font-weight: var(--rams-detail-label-weight); }
+.labelText { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.icon { display: grid; width: var(--rams-detail-radio-cards-label-icon-size); height: var(--rams-detail-radio-cards-label-icon-size); flex: none; place-items: center; color: var(--rams-detail-text-secondary); }
+.icon > svg { width: var(--rams-detail-radio-cards-label-icon-size); height: var(--rams-detail-radio-cards-label-icon-size); }
+.card[data-checked] .icon { color: var(--rams-detail-foreground); }
+.description { color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); text-wrap: pretty; }
+
+.meta { grid-area: meta; color: var(--rams-detail-foreground); font-variant-numeric: var(--rams-detail-numeric-column-variant); white-space: nowrap; }
+.root[data-layout="grid"] .meta { margin-block-start: var(--rams-detail-radio-cards-grid-meta-offset); font-size: var(--rams-detail-text-lg); }
+.root[data-layout="list"] .meta { font-weight: var(--rams-detail-radio-cards-list-meta-weight); }
+
+@media (hover: hover) and (pointer: fine) {
+  .card:not([data-checked]):not([aria-disabled="true"]):hover { border-color: var(--rams-detail-border-strong); }
+}
+.card:not([data-checked]):not([aria-disabled="true"]):active { background: var(--rams-detail-surface-muted); }
+.card:focus-visible:not([data-checked]) { border-color: var(--rams-detail-border-strong); background: var(--rams-detail-surface-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .indicator { transition: none; }
+}
+
+:where(.root,.ring,.card,.label,.meta,.indicator,.indicatorDot,.body,.labelText,.icon,.description):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* A narrow list puts metadata below the description instead of squeezing either. */
+.root { container-type: inline-size; }
+@container (max-width: 22rem) {
+  .root[data-layout="list"] .card { grid-template-areas: "indicator body" ". meta"; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: var(--rams-detail-radio-cards-narrow-row-gap) var(--rams-detail-radio-cards-narrow-inline-gap); padding: var(--rams-detail-radio-cards-narrow-card-inset); }
+  .labelText { overflow: visible; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; }
+  .meta { white-space: normal; }
+}

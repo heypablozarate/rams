@@ -1,0 +1,69 @@
+.calendar { width: min(100%, max(var(--rams-detail-calendar-motion-inline-measure), calc(var(--rams-detail-calendar-motion-week-minimum-text-measure) + var(--rams-detail-calendar-week-gap-count) * var(--rams-detail-calendar-day-gap) + var(--rams-detail-calendar-week-focus-edge-count) * (var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset))))); min-width: 0; color: var(--rams-detail-foreground); --rams-detail-calendar-inline-sign: var(--rams-detail-calendar-ltr-sign); }
+.calendar:dir(rtl) { --rams-detail-calendar-inline-sign: var(--rams-detail-calendar-rtl-sign); }
+/* The header query uses a text-relative width. In the narrow layout the title and navigation occupy separate rows. */
+.header { container-type: inline-size; display: grid; min-height: var(--rams-detail-calendar-motion-header-min-block-size); grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--rams-detail-calendar-motion-header-gap); margin-bottom: var(--rams-detail-calendar-motion-header-margin-block-end); }
+@container (max-width: 16rem) { .heading, .navigation { grid-column: 1 / -1; } .navigation { justify-self: end; } }
+.heading { min-width: 0; margin: 0; font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-text-base); font-weight: var(--rams-detail-calendar-motion-heading-weight); line-height: var(--rams-detail-leading-body); letter-spacing: var(--rams-detail-tracking-body); }
+/* The global heading rule forces a tight line-height on h2, so the title row sets its own to center with the controls. */
+.title { display: grid; line-height: var(--rams-detail-leading-body); }
+/* Old and new titles share one cell while they cross, so the heading never changes height or jumps. */
+.title > .titleRow { grid-area: 1 / 1; justify-self: start; }
+.titleRow { display: inline-block; white-space: normal; font-variant-numeric: var(--rams-detail-numeric-column-variant); transform: translateX(calc(var(--rams-detail-calendar-inline-sign) * var(--rams-detail-calendar-title-x, var(--rams-detail-calendar-title-x-fallback)))); }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: var(--rams-detail-accessible-hidden-margin); padding: var(--rams-detail-accessible-hidden-padding); overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: var(--rams-detail-accessible-hidden-border); }
+.navigation { display: inline-flex; flex: 0 0 auto; align-items: center; gap: var(--rams-detail-calendar-motion-nav-gap); margin-right: 0; }
+/* Quiet header controls: a fill on hover, a short press, and a spring release. */
+.navButton, .todayButton { display: grid; height: var(--rams-detail-calendar-motion-nav-control-size); place-items: center; border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-text-secondary); font: inherit; cursor: pointer; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), scale var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.navButton { width: var(--rams-detail-calendar-motion-nav-control-size); }
+.todayButton { padding: 0 var(--rams-detail-calendar-motion-today-inline-padding); font-size: var(--rams-detail-text-sm); font-weight: var(--type-action-weight); line-height: var(--rams-detail-single-line-control-leading); }
+@media (hover: hover) and (pointer: fine) { .navButton:hover:not([aria-disabled]), .todayButton:hover:not([aria-disabled]) { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } }
+.navButton:active:not([aria-disabled]), .todayButton:active:not([aria-disabled]) { scale: var(--rams-motion-calendar-nav-press-scale); transition-duration: var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard); }
+.navButton[aria-disabled], .todayButton[aria-disabled] { cursor: default; opacity: var(--rams-detail-calendar-motion-nav-disabled-opacity); }
+.weekdays, .week { display: grid; grid-template-columns: var(--rams-detail-calendar-week-columns); column-gap: var(--rams-detail-calendar-day-gap); }
+.weekdays { margin-bottom: var(--rams-detail-calendar-motion-weekday-margin-block-end); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-label-weight); line-height: var(--type-caption-leading); text-align: center; }
+.weekdays span { min-width: 0; overflow: hidden; }
+/* Months sit on one strip inside a clipped window. Every pane shares one grid cell and has six weeks, so the height never changes. */
+.monthViewport { position: relative; display: grid; overflow: hidden; contain: paint; }
+.monthBody { position: relative; grid-area: 1 / 1; min-width: 0; will-change: transform; }
+.monthBody[inert] { pointer-events: none; }
+.grid { display: grid; row-gap: var(--rams-detail-calendar-day-gap); }
+.placeholderDay { aspect-ratio: var(--rams-detail-square-aspect-ratio); }
+.day { position: relative; display: grid; width: 100%; aspect-ratio: var(--rams-detail-square-aspect-ratio); min-width: 0; place-items: center; border: 0; border-radius: var(--rams-detail-elliptical-corner-radius); padding: 0; background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--type-control-weight); line-height: var(--rams-detail-single-line-control-leading); font-variant-numeric: var(--rams-detail-numeric-column-variant); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard) var(--rams-detail-number-delay, var(--rams-detail-duration-no-interpolation)); }
+/* The inner circle carries hover and press; the grid cell itself never moves, so the hit area stays put. */
+.day::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), scale var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.dayNumber { position: relative; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard) var(--rams-detail-number-delay, var(--rams-detail-duration-no-interpolation)), scale var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+/* The selected disc is one element per month, one cell in size, placed by week and weekday under the day buttons. It glides on a transform, so the strip sliding around it never bends its path. Press scales the inner fill so it never fights the glide. */
+.highlight { position: absolute; top: 0; inset-inline-start: 0; width: calc((100% - var(--rams-detail-calendar-week-gap-count) * var(--rams-detail-calendar-day-gap)) / var(--rams-detail-week-day-count)); aspect-ratio: var(--rams-detail-square-aspect-ratio); pointer-events: none; will-change: transform; }
+.highlightFill { position: absolute; inset: 0; border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-control-on); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), scale var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+@media (hover: hover) and (pointer: fine) { .day:hover:not(:disabled):not(.selected)::before { background: var(--rams-detail-surface-muted); } .monthBody:has(.day.selected:hover) .highlightFill { background: var(--rams-detail-control-on); } }
+.day:active:not(:disabled)::before, .day:active:not(:disabled) .dayNumber, .monthBody:has(.day.selected:active:not(:disabled)) .highlightFill { scale: var(--rams-motion-calendar-day-press-scale); transition-duration: var(--rams-detail-duration-fast), var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard); }
+/* Outside days dim their number, not the button, so a disc gliding onto one keeps its full strength. */
+.day.outside { color: var(--rams-detail-text-muted); }
+.day.outside:not(.selected) .dayNumber { opacity: var(--rams-detail-calendar-motion-outside-day-opacity); }
+/* Today is a small dot under the number. It takes the number's color, so it flips with it when the disc arrives. */
+.day.today .dayNumber::after { content: ""; position: absolute; top: calc(100% + var(--rams-detail-calendar-motion-today-dot-gap)); left: 50%; width: var(--rams-detail-calendar-motion-today-dot-size); height: var(--rams-detail-calendar-motion-today-dot-size); margin-left: calc(-1 * var(--rams-detail-calendar-motion-today-dot-size) / 2); border-radius: var(--rams-detail-elliptical-corner-radius); background: currentColor; }
+.day.selected, .day.today { font-weight: var(--rams-detail-calendar-motion-highlighted-day-weight); }
+.day.selected { color: var(--rams-detail-control-glyph); }
+.day:disabled { cursor: default; color: var(--rams-detail-text-muted); }
+.day:disabled .dayNumber { opacity: var(--rams-detail-calendar-motion-disabled-day-opacity); }
+.day.outside:disabled .dayNumber { opacity: var(--rams-detail-calendar-motion-outside-disabled-day-opacity); }
+@media (prefers-reduced-motion: reduce) {
+  .navButton, .todayButton, .day, .day::before, .dayNumber, .highlightFill { transition: none; }
+  .navButton:active:not([aria-disabled]), .todayButton:active:not([aria-disabled]), .day:active:not(:disabled)::before, .monthBody:has(.day.selected:active:not(:disabled)) .highlightFill, .day:active:not(:disabled) .dayNumber { scale: none; }
+}
+:where(.calendar,.header,.heading,.navigation,.title,.titleRow,.srOnly,.navButton,.todayButton,.weekdays,.week,.monthViewport,.monthBody,.grid,.placeholderDay,.day,.dayNumber,.highlight,.highlightFill,.selected,.outside,.today):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Owned header actions retain the calendar's existing 32px controls. */
+.navButton, .todayButton { min-block-size: 0; }
+.navButton { padding: 0; }
+.navButton > svg { inline-size: var(--rams-detail-calendar-motion-nav-glyph-size); block-size: var(--rams-detail-calendar-motion-nav-glyph-size); stroke-width: var(--rams-detail-calendar-motion-nav-glyph-stroke); }
+.navButton:dir(rtl) > svg { transform: var(--rams-detail-direction-inline-reflection-transform); }
+
+/* Keep seven complete date columns at the user's text size; scrolling is local to this calendar. */
+.weekdays, .monthViewport { min-inline-size: calc(var(--rams-detail-calendar-motion-week-minimum-text-measure) + 6 * var(--rams-detail-calendar-day-gap)); }
+.day, .weekdays span { white-space: nowrap; }
+
+/* The local scrollport reserves the complete focus outline at either edge. */
+.calendar { box-sizing: border-box; padding: calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset)); }
+
+/* Date columns may pan at enlarged text sizes; month navigation stays in view. */
+.datesViewport { min-inline-size:0; max-inline-size:100%; overflow-x:auto; scrollbar-width:thin; padding:calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset)); }

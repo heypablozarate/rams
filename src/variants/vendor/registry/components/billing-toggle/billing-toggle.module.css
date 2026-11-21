@@ -1,0 +1,164 @@
+/* Override --rams-detail-billing-accent on any ancestor to recolor the savings note. */
+.root {
+  --rams-detail-_accent: var(--rams-detail-billing-accent, var(--rams-detail-success));
+  --rams-detail-_h: var(--rams-detail-billing-option-height);
+  --rams-detail-_pad: var(--rams-detail-billing-track-inset);
+  position: relative;
+  isolation: isolate;
+  display: inline-grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--rams-detail-billing-column-min-inline)), 1fr));
+  inline-size: 100%;
+  max-width: min(100%, var(--rams-detail-billing-track-max-inline));
+  min-width: 0;
+  align-items: center;
+  padding: var(--rams-detail-_pad);
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-subtle);
+  border-radius: var(--rams-detail-radius-pill);
+  background: var(--rams-detail-surface-muted);
+  font-family: var(--rams-detail-font-body);
+  font-size: var(--rams-detail-text-sm);
+  letter-spacing: var(--rams-detail-tracking-body);
+  line-height: var(--rams-detail-single-line-control-leading);
+}
+.root[data-size="lg"] { --rams-detail-_h: var(--rams-detail-billing-option-height-large); --rams-detail-_pad: var(--rams-detail-billing-track-inset-large); font-size: var(--rams-detail-text-base); }
+
+/* Clip only the moving decoration when the track reflows. Labels and focus
+   outlines remain outside this layer and keep their natural layout. */
+.thumbViewport { position: absolute; inset: 0; z-index: var(--rams-detail-layer-behind); overflow: clip; border-radius: inherit; pointer-events: none; }
+
+/* One thumb for the whole track. Its position and width are measured from the selected option. */
+.thumb,
+.thumbStatic {
+  position: absolute;
+  z-index: var(--rams-detail-layer-behind);
+  border-radius: var(--rams-detail-radius-pill);
+  background: var(--rams-detail-surface-raised);
+  box-shadow: 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-border-subtle), var(--rams-detail-billing-thumb-shadow-near), var(--rams-detail-billing-thumb-shadow-far);
+  pointer-events: none;
+}
+.thumb { top: var(--rams-detail-_pad); bottom: var(--rams-detail-_pad); left: 0; will-change: transform, width; }
+.thumbStatic { inset: 0; }
+:global(:root.dark) .thumb,
+:global(:root.dark) .thumbStatic {
+  box-shadow: 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-border), var(--rams-detail-billing-thumb-shadow-highlight-dark), var(--rams-detail-billing-thumb-shadow-dark);
+}
+
+.option {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+  min-height: var(--rams-detail-_h);
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  padding: var(--rams-detail-billing-option-block-inset) var(--rams-detail-billing-option-inline-inset);
+  border: 0;
+  border-radius: var(--rams-detail-radius-pill);
+  background: transparent;
+  color: var(--rams-detail-text-muted);
+  font: inherit;
+  letter-spacing: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+.option[data-selected] { color: var(--rams-detail-foreground); cursor: default; }
+.root[data-size="lg"] .option { padding-inline: var(--rams-detail-billing-option-inline-inset-large); }
+
+@media (hover: hover) and (pointer: fine) {
+  .option:not([data-selected]):hover { color: var(--rams-detail-text-secondary); }
+}
+
+.content {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--rams-detail-billing-option-content-gap);
+  transition: transform var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.option:not([data-selected]):active .content { transform: scale(var(--rams-motion-billing-option-press-scale)); }
+
+.label { min-width: 0; overflow-wrap: anywhere; font-weight: var(--rams-detail-label-weight); }
+
+/* The savings note: quiet until its option is chosen, then it takes the accent tint. */
+.badge {
+  display: inline-flex;
+  height: calc(var(--rams-detail-_h) - var(--rams-detail-billing-badge-height-step));
+  align-items: center;
+  padding: 0 var(--rams-detail-billing-badge-inline-inset);
+  border-radius: var(--rams-detail-radius-pill);
+  background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-billing-badge-idle-wash), transparent);
+  color: var(--rams-detail-text-secondary);
+  font-size: var(--rams-detail-text-xs);
+  font-weight: var(--rams-detail-badge-weight);
+  font-variant-numeric: var(--rams-detail-numeric-column-variant);
+  transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard);
+}
+.badge[data-active] {
+  background: color-mix(in oklab, var(--rams-detail-_accent) var(--rams-detail-billing-badge-active-wash), transparent);
+  color: color-mix(in oklab, var(--rams-detail-_accent) var(--rams-detail-billing-badge-active-ink-wash), var(--rams-detail-foreground));
+}
+:global(:root.dark) .badge[data-active] {
+  background: color-mix(in oklab, var(--rams-detail-_accent) var(--rams-detail-billing-badge-active-wash-dark), transparent);
+  color: var(--rams-detail-_accent);
+}
+
+/* Stacked swap: every candidate reserves the cell, the visible one crossfades on top. */
+.swap { position: relative; display: inline-grid; justify-items: center; overflow-y: clip; overflow-clip-margin: var(--rams-detail-billing-swap-clip-overdraw); }
+.swapSizer { grid-area: 1 / 1; visibility: hidden; }
+.swapText { grid-area: 1 / 1; display: inline-block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .content, .badge { transition: none; }
+}
+
+/* ------------------------------------------------------------------------ Price */
+
+.price { display: inline-flex; min-width: 0; flex-wrap: wrap; align-items: flex-end; gap: var(--rams-detail-billing-price-row-gap) var(--rams-detail-billing-price-inline-gap); }
+.amount {
+  display: inline-flex;
+  align-items: flex-start;
+  color: var(--rams-detail-foreground);
+  font-family: var(--rams-detail-font-display);
+  font-size: var(--rams-detail-text-3xl);
+  font-weight: var(--rams-detail-billing-price-display-weight);
+  letter-spacing: var(--rams-detail-tracking-display);
+  line-height: var(--rams-detail-billing-price-display-leading);
+  font-variant-numeric: var(--rams-detail-numeric-column-variant);
+}
+.currency { margin-block-start: var(--rams-detail-billing-currency-block-offset); margin-inline-end: var(--rams-detail-billing-currency-inline-gap); color: var(--rams-detail-text-secondary); font-size: max(var(--type-caption-size), var(--rams-detail-billing-currency-scale)); }
+.counter { display: inline-flex; }
+.counter > span { font: inherit !important; letter-spacing: inherit !important; }
+.aside {
+  display: inline-flex;
+  align-items: baseline;
+  padding-block-end: var(--rams-detail-billing-price-aside-baseline);
+  color: var(--rams-detail-text-muted);
+  font-size: var(--rams-detail-text-sm);
+  line-height: var(--rams-detail-leading-body);
+  white-space: nowrap;
+}
+.wasSlot { display: inline-block; overflow-x: clip; }
+.was { display: inline-block; padding-inline-end: var(--rams-detail-billing-previous-price-gap); color: var(--rams-detail-text-muted); font-variant-numeric: var(--rams-detail-numeric-column-variant); text-decoration-thickness: var(--rams-detail-billing-previous-price-strike); }
+.period { position: relative; display: inline-block; overflow-x: clip; overflow-clip-margin: var(--rams-detail-billing-swap-clip-overdraw); }
+.periodSizer { display: inline-block; visibility: hidden; }
+.periodText { position: absolute; top: 0; left: 0; display: inline-block; }
+:where(.root,.thumb,.thumbStatic,.option,.badge,.content,.label,.swap,.swapSizer,.swapText,.price,.amount,.currency,.counter,.aside,.wasSlot,.was,.period,.periodSizer,.periodText):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Equal tracks give each period the same choice weight. Labels and savings can
+   wrap inside their track while the measured thumb follows the actual box. */
+.root { align-items: stretch; }
+.thumb { top: 0; bottom: auto; will-change: transform, width, height; }
+.option { max-width: 100%; white-space: normal; line-height: var(--rams-detail-leading-body); }
+.content, .badge, .swap { min-width: 0; max-width: 100%; }
+.badge { height: auto; min-height: calc(var(--rams-detail-_h) - var(--rams-detail-billing-badge-height-step)); line-height: var(--rams-detail-leading-body); }
+.swapSizer, .swapText { white-space: normal; overflow-wrap: anywhere; }
+.root, .badge { box-sizing: border-box; }
+
+/* A wrapped track keeps the corner of one option plus its real inset. */
+.root { --rams-detail-billing-radius:calc(var(--rams-detail-billing-row-block,var(--rams-detail-_h)) / 2 + var(--rams-detail-_pad) + var(--rams-detail-primitive-border-width)); border-radius:var(--rams-detail-billing-radius); }
+.option, .thumb, .thumbStatic { border-radius:max(0px,calc(var(--rams-detail-billing-radius) - var(--rams-detail-_pad) - var(--rams-detail-primitive-border-width))); }

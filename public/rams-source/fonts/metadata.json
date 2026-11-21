@@ -1,0 +1,120 @@
+[
+  {
+    "file": "GeistSerif-Regular.ttf",
+    "sha256": "6c33e2138c7544455f7807ee11356d636ab23944fe214d6cefd3fd5b1e45e171",
+    "bytes": 132452,
+    "family": "Geist Serif",
+    "style": "Regular",
+    "version": "Version 1.001",
+    "weight": 400,
+    "axes": [],
+    "gsubFeatures": [
+      "aalt",
+      "case",
+      "ccmp",
+      "lnum",
+      "locl",
+      "onum",
+      "pnum",
+      "ss01",
+      "ss02",
+      "ss03",
+      "ss04",
+      "ss05",
+      "tnum"
+    ],
+    "sourceCommit": "2e554ff2ea3979b63afe770af6424eb8b9490a74"
+  },
+  {
+    "file": "GeistSans-Italic-VF.ttf",
+    "sha256": "a464348abe41a6392f18d04c0ac2ad3c26619357ff5fdd76aff3059116f45e62",
+    "bytes": 174584,
+    "family": "Geist",
+    "style": "Italic",
+    "version": "Version 1.800",
+    "weight": 400,
+    "axes": [
+      {
+        "tag": "wght",
+        "min": 100.0,
+        "default": 400.0,
+        "max": 900.0
+      }
+    ],
+    "gsubFeatures": [
+      "aalt",
+      "case",
+      "ccmp",
+      "dlig",
+      "dnom",
+      "frac",
+      "liga",
+      "locl",
+      "numr",
+      "ordn",
+      "pnum",
+      "sinf",
+      "ss01",
+      "ss02",
+      "ss03",
+      "ss04",
+      "ss05",
+      "ss06",
+      "ss07",
+      "ss08",
+      "ss09",
+      "ss10",
+      "ss11",
+      "subs",
+      "sups",
+      "tnum"
+    ],
+    "sourceCommit": "2e554ff2ea3979b63afe770af6424eb8b9490a74"
+  },
+  {
+    "file": "GeistSans-VF.ttf",
+    "sha256": "73894e0448cae90a92b6c2f8732b7bb9acb7b94c418bff559dad4a18e1de9659",
+    "bytes": 169056,
+    "family": "Geist",
+    "style": "Regular",
+    "version": "Version 1.800",
+    "weight": 400,
+    "axes": [
+      {
+        "tag": "wght",
+        "min": 100.0,
+        "default": 400.0,
+        "max": 900.0
+      }
+    ],
+    "gsubFeatures": [
+      "aalt",
+      "case",
+      "ccmp",
+      "dlig",
+      "dnom",
+      "frac",
+      "liga",
+      "locl",
+      "numr",
+      "ordn",
+      "pnum",
+      "sinf",
+      "ss01",
+      "ss02",
+      "ss03",
+      "ss04",
+      "ss05",
+      "ss06",
+      "ss07",
+      "ss08",
+      "ss09",
+      "ss10",
+      "ss11",
+      "subs",
+      "sups",
+      "tnum"
+    ],
+    "sourceCommit": "2e554ff2ea3979b63afe770af6424eb8b9490a74"
+  }
+]

@@ -1,0 +1,46 @@
+.root { container-type: inline-size; width: 100%; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+.card { display: flex; flex-direction: column; align-items: center; gap: var(--rams-detail-empty-states-card-gap); padding: var(--rams-detail-empty-states-card-block-inset) var(--rams-detail-empty-states-card-inline-inset); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-panel); background: var(--rams-detail-surface); }
+
+/* Tabs: equal columns while there is room, never narrower than a label. The highlight glides under the labels. */
+.tabs { isolation: isolate; display: grid; grid-template-columns: var(--rams-detail-empty-states-tab-columns); gap: var(--rams-detail-empty-states-tabs-gap); width: min(100%, var(--rams-detail-empty-states-tabs-max-width)); overflow-x: auto; padding: var(--rams-detail-empty-states-tabs-inset); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-control); background: var(--rams-detail-surface-muted); scrollbar-width: thin; scrollbar-color: var(--rams-detail-text-muted) transparent; }
+.tabs::-webkit-scrollbar { display:block; height:var(--rams-detail-empty-states-scrollbar-size); }
+.tabs::-webkit-scrollbar-thumb { background:var(--rams-detail-text-muted); border-radius:var(--rams-detail-radius-pill); }
+.tab { position: relative; min-height: var(--rams-detail-empty-states-tab-min-height); padding: 0 var(--rams-detail-empty-states-tab-inline-inset); border: 0; border-radius: max(0px, calc(var(--radius-control) - var(--shape-inset-tabs) - var(--rams-detail-primitive-border-width))); background: transparent; color: var(--rams-detail-text-muted); font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-empty-states-tab-weight); line-height: var(--rams-detail-leading-body); white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.tab[aria-selected="true"] { color: var(--rams-detail-foreground); }
+@media (hover: hover) and (pointer: fine) { .tab:hover { color: var(--rams-detail-foreground); } }
+.highlight { position: absolute; inset: 0; z-index: var(--rams-detail-layer-behind); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: inherit; background: var(--rams-detail-surface); box-shadow: var(--rams-detail-shadow-resting); }
+.tabLabel { position: relative; }
+@container (max-width: 420px) { .tab { padding: 0 var(--rams-detail-empty-states-compact-tab-inset); font-size: var(--type-control-size); } }
+
+.panel { display: flex; flex-direction: column; align-items: center; gap: var(--rams-detail-space-5); width: 100%; max-width: var(--rams-detail-empty-states-panel-max-width); }
+
+/* Shared EmptyMedia owns the icon measure and inset; state changes only crossfade. */
+.stage { position: relative; flex: none; }
+.art { display: grid; place-items: center; }
+
+/* Copy */
+.copy { display: flex; flex-direction: column; align-items: center; gap: var(--rams-detail-space-4); width: 100%; text-align: center; }
+.copyFrame { width: 100%; }
+.copyInner { display: grid; gap: var(--rams-detail-empty-states-copy-gap); padding-inline: var(--rams-detail-space-2); }
+.title { position: relative; margin: 0; font-variant-numeric: var(--rams-detail-empty-states-title-numeric); font-size: var(--type-title-size); font-weight: var(--type-title-weight); line-height: var(--type-title-leading); letter-spacing: var(--type-title-tracking); text-wrap: balance; font-family: var(--type-title-family); }
+.line { position: relative; max-width: var(--rams-detail-empty-states-line-max-width); margin: 0 auto; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); text-wrap: pretty; }
+.swap { display: block; }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tab { transition: none; }
+}
+
+:where(.root,.card,.tabs,.tab,.highlight,.tabLabel,.panel,.stage,.art,.copy,.copyFrame,.copyInner,.title,.line,.swap,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+.result { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-space-2); width: 100%; min-width: 0; color: var(--rams-detail-foreground); font-size: var(--type-body-size, var(--rams-detail-native-body-size-fallback)); line-height: var(--rams-detail-leading-body); text-align: left; overflow-wrap: anywhere; }
+.modelNote { margin: 0; color: var(--rams-detail-text-secondary); }
+.records { display: grid; gap: var(--rams-detail-empty-states-record-gap); margin: 0; padding-inline-start: var(--rams-detail-empty-states-record-indent); }
+.records li > span { display: block; color: var(--rams-detail-text-secondary); }
+.noteRecord { display: grid; gap: var(--rams-detail-empty-states-note-gap); margin: 0; }
+.noteRecord dt { color: var(--rams-detail-text-secondary); }
+.noteRecord dd { margin: 0; }
+
+.art > svg { stroke-width: var(--rams-detail-empty-states-icon-stroke); }

@@ -1,0 +1,67 @@
+.print-workshop {
+  max-inline-size: var(--rams-detail-example-page-measure-standard);
+  margin-inline: auto;
+  padding: var(--rams-detail-example-page-inset);
+  color: var(--rams-ink);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-leading);
+  overflow-wrap: anywhere;
+}
+.print-workshop header {
+  max-inline-size: var(--rams-detail-example-intro-measure);
+  margin-block-end: var(--rams-detail-example-section-gap);
+}
+.print-workshop header p {
+  font-size: var(--type-control-size);
+  color: var(--rams-muted);
+}
+.workshop-links {
+  display: grid;
+  gap: var(--rams-detail-docs-space-tight);
+}
+.workshop-links strong,
+.workshop-links span {
+  display: block;
+}
+.workshop-links strong {
+  font-weight: var(--rams-detail-example-subheading-weight);
+}
+.workshop-links span {
+  font-size: var(--type-caption-size);
+  color: var(--rams-muted);
+}
+.workshop-selection {
+  margin-block: var(--rams-detail-example-section-gap) var(--rams-detail-preview-field-group-gap);
+  max-inline-size: var(--rams-detail-example-workshop-selection-measure);
+}
+.workshop-selection > label,
+.workshop-paper > label {
+  margin-block-end: var(--rams-detail-docs-space-tight);
+}
+.workshop-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rams-detail-preview-element-gap);
+  margin-block-end: var(--rams-detail-example-section-gap);
+}
+.workshop-poster {
+  margin: 0;
+  padding: 0;
+}
+.workshop-poster svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+.workshop-poster figcaption {
+  margin-block-start: var(--rams-detail-preview-element-gap);
+  font-size: var(--type-control-size);
+}
+.workshop-paper {
+  max-inline-size: var(--rams-detail-example-workshop-paper-measure);
+  margin-block: var(--rams-detail-example-section-gap);
+}
+.workshop-record h2 {
+  font-size: var(--type-heading-size);
+}

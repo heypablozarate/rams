@@ -1,0 +1,220 @@
+.root {
+  position: relative;
+  width: 100%;
+  container-type: inline-size;
+  color: var(--rams-detail-foreground);
+  font-family: var(--rams-detail-font-body);
+  letter-spacing: var(--rams-detail-tracking-body);
+}
+
+/* The writing surface. Everything inside is plain semantic HTML, styled here so pasted and typed content look the same. */
+.editor {
+  min-height: var(--rams-detail-rich-editor-writing-min-block);
+  padding: var(--rams-detail-rich-editor-writing-padding-block) 0;
+  outline: none;
+  color: var(--rams-detail-foreground);
+  font-size: var(--rams-detail-text-base);
+  line-height: var(--rams-detail-rich-editor-body-leading);
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
+  caret-color: var(--rams-detail-accent);
+}
+.editor[contenteditable="false"] { caret-color: transparent; }
+.editHint { margin: 0 0 var(--rams-detail-space-3); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.editor[contenteditable="true"]:focus-visible { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: var(--rams-detail-focus-outline-offset); border-radius: var(--radius-inset); }
+.editor::selection,
+.editor *::selection { background: var(--selection, var(--rams-selection, var(--rams-detail-surface-muted))); color: var(--selection-foreground, var(--rams-on-selection, var(--rams-detail-foreground))); }
+
+.editor > * { margin: 0; }
+.editor > * + * { margin-top: var(--rams-detail-rich-editor-block-gap); }
+.editor p { margin: 0; }
+.editor h1,
+.editor h2,
+.editor h3 { font-weight: var(--rams-detail-rich-editor-heading-weight); letter-spacing: var(--rams-detail-rich-editor-heading-tracking); line-height: var(--rams-detail-rich-editor-heading-leading); }
+.editor h1 { font-size: var(--rams-detail-text-2xl); }
+.editor h2 { font-size: var(--rams-detail-text-xl); }
+.editor h3 { font-size: var(--rams-detail-text-lg); }
+.editor > :is(h1, h2, h3) { margin-top: var(--rams-detail-rich-editor-heading-gap-before); }
+.editor > :is(h1, h2, h3):first-child { margin-top: 0; }
+.editor > :is(h1, h2, h3) + * { margin-top: var(--rams-detail-rich-editor-heading-gap-after); }
+
+.editor strong { font-weight: var(--rams-detail-rich-editor-strong-weight); }
+.editor s { color: var(--rams-detail-text-secondary); text-decoration-thickness: var(--rams-detail-rich-editor-decoration-thickness); }
+.editor a { color: var(--rams-detail-accent-strong); text-decoration: underline; text-decoration-color: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-rich-editor-link-decoration-wash), transparent); text-decoration-thickness: var(--rams-detail-rich-editor-decoration-thickness); text-underline-offset: var(--rams-detail-rich-editor-link-underline-offset); cursor: text; }
+.editor code {
+  padding: var(--rams-detail-rich-editor-inline-code-padding);
+  border-radius: var(--rams-detail-rich-editor-inline-code-radius);
+  background: var(--rams-detail-surface-muted);
+  font-family: var(--rams-detail-rich-editor-code-font);
+  font-size: var(--type-body-size);
+}
+
+.editor blockquote { padding-left: var(--rams-detail-rich-editor-quote-inset); border-left: var(--rams-detail-rich-editor-quote-rule-width) solid var(--rams-detail-border-strong); color: var(--rams-detail-text-secondary); }
+
+.editor ul,
+.editor ol { margin-block: 0; padding-left: var(--rams-detail-rich-editor-list-indent); }
+/* Set the markers explicitly: app resets that strip list styles would otherwise leave lists unmarked. */
+.editor ul { list-style: disc; }
+.editor ul ul { list-style: circle; }
+.editor ol { list-style: decimal; }
+.editor li { padding-left: var(--rams-detail-rich-editor-list-marker-gap); }
+.editor li + li { margin-top: var(--rams-detail-rich-editor-list-item-gap); }
+.editor li > :is(ul, ol) { margin-top: var(--rams-detail-rich-editor-list-item-gap); }
+.editor li::marker { color: var(--rams-detail-text-muted); }
+.editor ol > li::marker { font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+
+.editor pre {
+  padding: var(--rams-detail-rich-editor-code-block-padding);
+  overflow-x: auto;
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-subtle);
+  border-radius: var(--radius-inset);
+  background: var(--rams-detail-surface-muted);
+  font-family: var(--rams-detail-rich-editor-code-font);
+  font-size: var(--rams-detail-text-sm);
+  line-height: var(--rams-detail-rich-editor-code-leading);
+  tab-size: var(--rams-detail-code-tab-columns);
+  white-space: pre;
+}
+
+.editor hr { height: var(--rams-detail-separator-thickness); margin-block: var(--rams-detail-rich-editor-separator-gap); border: 0; background: var(--rams-detail-border); }
+
+/* Placeholders: the whole document when empty, and a quiet hint on the empty line holding the caret. */
+.editor[data-empty] > :first-child::before,
+.editor:focus [data-hint]::before {
+  float: left;
+  height: 0;
+  color: var(--rams-detail-text-muted);
+  pointer-events: none;
+  content: var(--rams-detail-placeholder);
+}
+.editor:focus:not([data-empty]) [data-hint]::before { content: var(--rams-detail-hint); }
+
+/* Floating toolbar. One surface whose size springs between its two faces. */
+.toolbar {
+  position: absolute;
+  z-index: var(--rams-detail-rich-editor-popup-layer);
+  translate: -50% -100%;
+  overflow: hidden;
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border);
+  border-radius: var(--radius-panel);
+  background: var(--rams-detail-surface-raised);
+  box-shadow: var(--rams-detail-shadow-floating);
+}
+.toolbar[data-below] { translate: -50% 0; }
+.face { position: absolute; top: 0; left: 0; width: max-content; }
+.face[inert] { pointer-events: none; }
+
+.row,
+.linkRow { display: flex; align-items: center; gap: var(--rams-detail-rich-editor-toolbar-gap); padding: var(--rams-detail-rich-editor-toolbar-padding); }
+.blockTools { display: flex; align-items: center; gap: var(--rams-detail-rich-editor-toolbar-gap); }
+/* Narrow editors keep the inline marks; block types stay one slash away. */
+@container (max-width: 330px) { .blockTools { display: none; } }
+.divider { width: var(--rams-detail-separator-thickness); height: var(--rams-detail-rich-editor-toolbar-divider-block); margin: 0 var(--rams-detail-rich-editor-toolbar-divider-gap); background: var(--rams-detail-border); }
+
+.tool {
+  display: grid;
+  width: var(--rams-detail-rich-editor-toolbar-control-size);
+  height: var(--rams-detail-rich-editor-toolbar-control-size);
+  flex: none;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--rams-detail-text-secondary);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard);
+}
+.tool:active { transform: scale(var(--rams-motion-rich-editor-tool-press-scale)); }
+.tool[aria-pressed="true"] { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); box-shadow: inset 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-border-strong); }
+.tool:focus-visible { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+@media (hover: hover) and (pointer: fine) { .tool:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } .tool[aria-pressed="true"]:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } }
+
+.linkInput {
+  width: min(var(--rams-detail-rich-editor-link-input-measure), var(--rams-detail-rich-editor-link-input-viewport-max));
+  height: var(--rams-detail-rich-editor-toolbar-control-size);
+  min-width: 0;
+  padding: 0 var(--rams-detail-rich-editor-link-input-padding-inline);
+  border: 0;
+  background: transparent;
+  color: var(--rams-detail-foreground);
+  font: inherit;
+  font-size: var(--rams-detail-text-sm);
+  outline: none;
+}
+.linkInput::placeholder { color: var(--rams-detail-text-muted); }
+.apply {
+  display: grid;
+  width: var(--rams-detail-rich-editor-toolbar-control-size);
+  height: var(--rams-detail-rich-editor-toolbar-control-size);
+  flex: none;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: var(--rams-detail-surface-muted);
+  color: var(--rams-detail-text-muted);
+  cursor: pointer;
+  transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard);
+}
+.apply[data-ready] { background: var(--rams-detail-primary); color: var(--rams-detail-on-primary); font-weight: var(--type-primary-action-weight, var(--rams-detail-native-primary-action-weight-fallback)); font-synthesis: none; }
+@media (hover: hover) and (pointer: fine) { .apply[data-ready]:hover:not(:active) { background: var(--rams-detail-primary-hover); } }
+.apply[data-ready]:active { background: var(--rams-detail-primary-pressed); }
+.apply:active { transform: scale(var(--rams-motion-rich-editor-tool-press-scale)); }
+
+/* Slash menu. */
+.slash {
+  position: absolute;
+  z-index: var(--rams-detail-rich-editor-popup-layer);
+  width: var(--rams-detail-rich-editor-slash-width);
+  max-width: calc(100% - var(--rams-detail-rich-editor-slash-max-inline-inset));
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border);
+  border-radius: var(--radius-panel);
+  background: var(--rams-detail-surface-raised);
+  box-shadow: var(--rams-detail-shadow-floating);
+}
+.slash[data-above] { translate: 0 -100%; }
+.slashBody { padding: var(--rams-detail-rich-editor-slash-body-padding); }
+.slashList { position: relative; display: grid; margin: 0; padding: 0; list-style: none; }
+.slashHighlight { position: absolute; top: 0; right: 0; left: 0; border-radius: var(--radius-control); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-rich-editor-slash-highlight-wash), transparent); pointer-events: none; }
+.slashOption {
+  position: relative;
+  display: flex;
+  height: var(--rams-detail-rich-editor-slash-option-block);
+  align-items: center;
+  gap: var(--rams-detail-rich-editor-slash-option-gap);
+  padding: 0 var(--rams-detail-rich-editor-slash-option-padding-inline);
+  border-radius: var(--radius-control);
+  color: var(--rams-detail-text-secondary);
+  cursor: pointer;
+  font-size: var(--rams-detail-text-sm);
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.slashOption[aria-selected="true"] { color: var(--rams-detail-foreground); }
+.slashIcon { display: grid; width: var(--rams-detail-rich-editor-slash-icon-slot); flex: none; place-items: center; }
+.slashLabel { min-width: 0; flex: var(--rams-detail-layout-flex-fill); overflow: hidden; font-weight: var(--type-action-weight); text-overflow: ellipsis; white-space: nowrap; }
+.slashHint { flex: none; color: var(--rams-detail-text-muted); font-family: var(--rams-detail-rich-editor-shortcut-font); font-size: var(--rams-detail-text-xs); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+:where(.root,.editor,.toolbar,.face,.row,.linkRow,.blockTools,.divider,.tool,.linkInput,.apply,.slash,.slashBody,.slashList,.slashHighlight,.slashOption,.slashIcon,.slashLabel,.slashHint,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Owned toolbar actions keep the existing targets and fixed glyph geometry. */
+.tool, .apply { min-block-size: 0; }
+.tool > svg, .apply > svg { inline-size: var(--rams-detail-motion-button-glyph-size); block-size: var(--rams-detail-motion-button-glyph-size); }
+
+/* Preserve the current command surface at the first reduced-motion frame. */
+@media (prefers-reduced-motion: reduce) {
+  .face:not([inert]) { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .face[inert] { display: none !important; }
+  .tool:active, .apply:active { transform: none !important; }
+  .slash:not([inert]) { opacity: 1 !important; transform: none !important; }
+  .slash[inert] { display: none !important; }
+}

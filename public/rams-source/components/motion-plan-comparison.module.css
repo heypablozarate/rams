@@ -1,0 +1,13 @@
+.allocation { display: grid; gap: var(--rams-detail-space-2); min-inline-size: 0; }
+.allocation > label { font-size: var(--rams-detail-text-xs); color: var(--rams-detail-text-secondary); }
+.allocation small { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading, var(--rams-detail-comparison-caption-leading-fallback)); }
+.price { display: grid; align-content: start; gap: var(--rams-detail-plan-comparison-price-gap); }
+.priceValue { max-inline-size: 100%; font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-plan-comparison-price-size); font-weight: var(--rams-detail-plan-comparison-price-weight); letter-spacing: var(--rams-detail-tracking-body); line-height: var(--type-title-leading, var(--rams-detail-plan-comparison-price-leading-fallback)); }
+.priceValue > span { overflow-wrap: normal; }
+.pricePeriod { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.footer { display: grid; gap: var(--rams-detail-space-2); min-inline-size: 0; }
+.footer p { margin: 0; }
+.selectionStatus { display: grid; grid-template-columns: minmax(0, 1fr); }
+.selectionStatus > * { grid-area: 1 / 1; min-inline-size: 0; }
+.statusMeasure { visibility: hidden; pointer-events: none; }
+.srOnly { position: absolute; inline-size: var(--rams-detail-accessible-hidden-inline-size); block-size: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }

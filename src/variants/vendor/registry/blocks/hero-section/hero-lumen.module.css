@@ -1,0 +1,128 @@
+/* Centered, one full screen: copy over a drifting mesh, and a product window that rises from the bottom edge and runs off it.
+   The hero is exactly one screen tall (never shorter than 600px); the window takes whatever height the copy leaves. */
+/* The section is the container, so its children carry the side gutters and the queries below can change them. */
+.hero { isolation: isolate; display: flex; height: var(--rams-detail-hero-lumen-hero-height); height: var(--rams-detail-hero-lumen-hero-height-small-viewport); min-height: var(--rams-detail-hero-lumen-hero-min-height); flex-direction: column; padding-top: var(--rams-detail-hero-lumen-hero-padding-top); text-align: center; }
+
+/* The mesh fills the screen. It is authored per theme: tints a few steps off the page, so it reads as light rather than color. */
+.mesh {
+  --rams-detail-mesh-base: var(--rams-detail-background);
+  --rams-detail-mesh-1: var(--rams-detail-detail-hero-section-source-mesh-1-ceaab026); --rams-detail-mesh-2: var(--rams-detail-detail-hero-section-source-mesh-2-77e04586); --rams-detail-mesh-3: var(--rams-detail-detail-hero-section-source-mesh-3-a66f62ea); --rams-detail-mesh-4: var(--rams-detail-detail-hero-section-source-mesh-4-8ea1a8b0); --rams-detail-mesh-5: var(--rams-detail-detail-hero-section-source-mesh-5-e5ab0db2);
+  z-index: var(--rams-detail-hero-lumen-mesh-z-index);
+}
+:global(:root.dark) .mesh { --rams-detail-mesh-1: var(--rams-detail-detail-hero-section-source-mesh-1-f039e397); --rams-detail-mesh-2: var(--rams-detail-detail-hero-section-source-mesh-2-4322b72a); --rams-detail-mesh-3: var(--rams-detail-detail-hero-section-source-mesh-3-cd39bcdd); --rams-detail-mesh-4: var(--rams-detail-detail-hero-section-source-mesh-4-ab51c621); --rams-detail-mesh-5: var(--rams-detail-detail-hero-section-source-mesh-5-5b3dad90); }
+
+.copy { position: relative; display: grid; justify-items: center; gap: var(--rams-detail-space-5); max-width: var(--rams-detail-hero-lumen-copy-max-width); margin: 0 auto; padding-inline: var(--rams-detail-space-10); }
+.title { max-width: var(--rams-detail-hero-lumen-title-max-width); font-size: var(--rams-detail-hero-lumen-title-font-size); }
+.description { max-width: var(--rams-detail-hero-lumen-description-max-width); }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--rams-detail-space-3); margin-top: var(--rams-detail-space-3); }
+.fine { margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); }
+
+/* Stage: fills the rest of the screen and is the visible crop. The window runs past its bottom edge; the mask fades it into the
+   mesh, so there is no hard edge. The halo above leaves room for the light behind the window. */
+.stage { --rams-detail-halo: var(--rams-detail-hero-lumen-stage-rams-detail-halo); position: relative; flex: var(--rams-detail-layout-flex-zero-basis); box-sizing: border-box; width: 100%; min-height: 0; max-width: var(--rams-detail-hero-lumen-stage-max-width); margin: calc(var(--rams-detail-space-12) - var(--rams-detail-halo)) auto 0; overflow: hidden; padding: var(--rams-detail-halo) var(--rams-detail-space-10) 0; -webkit-mask-image: var(--rams-detail-hero-lumen-stage-webkit-mask-image); mask-image: var(--rams-detail-hero-lumen-stage-mask-image); }
+.glow {
+  position: absolute; z-index: var(--rams-detail-hero-lumen-glow-z-index); top: calc(var(--rams-detail-halo) - var(--rams-detail-hero-lumen-glow-top-halo-overlap)); left: var(--rams-detail-hero-lumen-glow-left); right: var(--rams-detail-hero-lumen-glow-right); height: var(--rams-detail-hero-lumen-glow-height);
+  background: radial-gradient(var(--rams-detail-hero-lumen-glow-background-radius-x) var(--rams-detail-hero-lumen-glow-background-radius-y) at var(--rams-detail-hero-lumen-glow-background-center-x) var(--rams-detail-hero-lumen-glow-background-center-y), var(--rams-detail-hero-glow), transparent var(--rams-detail-hero-lumen-glow-background-falloff));
+  filter: var(--rams-detail-hero-lumen-glow-filter);
+  --rams-detail-hero-glow: var(--rams-detail-hero-lumen-glow-rams-detail-hero-glow);
+}
+:global(:root.dark) .glow { --rams-detail-hero-glow: var(--rams-detail-hero-lumen-dark-glow-rams-detail-hero-glow); }
+.window { position: relative; }
+/* A thin light catches the top edge, the way a real display does in a dark room. */
+:global(:root.dark) .window::after { content: ""; position: absolute; top: 0; left: var(--rams-detail-hero-lumen-dark-window-after-left); right: var(--rams-detail-hero-lumen-dark-window-after-right); height: var(--rams-detail-hero-lumen-dark-window-after-height); background: var(--rams-detail-hero-lumen-dark-window-after-background); pointer-events: none; }
+.perspective { display: flex; justify-content: center; perspective: var(--rams-detail-hero-lumen-perspective-perspective); perspective-origin: 50% 0%; }
+.tilt { position: relative; flex: none; transform-origin: 50% 0%; will-change: transform; }
+.scaler { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
+/* Reduced motion: the window is already in place; drop the GPU layer kept for the entrance. */
+@media (prefers-reduced-motion: reduce) { .tilt { will-change: auto; } }
+
+/* The window. */
+.window {
+  display: grid; grid-template-rows: var(--rams-detail-hero-lumen-window-grid-template-rows); height: 100%; overflow: hidden;
+  border: var(--shape-inset-border) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface); color: var(--rams-detail-foreground);
+  text-align: left; font-size: var(--rams-detail-text-sm);
+  box-shadow: var(--rams-detail-hero-lumen-window-box-shadow);
+}
+:global(:root.dark) .window {
+  border-color: var(--rams-detail-hero-lumen-dark-window-border-color);
+  box-shadow: var(--rams-detail-hero-lumen-dark-window-box-shadow);
+}
+.chrome { position: relative; display: flex; height: var(--rams-detail-hero-lumen-chrome-height); align-items: center; justify-content: center; border-bottom: var(--shape-inset-border) solid var(--rams-detail-border-subtle); background: var(--rams-detail-hero-lumen-chrome-background); }
+.lights { position: absolute; left: var(--rams-detail-hero-lumen-lights-left); display: flex; gap: var(--rams-detail-hero-lumen-lights-gap); }
+.lights i { width: var(--rams-detail-hero-lumen-lights-i-width); height: var(--rams-detail-hero-lumen-lights-i-height); border-radius: var(--rams-detail-hero-lumen-lights-i-border-radius); background: var(--rams-detail-hero-lumen-lights-i-background); }
+.url { border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-hero-lumen-url-padding); background: var(--rams-detail-surface); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); box-shadow: var(--rams-detail-hero-lumen-url-box-shadow); }
+
+.app { display: grid; grid-template-columns: var(--rams-detail-hero-lumen-app-grid-template-columns); min-height: 0; }
+.window[data-narrow] .app { grid-template-columns: var(--rams-detail-hero-lumen-window-narrow-app-grid-template-columns); }
+
+.sidebar { display: flex; flex-direction: column; gap: var(--rams-detail-hero-lumen-sidebar-gap); border-right: var(--shape-inset-border) solid var(--rams-detail-border-subtle); padding: var(--rams-detail-hero-lumen-sidebar-padding); background: var(--rams-detail-hero-lumen-sidebar-background); }
+.workspace { display: flex; align-items: center; gap: var(--rams-detail-hero-lumen-workspace-gap); padding: var(--rams-detail-hero-lumen-workspace-padding); }
+.wsMark { display: grid; width: var(--rams-detail-hero-lumen-ws-mark-width); height: var(--rams-detail-hero-lumen-ws-mark-height); place-items: center; border-radius: var(--rams-detail-hero-lumen-ws-mark-border-radius); background: var(--rams-detail-foreground); color: var(--rams-detail-background); font-size: var(--rams-detail-text-xs); font-weight: var(--type-title-weight); }
+.wsName { flex: var(--rams-detail-layout-flex-fill); font-weight: var(--type-title-weight); }
+.dim { color: var(--rams-detail-text-muted); }
+.search { display: flex; align-items: center; gap: var(--rams-detail-space-2); margin: var(--rams-detail-hero-lumen-search-margin); border: var(--shape-inset-border) solid var(--rams-detail-border-subtle); border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-hero-lumen-search-padding); background: var(--rams-detail-surface); color: var(--rams-detail-text-muted); }
+.search kbd { margin-left: auto; font: inherit; font-size: var(--rams-detail-text-xs); }
+.nav { display: grid; gap: var(--rams-detail-hero-lumen-nav-gap); }
+.navItem { display: flex; align-items: center; gap: var(--rams-detail-hero-lumen-nav-item-gap); border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-hero-lumen-nav-item-padding); color: var(--rams-detail-text-secondary); }
+.navItem svg { color: var(--rams-detail-text-muted); }
+.navItem[data-active] { background: var(--rams-detail-accent-subtle); color: var(--rams-detail-foreground); font-weight: var(--type-title-weight); }
+.navItem[data-active] svg { color: var(--rams-detail-accent); }
+.groupLabel { margin: var(--rams-detail-hero-lumen-group-label-margin); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.dot { width: var(--rams-detail-hero-lumen-dot-width); height: var(--rams-detail-hero-lumen-dot-height); margin: var(--rams-detail-hero-lumen-dot-margin); border-radius: var(--rams-detail-hero-lumen-dot-border-radius); background: var(--rams-detail-text-muted); }
+.dot[data-tone="accent"] { background: var(--rams-detail-accent); }
+.dot[data-tone="danger"] { background: var(--rams-detail-danger); }
+.me { display: flex; align-items: center; gap: var(--rams-detail-hero-lumen-me-gap); margin-top: auto; border-top: var(--shape-inset-border) solid var(--rams-detail-border-subtle); padding: var(--rams-detail-hero-lumen-me-padding); }
+.me span:not([role]) { display: grid; flex: var(--rams-detail-layout-flex-fill); line-height: var(--rams-detail-hero-lumen-me-span-not-role-line-height); }
+.me strong { font-weight: var(--type-title-weight); }
+.me small { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+
+.main { display: grid; align-content: start; gap: var(--rams-detail-space-4); min-width: 0; padding: var(--rams-detail-hero-lumen-main-padding); }
+.head { display: flex; align-items: center; justify-content: space-between; gap: var(--rams-detail-space-4); }
+.h2 { margin: 0; font-size: var(--rams-detail-text-lg); font-weight: var(--type-title-weight); letter-spacing: var(--rams-detail-tracking-body); }
+.sub { margin: var(--rams-detail-hero-lumen-sub-margin); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.range { flex: none; }
+
+.kpis { display: grid; grid-template-columns: var(--rams-detail-hero-lumen-kpis-grid-template-columns); gap: var(--rams-detail-space-3); }
+.window[data-narrow] .kpis { grid-template-columns: var(--rams-detail-hero-lumen-window-narrow-kpis-grid-template-columns); }
+.kpi { min-width: 0; border: var(--shape-inset-border) solid var(--rams-detail-border-subtle); border-radius: var(--rams-detail-radius-panel); padding: var(--rams-detail-hero-lumen-kpi-padding); background: var(--rams-detail-surface); }
+
+.grid { display: grid; grid-template-columns: var(--rams-detail-hero-lumen-grid-grid-template-columns); gap: var(--rams-detail-space-3); }
+.window[data-narrow] .grid { grid-template-columns: var(--rams-detail-hero-lumen-window-narrow-grid-grid-template-columns); }
+.card { display: grid; align-content: start; gap: var(--rams-detail-hero-lumen-card-gap); min-width: 0; border: var(--shape-inset-border) solid var(--rams-detail-border-subtle); border-radius: var(--rams-detail-radius-panel); padding: var(--rams-detail-hero-lumen-card-padding); background: var(--rams-detail-surface); }
+.cardHead { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--rams-detail-space-4); }
+.insight { display: flex; gap: var(--rams-detail-space-2); max-width: var(--rams-detail-hero-lumen-insight-max-width); margin: 0; color: var(--rams-detail-text-secondary); line-height: var(--rams-detail-hero-lumen-insight-line-height); }
+.insight strong { color: var(--rams-detail-foreground); font-weight: var(--type-title-weight); }
+.insightIcon { flex: none; margin-top: var(--rams-detail-hero-lumen-insight-icon-margin-top); color: var(--rams-detail-accent); }
+.legend { display: flex; flex: none; gap: var(--rams-detail-hero-lumen-legend-gap); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.legend span { display: inline-flex; align-items: center; gap: var(--rams-detail-hero-lumen-legend-span-gap); }
+.swatch { width: var(--rams-detail-hero-lumen-swatch-width); height: var(--rams-detail-hero-lumen-swatch-height); border-radius: var(--rams-detail-hero-lumen-swatch-border-radius); background: var(--rams-detail-accent); }
+.swatch[data-last] { background: var(--rams-detail-hero-lumen-swatch-last-background); }
+.window[data-narrow] .legend { display: none; }
+
+.cardTitle { display: flex; justify-content: space-between; font-weight: var(--type-title-weight); }
+.cardTitle span { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-weight: var(--type-body-weight); }
+.movers { display: grid; margin: 0; padding: 0; list-style: none; }
+.movers li { display: flex; align-items: center; gap: var(--rams-detail-space-3); border-top: var(--shape-inset-border) solid var(--rams-detail-border-subtle); padding: var(--rams-detail-hero-lumen-movers-li-padding); }
+.movers li:first-child { border-top: 0; padding-top: var(--rams-detail-hero-lumen-movers-li-first-child-padding-top); }
+.logo { flex: none; width: var(--rams-detail-hero-lumen-logo-width); height: var(--rams-detail-hero-lumen-logo-height); background: center / contain no-repeat; }
+.logo[data-mono] { background: var(--rams-detail-foreground); -webkit-mask: center / contain no-repeat; mask: center / contain no-repeat; }
+.who { display: grid; flex: var(--rams-detail-layout-flex-fill); min-width: 0; line-height: var(--rams-detail-hero-lumen-who-line-height); }
+.who strong { font-weight: var(--type-title-weight); }
+.who small { overflow: hidden; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); text-overflow: ellipsis; white-space: nowrap; }
+.amount { color: var(--rams-detail-success); font-variant-numeric: var(--rams-detail-numeric-column-variant); font-weight: var(--type-title-weight); }
+.amount[data-down] { color: var(--rams-detail-danger); }
+
+@container hero (max-width: 560px) {
+  .hero { padding-top: var(--rams-detail-hero-lumen-hero-padding-top-compact); }
+  .copy { gap: var(--rams-detail-space-4); padding-inline: var(--rams-detail-space-4); }
+  .actions { width: 100%; margin-top: var(--rams-detail-space-2); }
+  .actions > * { flex: 1 1 auto; }
+  .stage { --rams-detail-halo: var(--rams-detail-hero-lumen-stage-rams-detail-halo-compact); margin-top: calc(var(--rams-detail-space-10) - var(--rams-detail-halo)); padding-inline: 0; }
+}
+
+/* KPI tiles reuse RAMS Sparkline; its caption wraps so the label sits above a larger value. */
+.kpi :global(figcaption) { flex-wrap: wrap; row-gap: var(--rams-detail-space-1); }
+.kpi :global(figcaption) > :first-child { flex-basis: 100%; font-size: var(--rams-detail-text-xs); color: var(--rams-detail-text-muted); }
+.kpi :global(figcaption) strong { margin-left: 0; font-size: var(--rams-detail-text-2xl); letter-spacing: var(--rams-detail-tracking-body); }
+.kpi :global(figcaption) small { align-self: center; }
+:where(.hero,.mesh,.copy,.title,.description,.actions,.fine,.stage,.glow,.window,.perspective,.tilt,.scaler,.chrome,.lights,.url,.app,.sidebar,.workspace,.wsMark,.wsName,.dim,.search,.nav,.navItem,.groupLabel,.dot,.me,.main,.head,.h2,.sub,.range,.kpis,.kpi,.grid,.card,.cardHead,.insight,.insightIcon,.legend,.swatch,.cardTitle,.movers,.logo,.who,.amount):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

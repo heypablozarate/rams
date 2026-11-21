@@ -1,0 +1,13 @@
+# Numeric and color entry
+
+`motion-range-histogram-slider` exposes two named ARIA sliders over numeric samples. Supply `min`, `max`, `step`, `bins` and a formatter that includes the unit. `snapToBins={false}` keeps the declared step; `minStepsBetweenThumbs` keeps the bounds apart. The example filters 20 original trim deviations: 13 are inclusively between 0.10 and 0.40 mm. That interval describes the sample, not a manufacturing tolerance.
+
+`motion-scrub-input` supports direct expressions, arrow steps, Alt fine steps, Shift coarse steps and label scrubbing. Enter or blur commits; Escape discards an unfinished edit; double-clicking the label restores `resetValue`. The example uses 0–12 mm per edge on a 320 mm sheet and computes `320 − 2 × allowance`. Pointer lock is disabled in this example. Declare the unit and the calculation it affects.
+
+`motion-phone-input` reports E.164 text and formatting details. Set `name` to include the E.164 value in native form data. Suggested countries appear first while the configured country list remains searchable. With validation enabled, an incomplete value gets an associated message after blur. The sample starts empty with Argentina selected and `validate={false}` for a local formatting preview. Number verification and lookup require separate application services.
+
+`motion-money-input` stores integer minor units or `null`. `min` and `max` are minor units; `quickAdd` values are major units. A single entry in `currencies` hides its chooser. The example fixes ARS with `es-AR` formatting: a fictional 500,000 budget, 125,000 initial allocation and 375,000 remainder. A blank field is explicitly unset. Amounts keep the fluent type size; narrow fields use local horizontal scrolling, so the entire amount may not be visible at once. Currency names remain English independently of the numeric locale. Formatting is separate from exchange rates or accounting services.
+
+`motion-color-picker` reports hex, including alpha digits when present, and accepts supported HEX/RGB/HSL/OKLCH input. Supply the actual comparison background; this example shows paper `#F4EBDD`. Its ink swatches are example data, not a default system palette. The hue spectrum and transparency checker encode color coordinates and alpha rather than chart-series colors. Swatch changes remain local. The displayed grade applies to the digital text/background pair. It does not assess the entire interface or printed output.
+
+These widgets retain their own composite controls: slider thumbs, country/currency triggers, numeric quick-add chips and color editing controls. Standalone product actions should consume the shared RAMS Button. Import installed styles once and tie adjacent results to the actual values and callbacks.

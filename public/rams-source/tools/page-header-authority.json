@@ -1,0 +1,45 @@
+{
+  "componentExtensions": {
+    "details": {
+      "pageHeaderQueries": {
+        "schemaVersion": 1,
+        "conditions": {
+          "foldSecondary": {
+            "kind": "container",
+            "name": "page-header",
+            "feature": "max-width",
+            "value": "719px",
+            "occurrences": 1
+          },
+          "compactHeader": {
+            "kind": "container",
+            "name": "page-header",
+            "feature": "max-width",
+            "value": "559px",
+            "occurrences": 1
+          },
+          "iconActions": {
+            "kind": "container",
+            "name": "page-header",
+            "feature": "max-width",
+            "value": "459px",
+            "occurrences": 1
+          },
+          "phoneFrame": {
+            "kind": "media",
+            "feature": "max-width",
+            "value": "560px",
+            "occurrences": 1
+          },
+          "stackedContent": {
+            "kind": "container",
+            "name": "page-header",
+            "feature": "max-width",
+            "value": "30rem",
+            "occurrences": 2
+          }
+        }
+      }
+    }
+  }
+}

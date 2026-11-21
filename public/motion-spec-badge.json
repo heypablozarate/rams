@@ -1,0 +1,19 @@
+{
+  "schema": "rams-motion-specification",
+  "schemaVersion": 1,
+  "consumer": "motion-badge / BadgeDemo",
+  "file": "src/variants/demos/data-text.tsx",
+  "ruleIds": ["RAMS-M01", "RAMS-M02", "RAMS-M03", "RAMS-M04", "RAMS-M05", "RAMS-M06", "RAMS-M07", "RAMS-M08", "RAMS-M09", "RAMS-M10", "RAMS-M11", "RAMS-M12", "RAMS-M13"],
+  "trigger": "Intentional click, Enter or Space on the secondary review action; subsequent activations alternate the local state.",
+  "states": {"initial":"In review / Approve review", "approved":"Approved / Reset review", "loading":"none: no service is called", "error":"none: synchronous local state, no simulated request", "cancel":"Reset review restores the initial state"},
+  "object": "The same status pill remains in a reserved intrinsic grid slot. Ready, Needs attention, Design system and the secondary action are stable neighbors.",
+  "properties": "Status tone changes through shared semantic CSS aliases. Current text/icon replaces the old text/icon. Only the pill owns its inner width; the parent slot reserves the maximum intrinsic width of both labels. The action label also reserves both intrinsic labels; hidden measurement copies have aria-hidden=true and are not controls.",
+  "role": {"label":"replace/enter/exit", "pillWidth":"morph", "colorAndPress":"feedback/selection adapters", "tokens":"tokens.json/componentExtensions.details.motionTS; no local timing literals"},
+  "geometry": "Each status has a stable flow slot. Ghost measurements use the actual typography, icons and density. Button label remains a single line within its reserved size. The whole preview, sibling positions and action dimensions must not shift on state changes. Responsive wrapping may change only when available viewport/text metrics change.",
+  "sequence": "State updates synchronously; local text/icon and tone respond to the same state. No stagger, navigation, scroll request or artificial success timer.",
+  "interruption": "A new activation supersedes the previous status. React state functional updates preserve rapid toggle ordering. The badge/button animation controllers release on unmount; late width measurement must not alter the reserved flow slots.",
+  "reducedMotion": "Live shared use-motion-preference handles load and preference changes. Text, tone and final width remain understandable immediately without displacement, blur, waiting or repeated effects. The operation is local and remains usable.",
+  "focus": "The original secondary button retains focus and its current accessible action name. Decorative icons and measurement copies are excluded from the accessible name. No modal scope or focus transfer is introduced.",
+  "repetition": "none: no autoplay or automatic updates. Repetition occurs only from deliberate activation; no pause control is needed for this non-looping interaction.",
+  "evidence": {"status":"test-plan", "instructions":"Measure preview, sibling slots and action x/y/width/height before/after each state and inspect during the transition. Use native click without automation scrolling, Enter, Space and rapid reversals. Check light/dark, Default/Compacta/Amplia, 320px and a flex-wrap boundary; repeat with OS reduced preference on load and changed mid-animation. Record environment, sourceRevision, observed values and pass/fail/not-tested per case. This specimen is a specification, not a claim that every environment was tested."}
+}

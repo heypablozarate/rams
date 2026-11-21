@@ -1,0 +1,72 @@
+/* Isolation keeps the rounded clip on the media while the card lifts on its own layer (Safari drops it otherwise).
+   Motion drives the lift and the quick look morph, so transform never gets a CSS transition here. */
+.card { position: relative; min-width: 0; overflow: hidden; isolation: isolate; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+/* A pointed-at card floats a little, so the shadow arrives with the lift. Touch and pen never lift. */
+.card[data-hover] { border-color: var(--rams-detail-border-strong); box-shadow: var(--rams-detail-shadow-raised); }
+.card:has(.trigger:focus-visible) { border-color: var(--rams-detail-border-strong); }
+.media { position: relative; overflow: hidden; background: var(--rams-detail-surface-muted); }
+.zoom { display: grid; min-height: var(--rams-detail-motion-card-media-min-block-size); place-items: center; }
+.content { padding: var(--rams-detail-space-5); padding-inline: min(var(--rams-detail-space-5), var(--rams-detail-motion-card-inline-inset-cap)); }
+/* Fit-content width keeps the title's box the shape of its text, so it scales evenly when it grows into the quick look. */
+.title { width: fit-content; max-width: 100%; margin: 0; font-size: var(--type-title-size); font-weight: var(--type-title-weight); letter-spacing: var(--type-title-tracking); line-height: var(--type-title-leading); text-wrap: balance; font-family: var(--type-title-family); }
+.trigger { padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-align: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+/* The title's hit area stretches over the whole card, so pointing anywhere opens the quick look while the action stays on top. */
+.trigger::after { content: ""; position: absolute; inset: 0; }
+.trigger:focus-visible { outline: none; }
+.description { max-width: var(--rams-detail-motion-card-description-measure); margin: var(--rams-detail-space-2) 0 0; color: var(--rams-detail-text-secondary); font-size: var(--type-body-size); line-height: var(--type-body-leading); text-wrap: pretty; font-family: var(--type-body-family); font-weight: var(--type-body-weight); letter-spacing: var(--type-body-tracking); }
+.footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3); margin-top: var(--rams-detail-space-5); }
+.byline { display: flex; flex: 1 1 var(--rams-detail-motion-card-byline-basis); align-items: center; gap: var(--rams-detail-space-3); min-width: 0; }
+.avatar { display: grid; flex: none; width: var(--rams-detail-space-8); height: var(--rams-detail-space-8); overflow: hidden; border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface-muted); }
+.avatar > * { width: 100%; height: 100%; object-fit: cover; }
+/* The byline gets a complete row when the action would leave too little text space. */
+.bylineText { display: grid; grid-template-columns: minmax(0, 1fr); flex: var(--rams-detail-layout-flex-fill); min-width: 0; font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.meta { overflow: hidden; color: var(--rams-detail-foreground); font-weight: var(--rams-detail-label-weight); text-overflow: ellipsis; white-space: normal; overflow-wrap: anywhere; }
+.status { position: relative; color: var(--rams-detail-text-muted); white-space: normal; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+/* Status words can wrap while retaining their entrance without hiding the update time. */
+.roll { position: relative; display: block; }
+.line { display: block; }
+.word { display: inline-block; white-space: pre; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+.action { position: relative; z-index: var(--rams-detail-motion-card-action-layer); display: flex; flex: none; flex-wrap: wrap; gap: var(--rams-detail-space-3); }
+
+.overlay { position: fixed; inset: 0; z-index: var(--rams-detail-surface-overlay-z); background: var(--rams-detail-detail-card-background-f7b52bb4); -webkit-backdrop-filter: blur(var(--rams-detail-motion-card-overlay-blur)); backdrop-filter: blur(var(--rams-detail-motion-card-overlay-blur)); }
+/* Centered with auto margins, so transform stays free for the morph. */
+.panel { position: fixed; inset: 0; z-index: var(--rams-detail-surface-content-z); width: min(calc(100vw - var(--rams-detail-space-8)), var(--rams-detail-motion-card-panel-measure)); height: fit-content; max-height: calc(100dvh - var(--rams-detail-space-8)); margin: auto; overflow: hidden auto; overscroll-behavior: contain; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-surface); background: var(--rams-detail-surface-raised); color: var(--rams-detail-foreground); box-shadow: var(--rams-detail-shadow-floating); transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.panel:focus { outline: none; }
+/* Closing: the panel takes the card's box and look, so it lands exactly where the card sits and hands back without a seam. */
+.panel[data-returning] { inset: auto; top: var(--rams-detail-landing-top); left: var(--rams-detail-landing-left); width: var(--rams-detail-landing-width); height: var(--rams-detail-landing-height); max-height: none; margin: 0; overflow: hidden; border-color: var(--rams-detail-border); background: var(--rams-detail-surface); box-shadow: none; pointer-events: none; }
+.panel[data-returning] .content { padding: var(--rams-detail-space-5); padding-inline: min(var(--rams-detail-space-5), var(--rams-detail-motion-card-inline-inset-cap)); }
+.panel[data-returning] .title { font-size: var(--rams-detail-text-lg); }
+.panel .content { padding: var(--rams-detail-space-6); padding-inline: min(var(--rams-detail-space-6), var(--rams-detail-motion-card-inline-inset-cap)); }
+.panel .title { font-size: var(--rams-detail-text-xl); }
+.panel .description { max-width: var(--rams-detail-card-measure, var(--rams-detail-motion-card-description-measure)); }
+/* The slot carries the entrance, so the button's own press answers instantly. */
+.closeSlot { position: absolute; top: var(--rams-detail-space-4); right: var(--rams-detail-space-4); z-index: var(--rams-detail-motion-card-close-layer); display: grid; }
+.close { display: grid; width: var(--rams-detail-space-8); height: var(--rams-detail-space-8); place-items: center; padding: 0; border: var(--rams-detail-primitive-border-width) solid color-mix(in oklab, var(--rams-detail-border) var(--rams-detail-motion-card-close-border-mix), transparent); border-radius: var(--rams-detail-radius-pill); background: color-mix(in oklab, var(--rams-detail-surface-raised) var(--rams-detail-motion-card-close-fill-mix), transparent); -webkit-backdrop-filter: blur(var(--rams-detail-motion-card-close-blur)); backdrop-filter: blur(var(--rams-detail-motion-card-close-blur)); color: var(--rams-detail-foreground); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .close:hover { background: var(--rams-detail-surface-raised); } }
+.details { margin-top: var(--rams-detail-space-6); padding-top: var(--rams-detail-space-5); border-top: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); color: var(--rams-detail-text-secondary); font-size: var(--type-body-size); line-height: var(--rams-detail-leading-body); }
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .close { transition: none; }
+  /* Prevent a pending Motion frame from repainting hidden quick-look content. */
+  .card, .panel, .media, .zoom, .title, .description, .byline, .action, .closeSlot, .close, .details {
+    transform: none !important;
+  }
+  .closeSlot, .details { opacity: 1 !important; }
+}
+
+:where(.card,.trigger,.media,.zoom,.content,.title,.description,.footer,.byline,.avatar,.bylineText,.meta,.status,.roll,.line,.word,.srOnly,.action,.overlay,.panel,.closeSlot,.close,.details):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The card owns its title hit area and compact close control. */
+.trigger, .close { min-inline-size:0; min-block-size:0; box-shadow:none; gap:0; }
+.close > svg { inline-size:var(--rams-detail-motion-card-close-icon-size); block-size:var(--rams-detail-motion-card-close-icon-size); stroke-width:var(--rams-detail-motion-card-close-icon-stroke); }
+
+/* A closing backdrop is paint-only while its opacity finishes. */
+.overlay[data-state="closed"] { pointer-events: none !important; }
+
+/* The inactive shared-layout source stays semantically available when Radix restores focus.
+   Its return clone alone paints the title until the handoff completes. */
+.trigger[data-state="closed"] { visibility: visible; transition-property: none; }
+.card[data-restoring] .trigger { color: transparent; }
+.card[data-restoring] .trigger:focus-visible { outline: none !important; }
+.panel[data-return-focus] { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: var(--rams-detail-focus-outline-offset); }

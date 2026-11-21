@@ -1,0 +1,97 @@
+/* The layer spans the bottom edge and lets clicks through; only the surface takes pointer input. */
+.layer { position: fixed; z-index: var(--rams-detail-cookie-consent-fixed-layer); right: var(--rams-detail-cookie-consent-edge-inset); bottom: var(--rams-detail-cookie-consent-edge-inset); left: var(--rams-detail-cookie-consent-edge-inset); height: 0; pointer-events: none; font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+.absolute { position: absolute; z-index: var(--rams-detail-cookie-consent-embedded-layer); right: 0; bottom: 0; left: 0; }
+
+/* One surface whose position, size, and corner spring between the bar, the panel, and the reopen button. */
+.surface { position: absolute; bottom: 0; left: 0; overflow: hidden; background: var(--rams-detail-surface-raised); box-shadow: 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-border), var(--rams-detail-shadow-floating); color: var(--rams-detail-foreground); pointer-events: auto; transform-origin: bottom center; will-change: transform, width, height; }
+
+/* Faces sit on the bottom edge at their final width, so the surface grows upward into them. */
+.face { position: absolute; bottom: 0; left: 0; box-sizing: border-box; }
+.face[data-side="center"] { left: 50%; translate: -50% 0; }
+.face[data-side="right"] { right: 0; left: auto; }
+.face[inert] { pointer-events: none; }
+
+.bar { container-type: inline-size; padding: var(--rams-detail-cookie-consent-bar-padding); }
+.barInner { display: flex; flex-wrap: wrap; align-items: center; gap: var(--rams-detail-space-4); }
+.message { flex: 1 1 var(--rams-detail-cookie-consent-message-basis); min-width: 0; margin: 0; color: var(--rams-detail-text-secondary); font-size: var(--type-body-size); line-height: var(--rams-detail-leading-body); text-wrap: pretty; }
+.barActions { display: grid; flex: 1 1 auto; grid-template-columns: var(--rams-detail-cookie-consent-two-action-columns); align-items: center; gap: var(--rams-detail-cookie-consent-actions-gap); }
+
+.policy { padding: 0; border: 0; background: none; color: var(--rams-detail-foreground); cursor: pointer; font: inherit; text-decoration: underline; text-decoration-color: var(--rams-detail-border-strong); text-underline-offset: var(--rams-detail-cookie-consent-policy-underline-offset); transition: text-decoration-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+
+.panel { container-type: inline-size; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; max-height: var(--rams-detail-cookie-consent-available-height, calc(100dvh - 2 * var(--rams-detail-cookie-consent-edge-inset))); overflow-y: auto; overscroll-behavior: contain; gap: var(--rams-detail-space-3); }
+.panelHead { display: flex; align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3); }
+.title { margin: 0; font-size: var(--rams-detail-text-base); font-weight: var(--rams-detail-cookie-consent-title-weight); line-height: var(--rams-detail-leading-body); }
+.description { margin: 0; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); text-wrap: pretty; }
+.iconButton { display: inline-grid; width: var(--rams-detail-cookie-consent-close-hit-size); height: var(--rams-detail-cookie-consent-close-hit-size); flex: none; place-items: center; padding: 0; border: 0; border-radius: var(--rams-detail-elliptical-corner-radius); background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.iconButton:active { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+
+.list { display: grid; min-height: 0; max-height: var(--rams-detail-cookie-consent-list-max, var(--rams-detail-cookie-consent-list-max-block)); margin: 0; padding: 0; overflow-y: auto; list-style: none; overscroll-behavior: contain; scrollbar-width: thin; }
+.row { display: grid; min-width: 0; gap: var(--rams-detail-cookie-consent-row-gap); padding: var(--rams-detail-cookie-consent-row-block-inset) 0; border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); }
+.row:first-child { border-top: 0; }
+.rowHead { display: flex; flex-wrap: wrap; align-items: center; min-width: 0; gap: var(--rams-detail-inline-glyph-gap); }
+.rowLabel { flex: 1 1 var(--rams-detail-cookie-consent-row-label-basis); min-width: 0; overflow-wrap: anywhere; color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); }
+.rowLabel[for] { cursor: pointer; }
+.rowHint { margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.always { flex: none; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); white-space: nowrap; }
+
+.panelActions { display: grid; grid-template-columns: var(--rams-detail-layout-grid-equal-columns); gap: var(--rams-detail-cookie-consent-actions-gap); padding-top: var(--rams-detail-space-2); border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); }
+.save { grid-column: 1 / -1; }
+
+.chipFace { height: var(--rams-detail-cookie-consent-chip-size); }
+.chip { display: grid; width: var(--rams-detail-cookie-consent-chip-size); height: var(--rams-detail-cookie-consent-chip-size); place-items: center; padding: 0; border: 0; border-radius: var(--rams-detail-elliptical-corner-radius); background: transparent; color: var(--rams-detail-foreground); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.chip:active { background: var(--rams-detail-surface-muted); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (hover: hover) and (pointer: fine) {
+  .policy:hover { text-decoration-color: currentColor; }
+  .iconButton:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+  .chip:hover { background: var(--rams-detail-surface-muted); }
+}
+
+/* Below about 340px the three bar buttons no longer fit one row: refusing and accepting share it, and Customize takes the row under them. */
+@container (max-width: 300px) {
+  .barActions { grid-template-columns: var(--rams-detail-layout-grid-two-columns); }
+  .barActions > :first-child { grid-column: 1 / -1; order: var(--rams-detail-layout-order-following); }
+}
+
+@container (min-width: 340px) {
+  .panelActions { grid-template-columns: var(--rams-detail-cookie-consent-inline-actions-columns); }
+  .save { grid-column: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .policy, .iconButton, .chip { transition: none; }
+}
+
+:where(.layer,.absolute,.surface,.face,.bar,.barInner,.message,.barActions,.policy,.panel,.panelHead,.title,.description,.iconButton,.list,.row,.rowHead,.rowLabel,.rowHint,.always,.panelActions,.save,.chipFace,.chip,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Keep the owned policy and icon actions in the current consent surface. */
+.policy, .iconButton, .chip { min-block-size: 0; }
+.iconButton > svg { inline-size: var(--rams-detail-motion-button-glyph-size); block-size: var(--rams-detail-motion-button-glyph-size); }
+.chip > svg { inline-size: var(--rams-detail-cookie-consent-chip-glyph-size); block-size: var(--rams-detail-cookie-consent-chip-glyph-size); }
+
+/* Full-width actions stay readable rather than producing letter-wide columns. */
+@container (max-width: 24rem) {
+  .barActions, .panelActions { grid-template-columns: minmax(0, 1fr); min-width: 0; }
+  .barActions > :first-child { grid-column: auto; order: var(--rams-detail-layout-order-normal); }
+  .panelActions > * { min-width: 0; }
+  .panelHead { align-items: flex-start; }
+}
+
+/* Reserve a scrollable category region and let labels use the available measure. */
+.panel { grid-template-rows: auto auto minmax(var(--rams-detail-cookie-consent-list-reserve), 1fr) auto; }
+.barActions > button, .panelActions > button { padding-inline: var(--rams-detail-cookie-consent-action-inline-padding); }
+
+/* Put the close control above the title when both would compete for text width. */
+/* Inset follows type up to an optical bound: a narrow embedded panel must
+   reserve usable reading width when the user's text is enlarged. */
+.panel { padding: var(--rams-detail-cookie-consent-panel-padding); }
+@container (max-width: 24rem) {
+  .panelHead { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--rams-detail-cookie-consent-panel-head-gap); margin-block: 0; }
+  .panelHead .title { grid-column: 1 / -1; grid-row: 2; }
+  .panelHead .iconButton { grid-column: 2; grid-row: 1; margin: 0; }
+}
+
+/* The initial bar obeys the same available-height boundary as preferences. */
+.bar { max-height: var(--rams-detail-cookie-consent-available-height, calc(100dvh - 2 * var(--rams-detail-cookie-consent-edge-inset))); overflow-y: auto; overscroll-behavior: contain; }

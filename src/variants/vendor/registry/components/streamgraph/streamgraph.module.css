@@ -1,0 +1,61 @@
+.figure { display: grid; min-width: 0; gap: var(--rams-detail-space-4); margin: 0; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+/* Series colors (--rams-detail-series-1 to --rams-detail-series-4) come from registry/foundation.css. */
+
+/* Layer toggles: a rect swatch mirrors the area it names. Hover or focus previews that layer in the plot. */
+.legend { display: flex; flex-wrap: wrap; gap: var(--rams-detail-streamgraph-legend-gap); min-width: 0; margin-inline: 0; padding-inline: calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset)); box-sizing: border-box; }
+.toggle { min-inline-size: 0; min-block-size: var(--rams-detail-streamgraph-legend-toggle-height); display: inline-flex; min-height: var(--rams-detail-streamgraph-legend-toggle-height); align-items: center; gap: var(--rams-detail-streamgraph-legend-toggle-content-gap); padding-block: 0; padding-inline-start: 0; padding-inline-end: calc(var(--rams-detail-streamgraph-legend-toggle-leading-inset) + var(--rams-detail-streamgraph-legend-toggle-trailing-inset)); border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer; font: inherit; font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.toggle:active { transform: scale(var(--rams-motion-streamgraph-legend-press-scale)); }
+.toggle[data-active] { color: var(--rams-detail-foreground); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-streamgraph-legend-active-fill-share), transparent); }
+.toggle[data-dim] { opacity: var(--rams-detail-streamgraph-legend-dim-opacity); }
+.toggle[aria-pressed="false"] { color: var(--rams-detail-text-muted); }
+.toggleLabel { white-space: nowrap; }
+.toggle[aria-pressed="false"] .toggleLabel { opacity: var(--rams-detail-streamgraph-legend-disabled-label-opacity); text-decoration: line-through; text-decoration-color: color-mix(in oklab, currentColor var(--rams-detail-streamgraph-legend-disabled-strike-share), transparent); }
+.swatch { width: var(--rams-detail-streamgraph-legend-swatch-size); height: var(--rams-detail-streamgraph-legend-swatch-size); flex: none; border-radius: var(--rams-detail-streamgraph-legend-swatch-radius); background: var(--rams-detail-series); transition: transform var(--rams-detail-duration-standard) var(--rams-detail-ease-spring), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.toggle[aria-pressed="false"] .swatch { opacity: var(--rams-detail-streamgraph-legend-disabled-swatch-opacity); transform: scale(var(--rams-motion-streamgraph-legend-disabled-swatch-scale)); }
+@media (hover: hover) and (pointer: fine) { .toggle:hover { color: var(--rams-detail-foreground); } }
+
+.chart { position: relative; display: grid; grid-template-rows: auto var(--rams-detail-streamgraph-axis-block-size); min-width: 0; }
+.plot { position: relative; min-width: 0; outline: none; touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; cursor: crosshair; }
+.svg { display: block; overflow: visible; }
+
+/* A 2px surface stroke is the gap between neighbouring layers. */
+.layer { fill: color-mix(in oklab, var(--rams-detail-series) var(--rams-detail-streamgraph-layer-fill-share), var(--rams-detail-surface)); stroke: var(--rams-detail-surface); stroke-width: var(--rams-detail-streamgraph-layer-separation-stroke); stroke-linejoin: var(--rams-detail-streamgraph-layer-linejoin); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), fill var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.chart[data-layer] .layer:not([data-active]) { opacity: var(--rams-detail-streamgraph-layer-inactive-opacity); }
+.layer[data-active] { fill: var(--rams-detail-series); }
+
+.crosshair { stroke: var(--rams-detail-foreground); stroke-opacity: var(--rams-detail-streamgraph-crosshair-opacity); stroke-width: var(--rams-detail-streamgraph-crosshair-stroke); shape-rendering: crispEdges; opacity: 0; transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); pointer-events: none; }
+.chart[data-active] .crosshair { opacity: 1; }
+
+.label { fill: var(--rams-detail-foreground); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-label-weight); pointer-events: none; transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), fill var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.labelSurface { fill: var(--rams-detail-surface); pointer-events: none; transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.labelSurface[data-hidden], .label[data-hidden] { opacity: 0 !important; }
+.chart[data-layer] .labelSurface[data-dim], .chart[data-layer] .label[data-dim] { opacity: 0 !important; }
+
+.tooltip { position: absolute; top: 0; left: 0; z-index: var(--rams-detail-streamgraph-tooltip-layer); display: grid; min-width: var(--rams-detail-streamgraph-tooltip-inline-min); max-width: min(var(--rams-detail-streamgraph-tooltip-inline-max), 100%); gap: var(--rams-detail-streamgraph-tooltip-gap); padding: var(--rams-detail-chart-tooltip-fixed-padding); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-panel); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); opacity: 0; pointer-events: none; scale: var(--rams-motion-streamgraph-tooltip-enter-scale); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), scale var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.chart[data-active] .tooltip { opacity: 1; scale: var(--rams-detail-transform-rest-scale); }
+.tipTitle { margin: 0 0 var(--rams-detail-streamgraph-tooltip-title-gap); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); white-space: nowrap; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.tipRow { display: flex; min-width: 0; align-items: center; gap: var(--rams-detail-chart-tooltip-row-gap-fixed); margin: 0; font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.tipRow[data-dim] { opacity: var(--rams-detail-streamgraph-tooltip-row-dim-opacity); }
+.tipSwatch { width: var(--rams-detail-streamgraph-tooltip-swatch-inline-size); height: var(--rams-detail-streamgraph-tooltip-swatch-block-size); flex: none; border-radius: var(--rams-detail-streamgraph-tooltip-swatch-radius); background: var(--rams-detail-series); }
+.tipName { min-width: 0; flex: var(--rams-detail-layout-flex-fill); overflow: hidden; color: var(--rams-detail-text-secondary); text-overflow: ellipsis; white-space: nowrap; }
+.tipRow[data-active] .tipName { color: var(--rams-detail-foreground); }
+.tipValue { flex: none; margin-left: var(--rams-detail-streamgraph-tooltip-value-gap); color: var(--rams-detail-foreground); font-weight: var(--rams-detail-chart-value-weight); white-space: nowrap; }
+
+.message { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); pointer-events: none; }
+
+.axis { position: relative; min-width: 0; }
+.axisLabel { position: absolute; top: var(--rams-detail-streamgraph-axis-label-inset); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-streamgraph-axis-label-leading); white-space: nowrap; font-variant-numeric: var(--rams-detail-numeric-column-variant); transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+/* New labels fade in while the stream morphs to a new range instead of popping in a single frame. */
+@starting-style { .axisLabel { opacity: 0; } }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle:active { transform: none; }
+  .toggle, .swatch, .layer, .crosshair, .label, .labelSurface, .tooltip, .tipRow, .axisLabel { transition: none; }
+}
+
+:where(.figure,.legend,.toggle,.toggleLabel,.swatch,.chart,.plot,.svg,.layer,.crosshair,.label,.tooltip,.tipTitle,.tipRow,.tipSwatch,.tipName,.tipValue,.message,.axis,.axisLabel,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots follow the active profile’s shared data role. */
+.tipValue { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }

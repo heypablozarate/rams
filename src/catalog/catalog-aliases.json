@@ -1,0 +1,40 @@
+{
+  "sheet": {
+    "canonicalId": "drawer",
+    "defaultVariantId": "baseline-sheet-demo",
+    "variantIds": [
+      "baseline-sheet-demo",
+      "baseline-sheet-side"
+    ]
+  },
+  "bottom-sheet": {
+    "canonicalId": "drawer",
+    "defaultVariantId": "motion-bottom-sheet",
+    "variantIds": [
+      "motion-bottom-sheet"
+    ]
+  },
+  "sonner": {
+    "canonicalId": "toast",
+    "defaultVariantId": "baseline-sonner-demo",
+    "variantIds": [
+      "baseline-sonner-demo",
+      "baseline-sonner-types",
+      "motion-toast-stack"
+    ]
+  },
+  "comparison-table": {
+    "canonicalId": "comparison",
+    "defaultVariantId": "motion-comparison-table",
+    "variantIds": [
+      "motion-comparison-table"
+    ]
+  },
+  "plan-comparison": {
+    "canonicalId": "comparison",
+    "defaultVariantId": "motion-plan-comparison",
+    "variantIds": [
+      "motion-plan-comparison"
+    ]
+  }
+}

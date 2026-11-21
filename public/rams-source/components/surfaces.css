@@ -1,0 +1,32 @@
+.rams-popover__content,.rams-hover-card__content { z-index:var(--rams-detail-surface-content-z); inline-size:var(--rams-detail-surface-compact-inline-size); max-inline-size:calc(var(--rams-detail-surface-viewport-inline-size) - var(--rams-detail-surface-viewport-inset)); max-block-size:var(--radix-popover-content-available-height,var(--rams-detail-surface-max-block-size)); overflow:auto; padding:var(--rams-detail-surface-padding); border:var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border); border-radius:var(--rams-detail-surface-popover-radius); box-shadow:var(--rams-detail-surface-elevation); background:var(--rams-detail-surface-raised-fill); color:var(--rams-detail-surface-raised-ink); font-size:var(--rams-detail-surface-body-size); line-height:var(--rams-detail-surface-body-leading); overflow-wrap:anywhere; }
+.rams-tooltip__content { z-index:var(--rams-detail-surface-floating-z); max-inline-size:min(var(--rams-detail-surface-dialog-inline-size),calc(var(--rams-detail-surface-viewport-inline-size) - var(--rams-detail-surface-viewport-inset))); padding:var(--rams-detail-menu-label-padding-block) var(--rams-detail-menu-item-padding-inline); border-radius:var(--rams-detail-radius-control); background:var(--rams-detail-surface-ink); color:var(--rams-detail-surface-fill); font-size:var(--rams-detail-text-xs); line-height:var(--rams-detail-leading-body); overflow-wrap:anywhere; }
+.rams-tooltip__arrow { fill:var(--rams-detail-surface-ink); }
+.rams-hover-card__content { max-block-size:var(--radix-hover-card-content-available-height,var(--rams-detail-surface-hover-card-max-block-size)); }
+.rams-surface__overlay { position:fixed; inset:var(--rams-detail-space-0); z-index:var(--rams-detail-surface-overlay-z); background:var(--rams-detail-surface-overlay-paint); }
+.rams-dialog__content { position:fixed; z-index:var(--rams-detail-surface-content-z); top:50%; left:50%; transform:translate(-50%,-50%); display:flex; flex-direction:column; gap:var(--rams-detail-surface-stack-gap); inline-size:min(var(--rams-detail-surface-dialog-inline-size),calc(var(--rams-detail-surface-viewport-inline-size) - var(--rams-detail-surface-viewport-inset))); max-block-size:var(--rams-detail-surface-max-block-size); overflow:auto; padding:var(--rams-detail-surface-padding); border:var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border); border-radius:var(--rams-detail-surface-modal-radius); box-shadow:var(--rams-detail-surface-elevation); background:var(--rams-detail-surface-fill); color:var(--rams-detail-surface-ink); font-size:var(--rams-detail-surface-body-size); line-height:var(--rams-detail-surface-body-leading); overflow-wrap:anywhere; }
+.rams-surface__header { display:flex; flex-direction:column; gap:var(--rams-detail-surface-header-gap); min-inline-size:var(--rams-detail-space-0); padding-inline-end:var(--rams-detail-space-0); }
+.rams-surface__title { margin:0; font-family:var(--type-title-family,inherit); font-size:var(--rams-detail-surface-title-size); font-weight:var(--rams-detail-surface-title-weight); line-height:var(--rams-detail-surface-title-leading); letter-spacing:var(--rams-detail-surface-title-tracking); overflow-wrap:anywhere; }
+.rams-surface__description { margin:0; font-family:var(--type-body-family,inherit); font-size:var(--rams-detail-surface-body-size); font-weight:var(--rams-detail-surface-body-weight); line-height:var(--rams-detail-surface-body-leading); letter-spacing:var(--rams-detail-surface-body-tracking); color:var(--rams-detail-surface-muted-ink); overflow-wrap:anywhere; }
+.rams-surface__close { position:absolute; inset-block-start:var(--rams-detail-surface-close-inset); inset-inline-end:var(--rams-detail-surface-close-inset); }
+.rams-sheet__content { position:fixed; z-index:var(--rams-detail-surface-content-z); display:flex; flex-direction:column; gap:var(--rams-detail-surface-stack-gap); min-inline-size:var(--rams-detail-space-0); max-inline-size:var(--rams-detail-surface-viewport-inline-size); max-block-size:var(--rams-detail-surface-viewport-block-size); padding:var(--rams-detail-surface-padding); border:var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border); box-shadow:var(--rams-detail-surface-elevation); background:var(--rams-detail-surface-fill); color:var(--rams-detail-surface-ink); font-size:var(--rams-detail-surface-body-size); line-height:var(--rams-detail-surface-body-leading); overflow:auto; overflow-wrap:anywhere; }
+.rams-sheet__content[data-side=right],.rams-sheet__content[data-side=left] { inset-block:var(--rams-detail-space-0); inline-size:min(var(--rams-detail-surface-drawer-inline-size),var(--rams-detail-surface-drawer-viewport-inline-size)); }
+/* The side names and the sheet's movement both use physical directions. */
+.rams-sheet__content[data-side=right] { right:0; border-top-left-radius:var(--rams-detail-surface-modal-radius); border-bottom-left-radius:var(--rams-detail-surface-modal-radius); }
+.rams-sheet__content[data-side=left] { left:0; border-top-right-radius:var(--rams-detail-surface-modal-radius); border-bottom-right-radius:var(--rams-detail-surface-modal-radius); }
+.rams-sheet__content[data-side=top],.rams-sheet__content[data-side=bottom] { inset-inline:0; }
+.rams-sheet__content[data-side=top] { inset-block-start:0; border-end-start-radius:var(--rams-detail-surface-modal-radius); border-end-end-radius:var(--rams-detail-surface-modal-radius); }
+.rams-sheet__content[data-side=bottom] { inset-block-end:0; border-start-start-radius:var(--rams-detail-surface-modal-radius); border-start-end-radius:var(--rams-detail-surface-modal-radius); }
+.rams-sheet__header,.rams-sheet__footer { padding-inline:var(--rams-detail-space-0); }
+
+.rams-sheet__footer { margin-block-start:auto; }
+
+.rams-sheet__content:focus-visible { outline-offset:calc(var(--rams-detail-focus-outline-offset) * -1); }
+
+
+
+.rams-popover__content,.rams-hover-card__content,.rams-tooltip__content { display:block; }
+
+/* The title clears the shared close control; descriptions keep the full reading width. */
+.rams-dialog__content[data-has-close] .rams-surface__title,.rams-sheet__content[data-has-close] .rams-surface__title { padding-inline-end:var(--rams-detail-surface-close-title-inset); min-block-size:var(--rams-detail-surface-close-size); }
+
+/* The shell owns inset and inter-region spacing; body never adds a second inset. */

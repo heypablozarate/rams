@@ -1,0 +1,50 @@
+/* The root follows the bar's wrapped height on a spring, so a new row never shoves the content below in one frame. */
+.root { position: relative; min-width: 0; }
+.bar { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: var(--rams-detail-space-2) var(--rams-detail-reactions-pill-gap); }
+
+/* Compact pills: an icon and a tabular count. The viewer's own reactions take the accent and a filled glyph, so the state never rests on colour alone. */
+.pill, .add { position: relative; display: inline-flex; height: var(--rams-detail-reactions-pill-height); flex: none; align-items: center; margin: 0; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface); color: var(--rams-detail-text-secondary); font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.pill { gap: var(--rams-detail-reactions-pill-gap); padding: 0 var(--rams-detail-reactions-pill-right-inset) 0 var(--rams-detail-reactions-pill-left-inset); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-single-line-control-leading); letter-spacing: var(--rams-detail-tracking-body); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.pill[aria-pressed="true"] { border-color: color-mix(in oklab, var(--rams-detail-control-on) var(--rams-detail-reactions-selected-border-share), var(--rams-detail-border)); background: var(--rams-detail-reactions-selected-wash); color: var(--rams-detail-foreground); }
+.pill[aria-pressed="true"] .icon svg { fill: color-mix(in oklab, currentColor var(--rams-detail-reactions-selected-glyph-fill-share), transparent); }
+.add { justify-content: center; width: var(--rams-detail-reactions-add-width); padding: 0; color: var(--rams-detail-text-muted); }
+.add[data-picker-open] { border-color: var(--rams-detail-border-strong); background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+.pill:active { background: var(--rams-detail-surface-muted); }
+.pill[aria-pressed="true"]:active { background: color-mix(in oklab, var(--rams-detail-control-on) var(--rams-detail-reactions-selected-pressed-fill-share), var(--rams-detail-surface)); }
+.add:active { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+@media (hover: hover) and (pointer: fine) {
+  .pill:hover, .add:hover { border-color: var(--rams-detail-border-strong); background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+  .pill[aria-pressed="true"]:hover { border-color: color-mix(in oklab, var(--rams-detail-control-on) var(--rams-detail-reactions-selected-hover-border-share), var(--rams-detail-border)); background: color-mix(in oklab, var(--rams-detail-control-on) var(--rams-detail-reactions-selected-hover-fill-share), var(--rams-detail-surface)); color: var(--rams-detail-foreground); }
+  .pill:hover, .add:hover { z-index: var(--rams-detail-reactions-pill-active-layer); }
+}
+.pill:focus-visible, .add:focus-visible { z-index: var(--rams-detail-reactions-pill-active-layer); }
+
+.icon, .addIcon { display: grid; width: var(--rams-detail-reactions-pill-glyph-size); height: var(--rams-detail-reactions-pill-glyph-size); flex: none; place-items: center; }
+.addGlyph { display: grid; grid-area: 1 / 1; place-items: center; }
+/* The count window hugs its digits and springs when a digit is added; digits leaving pop out of flow so the width follows at once. */
+.count { display: inline-flex; min-width: 0; }
+.digits { position: relative; display: inline-flex; width: max-content; }
+.digit { display: inline-block; }
+
+/* The label appears after a short hover or on keyboard focus. It floats, so it earns a quiet shadow. */
+
+/* The picker grows out of the add button: Radix places the transform origin on the button's centre. */
+.picker { z-index: var(--rams-detail-reactions-picker-layer); display: grid; gap: var(--rams-detail-space-1); box-sizing: border-box; max-inline-size: min(calc(100vw - var(--rams-detail-reactions-picker-viewport-reserve)), var(--radix-popover-content-available-width, calc(100vw - var(--rams-detail-reactions-picker-viewport-reserve)))); min-inline-size: 0; max-block-size: min(calc(100dvh - var(--rams-detail-reactions-picker-viewport-reserve)), var(--radix-popover-content-available-height, calc(100dvh - var(--rams-detail-reactions-picker-viewport-reserve)))); overflow-y: auto; overscroll-behavior: contain; padding: var(--rams-detail-space-2); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); transform-origin: var(--radix-popover-content-transform-origin); outline: none; }
+.picker[data-state="closed"] { pointer-events: none; }
+.arrow { visibility: hidden; }
+.options { justify-self: center; position: relative; isolation: isolate; display: flex; gap: var(--rams-detail-reactions-option-gap); }
+.highlight { position: absolute; top: 0; left: 0; z-index: var(--rams-detail-layer-behind); width: var(--rams-detail-reactions-option-size); height: var(--rams-detail-reactions-option-size); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface-muted); }
+.option { position: relative; display: grid; width: var(--rams-detail-reactions-option-size); height: var(--rams-detail-reactions-option-size); flex: none; place-items: center; padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+/* Chosen options carry a ring as well as the tint, so they never read as the hover highlight. */
+.option[aria-pressed="true"] { background: var(--rams-detail-reactions-selected-wash); box-shadow: inset 0 0 0 var(--rams-detail-primitive-border-width) color-mix(in oklab, var(--rams-detail-control-on) var(--rams-detail-reactions-selected-border-share), transparent); color: var(--rams-detail-foreground); }
+.option[aria-pressed="true"] svg { fill: color-mix(in oklab, currentColor var(--rams-detail-reactions-selected-glyph-fill-share), transparent); }
+@media (hover: hover) and (pointer: fine) { .option:hover { color: var(--rams-detail-foreground); } .option[aria-pressed="true"]:hover { color: var(--rams-detail-foreground); } }
+.optionIcon { display: grid; place-items: center; }
+.caption { position: relative; display: grid; min-inline-size: 0; align-items: center; justify-items: center; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading, var(--rams-detail-reactions-caption-leading-fallback)); text-align: center; }
+.captionText, .captionProbe { grid-area: 1 / 1; display: inline-flex; min-inline-size: 0; max-inline-size: 100%; align-items: center; justify-content: center; gap: var(--rams-detail-space-1); white-space: normal; overflow-wrap: anywhere; }
+.captionProbe { visibility: hidden; pointer-events: none; }
+.caption svg { flex: none; inline-size: var(--rams-detail-reactions-caption-glyph-size); block-size: var(--rams-detail-reactions-caption-glyph-size); }
+.captionText > span, .captionProbe > span { min-inline-size: 0; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .pill, .add, .option, .tip { transition: none; } .icon { transform: none !important; } .digit { transform: none !important; opacity: 1 !important; filter: none !important; } .digit[inert] { visibility: hidden; } .picker[data-state="open"] { transform: none !important; opacity: 1 !important; filter: none !important; } .picker[data-state="closed"] { visibility: hidden !important; transform: none !important; opacity: 0 !important; filter: none !important; } .option, .optionIcon { transform: none !important; opacity: 1 !important; filter: none !important; } .addGlyph, .captionText { transform: none !important; opacity: 1 !important; filter: none !important; } .addGlyph[inert], .captionText[inert] { visibility: hidden; } }
+:where(.root,.bar,.pill,.add,.icon,.addIcon,.addGlyph,.count,.digits,.digit,.picker,.arrow,.options,.highlight,.option,.optionIcon,.caption,.captionText,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

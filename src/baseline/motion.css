@@ -1,0 +1,27 @@
+/* RAMS host adapters: pinned components remain byte-for-byte upstream.
+   Values derive exclusively from tokens.json/componentExtensions.details.motionTS. */
+:root { --default-transition-duration: var(--rams-motion-feedback-duration); --default-transition-timing-function: var(--rams-motion-feedback-ease); }
+/* The resize engine owns panel geometry; a host feedback transition would desynchronize its hit targets. */
+[data-slot]:not([data-slot="resizable-panel"]) { transition-duration: var(--rams-motion-feedback-duration); transition-timing-function: var(--rams-motion-feedback-ease); }
+:is([data-slot="dialog-content"], [data-slot="alert-dialog-content"], [data-slot="sheet-content"], [data-slot="popover-content"], [data-slot="hover-card-content"], [data-slot="tooltip-content"], [data-slot="select-content"], [data-slot="dropdown-menu-content"], [data-slot="context-menu-content"], [data-slot="menubar-content"], [data-slot="combobox-content"], [data-slot="navigation-menu-content"], [data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"], [data-slot="sheet-overlay"], [data-slot="drawer-overlay"]) {
+  animation-duration: var(--rams-motion-enter-duration);
+  animation-timing-function: var(--rams-motion-enter-ease);
+}
+[data-slot][data-state="closed"], [data-slot][data-closed] { animation-duration: var(--rams-motion-exit-duration); animation-timing-function: var(--rams-motion-exit-ease); }
+[data-slot="accordion-content"][data-state] { animation-duration: var(--rams-motion-resize-duration); animation-timing-function: var(--rams-motion-resize-ease); }
+[data-slot="accordion-trigger"] > svg { transition-duration: var(--rams-motion-resize-duration); transition-timing-function: var(--rams-motion-resize-ease); }
+[data-slot="switch-thumb"], [data-slot="navigation-menu-trigger"] > svg { transition-duration: var(--rams-motion-selection-duration); transition-timing-function: var(--rams-motion-selection-ease); }
+:is([data-slot="sidebar-gap"], [data-slot="sidebar-container"], [data-slot="sidebar-inset"], [data-slot="sidebar-menu-button"], [data-slot="navigation-menu-viewport"]) { transition-duration: var(--rams-motion-resize-duration); transition-timing-function: var(--rams-motion-resize-ease); }
+[data-slot="progress-indicator"] { transition-duration: var(--rams-motion-data-duration); transition-timing-function: var(--rams-motion-data-ease); }
+[data-slot="spinner"], .animate-spin { animation-duration: var(--rams-motion-activity-duration); }
+[data-slot="skeleton"], .animate-pulse { animation-duration: var(--rams-motion-breathing-duration); }
+/* Portals inherit :root; no wrapper-only reduced policy. Preserve translate/scale
+   positioning: cancel animated interpolation, never erase static transforms.
+   Removing transition-property also cancels CSS transitions already in flight;
+   duration zero alone only configures the next transition. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: var(--rams-detail-duration-no-interpolation) !important; animation-iteration-count: var(--rams-motion-reduced-iterations) !important; transition-property: none !important; transition-duration: var(--rams-detail-duration-no-interpolation) !important; transition-delay: var(--rams-detail-duration-no-interpolation) !important; scroll-behavior: auto !important; }
+}
+[data-motion-demo-reduced="true"] *, [data-motion-demo-reduced="true"] *::before, [data-motion-demo-reduced="true"] *::after {
+  animation-duration: .001ms !important; animation-delay: var(--rams-detail-duration-no-interpolation) !important; animation-iteration-count: var(--rams-motion-reduced-iterations) !important; transition-property: none !important; transition-duration: var(--rams-detail-duration-no-interpolation) !important; transition-delay: var(--rams-detail-duration-no-interpolation) !important; scroll-behavior: auto !important;
+}

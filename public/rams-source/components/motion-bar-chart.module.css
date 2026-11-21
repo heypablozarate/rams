@@ -1,0 +1,65 @@
+.figure { display: grid; min-width: 0; gap: var(--rams-detail-space-5); margin: 0; color: var(--rams-detail-foreground); }
+
+/* The headline is the readout: the average at rest, the scrubbed bar while exploring. Each line keeps its height, so swaps never move the plot. */
+.header { display: grid; min-width: 0; gap: var(--rams-detail-bar-header-gap); }
+.kind, .when { display: block; min-height: calc(1em * var(--rams-detail-leading-body)); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); }
+.kind { color: var(--rams-detail-text-secondary); }
+.when { color: var(--rams-detail-text-muted); }
+.value { display: flex; min-width: 0; align-items: baseline; gap: var(--rams-detail-bar-value-unit-gap); font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-text-3xl); font-weight: var(--rams-detail-chart-value-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-leading-display); }
+.unit { color: var(--rams-detail-text-secondary); font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-text-base); font-weight: var(--type-body-weight); letter-spacing: var(--rams-detail-tracking-body); }
+.swap { position: relative; display: block; min-width: 0; }
+.swapText { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* A rolling number: outgoing digits are popped out of flow and anchored right, and the clip hides a digit still rising into a new place. */
+.roll { position: relative; display: inline-flex; justify-content: flex-end; overflow-x: clip; overflow-y: visible; white-space: pre; }
+.digits { position: relative; display: inline-flex; flex: none; }
+.digit { position: relative; display: inline-block; white-space: pre; }
+.sizer { position: absolute; top: 0; left: 0; visibility: hidden; white-space: pre; pointer-events: none; }
+
+/* Plot, right-hand value axis, and the date axis beneath. */
+.chart { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) var(--rams-detail-bar-value-axis-min-inline); grid-template-rows: auto max(var(--rams-detail-bar-time-axis-min-block), calc(var(--rams-detail-text-xs) + var(--rams-detail-bar-time-axis-clearance))); min-width: 0; }
+.plot { position: relative; grid-area: 1 / 1; min-width: 0; }
+.svg { display: block; overflow: hidden; }
+.grid { stroke: var(--rams-detail-border); stroke-width: var(--rams-detail-bar-grid-stroke); shape-rendering: crispEdges; }
+.baseline { stroke: var(--rams-detail-border-strong); stroke-width: var(--rams-detail-bar-baseline-stroke); shape-rendering: crispEdges; }
+.cursor { stroke: var(--rams-detail-border-strong); stroke-width: var(--rams-detail-bar-cursor-stroke); shape-rendering: crispEdges; }
+.mean { stroke: var(--rams-detail-text-secondary); stroke-width: var(--rams-detail-bar-mean-stroke); stroke-dasharray: var(--rams-detail-bar-mean-dash); shape-rendering: crispEdges; }
+/* The series uses the canonical chart color at a legible strength; the scrubbed bar takes the full accent while its neighbours step back. */
+.bar { fill: color-mix(in oklab, var(--rams-detail-series-1) var(--rams-detail-bar-series-fill-share), var(--rams-detail-surface)); transition: fill var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.chart[data-scrubbing] .bar { fill: color-mix(in oklab, var(--rams-detail-series-1) var(--rams-detail-bar-series-dim-light-share), var(--rams-detail-surface)); }
+/* Preserve the attenuated fill while keeping every comparable bar boundary legible. */
+.chart[data-scrubbing] .bar:not([data-active]) { stroke: var(--rams-detail-series-1); stroke-width: var(--rams-detail-bar-dim-outline); vector-effect: non-scaling-stroke; }
+/* On a dark surface a lighter mix keeps the hue clear instead of turning muddy. */
+:global(.dark) .bar { fill: color-mix(in oklab, var(--rams-detail-series-1) var(--rams-detail-bar-series-fill-share), var(--rams-detail-surface)); }
+:global(.dark) .chart[data-scrubbing] .bar { fill: color-mix(in oklab, var(--rams-detail-series-1) var(--rams-detail-bar-series-dim-dark-share), var(--rams-detail-surface)); }
+:global(.dark) .chart .bar[data-active] { fill: var(--rams-detail-series-1); }
+.chart .bar[data-active] { fill: var(--rams-detail-series-1); }
+
+.gutter { position: relative; grid-area: 1 / 2; min-width: 0; font-size: var(--rams-detail-text-xs); clip-path: var(--rams-detail-bar-chart-label-overdraw-clip); }
+.tick, .meanLabel { position: absolute; top: 0; left: var(--rams-detail-bar-value-axis-inset); display: block; height: 0; white-space: nowrap; pointer-events: none; }
+.tickText { display: block; transform: translateY(-50%); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-bar-axis-leading); font-variant-numeric: var(--type-data-variant); }
+.meanLabel { left: auto; right: 0; }
+.meanLabel .tickText { color: var(--rams-detail-foreground); font-weight: var(--rams-detail-chart-value-weight); }
+
+.axis { position: relative; grid-area: 2 / 1; min-width: 0; overflow: hidden; }
+.axisLabel { position: absolute; top: var(--rams-detail-bar-time-axis-inset); left: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-bar-axis-leading); white-space: nowrap; font-variant-numeric: var(--type-data-variant); }
+
+/* The scrubber covers the plot and its axes. Horizontal drags scrub, vertical swipes still scroll the page. */
+.scrubber { position: absolute; inset: 0; border-radius: calc(var(--rams-detail-radius-control) / 2); outline: none; touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: var(--rams-detail-accessible-hidden-margin); padding: var(--rams-detail-accessible-hidden-padding); border: var(--rams-detail-accessible-hidden-border); overflow: hidden; clip: rect(0 0 0 0); clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+.measure { position: absolute; top: 0; left: 0; display: flex; visibility: hidden; pointer-events: none; }
+.measure > span { flex: none; font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-bar-axis-leading); white-space: nowrap; font-variant-numeric: var(--type-data-variant); }
+:where(.figure,.header,.kind,.when,.value,.unit,.swap,.swapText,.roll,.digits,.digit,.sizer,.chart,.plot,.svg,.grid,.baseline,.cursor,.mean,.bar,.gutter,.tick,.meanLabel,.tickText,.axis,.axisLabel,.scrubber,.srOnly,.measure):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.value, .roll, .tickText { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* Copy can wrap; the value-axis gutter follows its numeric font metrics. */
+.header { grid-template-columns: minmax(0, 1fr); }
+.header > * { min-width: 0; max-width: 100%; }
+.swapText { white-space: normal; overflow: visible; text-overflow: clip; }
+.value { flex-wrap: wrap; }
+.chart { font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-text-xs); grid-template-columns: minmax(0, 1fr) max(var(--rams-detail-bar-value-axis-min-inline), var(--rams-detail-bar-value-axis-min-ch)); grid-template-rows: auto max(var(--rams-detail-bar-time-axis-min-block), calc(var(--rams-detail-bar-chart-axis-font-measure) + var(--rams-detail-bar-time-axis-clearance))); }
+
+/* The label and quantity share one line box; only the value uses data type. */
+.meanPrefix { font-family: var(--rams-detail-font-body); font-variant-numeric: normal; }

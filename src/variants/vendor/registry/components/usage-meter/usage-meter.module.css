@@ -1,0 +1,69 @@
+/* Categories are steps of the accent, strongest first, so the meter reads as one allowance rather than a rainbow. Free space is the track itself. */
+.meter { --rams-detail-segment-0: var(--rams-detail-accent); --rams-detail-segment-1: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-usage-meter-second-tone), var(--rams-detail-surface)); --rams-detail-segment-2: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-usage-meter-third-tone), var(--rams-detail-surface)); --rams-detail-segment-3: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-usage-meter-fourth-tone), var(--rams-detail-surface)); display: grid; min-width: 0; gap: var(--rams-detail-space-4); color: var(--rams-detail-foreground); }
+.top { display: flex; min-width: 0; min-height: var(--rams-detail-usage-meter-status-min-size); align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3); }
+/* A long label wraps beside the status mark instead of hiding its end. */
+.title { min-width: 0; color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-base); font-weight: var(--rams-detail-label-weight); letter-spacing: var(--rams-detail-tracking-body); line-height: var(--rams-detail-leading-body); text-wrap: balance; }
+
+/* The status mark hugs its words: its width springs to each message and grows from the right edge, so the text never slides. */
+.badge { display: inline-flex; flex: none; justify-content: flex-end; overflow: hidden; border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface-muted); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-badge-weight); line-height: var(--rams-detail-badge-leading); transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.badgeInner { display: inline-flex; flex: none; align-items: center; gap: var(--rams-detail-usage-meter-status-gap); padding: 0 var(--rams-detail-space-3); white-space: nowrap; }
+.badgeIcon { display: grid; place-items: center; }
+.badge[data-status="near"] { background: color-mix(in oklab, var(--rams-detail-warning) var(--rams-detail-usage-meter-warning-wash), var(--rams-detail-surface)); color: var(--rams-detail-foreground); }
+.badge[data-status="near"] .badgeIcon { color: var(--rams-detail-warning); }
+.badge[data-status="over"] { background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-usage-meter-overage-wash), var(--rams-detail-surface)); color: var(--rams-detail-foreground); }
+.badge[data-status="over"] .badgeIcon { color: var(--rams-detail-danger); }
+
+.total { display: flex; flex-wrap: wrap; min-width: 0; align-items: baseline; gap: var(--rams-detail-space-2); margin: 0; }
+.amount { flex: none; font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-text-3xl); font-weight: var(--rams-detail-chart-value-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-leading-display); }
+.caption { min-width: 0; flex: 1 1 var(--rams-detail-usage-meter-caption-basis); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); }
+.swap { position: relative; display: block; min-width: 0; }
+.swapText { display: block; white-space: normal; overflow-wrap: anywhere; }
+
+/* The bar leaves room above and below the track for the limit marker. */
+.bar { position: relative; padding-block: var(--rams-detail-usage-meter-marker-outset); overflow-x: clip; }
+.track { position: relative; height: var(--rams-detail-usage-meter-track-size); overflow: hidden; border-radius: var(--rams-detail-radius-pill); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-usage-meter-available-wash), var(--rams-detail-surface)); isolation: isolate; -webkit-tap-highlight-color: transparent; }
+.segment { position: absolute; inset: 0; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.segment[data-index="0"], .swatch[data-index="0"] { background: var(--rams-detail-segment-0); }
+.segment[data-index="1"], .swatch[data-index="1"] { background: var(--rams-detail-segment-1); }
+.segment[data-index="2"], .swatch[data-index="2"] { background: var(--rams-detail-segment-2); }
+.segment[data-index="3"], .swatch[data-index="3"] { background: var(--rams-detail-segment-3); }
+.segment[data-highlight="off"] { opacity: var(--rams-detail-usage-meter-segment-idle-opacity); }
+/* Past the limit the used colours stay, struck through by a hatch; highlighting the overage floods it with the danger colour. */
+.overflow { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.hatch { fill: var(--rams-detail-surface); }
+.overTint { fill: var(--rams-detail-danger); opacity: 0; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.overflow[data-highlight="on"] .overTint { opacity: 1; }
+.limit { position: absolute; top: 0; bottom: 0; left: calc(var(--rams-detail-usage-meter-marker-width) / -2); width: var(--rams-detail-usage-meter-marker-width); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-foreground); pointer-events: none; }
+
+/* The legend doubles as the keyboard path: arrow keys move between categories, focus previews one, a press pins it. */
+.legend { display: flex; flex-wrap: wrap; gap: var(--rams-detail-usage-meter-legend-gap); margin: 0; padding: calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset)); }
+.item { display: grid; flex: var(--rams-detail-layout-flex-max-content); max-width: 100%; min-width: 0; justify-items: start; gap: var(--rams-detail-usage-meter-item-gap); padding: var(--rams-detail-space-2); border: 0; border-radius: calc(var(--rams-detail-radius-control) - var(--rams-detail-usage-meter-item-radius-inset)); background: transparent; color: inherit; font: inherit; text-align: start; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .item:hover { background: var(--rams-detail-surface-muted); } }
+.item[aria-pressed="true"] { background: var(--rams-detail-surface-muted); }
+.item[data-highlight="off"] .swatch { opacity: var(--rams-detail-usage-meter-swatch-idle-opacity); }
+.itemHead { display: flex; min-width: 0; max-width: 100%; align-items: center; gap: var(--rams-detail-space-2); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); }
+.itemLabel { min-width: 0; flex: var(--rams-detail-layout-flex-fill); }
+.key { display: grid; width: var(--rams-detail-usage-meter-key-size); height: var(--rams-detail-usage-meter-key-size); flex: none; place-items: center; }
+.swatch { grid-area: 1 / 1; width: var(--rams-detail-usage-meter-swatch-size); height: var(--rams-detail-usage-meter-swatch-size); border-radius: var(--rams-detail-usage-meter-swatch-radius); }
+.swatch[data-index="free"] { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-usage-meter-available-wash), var(--rams-detail-surface)); box-shadow: inset 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-border-strong); }
+.keyIcon { grid-area: 1 / 1; display: grid; place-items: center; color: var(--rams-detail-danger); }
+.itemValue { display: flex; align-items: baseline; gap: var(--rams-detail-usage-meter-unit-gap); padding-inline-start: var(--rams-detail-usage-meter-value-inset); color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-base); font-weight: var(--rams-detail-chart-value-weight); line-height: var(--rams-detail-leading-body); }
+.itemUnit { color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); font-weight: var(--type-body-weight); }
+
+/* A rolling number: each digit is a clipped wheel that feathers at its edges, and new columns open from zero width. */
+.ticker { position: relative; display: inline-flex; align-items: flex-start; white-space: nowrap; font-variant-numeric: var(--rams-detail-numeric-column-variant); user-select: none; }
+.column { position: relative; display: inline-block; overflow: hidden; margin-block: calc(var(--rams-detail-usage-meter-ticker-feather) * -1); padding-block: var(--rams-detail-usage-meter-ticker-feather); mask-image: linear-gradient(to bottom, transparent, var(--rams-detail-detail-usage-meter-mask-image-81ef715e) calc(var(--rams-detail-usage-meter-ticker-feather) * var(--rams-detail-numeric-wheel-feather-spread)), var(--rams-detail-detail-usage-meter-mask-image-81ef715e) calc(100% - var(--rams-detail-usage-meter-ticker-feather) * var(--rams-detail-numeric-wheel-feather-spread)), transparent); }
+.sizer { visibility: hidden; }
+.glyph { position: absolute; inset: var(--rams-detail-usage-meter-ticker-feather) 0; text-align: center; }
+.symbol { display: inline-block; overflow-x: clip; }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .badge, .segment, .item, .overTint { transition: none; } }
+:where(.meter,.top,.title,.badge,.badgeInner,.badgeIcon,.total,.amount,.caption,.swap,.swapText,.bar,.track,.segment,.swatch,.overflow,.hatch,.overTint,.limit,.legend,.item,.itemHead,.itemLabel,.key,.keyIcon,.itemValue,.itemUnit,.ticker,.column,.sizer,.glyph,.symbol,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.amount, .ticker { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+
+/* Keep the allocation label readable beside or above its measured status. */
+.top { flex-wrap: wrap; }
+.title { flex: 1 1 var(--rams-detail-usage-meter-title-basis); }
+.badge { min-height: max(var(--rams-detail-usage-meter-status-min-size), var(--rams-detail-usage-meter-status-relative-size)); height: auto; }

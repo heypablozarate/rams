@@ -1,0 +1,2 @@
+RAMS — original contributions and integration
+No new license is assigned or changed in this task. No original authorship is claimed for derived code. Third-party notices remain in force.

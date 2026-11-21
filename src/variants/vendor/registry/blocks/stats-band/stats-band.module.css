@@ -1,0 +1,163 @@
+.band { container: stats / inline-size; background: var(--rams-detail-background); color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+.band *, .band *::before, .band *::after { box-sizing: border-box; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: var(--rams-detail-accessible-hidden-margin); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+.inner { max-width: var(--rams-detail-stats-band-content-measure); margin: 0 auto; padding: var(--rams-detail-space-24) var(--rams-detail-space-8); }
+
+/* Header: the title on the left, the note on the right, sharing a last baseline. */
+.header { display: grid; grid-template-columns: var(--rams-detail-stats-band-header-tracks); align-items: last baseline; gap: var(--rams-detail-space-4) var(--rams-detail-space-12); margin-bottom: var(--rams-detail-space-16); }
+.title { max-width: var(--rams-detail-stats-band-title-measure); margin: 0; font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-stats-band-title-size); font-weight: var(--rams-detail-stats-band-title-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-leading-display); text-wrap: balance; }
+.description { max-width: var(--rams-detail-stats-band-description-measure); margin: 0; justify-self: end; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-base); line-height: var(--rams-detail-leading-body); text-wrap: pretty; }
+.header:not(:has(.title)) { grid-template-columns: minmax(0, 1fr); }
+.header:not(:has(.title)) .description { justify-self: start; }
+
+/* The grid. Every stat has the same rows, so numbers, labels, and visuals line up across the band. */
+.stats { position: relative; display: grid; grid-template-columns: repeat(var(--rams-detail-count), minmax(0, 1fr)); column-gap: var(--rams-detail-space-10); row-gap: var(--rams-detail-space-16); margin: 0; }
+.stat {
+  --rams-detail-start: calc(min(var(--rams-detail-i) * var(--rams-motion-item), var(--rams-motion-maxStagger)) + var(--rams-detail-draw));
+  --rams-detail-ink: var(--chart-1, var(--rams-detail-accent-strong));
+  --rams-detail-soft: var(--chart-3, color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-stats-band-visual-soft-wash), var(--rams-detail-background)));
+  position: relative; display: flex; min-width: 0; flex-direction: column; cursor: default; -webkit-tap-highlight-color: transparent;
+}
+.stat:focus { outline: none; }
+.figure { order: var(--rams-detail-layout-order-leading); margin: 0 0 var(--rams-detail-space-5); }
+.label { color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); text-wrap: pretty; }
+.caption { display: grid; margin: var(--rams-detail-stats-band-caption-gap) 0 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); }
+/* Reserve a separate row for context; hover never replaces or moves the detail. */
+.detail, .context { grid-column: 1; min-width: 0; text-wrap: pretty; transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.stat[data-context] .context { opacity: 0; }
+.context { color: var(--rams-detail-text-secondary); }
+
+/* The number: display type, tabular digits, the unit smaller and quieter on the same baseline. */
+.number { display: inline-flex; align-items: baseline; font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-stats-band-figure-size); font-weight: var(--rams-detail-stats-band-figure-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-stats-band-figure-leading); white-space: nowrap; }
+.prefix, .suffix { color: var(--rams-detail-text-muted); font-size: max(var(--type-caption-size), var(--rams-detail-stats-band-unit-min-size)); letter-spacing: var(--rams-detail-stats-band-unit-tracking); }
+.prefix { margin-right: var(--rams-detail-stats-band-prefix-gap); }
+.suffix { margin-left: var(--rams-detail-stats-band-suffix-gap); }
+.digits { display: inline-grid; justify-items: start; }
+.sizer, .live { grid-area: 1 / 1; }
+.sizer { visibility: hidden; }
+
+/* Visuals sit on the bottom row, all the same height, so they line up whatever the copy above them does. */
+.visual { position: relative; display: flex; flex: none; flex-direction: column; justify-content: flex-end; height: calc(var(--rams-detail-stats-band-visual-height) + var(--rams-detail-space-8)); margin: auto 0 0; padding-top: var(--rams-detail-space-8); }
+.visual > * { position: relative; height: 100%; }
+.visual > .bars[data-dense] { height: var(--rams-detail-stats-band-dense-height); }
+.draw { display: block; width: 100%; height: 100%; overflow: visible; }
+
+.trend { margin-right: var(--rams-detail-stats-band-trend-inline-reserve); }
+.area { fill: var(--rams-detail-soft); opacity: var(--rams-detail-stats-band-trend-area-opacity); transition: fill var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.line { fill: none; stroke: var(--rams-detail-ink); stroke-width: var(--rams-detail-stats-band-trend-stroke); stroke-linejoin: var(--rams-detail-chart-series-linejoin); stroke-linecap: var(--rams-detail-chart-series-linecap); transition: stroke var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.endDot { position: absolute; width: var(--rams-detail-stats-band-trend-dot-size); height: var(--rams-detail-stats-band-trend-dot-size); margin: calc(var(--rams-detail-stats-band-trend-dot-size) / -2) 0 0 calc(var(--rams-detail-stats-band-trend-dot-size) / -2); border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-ink); box-shadow: 0 0 0 var(--rams-detail-stats-band-trend-dot-halo) var(--rams-detail-background); transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+
+.bars { display: flex; align-items: flex-end; gap: var(--rams-detail-stats-band-bar-gap); }
+/* 90 days never fit 90 fixed gaps in a narrow column, so dense bars carve their gap out of their own slot. */
+.bars[data-dense] { gap: 0; }
+.bars[data-dense] .bar { --rams-detail-h: clamp(var(--rams-detail-stats-band-uptime-min-scale), calc(var(--rams-detail-stats-band-full-scale) - var(--rams-detail-uptime-loss) * var(--rams-detail-stats-band-uptime-loss-gain)), var(--rams-detail-stats-band-full-scale)); border-radius: var(--rams-detail-flush-corner-radius); clip-path: inset(0 var(--rams-detail-stats-band-dense-slot-inset)); }
+.bar { --rams-detail-h: max(var(--rams-detail-stats-band-distribution-min-scale), var(--rams-detail-bin-share)); flex: var(--rams-detail-layout-flex-zero-basis); height: 100%; border-radius: var(--rams-detail-stats-band-bar-corner); background: var(--rams-detail-soft); box-shadow: inset 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-ink); transform: scaleY(var(--rams-detail-h)); transform-origin: bottom; transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-data) var(--rams-detail-ease-enter); }
+.bar[data-ink] { background: var(--rams-detail-ink); }
+
+.map { display: flex; }
+.map .draw { width: auto; aspect-ratio: var(--rams-detail-stats-band-sparkline-aspect-ratio); }
+.land { fill: var(--rams-detail-soft); transition: fill var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.lit { fill: var(--rams-detail-ink); transition: fill var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+
+/* Hover or focus reveals the reserved context row and accents the visual; all copy keeps its place. */
+.stat:focus-visible { --rams-detail-ink: var(--rams-detail-accent); --rams-detail-soft: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-stats-band-visual-soft-wash), var(--rams-detail-background)); }
+.stat[data-context]:focus-visible .context { opacity: 1; }
+@media (hover: none) {
+  .stat:focus { --rams-detail-ink: var(--rams-detail-accent); --rams-detail-soft: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-stats-band-visual-soft-wash), var(--rams-detail-background)); }
+  .stat[data-context]:focus .context { opacity: 1; }
+}
+@media (hover: hover) {
+  .stat:hover { --rams-detail-ink: var(--rams-detail-accent); --rams-detail-soft: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-stats-band-visual-soft-wash), var(--rams-detail-background)); }
+  .stat[data-context]:hover .context { opacity: 1; }
+}
+
+/* Entry: stats rise in sequence while the numbers count, then each visual draws in once its number has landed. */
+.stat { opacity: 0; transform: translateY(var(--rams-detail-stats-band-entry-offset)); transition: opacity var(--rams-motion-displayReveal-duration) var(--rams-detail-ease-enter), transform var(--rams-motion-displayReveal-duration) var(--rams-detail-ease-enter); transition-delay: calc(min(var(--rams-detail-i) * var(--rams-motion-item), var(--rams-motion-maxStagger))); }
+.band[data-in-view] .stat { opacity: 1; transform: none; }
+.band:not([data-in-view]) .draw { clip-path: var(--rams-detail-stats-band-hidden-clip); }
+.band:not([data-in-view]) .bar { transform: var(--rams-detail-block-reveal-collapsed-transform); }
+.band:not([data-in-view]) :is(.endDot) { opacity: 0; }
+.band:not([data-in-view]) .endDot { transform: scale(var(--rams-motion-stats-band-marker-enter-scale)); }
+.draw { clip-path: inset(0 calc(-1 * var(--rams-detail-stats-band-draw-bleed)) 0 0); transition: clip-path var(--rams-detail-duration-data) var(--rams-detail-ease-in-out) var(--rams-detail-start); }
+.band[data-in-view] .bar { transition-delay: var(--rams-detail-duration-no-interpolation), calc(var(--rams-detail-start) + var(--rams-detail-j) * var(--rams-motion-maxStagger)); }
+.band[data-in-view] .endDot { transition-delay: var(--rams-detail-duration-no-interpolation), calc(var(--rams-detail-start) + var(--rams-detail-duration-data)), calc(var(--rams-detail-start) + var(--rams-detail-duration-data)); }
+
+/* Divided: a hairline grid. Rules draw across the band, then hairlines grow between stats. */
+.band[data-layout="divided"] .stats { column-gap: 0; row-gap: 0; }
+.band[data-layout="divided"] .stats::before,
+.band[data-layout="divided"] .stats::after { content: ""; position: absolute; right: 0; left: 0; height: var(--rams-detail-separator-thickness); background: var(--rams-detail-border); transform: var(--rams-detail-inline-reveal-collapsed-transform); transform-origin: left; transition: transform var(--rams-detail-duration-considered) var(--rams-detail-ease-in-out); }
+.band[data-layout="divided"] .stats::before { top: 0; }
+.band[data-layout="divided"] .stats::after { bottom: 0; transition-delay: var(--rams-motion-settle); }
+.band[data-layout="divided"][data-in-view] .stats::before,
+.band[data-layout="divided"][data-in-view] .stats::after { transform: var(--rams-detail-inline-reveal-rest-transform); }
+.band[data-layout="divided"] .stat { padding: var(--rams-detail-space-10) var(--rams-detail-space-8) var(--rams-detail-space-8); }
+.band[data-layout="divided"] .stat:first-child { padding-left: 0; }
+.band[data-layout="divided"] .stat:last-child { padding-right: 0; }
+.band[data-layout="divided"] .stat:not(:first-child)::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: var(--rams-detail-separator-thickness); background: var(--rams-detail-border); transform: var(--rams-detail-block-reveal-collapsed-transform); transform-origin: top; transition: transform var(--rams-motion-displayReveal-duration) var(--rams-detail-ease-enter); transition-delay: calc(min(var(--rams-detail-i) * var(--rams-motion-item), var(--rams-motion-maxStagger)) + var(--rams-detail-duration-standard)); }
+.band[data-layout="divided"][data-in-view] .stat::before { transform: var(--rams-detail-block-reveal-rest-transform); }
+
+/* Tablet: two by two. A band of three stacks instead of leaving an orphan. */
+@container stats (max-width: 50rem) {
+  .inner { padding: var(--rams-detail-space-20) var(--rams-detail-space-8); }
+  .header { grid-template-columns: minmax(0, 1fr); margin-bottom: var(--rams-detail-space-12); }
+  .description { justify-self: start; }
+  .stats { grid-template-columns: var(--rams-detail-layout-grid-two-columns); column-gap: var(--rams-detail-space-8); row-gap: var(--rams-detail-space-12); }
+  .band[data-layout="divided"] .stat { padding: var(--rams-detail-space-8) var(--rams-detail-space-8) var(--rams-detail-space-8); }
+  .band[data-layout="divided"] .stat:nth-child(2n + 1) { padding-left: 0; }
+  .band[data-layout="divided"] .stat:nth-child(2n) { padding-right: 0; }
+  .band[data-layout="divided"] .stat:nth-child(2n + 1)::before { display: none; }
+  .band[data-layout="divided"] .stat:nth-child(n + 3)::after { content: ""; position: absolute; top: 0; right: 0; left: 0; height: var(--rams-detail-separator-thickness); background: var(--rams-detail-border); }
+}
+
+/* Phone: one stat per row, the visual beside the number so nothing is cramped. */
+@container stats (max-width: 32.5rem) {
+  .inner { padding: var(--rams-detail-space-16) var(--rams-detail-space-4); }
+  .header { margin-bottom: var(--rams-detail-space-10); }
+  .stats { grid-template-columns: minmax(0, 1fr); row-gap: var(--rams-detail-space-10); }
+  .stat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, var(--rams-detail-stats-band-compact-visual-share)); grid-template-areas: "figure visual" "label label" "caption caption"; column-gap: var(--rams-detail-space-6); }
+  .figure { grid-area: figure; align-self: end; margin-bottom: var(--rams-detail-space-3); }
+  .label { grid-area: label; }
+  .caption { grid-area: caption; }
+  .visual { grid-area: visual; align-self: end; height: var(--rams-detail-stats-band-visual-compact-height); margin: 0 0 var(--rams-detail-space-3); padding: 0; }
+  .map { justify-content: flex-end; }
+  .band[data-layout="divided"] .stat,
+  .band[data-layout="divided"] .stat:nth-child(n) { padding: var(--rams-detail-space-8) 0; }
+  .band[data-layout="divided"] .stat::before { display: none; }
+  .band[data-layout="divided"] .stat:nth-child(n + 2)::after { content: ""; position: absolute; top: 0; right: 0; left: 0; height: var(--rams-detail-separator-thickness); background: var(--rams-detail-border); }
+}
+@container stats (max-width: 50rem) {
+  .stats[data-count="3"] { grid-template-columns: minmax(0, 1fr); }
+  /* Three stacked stats in the divided grid: no column padding or vertical hairlines, a rule between each row instead. */
+  .band[data-layout="divided"] .stats[data-count="3"] .stat { padding-right: 0; padding-left: 0; }
+  .band[data-layout="divided"] .stats[data-count="3"] .stat::before { display: none; }
+  .band[data-layout="divided"] .stats[data-count="3"] .stat:nth-child(n + 2)::after { content: ""; position: absolute; top: 0; right: 0; left: 0; height: var(--rams-detail-separator-thickness); background: var(--rams-detail-border); }
+}
+
+.preview { display: grid; width: 100%; justify-items: center; gap: var(--rams-detail-space-4); }
+.frame { width: 100%; overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-surface); background: var(--rams-detail-background); }
+
+@media (prefers-reduced-motion: reduce) {
+  .band .stat, .band .draw, .band .bar, .band .endDot,
+  .band[data-layout="divided"] .stats::before, .band[data-layout="divided"] .stats::after, .band[data-layout="divided"] .stat::before { transition: none; }
+  .band .stat { opacity: 1; transform: none; }
+  .band:not([data-in-view]) .draw { clip-path: inset(0 calc(-1 * var(--rams-detail-stats-band-draw-bleed)) 0 0); }
+  .band:not([data-in-view]) .bar { transform: scaleY(var(--rams-detail-h)); }
+  .band:not([data-in-view]) :is(.endDot) { opacity: 1; transform: none; }
+  .detail, .context { transition: none; }
+  .band :is(.area, .line, .land, .lit) { transition: none; }
+}
+
+:where(.band,.srOnly,.inner,.header,.title,.description,.stats,.stat,.figure,.label,.caption,.detail,.context,.number,.prefix,.suffix,.digits,.sizer,.live,.visual,.bars,.draw,.trend,.area,.line,.endDot,.bar,.map,.land,.lit,.preview,.frame):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.number { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* A full-width figure precedes its supporting visual at narrow text measures. */
+@container stats (max-width: 24em) {
+  .inner { padding: var(--rams-detail-space-8) 0; }
+  .header { gap: var(--rams-detail-space-4); }
+  .title { font-size: var(--rams-detail-text-lg); line-height: var(--rams-detail-leading-body); }
+  .stat { grid-template-columns: minmax(0, 1fr); grid-template-areas: "figure" "label" "caption" "visual"; }
+  .number { max-width: 100%; flex-wrap: wrap; white-space: normal; column-gap: var(--rams-detail-stats-band-narrow-unit-gap); }
+  .visual { width: 100%; max-width: 100%; margin-top: var(--rams-detail-space-3); }
+}

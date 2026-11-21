@@ -1,0 +1,79 @@
+/* The box sits a border and padding outside the text, so the text lines up with the content around it and the hover surface reaches past it. */
+.root { --rams-detail-pad-x: var(--rams-detail-inline-edit-padding-inline); --rams-detail-pad-y: var(--rams-detail-inline-edit-title-padding-block); --rams-detail-inline-edit-stack-baseline: calc(var(--rams-detail-pad-y) + var(--rams-detail-leading) / 2 - var(--rams-detail-inline-edit-action-size) / 2 + var(--rams-detail-primitive-border-width)); position: relative; display: grid; min-width: 0; margin-inline-start: calc(-1 * (var(--rams-detail-pad-x) + var(--rams-detail-primitive-border-width))); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+/* Whole-pixel line heights: an input centres its text by rounding, so a fractional line would sit the field a pixel below the display. */
+.root[data-variant="title"] { --rams-detail-size: var(--rams-detail-text-xl); --rams-detail-leading: round(var(--rams-detail-size) * var(--type-title-leading), calc(2 * var(--rams-detail-primitive-border-width))); --rams-detail-weight: var(--rams-detail-inline-edit-title-weight); --rams-detail-ink: var(--rams-detail-foreground); }
+.root[data-variant="body"] { --rams-detail-pad-y: var(--rams-detail-inline-edit-body-padding-block); --rams-detail-size: var(--type-input-size); --rams-detail-leading: round(var(--rams-detail-size) * var(--type-control-leading), var(--rams-detail-primitive-border-width)); --rams-detail-weight: var(--type-control-weight); --rams-detail-ink: var(--rams-detail-text-secondary); }
+/* Room for the actions is reserved in every state, so the text never rewraps when editing starts. */
+/* Inter at every size here: a heading host keeps its semantics but not the display face. */
+.line { display: block; min-width: 0; margin: 0; padding-inline-end: calc(2 * var(--rams-detail-inline-edit-action-size) + var(--rams-detail-inline-edit-action-gap) + var(--rams-detail-inline-edit-single-action-offset)); color: var(--rams-detail-ink); font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-size); font-weight: var(--rams-detail-weight); line-height: var(--rams-detail-leading); letter-spacing: var(--rams-detail-tracking-body); }
+/* The stacked 28px actions plus their 4px gap and the frame’s 1px border must stay above the next row, even for an empty one-line value. */
+.root[data-multiline] .line { padding-inline-end: calc(var(--rams-detail-inline-edit-action-size) + var(--rams-detail-inline-edit-action-gap) + 2 * var(--rams-detail-primitive-border-width)); min-block-size: calc(var(--rams-detail-inline-edit-stack-baseline) + 2 * var(--rams-detail-inline-edit-action-size) + var(--rams-detail-inline-edit-action-gap) + var(--rams-detail-primitive-border-width)); }
+.box { position: relative; display: inline-block; max-width: 100%; vertical-align: top; }
+.root[data-multiline] .box { display: block; }
+
+/* Display and field share every metric: border, padding, font, and line height. Only the frame behind them changes. */
+.display, .control { box-sizing: border-box; margin: 0; padding: var(--rams-detail-pad-y) var(--rams-detail-pad-x); border: var(--rams-detail-primitive-border-width) solid transparent; border-radius: var(--rams-detail-radius-control); background: transparent; color: inherit; font: inherit; font-feature-settings: inherit; letter-spacing: inherit; word-spacing: inherit; line-height: var(--rams-detail-leading); text-align: left; text-indent: 0; text-transform: none; -webkit-tap-highlight-color: transparent; }
+.display { transition-property: none; position: relative; z-index: var(--rams-detail-inline-edit-display-layer); display: block; max-width: 100%; cursor: text; }
+.root[data-multiline] .display { width: 100%; }
+.root[data-editing] .display { visibility: hidden; }
+/* While editing, a single line keeps a little extra room, so the next character never has to wait for the box. */
+.root[data-editing]:not([data-multiline]) .display { min-width: var(--rams-detail-inline-edit-single-draft-min-inline); padding-inline-end: calc(var(--rams-detail-pad-x) + var(--rams-detail-inline-edit-single-draft-inline-reserve)); }
+.display[aria-disabled="true"] { cursor: progress; }
+.layer { position: relative; display: block; transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.layer[data-empty] { color: var(--rams-detail-text-muted); }
+/* An optimistic save shows the new text at once, a little quieter until the save lands; then it settles to full strength. */
+.root[data-phase="saving"] .layer { opacity: var(--rams-detail-inline-edit-saving-opacity); transition-duration: var(--rams-detail-duration-fast); }
+.text { display: block; overflow: hidden; text-overflow: ellipsis; white-space: pre; }
+.root[data-multiline] .text { overflow: visible; white-space: pre-wrap; overflow-wrap: break-word; }
+.control { position: absolute; top: 0; left: 0; z-index: var(--rams-detail-inline-edit-editor-layer); width: 100%; height: 100%; outline: none; resize: none; overflow: hidden; caret-color: var(--rams-detail-foreground); }
+/* The frame carries the focus ring for the field, so the field itself never draws a second one. */
+.control:focus-visible { outline: none; }
+.control::placeholder { color: var(--rams-detail-text-muted); opacity: 1; }
+textarea.control { white-space: pre-wrap; overflow-wrap: break-word; }
+
+/* The frame is the only surface: a hover tint at rest, a bordered field while editing, a soft danger wash when a save fails. */
+.frame { position: absolute; top: 0; bottom: 0; left: 0; z-index: var(--rams-detail-inline-edit-frame-layer); box-sizing: border-box; border: var(--rams-detail-primitive-border-width) solid transparent; border-radius: var(--rams-detail-radius-control); background: transparent; pointer-events: none; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.root[data-multiline] .frame { right: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .display:not([aria-disabled="true"]):hover ~ .frame { background: var(--rams-detail-surface-muted); }
+  .pencil { opacity: 1; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+  .display:hover ~ .frame .pencil, .display:focus-visible ~ .frame .pencil, .pencil:hover { opacity: 1; }
+}
+.root[data-editing] .frame { border-color: var(--rams-detail-foreground); background: var(--rams-detail-surface); box-shadow: 0 0 0 var(--rams-detail-inline-edit-frame-ring-spread) var(--rams-detail-focus-ring); }
+.root[data-invalid] .frame { border-color: var(--rams-detail-danger); box-shadow: 0 0 0 var(--rams-detail-inline-edit-frame-ring-spread) color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-inline-edit-invalid-ring-wash), transparent); }
+.root[data-flash="on"] .frame { border-color: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-inline-edit-invalid-flash-border-wash), transparent); background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-inline-edit-invalid-flash-fill-wash), transparent); }
+/* The wash leaves slowly, without any movement, once the message has been read. */
+.root[data-flash="off"] .frame { transition-duration: var(--rams-detail-duration-considered); }
+
+/* The slot rides on the frame's edge, so it follows the width morph instead of jumping to the new width. */
+.slot { position: absolute; top: 50%; left: calc(100% + var(--rams-detail-inline-edit-single-action-offset)); display: grid; min-height: var(--rams-detail-inline-edit-action-size); margin-top: calc(-1 * var(--rams-detail-inline-edit-action-size) / 2); pointer-events: auto; }
+.root[data-multiline] .slot { top: 0; left: calc(100% + var(--rams-detail-inline-edit-action-gap)); margin-top: var(--rams-detail-inline-edit-stack-baseline); }
+.slotItem { display: grid; grid-area: 1 / 1; min-height: var(--rams-detail-inline-edit-action-size); place-items: center start; }
+.actions { display: flex; gap: var(--rams-detail-inline-edit-action-gap); }
+.root[data-multiline] .actions { flex-direction: column; }
+.save, .cancel { display: grid; width: var(--rams-detail-inline-edit-action-size); height: var(--rams-detail-inline-edit-action-size); flex: none; place-items: center; padding: 0; border: var(--rams-detail-primitive-border-width) solid transparent; border-radius: var(--rams-detail-radius-pill); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.save { background: var(--rams-detail-foreground); color: var(--rams-detail-background); }
+.cancel { border-color: var(--rams-detail-border); background: var(--rams-detail-surface); color: var(--rams-detail-text-secondary); }
+.save:active, .cancel:active { transform: scale(var(--rams-motion-inline-edit-action-press-scale)); }
+@media (hover: hover) and (pointer: fine) { .save:hover { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-inline-edit-save-hover-ink-wash), var(--rams-detail-background)); } .cancel:hover { border-color: var(--rams-detail-border-strong); background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } }
+.pencil { margin-left: calc(var(--rams-detail-inline-edit-action-gap) / 2); color: var(--rams-detail-text-muted); cursor: pointer; }
+.spinner { display: block; width: var(--rams-detail-inline-edit-compact-mark-size); height: var(--rams-detail-inline-edit-compact-mark-size); margin-left: calc(var(--rams-detail-inline-edit-action-gap) / 2); border: var(--rams-detail-activity-indicator-stroke-width) solid var(--rams-detail-text-muted); border-right-color: transparent; border-radius: var(--rams-detail-radius-pill); animation: spin var(--rams-motion-activity-duration) var(--rams-motion-activity-ease) var(--rams-motion-active-iterations); }
+.saved { display: grid; margin-left: var(--rams-detail-primitive-border-width); place-items: center; color: var(--rams-detail-success); }
+.failedIcon { margin-left: var(--rams-detail-primitive-border-width); color: var(--rams-detail-danger); }
+
+/* The message row opens from a true zero; its spacing lives inside the clipped slot. */
+.reveal { display: block; overflow: hidden; }
+.revealInner { position: relative; display: block; }
+.message { display: flex; align-items: flex-start; gap: var(--rams-detail-inline-edit-message-space); padding: var(--rams-detail-inline-edit-message-space) var(--rams-detail-pad-x) var(--rams-detail-inline-edit-action-gap) calc(var(--rams-detail-pad-x) + var(--rams-detail-primitive-border-width)); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); font-weight: var(--type-caption-weight); line-height: var(--type-caption-leading); }
+.message[data-tone="error"] { color: var(--rams-detail-danger); }
+.messageIcon { flex: none; margin-top: calc(var(--rams-detail-inline-edit-action-gap) / 2); color: var(--rams-detail-danger); }
+.retry { margin: 0 0 0 calc(var(--rams-detail-inline-edit-action-gap) / 2); padding: 0; border: 0; border-radius: var(--radius-control); background: none; color: var(--rams-detail-foreground); font: inherit; font-weight: var(--rams-detail-label-weight); text-decoration: underline; text-decoration-color: var(--rams-detail-border-strong); text-underline-offset: var(--rams-detail-inline-edit-retry-underline-offset); cursor: pointer; }
+@media (hover: hover) and (pointer: fine) { .retry:hover { text-decoration-color: currentColor; } }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+@keyframes spin { to { transform: var(--rams-detail-native-activity-cycle-transform); } }
+@media (prefers-reduced-motion: reduce) { .reveal { height: auto !important; } .message:not([aria-hidden="true"]) { opacity: 1 !important; transform: none !important; filter: none !important; } .message[aria-hidden="true"] { visibility: hidden; } .spinner { animation: none; border-right-color: var(--rams-detail-text-muted); border-top-color: transparent; } .layer, .save, .cancel, .pencil { transition: none; } }
+:where(.root,.line,.box,.display,.control,.layer,.text,.frame,.pencil,.slot,.slotItem,.actions,.save,.cancel,.spinner,.saved,.failedIcon,.reveal,.revealInner,.message,.messageIcon,.retry,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Preserve the composite geometry while consuming owned native primitives. */
+.root .display, .root .save, .root .cancel, .root .retry, .root .control { min-inline-size: 0; min-block-size: 0; box-shadow: none; }
+.save > svg, .cancel > svg { inline-size: var(--rams-detail-inline-edit-action-glyph-size); block-size: var(--rams-detail-inline-edit-action-glyph-size); }

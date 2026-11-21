@@ -1,0 +1,16 @@
+/* The gap between crumbs matches the gap inside one, so every chevron sits centered between its two labels. */
+.list { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: var(--rams-detail-breadcrumb-motion-row-gap) var(--rams-detail-breadcrumb-motion-inline-gap); margin: 0; padding: 0; list-style: none; }
+.list li { display: inline-flex; align-items: center; gap: var(--rams-detail-breadcrumb-motion-inline-gap); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); white-space: nowrap; }
+.list li > svg { inline-size: var(--rams-detail-breadcrumb-motion-glyph-size); block-size: var(--rams-detail-breadcrumb-motion-glyph-size); flex: 0 0 auto; color: var(--rams-detail-border-strong); stroke-width: var(--rams-detail-breadcrumb-motion-separator-stroke-width); }
+/* Each crumb reserves the width of its medium weight label, so becoming the current page never shifts the path. */
+.list a, .list li > span, .list li > button { display: inline-flex; flex-direction: column; border-radius: var(--radius-control); padding: var(--rams-detail-breadcrumb-motion-control-padding); }
+.list a::after, .list li > span::after, .list li > button::after { height: 0; overflow: hidden; content: attr(data-label); font-weight: var(--type-action-weight); visibility: hidden; user-select: none; pointer-events: none; }
+.list li > button { border: 0; margin: 0; background: none; font: inherit; line-height: inherit; text-align: start; cursor: pointer; }
+.list a, .list li > button { color: var(--rams-detail-text-secondary); text-decoration: underline var(--rams-detail-primitive-border-width); text-decoration-color: transparent; text-underline-offset: var(--rams-detail-breadcrumb-motion-underline-offset); transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), text-decoration-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.list [aria-current="page"] { color: var(--rams-detail-foreground); font-weight: var(--type-action-weight); transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .list a:hover, .list li > button:hover { color: var(--rams-detail-foreground); text-decoration-color: var(--rams-detail-breadcrumb-motion-hover-underline); } }
+@media (prefers-reduced-motion: reduce) { .list a, .list li > button, .list [aria-current="page"] { transition: none; } .list > li { transform: none !important; filter: none !important; } }
+:where(.list):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Owned native controls retain the compact inline path geometry. */
+.list li > button { min-inline-size:0; min-block-size:0; box-shadow:none; gap:0; }

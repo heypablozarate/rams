@@ -1,0 +1,61 @@
+/* The root is the lane the field may grow into. Only the shell and the panel take pointer events, so an idle lane never blocks what sits under it. */
+.root { position: relative; width: 100%; min-width: var(--rams-detail-control-height-md); height: var(--rams-detail-control-height-md); pointer-events: none; }
+/* One shell is both the button and the field. Its width rides a spring and its radius follows the width, from a circle to the control radius. */
+.shell { position: absolute; top: 0; inset-inline-end: 0; height: 100%; overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: calc(var(--rams-detail-control-height-md) / 2 - (var(--rams-detail-control-height-md) / 2 - var(--rams-detail-radius-control)) * var(--rams-detail-es-open, var(--rams-detail-expanding-search-closed-state))); background: var(--rams-detail-surface); color: var(--rams-detail-text-secondary); pointer-events: auto; transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.root[data-anchor="start"] .shell { inset-inline-end: auto; inset-inline-start: 0; }
+.shell[data-expanded] { border-color: var(--rams-detail-border-strong); color: var(--rams-detail-foreground); }
+.shell:has(> .trigger:focus-visible), .shell:has(> .input:focus) { border-color: var(--rams-detail-foreground); box-shadow: 0 0 0 var(--rams-detail-expanding-search-focus-spread) var(--rams-detail-focus-ring); color: var(--rams-detail-foreground); }
+@media (hover: hover) and (pointer: fine) {
+  .shell:not([data-expanded]):hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+  .shell[data-expanded]:not(:has(> .input:focus)):hover { border-color: var(--rams-detail-foreground); }
+  .clear:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+}
+/* A compact press while it is still a button; the morph takes over on release. */
+.shell:not([data-expanded]):has(> .trigger:active) { transform: scale(var(--rams-detail-expanding-search-press-scale)); transition-duration: var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-standard), var(--rams-detail-duration-instant); }
+.trigger { position: absolute; z-index: var(--rams-detail-expanding-search-controls-layer); inset: 0; margin: 0; padding: 0; border: 0; border-radius: inherit; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.trigger:focus-visible { outline: none; }
+/* The glass sits at the leading edge, so it is centered in the circle and rides that edge to its place in the open field. */
+.icon { position: absolute; top: calc(50% - var(--rams-detail-search-field-leading-glyph-size) / 2); inset-inline-start: calc((var(--rams-detail-control-height-md) - var(--rams-detail-search-field-leading-glyph-size)) / 2 - var(--rams-detail-expanding-search-icon-optical-shift)); pointer-events: none; }
+.input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding-block: 0; padding-inline-end: var(--rams-detail-expanding-search-input-trailing-inset); border: 0; background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--type-input-size); letter-spacing: var(--rams-detail-tracking-body); text-overflow: ellipsis; outline: none; }
+.input:focus-visible { outline: none; }
+.input::placeholder { color: var(--rams-detail-text-muted); opacity: 1; }
+.input[inert] { pointer-events: none; }
+.clear { position: absolute; z-index: var(--rams-detail-expanding-search-controls-layer); top: calc(50% - var(--rams-detail-expanding-search-clear-size) / 2); inset-inline-end: var(--rams-detail-expanding-search-clear-inset); display: grid; width: var(--rams-detail-expanding-search-clear-size); height: var(--rams-detail-expanding-search-clear-size); place-items: center; margin: 0; padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-text-muted); cursor: pointer; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); -webkit-tap-highlight-color: transparent; }
+
+/* A floating layer: its width is the field's, so it unfolds from the field on first open; its content keeps the final width and rides the leading edge. */
+.panel { position: relative; z-index: var(--rams-detail-expanding-search-panel-layer); max-width: var(--radix-popover-content-available-width); max-height: var(--radix-popover-content-available-height); overflow: hidden; transform-origin: var(--radix-popover-content-transform-origin); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); pointer-events: auto; }
+.body { position: relative; width: min(calc(var(--rams-detail-es-width) - 2 * var(--rams-detail-primitive-border-width)), calc(var(--radix-popover-content-available-width) - 2 * var(--rams-detail-primitive-border-width))); max-height: min(var(--rams-detail-expanding-search-panel-block-limit), calc(var(--radix-popover-content-available-height) - 2 * var(--rams-detail-primitive-border-width))); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: var(--rams-detail-expanding-search-panel-inset); scrollbar-width: thin; }
+.view { position: relative; }
+/* A flex gap, not margins: a group popping out while it leaves never lets the next one's margin collapse through the list. */
+.listbox { position: relative; isolation: isolate; display: flex; flex-direction: column; gap: var(--rams-detail-expanding-search-group-gap); }
+.group { position: relative; }
+.groupLabel { padding: var(--rams-detail-expanding-search-heading-inset); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-label-weight); line-height: var(--type-caption-leading); }
+/* Nested corners step down from the panel by its inset. The highlight paints under every row's content, so text never hides while it travels. */
+.option { position: relative; display: flex; min-height: var(--rams-detail-expanding-search-option-size); align-items: center; gap: var(--rams-detail-expanding-search-option-gap); padding: var(--rams-detail-expanding-search-option-inset); border-radius: var(--radius-menu-item); color: var(--rams-detail-foreground); cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+.highlight { position: absolute; z-index: var(--rams-detail-layer-behind); inset: 0; border-radius: inherit; background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-expanding-search-highlight-share), transparent); pointer-events: none; }
+.optionIcon { display: grid; flex: none; width: var(--rams-detail-search-field-leading-glyph-size); place-items: center; color: var(--rams-detail-text-muted); transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.option[data-active] .optionIcon { color: var(--rams-detail-foreground); }
+.optionText { display: grid; min-width: 0; }
+.optionTitle, .optionMeta { line-height: var(--rams-detail-leading-body); white-space: normal; overflow-wrap: anywhere; }
+.optionTitle { color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); }
+.optionMeta { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.mark { background: none; color: var(--rams-detail-foreground); font-weight: var(--rams-detail-label-weight); }
+.empty { display: grid; gap: var(--rams-detail-expanding-search-empty-gap); padding: var(--rams-detail-expanding-search-empty-inset); }
+.emptyTitle { margin: 0; overflow-wrap: anywhere; color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); }
+.emptyHint { margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.srOnly { position: absolute; inline-size: var(--rams-detail-accessible-hidden-inline-size); block-size: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .shell, .clear, .optionIcon { transition: none; }
+  .input:not([inert]), .highlight, .clear[data-rams-presence="present"] { opacity: 1 !important; }
+  .highlight, .clear[data-rams-presence="present"] { transform: none !important; filter: none !important; }
+  .clear[data-rams-presence="exiting"] { display: none; }
+  .shell:not([data-expanded]):has(> .trigger:active) { transform: none; }
+}
+:where(.root,.shell,.trigger,.input,.clear,.icon,.panel,.body,.view,.listbox,.group,.groupLabel,.option,.highlight,.optionIcon,.optionText,.optionTitle,.optionMeta,.mark,.empty,.emptyTitle,.emptyHint,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Result titles and metadata describe the choice before it is selected. */
+.optionText { flex: var(--rams-detail-layout-flex-fill); max-width: 100%; }
+.optionTitle, .optionMeta { overflow: visible; text-overflow: clip; white-space: normal; }
+
+/* Reserve the actual icon slot as the control grows with user text settings. */
+.input { box-sizing: border-box; padding-inline-start: calc(var(--rams-detail-control-height-md) / 2 + var(--rams-detail-expanding-search-input-leading-gap)); }

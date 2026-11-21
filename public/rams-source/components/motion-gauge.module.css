@@ -1,0 +1,43 @@
+.figure { display: grid; justify-items: center; min-width: 0; gap: var(--rams-detail-gauge-figure-gap); margin: 0; text-align: center; }.figure figcaption { display: grid; gap: var(--rams-detail-gauge-caption-gap); min-width: 0; max-width: 100%; overflow-wrap: anywhere; }.figure strong { font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); }.detail { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.accent { --rams-detail-gauge-color: var(--rams-detail-accent); --rams-detail-gauge-text: var(--rams-detail-accent-strong); }.success { --rams-detail-gauge-color: var(--rams-detail-success); --rams-detail-gauge-text: var(--rams-detail-success); }.warning { --rams-detail-gauge-color: var(--rams-detail-warning); --rams-detail-gauge-text: var(--rams-detail-warning); }.danger { --rams-detail-gauge-color: var(--rams-detail-danger); --rams-detail-gauge-text: var(--rams-detail-danger); }
+
+/* Keep the 176px base ring proportional to enlarged text; the container still caps its width. */
+.visual { position: relative; width: min(100%, var(--rams-detail-gauge-ring-size)); aspect-ratio: var(--rams-detail-gauge-aspect-ratio); }
+.visual svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.track, .arc { fill: none; stroke-width: var(--rams-detail-gauge-stroke-width); stroke-linecap: var(--rams-detail-gauge-arc-linecap); transition: stroke var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.track { stroke: color-mix(in oklab, var(--rams-detail-gauge-color) var(--rams-detail-gauge-track-share), transparent); }
+.arc { stroke: var(--rams-detail-gauge-color); }
+
+/* The readout sits on the ring's true centre, which is the middle of a square as wide as the ring. */
+.readout { position: absolute; top: 0; left: 0; display: grid; width: 100%; aspect-ratio: var(--rams-detail-square-aspect-ratio); place-content: center; justify-items: center; gap: var(--rams-detail-gauge-readout-gap); pointer-events: none; }
+.number { position: relative; display: inline-flex; align-items: baseline; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-text-2xl); font-weight: var(--rams-detail-label-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-compact-display-leading); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.digits { display: inline-flex; justify-content: flex-end; white-space: nowrap; }
+.unit { margin-inline-start: var(--rams-detail-gauge-unit-gap); color: var(--rams-detail-text-secondary); font-family: var(--rams-detail-font-body); font-size: max(var(--type-caption-size), var(--rams-detail-gauge-unit-min-size)); letter-spacing: 0; }
+.sizer { position: fixed; top: 0; left: 0; visibility: hidden; white-space: nowrap; pointer-events: none; }
+.status { min-width: min(100%, var(--rams-detail-gauge-status-min-width)); max-width: 100%; overflow-wrap: anywhere; min-height: var(--rams-detail-gauge-status-min-height); color: var(--rams-detail-gauge-text); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-gauge-status-leading); transition: color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+
+/* Label, status and detail copy swap in place: the outgoing line is popped out of flow while the new one rises in. */
+.swap { position: relative; display: block; }
+.swap > .text { display: inline-block; }
+@media (prefers-reduced-motion: reduce) {
+  .track, .arc, .status { transition: none; }
+  .digits { width: auto !important; }
+  .text[data-rams-presence="exiting"] { display: none; }
+  .text[data-rams-presence="present"] { opacity: 1 !important; transform: none !important; filter: none !important; }
+}
+:where(.figure,.detail,.accent,.success,.warning,.danger,.visual,.track,.arc,.readout,.number,.digits,.unit,.sizer,.status,.swap,.text):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.number { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* Keep enlarged readouts in flow when their text no longer fits the ring. */
+.figure { inline-size: 100%; container-type: inline-size; }
+.visual[data-readout-overflow] { display: grid; width: 100%; justify-items: center; gap: var(--rams-detail-space-3); aspect-ratio: auto; }
+.visual[data-readout-overflow] svg { width: min(100%, var(--rams-detail-gauge-ring-size)); height: auto; aspect-ratio: var(--rams-detail-gauge-aspect-ratio); }
+.visual[data-readout-overflow] .readout { position: static; aspect-ratio: auto; min-width: 0; }
+.visual[data-readout-overflow] .number { display: block; min-width: 0; max-width: 100%; }
+.visual[data-readout-overflow] .digits { display: block; width: auto !important; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+@container (max-width: 14rem) {
+  .visual { display: grid; width: 100%; justify-items: center; gap: var(--rams-detail-space-3); aspect-ratio: auto; }
+  .visual svg { width: min(100%, var(--rams-detail-gauge-ring-size)); height: auto; aspect-ratio: var(--rams-detail-gauge-aspect-ratio); }
+  .readout { position: static; aspect-ratio: auto; }
+}

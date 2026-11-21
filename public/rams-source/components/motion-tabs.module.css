@@ -1,0 +1,39 @@
+/* Positioned so an outgoing panel pops out exactly where it was while the next one takes its place. */
+.root { position: relative; }
+.listShell { position: relative; display: inline-flex; max-width: 100%; min-width: 0; align-items: center; isolation: isolate; }
+.viewport { min-width: 0; overflow-x: auto; border-radius: inherit; scrollbar-width: none; }
+.viewport::-webkit-scrollbar { display: none; }
+.listShell[data-left="true"] .viewport { mask-image: linear-gradient(to right, transparent, var(--rams-detail-mask-opaque-paint) var(--rams-detail-tabs-scroll-mask-inline-size), var(--rams-detail-mask-opaque-paint)); }
+.listShell[data-right="true"] .viewport { mask-image: linear-gradient(to right, var(--rams-detail-mask-opaque-paint), var(--rams-detail-mask-opaque-paint) calc(100% - var(--rams-detail-tabs-scroll-mask-inline-size)), transparent); }
+.listShell[data-left="true"][data-right="true"] .viewport { mask-image: linear-gradient(to right, transparent, var(--rams-detail-mask-opaque-paint) var(--rams-detail-tabs-scroll-mask-inline-size), var(--rams-detail-mask-opaque-paint) calc(100% - var(--rams-detail-tabs-scroll-mask-inline-size)), transparent); }
+/* The list owns the stacking context so the gliding highlight passes under every label, not over earlier ones. */
+.list { isolation: isolate; width: max-content; flex-wrap: nowrap; }
+.scrollButton { position: absolute; z-index: var(--rams-detail-layer-above-overlay); top: 0; bottom: 0; display: grid; inline-size: var(--rams-detail-tabs-scroll-affordance-inline-size); place-items: center; border: 0; background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+.scrollButton svg { inline-size: var(--rams-detail-tabs-scroll-glyph-size); block-size: var(--rams-detail-tabs-scroll-glyph-size); }
+.scrollLeft { left: 0; border-radius: var(--rams-detail-radius-control) 0 0 var(--rams-detail-radius-control); }
+.scrollRight { right: 0; border-radius: 0 var(--rams-detail-radius-control) var(--rams-detail-radius-control) 0; }
+.scrollButton:disabled { opacity: 0; pointer-events: none; }
+.scrollButton:focus-visible { --rams-detail-focus-outline-offset: calc(-1 * var(--rams-detail-primitive-focus-outline-offset)); }
+.trigger { position: relative; isolation: isolate; -webkit-tap-highlight-color: transparent; }
+@media (hover: hover) and (pointer: fine) { .trigger:hover { color: var(--rams-detail-foreground); } }
+.selection { position: absolute; z-index: var(--rams-detail-layer-behind); inset: 0; border: var(--rams-detail-primitive-border-width) solid transparent; border-radius: inherit; background: var(--background, var(--rams-surface)); box-shadow: var(--rams-detail-tabs-motion-selection-shadow); will-change: transform; }
+/* The hidden probe resolves the same CSS length used by the edge masks. */
+.corridorProbe { position: absolute; inset: 0; overflow: clip; visibility: hidden; pointer-events: none; }
+.corridorInset { display: block; inline-size: var(--rams-detail-tabs-scroll-mask-inline-size); }
+.triggerLabel { position: relative; z-index: var(--rams-detail-local-overlay-layer); }
+.listShell[data-wrap] .trigger {
+  box-sizing: border-box;
+  max-inline-size: var(--rams-detail-tabs-readable-inline-size);
+  min-inline-size: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.listShell[data-wrap] .triggerLabel { min-inline-size: 0; }
+.trigger:disabled { cursor: not-allowed; opacity: var(--rams-detail-control-disabled-opacity); }
+.content { margin-top: 0; color: var(--rams-detail-foreground); }
+/* The outgoing panel is lifted out of flow by the presence animation; drop its margin so it stays in place and ignore stray clicks. */
+.content[data-motion-pop-id] { margin-top: 0; }
+.content[data-state="inactive"] { pointer-events: none; }
+.content:focus-visible { --rams-detail-focus-outline-offset: var(--rams-detail-primitive-focus-outline-offset); border-radius: var(--rams-detail-radius-control); }
+@media (prefers-reduced-motion: reduce) { .trigger { transition: none; } }
+:where(.root,.listShell,.viewport,.list,.scrollButton,.scrollLeft,.scrollRight,.trigger,.selection,.triggerLabel,.content):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"], [role="tab"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

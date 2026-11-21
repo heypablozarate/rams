@@ -1,0 +1,91 @@
+/* The outer section animates its height to zero on dismiss, so whatever sits below eases up with it. */
+.collapse { overflow: hidden; container-type: inline-size; font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+/* The side column mirrors the controls, so the message stays centered on the page rather than in the leftover space. */
+.bar { --rams-detail-icon: var(--rams-detail-announcement-control-size); --rams-detail-control-gap: var(--rams-detail-announcement-control-gap); --rams-detail-muted: var(--rams-detail-text-secondary); display: grid; grid-template-columns: calc(var(--rams-detail-controls, var(--rams-detail-announcement-bar-controls-fallback)) * var(--rams-detail-icon) + max(var(--rams-detail-controls, var(--rams-detail-announcement-bar-controls-fallback)) - var(--rams-detail-announcement-first-control-index), 0) * var(--rams-detail-control-gap)) minmax(0, 1fr) auto; align-items: center; gap: var(--rams-detail-space-3); padding-block: var(--rams-detail-announcement-block-padding); padding-inline: var(--rams-detail-announcement-inline-start) var(--rams-detail-announcement-inline-end); border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+.bar[data-tone="inverted"] { --rams-detail-muted: color-mix(in oklab, var(--rams-detail-background) var(--rams-detail-announcement-inverted-muted-share), transparent); border-bottom-color: transparent; background: var(--rams-detail-foreground); color: var(--rams-detail-background); }
+
+.side { min-width: 0; }
+.viewport { position: relative; min-height: var(--rams-detail-announcement-control-size); overflow: hidden; }
+
+/* Faces overlap in place; the entering one reports its height and the viewport springs to it. */
+.face { position: absolute; top: 0; right: 0; left: 0; display: flex; min-height: var(--rams-detail-announcement-control-size); align-items: center; justify-content: center; }
+.message { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: var(--rams-detail-announcement-message-gap); margin: 0; padding: var(--rams-detail-announcement-block-padding) 0; font-size: var(--type-body-size); line-height: var(--rams-detail-leading-body); text-align: center; text-wrap: balance; }
+.text { min-width: 0; }
+
+/* The countdown is one run of text: every cell shares the line box, so digits, colons, and the day mark sit on the message baseline. */
+.countdown { display: inline-flex; align-items: baseline; gap: var(--rams-detail-announcement-countdown-gap); color: var(--rams-detail-muted); white-space: nowrap; }
+.countdownLabel { color: inherit; }
+.time { display: inline-flex; align-items: baseline; direction: ltr; unicode-bidi: isolate; color: var(--rams-detail-foreground); font-variant-numeric: var(--rams-detail-numeric-column-variant); font-weight: var(--rams-detail-label-weight); line-height: inherit; }
+.time[data-pending] { opacity: 0; }
+.bar[data-tone="inverted"] .time { color: var(--rams-detail-background); }
+.digit { position: relative; display: inline-block; overflow: hidden; overflow: clip; text-align: center; }
+.digitSizer { visibility: hidden; }
+.digitFace { position: absolute; inset: 0; display: block; }
+.unit { display: inline-flex; align-items: baseline; }
+.unitMark { margin-inline-start: var(--rams-detail-announcement-countdown-separator-inset); color: var(--rams-detail-muted); font-weight: var(--type-control-weight); }
+/* "case" lifts the colon to the middle of the figures, which it loses once the digits are split into cells. */
+.sep { display: inline-block; padding-inline: var(--rams-detail-announcement-countdown-separator-inset); color: var(--rams-detail-muted); font-feature-settings: var(--rams-detail-announcement-case-features); font-weight: var(--type-control-weight); }
+.gap { display: inline-block; width: var(--rams-detail-announcement-countdown-group-gap); }
+
+.cta { display: inline-flex; align-items: center; gap: var(--rams-detail-announcement-action-gap); padding: 0; border: 0; background: none; color: inherit; cursor: pointer; font: inherit; font-weight: var(--rams-detail-label-weight); text-decoration: none; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+.cta svg { transition: translate var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.cta:dir(rtl) svg { scale: var(--rams-detail-direction-inline-reflection); }
+
+.controls { display: flex; align-items: center; gap: var(--rams-detail-control-gap); }
+.icon, .ring { position: relative; display: grid; width: var(--rams-detail-icon); height: var(--rams-detail-icon); flex: none; place-items: center; padding: 0; border: 0; border-radius: var(--rams-detail-elliptical-corner-radius); background: transparent; color: var(--rams-detail-muted); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.icon:active, .ring:active { background: color-mix(in oklab, currentColor var(--rams-detail-announcement-control-active-share), transparent); color: inherit; }
+.ring svg { width: var(--rams-detail-announcement-ring-size); height: var(--rams-detail-announcement-ring-size); overflow: visible; transform: var(--rams-detail-glyph-counterclockwise-quarter-turn); }
+.ringTrack { fill: none; stroke: currentColor; stroke-opacity: var(--rams-detail-announcement-ring-track-opacity); stroke-width: var(--rams-detail-motion-button-glyph-stroke); }
+.ringFill { fill: none; stroke: currentColor; stroke-linecap: var(--rams-detail-glyph-stroke-cap); stroke-width: var(--rams-detail-motion-button-glyph-stroke); }
+.ringIcon { position: absolute; inset: 0; display: grid; place-items: center; }
+.ringIcon svg { width: var(--rams-detail-announcement-ring-glyph-size); height: var(--rams-detail-announcement-ring-glyph-size); transform: none; fill: currentColor; }
+.bar[data-tone="inverted"] .icon, .bar[data-tone="inverted"] .ring { color: var(--rams-detail-muted); }
+
+@media (hover: hover) and (pointer: fine) {
+  .icon:hover, .ring:hover { background: color-mix(in oklab, currentColor var(--rams-detail-announcement-control-hover-share), transparent); }
+  .bar .icon:hover, .bar .ring:hover { color: var(--rams-detail-foreground); }
+  .bar[data-tone="inverted"] .icon:hover, .bar[data-tone="inverted"] .ring:hover { color: var(--rams-detail-background); }
+  .cta:hover svg { translate: var(--rams-motion-announcement-action-hover-travel); }
+  .cta:dir(rtl):hover svg { translate: calc(-1 * var(--rams-motion-announcement-action-hover-travel)); }
+}
+
+/* Narrow bars drop the mirror column and read from the start edge. */
+@container (max-width: 560px) {
+  .bar { grid-template-columns: var(--rams-detail-announcement-hidden-controls-columns); gap: 0 var(--rams-detail-space-2); padding-inline-start: var(--rams-detail-announcement-narrow-inline-start); }
+  .face { justify-content: flex-start; }
+  .message { justify-content: flex-start; column-gap: var(--rams-detail-announcement-narrow-message-gap); text-align: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon, .ring, .cta svg { transition: none; }
+  .face[data-rams-presence="exiting"] { display: none; }
+  .face[data-rams-presence="present"] { position: relative; opacity: 1 !important; transform: none !important; filter: none !important; }
+  .viewport { height: auto !important; }
+  .digitFace[data-rams-presence="exiting"], .collapse[data-rams-presence="exiting"] { display: none; }
+  .digitFace[data-rams-presence="present"] { opacity: 1 !important; transform: none !important; }
+}
+
+:where(.collapse,.bar,.side,.viewport,.face,.message,.text,.countdown,.countdownLabel,.time,.digit,.digitSizer,.digitFace,.unit,.unitMark,.sep,.gap,.cta,.controls,.icon,.ring,.ringTrack,.ringFill,.ringIcon):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Owned announcement actions keep the existing icon and inline CTA sizes. */
+.icon, .ring, .cta { min-block-size: 0; }
+.icon > svg { inline-size: var(--rams-detail-motion-button-glyph-size); block-size: var(--rams-detail-motion-button-glyph-size); }
+.ring > svg { inline-size: var(--rams-detail-announcement-ring-size); block-size: var(--rams-detail-announcement-ring-size); }
+.cta > svg { inline-size: var(--rams-detail-announcement-action-glyph-size); block-size: var(--rams-detail-announcement-action-glyph-size); }
+
+/* At a narrow reading measure, navigation follows the complete message. */
+@container (max-width: 24rem) {
+  .bar { grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-space-2); padding: var(--rams-detail-announcement-stacked-padding); }
+  .side { display: none; }
+  .viewport { grid-column: 1; min-width: 0; }
+  .controls { grid-column: 1; justify-self: end; }
+  .face { min-width: 0; }
+  .message { display: grid; width: 100%; min-width: 0; justify-items: start; row-gap: var(--rams-detail-announcement-stacked-gap); }
+  .text { display: block; overflow-wrap: anywhere; }
+  .cta { max-width: 100%; white-space: normal; text-align: start; }
+}
+@container (max-width: 24rem) {
+  .cta { display: inline-grid; grid-template-columns: minmax(0, 1fr) auto; }
+  .cta > svg { width: var(--rams-detail-announcement-action-glyph-size); height: var(--rams-detail-announcement-action-glyph-size); }
+}

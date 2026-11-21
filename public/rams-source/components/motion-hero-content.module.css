@@ -1,0 +1,73 @@
+.inner { display: grid; max-width: var(--rams-detail-hero-content-inner-max-width); margin: 0 auto; padding: var(--rams-detail-space-24) var(--rams-detail-space-10); }
+.copy { display: grid; grid-template-columns: var(--rams-detail-hero-content-copy-grid-template-columns); justify-items: center; gap: var(--rams-detail-space-5); max-width: var(--rams-detail-hero-content-copy-max-width); margin: 0 auto; text-align: center; }
+.title { max-width: var(--rams-detail-hero-content-title-max-width); }
+.description { max-width: var(--rams-detail-hero-content-description-max-width); }
+
+.announcement { display: inline-flex; max-width: 100%; min-height: var(--rams-detail-hero-content-announcement-min-height); align-items: center; gap: var(--rams-detail-hero-content-announcement-gap); border: var(--shape-inset-border) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); padding: var(--rams-detail-space-1) var(--rams-detail-space-3); background: var(--rams-detail-surface); color: var(--rams-detail-text-secondary); font: inherit; font-size: var(--rams-detail-text-sm); text-align: left; text-decoration: none; cursor: pointer; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.arrow { flex: none; transition: transform var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+
+.actions { min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--rams-detail-space-3); margin-top: var(--rams-detail-space-3); }
+.action { display: inline-flex; height: var(--rams-detail-control-height-md); align-items: center; justify-content: center; gap: var(--rams-detail-space-2); border: var(--shape-inset-border) solid transparent; border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-hero-content-action-padding); font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--type-title-weight); text-decoration: none; white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: transform var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.action:active { transform: var(--rams-detail-hero-content-action-active-transform); }
+.primary { background: var(--rams-detail-foreground); color: var(--rams-detail-background); }
+.secondary { border-color: var(--rams-detail-border); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); }
+@media (hover: hover) and (pointer: fine) {
+  .primary:hover { opacity: var(--rams-detail-hero-content-primary-hover-opacity-hover-hover-and-pointer-fine); }
+  .secondary:hover { background: var(--rams-detail-surface-muted); }
+  .announcement:hover { border-color: var(--rams-detail-border-strong); color: var(--rams-detail-foreground); }
+  :is(.action, .announcement):hover .arrow { transform: var(--rams-detail-hero-content-is-action-announcement-hover-arrow-transform-hover-hover-and-pointer-fine); }
+}
+
+.install { display: flex; width: var(--rams-detail-hero-content-install-width); height: var(--rams-detail-control-height-md); align-items: center; gap: var(--rams-detail-space-2); margin-top: var(--rams-detail-space-2); border: var(--shape-inset-border) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-control); padding: var(--rams-detail-hero-content-install-padding); background: var(--rams-detail-surface); font-family: var(--rams-detail-font-mono); font-size: var(--type-control-size); text-align: left; }
+.prompt { color: var(--rams-detail-text-muted); }
+.command { flex: var(--rams-detail-layout-flex-fill); overflow: hidden; color: var(--rams-detail-foreground); font: inherit; text-overflow: ellipsis; white-space: nowrap; }
+
+.meta { display: flex; flex-wrap: wrap; gap: var(--rams-detail-space-2) var(--rams-detail-space-5); margin: var(--rams-detail-hero-content-meta-margin); border-top: var(--shape-inset-border) solid var(--rams-detail-border-subtle); padding: var(--rams-detail-hero-content-meta-padding); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); list-style: none; }
+
+.media { min-width: 0; }
+
+.split .inner { grid-template-columns: var(--rams-detail-hero-content-split-inner-grid-template-columns); align-items: center; gap: var(--rams-detail-space-12); }
+.split .copy, .minimal .copy { justify-items: start; margin: 0; text-align: left; }
+.split .actions, .minimal .actions { justify-content: flex-start; }
+.minimal .copy { max-width: var(--rams-detail-hero-content-minimal-copy-max-width); }
+
+@container (max-width: 800px) {
+  .split .inner { grid-template-columns: var(--rams-detail-hero-content-split-inner-grid-template-columns-stacked); gap: var(--rams-detail-space-10); }
+}
+@container (max-width: 560px) {
+  .inner { padding: var(--rams-detail-space-16) var(--rams-detail-space-4); }
+  .actions { width: 100%; }
+  .action { flex: 1 1 auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action, .announcement, .arrow { transition: none; }
+  .action:active { transform: none; }
+}
+
+/* Buttons are RAMS buttons; this only keeps them the height of the link actions beside them. */
+.button { height: auto; padding-inline: var(--rams-detail-hero-content-button-padding-inline); min-height: var(--rams-detail-control-height-md); border-radius: var(--rams-detail-radius-control); font-size: var(--rams-detail-text-sm); }
+:where(.inner,.copy,.title,.description,.announcement,.arrow,.actions,.action,.primary,.secondary,.install,.prompt,.command,.meta,.media,.split,.minimal,.button):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The canonical RAMS Button owns link anatomy; only its content measure reflows. */
+.link { min-width: 0; max-width: 100%; height: auto; min-height: var(--rams-detail-control-height-md); padding-block: var(--rams-detail-space-2); white-space: normal; text-align: center; }
+.linkLabel { min-width: 0; overflow-wrap: anywhere; }
+
+/* Preserve the reading measure and native button height when user text grows. */
+.inner { min-width: 0; padding-inline: var(--rams-detail-hero-content-inner-padding-inline); }
+:is(.copy,.description,.meta) { min-width: 0; }
+.announcement { padding-inline: var(--rams-detail-hero-content-announcement-padding-inline); }
+
+/* Keep the settled state while the browser retires any deferred Motion work. */
+.hero[data-hero-entrance-settled] :is(.copy > *, .media) {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero :is(.copy > *, .media) {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

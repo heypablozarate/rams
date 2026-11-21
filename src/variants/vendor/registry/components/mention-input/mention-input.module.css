@@ -1,0 +1,146 @@
+.root {
+  position: relative;
+  width: 100%;
+  color: var(--rams-detail-foreground);
+  font-family: var(--rams-detail-font-body);
+  letter-spacing: var(--rams-detail-tracking-body);
+}
+.root[data-disabled] { opacity: var(--rams-detail-mention-disabled-opacity); }
+
+/* The field's height springs to its text. The mirror and the textarea share every metric so tokens sit exactly under their characters. */
+.field {
+  position: relative;
+  box-sizing: content-box;
+  overflow: hidden;
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border);
+  border-radius: var(--rams-detail-radius-control);
+  background: var(--rams-detail-surface);
+  transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.field[data-focused] { border-color: var(--rams-detail-border-strong); }
+
+.backdrop,
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: var(--rams-detail-mention-editor-block-inset) var(--rams-detail-mention-editor-inline-inset);
+  border: 0;
+  font: inherit;
+  font-size: var(--type-input-size);
+  letter-spacing: var(--rams-detail-tracking-body);
+  line-height: var(--type-control-leading);
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
+  tab-size: var(--rams-detail-mention-composer-tab-columns);
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--rams-detail-foreground);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.textarea {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  display: block;
+  resize: none;
+  overflow-y: auto;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--rams-detail-foreground);
+  outline: none;
+  scrollbar-width: none;
+  -webkit-text-fill-color: transparent;
+}
+.textarea::-webkit-scrollbar { display: none; }
+.textarea::placeholder { color: var(--rams-detail-text-muted); -webkit-text-fill-color: var(--rams-detail-text-muted); opacity: 1; }
+.textarea::selection { background: color-mix(in oklab, var(--rams-detail-control-on) var(--rams-detail-mention-selection-wash), transparent); }
+.textarea:disabled { cursor: not-allowed; }
+
+/* A token is tinted around its own glyphs; the negative margin keeps every character where the textarea put it. */
+.token {
+  margin-inline: calc(-1 * var(--rams-detail-mention-token-inline-inset));
+  padding: var(--rams-detail-mention-token-block-inset) var(--rams-detail-mention-token-inline-inset);
+  border-radius: var(--rams-detail-mention-token-radius);
+  background: var(--rams-detail-accent-subtle);
+  color: var(--rams-detail-accent-strong);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.token[data-kind="channel"] { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-mention-channel-wash), transparent); color: var(--rams-detail-foreground); }
+
+.popover {
+  position: absolute;
+  box-sizing: border-box;
+  z-index: var(--rams-detail-mention-popup-layer);
+  width: var(--rams-detail-mention-popup-inline-size);
+  max-width: 100%;
+  left: clamp(0px, var(--rams-detail-mention-anchor-left), max(0px, calc(100% - var(--rams-detail-mention-popup-inline-size))));
+  transform-origin: var(--rams-detail-mention-popup-origin-x) 0;
+  overflow: hidden;
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border);
+  border-radius: var(--radius-panel);
+  background: var(--rams-detail-surface-raised);
+  box-shadow: var(--rams-detail-shadow-floating);
+}
+.popover[data-above] { translate: 0 -100%; transform-origin: var(--rams-detail-mention-popup-origin-x) 100%; }
+.popoverBody { padding: var(--rams-detail-mention-popup-inset); }
+
+.list { position: relative; display: grid; margin: 0; padding: 0; list-style: none; }
+.highlight { position: absolute; top: 0; right: 0; left: 0; border-radius: max(0px, calc(var(--radius-panel) - var(--rams-detail-mention-popup-inset) - var(--rams-detail-primitive-border-width))); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-mention-highlight-wash), transparent); pointer-events: none; }
+
+.option {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
+  align-items: center;
+  gap: var(--rams-detail-mention-option-gap);
+  padding-block: var(--rams-detail-mention-option-block-inset);
+  padding-inline: var(--rams-detail-mention-option-inline-start-inset) var(--rams-detail-mention-option-inline-end-inset);
+  border-radius: max(0px, calc(var(--radius-panel) - var(--rams-detail-mention-popup-inset) - var(--rams-detail-primitive-border-width)));
+  cursor: pointer;
+  font-size: var(--rams-detail-text-sm);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.avatar {
+  display: grid;
+  width: max(var(--rams-detail-mention-suggestion-mark-size), var(--rams-detail-mention-person-mark-min-text-size));
+  height: max(var(--rams-detail-mention-suggestion-mark-size), var(--rams-detail-mention-person-mark-min-text-size));
+  flex: none;
+  overflow: hidden;
+  place-items: center;
+  border-radius: var(--rams-detail-elliptical-corner-radius);
+  background: var(--rams-detail-surface-muted);
+  color: var(--rams-detail-text-secondary);
+  font-size: var(--rams-detail-text-xs);
+  font-weight: var(--rams-detail-avatar-initials-weight);
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.glyph { display: grid; width: var(--rams-detail-mention-suggestion-mark-size); height: var(--rams-detail-mention-suggestion-mark-size); flex: none; place-items: center; color: var(--rams-detail-text-secondary); }
+
+.optionText { display: grid; min-width: 0; flex: var(--rams-detail-layout-flex-fill); }
+.avatar + .optionText { flex-basis: var(--rams-detail-mention-person-option-text-basis); }
+.optionLabel { color: var(--rams-detail-text-secondary); font-weight: var(--rams-detail-label-weight); overflow-wrap: anywhere; }
+.option[aria-selected="true"] .optionLabel { color: var(--rams-detail-foreground); }
+.match { background: none; color: var(--rams-detail-foreground); }
+.optionMeta { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); overflow-wrap: anywhere; }
+.count { flex: none; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+
+.empty { margin: 0; padding: var(--rams-detail-mention-empty-inset); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .popover[data-rams-presence="exiting"] { display: none; }
+}
+
+:where(.root,.field,.backdrop,.textarea,.token,.popover,.popoverBody,.list,.highlight,.option,.avatar,.glyph,.optionText,.optionLabel,.match,.optionMeta,.count,.empty,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

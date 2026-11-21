@@ -1,0 +1,144 @@
+/* The handle and value share a row when space permits, then reflow without reducing text. The shell is a separate layer so it can strain past a limit
+   without stretching the text. Set --rams-detail-scrub-input-width to size the field; it defaults to filling its column. */
+.root {
+  --rams-detail-scrub-height: var(--rams-detail-control-height-sm);
+  --rams-detail-scrub-radius: calc(var(--rams-detail-radius-control) - var(--rams-detail-scrub-radius-step));
+  --rams-detail-scrub-fill: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-scrub-track-wash), transparent);
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: var(--rams-detail-scrub-input-width, var(--rams-detail-scrub-input-width-fallback));
+  min-width: 0;
+  min-height: var(--rams-detail-scrub-height);
+  align-items: stretch;
+  color: var(--rams-detail-foreground);
+  font-family: var(--rams-detail-font-body);
+  font-size: var(--rams-detail-text-sm);
+  letter-spacing: var(--rams-detail-tracking-body);
+  isolation: isolate;
+}
+.root[data-size="sm"] { --rams-detail-scrub-height: var(--rams-detail-scrub-compact-height); --rams-detail-scrub-radius: var(--rams-detail-scrub-compact-radius); font-size: var(--type-control-size); }
+
+.shell {
+  position: absolute;
+  z-index: var(--rams-detail-layer-behind);
+  inset: 0;
+  overflow: hidden;
+  border: var(--rams-detail-primitive-border-width) solid transparent;
+  border-radius: var(--rams-detail-scrub-radius);
+  background: var(--rams-detail-surface-muted);
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+  will-change: transform;
+}
+/* How far the value sits between its limits, as a quiet wash from the left. */
+.fill { position: absolute; inset: 0; background: var(--rams-detail-scrub-fill); transform-origin: left center; pointer-events: none; }
+
+/* The label is the grab area. It reads as a label until the pointer finds it, then the cursor says it can be dragged. */
+.handle {
+  display: flex;
+  box-sizing: border-box;
+  min-width: var(--rams-detail-scrub-handle-min-inline-size);
+  max-width: 100%;
+  min-height: var(--rams-detail-scrub-height);
+  flex: 0 1 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--rams-detail-scrub-editor-slot-inset) 0 var(--rams-detail-scrub-outer-inline-inset);
+  color: var(--rams-detail-text-muted);
+  cursor: ew-resize;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.handle[data-text] { font-weight: var(--rams-detail-label-weight); }
+.handle svg { width: var(--rams-detail-scrub-handle-glyph-size); height: var(--rams-detail-scrub-handle-glyph-size); flex: none; }
+
+.body { display: flex; min-width: 0; min-height: var(--rams-detail-scrub-height); flex: 1 1 var(--rams-detail-scrub-editor-basis); align-items: center; gap: var(--rams-detail-scrub-editor-slot-gap); padding-right: var(--rams-detail-scrub-outer-inline-inset); }
+.input {
+  width: 100%;
+  min-width: 0;
+  min-height: var(--rams-detail-scrub-height);
+  align-self: stretch;
+  flex: var(--rams-detail-layout-flex-fill);
+  margin: 0;
+  padding: 0 0 0 var(--rams-detail-scrub-editor-slot-inset);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-family: var(--rams-detail-font-body);
+  font-variant-numeric: var(--rams-detail-numeric-column-variant);
+  letter-spacing: inherit;
+  outline: none;
+  text-overflow: ellipsis;
+  font-size: var(--type-input-size);
+}
+.input:focus-visible { outline: none; }
+.input::selection { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-numeric-edit-selection-wash), transparent); }
+.input:disabled { cursor: not-allowed; }
+
+.unit {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--rams-detail-scrub-unit-min-inline-size);
+  height: var(--rams-detail-scrub-unit-height);
+  padding: 0 var(--rams-detail-scrub-unit-inline-inset);
+  border: 0;
+  border-radius: var(--radius-inset);
+  background: transparent;
+  color: var(--rams-detail-text-muted);
+  font: inherit;
+  font-size: var(--rams-detail-text-xs);
+  -webkit-tap-highlight-color: transparent;
+}
+.unit[data-cycle] { cursor: pointer; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.unit[data-cycle]:active { transform: scale(var(--rams-detail-scrub-unit-press-scale)); }
+.unitText { display: block; }
+
+.tag {
+  position: absolute;
+  z-index: var(--rams-detail-scrub-inline-badge-layer);
+  bottom: calc(100% + var(--rams-detail-scrub-inline-badge-block-offset));
+  left: var(--rams-detail-scrub-inline-badge-inline-offset);
+  padding: var(--rams-detail-scrub-inline-badge-block-inset) var(--rams-detail-scrub-inline-badge-inline-inset);
+  border-radius: var(--rams-detail-radius-pill);
+  background: var(--rams-detail-foreground);
+  color: var(--rams-detail-background);
+  font-size: var(--rams-detail-text-xs);
+  font-variant-numeric: var(--rams-detail-numeric-column-variant);
+  line-height: var(--rams-detail-scrub-badge-line-height);
+  pointer-events: none;
+}
+
+/* States. Hover and focus speak through the shell's edge; a scrub darkens the label so the grab reads as held. */
+.root:focus-within .shell { border-color: var(--rams-detail-border-strong); background: var(--rams-detail-surface); }
+.root[data-scrubbing] .shell { border-color: var(--rams-detail-border-strong); }
+.root[data-scrubbing] .handle { color: var(--rams-detail-foreground); }
+.root[data-scrubbing] { --rams-detail-scrub-fill: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-scrub-track-active-wash), transparent); }
+.root[data-invalid] .shell { border-color: var(--rams-detail-danger); }
+.root[data-disabled] { opacity: var(--rams-detail-control-disabled-opacity); }
+.root[data-disabled] .handle { cursor: not-allowed; }
+@media (hover: hover) and (pointer: fine) {
+  .root:not([data-disabled]):hover .shell { border-color: var(--rams-detail-border); }
+  .root:not([data-disabled]):focus-within:hover .shell { border-color: var(--rams-detail-border-strong); }
+  .handle:hover { color: var(--rams-detail-foreground); }
+  .unit[data-cycle]:hover:not(:disabled) { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-scrub-unit-hover-wash), transparent); color: var(--rams-detail-foreground); }
+}
+
+/* The body-level pointer-lock cursor keeps its own high-contrast paint in both themes. */
+.cursor { position: fixed; z-index: var(--rams-detail-scrub-cursor-layer); top: 0; left: 0; display: flex; align-items: center; gap: var(--rams-detail-scrub-cursor-badge-gap); margin: var(--rams-detail-scrub-cursor-offset-y) 0 0 var(--rams-detail-scrub-cursor-offset-x); pointer-events: none; }
+.cursorGlyph { display: block; filter: drop-shadow(var(--rams-detail-scrub-cursor-shadow)); }
+.cursorGlyph path { fill: var(--rams-detail-detail-scrub-input-fill-f53aa91e); stroke: var(--rams-detail-scrub-cursor-ink); stroke-width: var(--rams-detail-scrub-cursor-stroke); stroke-linejoin: var(--rams-detail-glyph-stroke-join); }
+.multiplier { padding: var(--rams-detail-scrub-cursor-badge-block-inset) var(--rams-detail-scrub-cursor-badge-inline-inset); border-radius: var(--radius-pill); background: var(--rams-detail-detail-scrub-input-background-f53aa91e); color: var(--rams-detail-scrub-cursor-ink); font-family: var(--rams-detail-font-body, var(--rams-detail-scrub-generic-font-fallback)); font-size: var(--type-caption-size); font-variant-numeric: var(--rams-detail-numeric-column-variant); line-height: var(--rams-detail-scrub-badge-line-height); }
+
+@media (prefers-reduced-motion: reduce) {
+  .shell, .handle, .unit[data-cycle] { transition-duration: var(--rams-detail-duration-instant); }
+  .unit[data-cycle]:active { transform: none; }
+}
+
+:where(.root,.shell,.fill,.handle,.body,.input,.unit,.unitText,.tag,.cursor,.cursorGlyph,.multiplier):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

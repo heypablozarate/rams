@@ -1,0 +1,46 @@
+{
+  "integration-form": {
+    "label": "Local proof label",
+    "file": "src/baseline/IntegrationDemos.tsx",
+    "exportName": "FormIntegration",
+    "summary": "Validate a proof label and keep its trimmed text in a local worksheet card.",
+    "guidelines": [
+      "Use the actual form Controller and forward its field ref so validation can focus the input.",
+      "Keep the label, help and error associated; describe a local result without implying a service save."
+    ],
+    "demonstrates": [
+      "Required trimmed proof label, 3–32 characters, with the real React Hook Form validation gate.",
+      "Invalid submission focuses the input and associates its help/error; valid submission creates or updates a local proof-label card."
+    ],
+    "limits": [
+      "The card is local React state and is lost when the example remounts; no record is sent or saved to a service."
+    ],
+    "checks": [
+      "Submit empty and two-character labels; inspect focus and the associated errors.",
+      "Keep a valid label, edit it and submit again; verify the local card shows the exact latest trimmed text."
+    ]
+  },
+  "integration-combobox": {
+    "label": "Paper stock picker",
+    "file": "src/baseline/IntegrationDemos.tsx",
+    "exportName": "ComboboxIntegration",
+    "summary": "Filter four original worksheet stocks and control the selected value, query and clear action.",
+    "guidelines": [
+      "Keep selection and query as separate state; typing a query is not a committed selection.",
+      "Show the complete committed value outside a narrow editable field when useful."
+    ],
+    "demonstrates": [
+      "Four fictional Argentine worksheet stocks filter locally by case-insensitive city or stock text.",
+      "Keyboard selection commits the actual full stock string; Clear returns selection to none and the field remains editable.",
+      "An unmatched query has a real empty state; Escape closes the popup."
+    ],
+    "limits": [
+      "Labels and paper weights are illustrative worksheet options, not product listings or supplier affiliations.",
+      "Filtering and selection are local; remote search, ordering and persistence are not implemented."
+    ],
+    "checks": [
+      "Filter recycled and choose the Córdoba stock with the keyboard; verify the complete selected value.",
+      "Clear the selection and query, search an unmatched term, then close with Escape and reopen the four choices."
+    ]
+  }
+}

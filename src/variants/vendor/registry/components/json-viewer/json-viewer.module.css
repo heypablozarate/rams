@@ -1,0 +1,109 @@
+.root { --rams-detail-mono: var(--rams-detail-json-source-font); --rams-detail-indent: var(--rams-detail-json-indent); display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+/* Toolbar: search with a match counter, then expand and collapse all. */
+.toolbar { display: flex; align-items: center; gap: var(--rams-detail-json-toolbar-gap); padding: var(--rams-detail-json-toolbar-inset); border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); }
+.search { position: relative; display: flex; min-width: 0; flex: var(--rams-detail-layout-flex-fill); align-items: center; gap: var(--rams-detail-json-search-inner-gap); min-height: var(--rams-detail-json-toolbar-control-size); padding-block: 0; padding-inline: var(--rams-detail-json-search-leading-inset) var(--rams-detail-json-search-input-inset); border-radius: var(--radius-control); background: var(--rams-detail-surface-muted); cursor: text; }
+.searchIcon { flex: none; color: var(--rams-detail-text-muted); }
+.input { min-width: 0; flex: var(--rams-detail-layout-flex-fill); height: var(--rams-detail-json-toolbar-control-size); padding: 0 var(--rams-detail-json-search-input-inset); border: 0; background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--type-input-size); outline: none; }
+.input::placeholder { color: var(--rams-detail-text-muted); }
+.input::-webkit-search-cancel-button { display: none; }
+.matches { display: inline-flex; flex: none; align-items: center; gap: 0; }
+.count { min-inline-size: var(--rams-detail-json-match-counter-inline-min); padding-inline: var(--rams-detail-json-search-input-inset); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); text-align: end; }
+.grow { flex: var(--rams-detail-layout-flex-fill); }
+.divider { width: var(--rams-detail-separator-thickness); height: var(--rams-detail-json-toolbar-divider-block); margin-inline: var(--rams-detail-json-toolbar-divider-inset); background: var(--rams-detail-border-subtle); }
+.tool { display: inline-grid; width: var(--rams-detail-json-toolbar-control-size); height: var(--rams-detail-json-toolbar-control-size); flex: none; place-items: center; padding: 0; border: 0; border-radius: var(--radius-control); background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.tool:disabled { cursor: default; opacity: var(--rams-detail-json-tool-disabled-opacity); }
+.tool:active:not(:disabled) { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+.search .tool { width: var(--rams-detail-json-search-tool-size); height: var(--rams-detail-json-search-tool-size); border-radius: max(0px, calc(var(--radius-control) - var(--rams-detail-json-search-tool-radius-inset))); }
+.search .tool:active:not(:disabled) { background: var(--rams-detail-surface); }
+
+/* Tree. Uniform lines follow text size; scrolling reads this same intrinsic line height. */
+.tree { position: relative; max-height: var(--rams-detail-json-max-height, var(--rams-detail-json-tree-max-block)); padding: var(--rams-detail-json-tree-inset); overflow: auto; overflow-anchor: none; scroll-padding-block: var(--rams-detail-json-reveal-focus-inset); overscroll-behavior: contain; font-family: var(--rams-detail-mono); font-size: var(--type-caption-size); font-variant-ligatures: none; letter-spacing: 0; scrollbar-width: thin; }
+.row { position: relative; border-radius: var(--radius-control); cursor: default; outline: none; -webkit-tap-highlight-color: transparent; }
+.highlight { position: absolute; inset: var(--rams-detail-json-selection-inset) 0; border-radius: max(0px, calc(var(--radius-control) - var(--rams-detail-json-selection-inset))); background: var(--rams-detail-surface-muted); }
+.line { position: relative; display: flex; height: var(--rams-detail-json-tree-row-height); min-width: 0; align-items: center; gap: var(--rams-detail-json-tree-row-gap); padding-inline-end: var(--rams-detail-json-tree-trailing-inset); padding-inline-start: calc(var(--rams-detail-json-tree-row-inline-start) + var(--rams-detail-level, var(--rams-detail-json-viewer-level-fallback)) * var(--rams-detail-indent)); white-space: nowrap; }
+.row[data-kind="node"] .line { cursor: pointer; }
+
+.chevron { display: inline-grid; width: var(--rams-detail-json-chevron-size); height: var(--rams-detail-json-chevron-size); flex: none; place-items: center; color: var(--rams-detail-text-muted); transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.root:dir(rtl) .chevron { transform: var(--rams-detail-disclosure-expanded-glyph-transform); }
+.chevron[data-open], .root:dir(rtl) .chevron[data-open] { transform: var(--rams-detail-glyph-clockwise-quarter-turn); }
+.row[data-active] .chevron[data-branch] { color: var(--rams-detail-foreground); }
+
+.key { flex: none; max-inline-size: var(--rams-detail-json-key-inline-limit); overflow: hidden; color: var(--rams-detail-foreground); text-overflow: ellipsis; }
+.index { flex: none; color: var(--rams-detail-text-muted); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.colon { flex: none; margin-inline-start: var(--rams-detail-json-colon-kern); color: var(--rams-detail-text-muted); }
+.summary { display: inline-flex; min-width: 0; align-items: baseline; gap: var(--rams-detail-json-summary-gap); overflow: hidden; }
+.preview { min-width: 0; overflow: hidden; color: var(--rams-detail-text-muted); text-overflow: ellipsis; }
+.countLabel { flex: none; color: var(--rams-detail-text-muted); font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+
+/* Type colors lean on the semantic roles, so both themes stay legible. */
+.value { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.value[data-type="string"] { color: var(--rams-detail-success); }
+.value[data-type="number"] { color: var(--rams-detail-accent-strong); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.value[data-type="boolean"] { color: var(--rams-detail-warning); }
+.value[data-type="null"], .value[data-type="other"] { color: var(--rams-detail-text-muted); }
+
+.mark { border-radius: var(--rams-detail-json-mark-radius); background: color-mix(in oklab, var(--rams-detail-warning) var(--rams-detail-json-match-wash), transparent); color: inherit; box-shadow: 0 0 0 var(--rams-detail-json-mark-ring-width) color-mix(in oklab, var(--rams-detail-warning) var(--rams-detail-json-match-wash), transparent); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.mark[data-current] { background: color-mix(in oklab, var(--rams-detail-warning) var(--rams-detail-json-current-match-wash), transparent); }
+
+.more { display: inline-flex; align-items: baseline; gap: var(--rams-detail-json-more-gap); padding-inline-start: var(--rams-detail-json-more-inset); font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-text-sm); }
+.moreLabel { color: var(--rams-detail-foreground); font-weight: var(--type-action-weight); }
+.row[data-kind="more"] { cursor: pointer; }
+.muted { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+
+/* Copy actions appear at the row's end over a soft fade, on hover or on the current row. */
+/* Inset like the highlight, with its right corners, so the fade never shows a square edge past the row's rounded end. */
+.actions { position: absolute; inset-block: var(--rams-detail-json-selection-inset); inset-inline-end: 0; display: flex; align-items: center; gap: 0; padding-inline-end: var(--rams-detail-json-selection-inset); padding-inline-start: calc(var(--rams-detail-json-action-fade-width) + 2 * var(--rams-detail-json-selection-inset)); border-start-end-radius: max(0px, calc(var(--radius-control) - var(--rams-detail-json-selection-inset))); border-end-end-radius: max(0px, calc(var(--radius-control) - var(--rams-detail-json-selection-inset))); background: linear-gradient(var(--rams-detail-json-action-fade-direction, var(--rams-detail-json-action-fade-direction-fallback)), transparent, var(--rams-detail-surface) var(--rams-detail-json-action-fade-width)); opacity: 0; pointer-events: none; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.root:dir(rtl) { --rams-detail-json-action-fade-direction: var(--rams-detail-json-action-fade-direction-rtl); }
+.row[data-active] .actions { background: linear-gradient(var(--rams-detail-json-action-fade-direction, var(--rams-detail-json-action-fade-direction-fallback)), transparent, var(--rams-detail-surface-muted) var(--rams-detail-json-action-fade-width)); }
+.action { position: relative; display: inline-grid; width: var(--rams-detail-json-row-action-size); height: var(--rams-detail-json-row-action-size); place-items: center; padding: 0; border: 0; border-radius: var(--radius-inset); background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.action[data-state="done"] { color: var(--rams-detail-success); }
+.action[data-state="error"] { color: var(--rams-detail-danger); }
+.action:active { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-json-action-active-share), transparent); }
+.actionGlyph { display: grid; place-items: center; }
+.actionGlyph > svg { inline-size: var(--rams-detail-json-copy-glyph-size); block-size: var(--rams-detail-json-copy-glyph-size); stroke-width: var(--rams-detail-json-glyph-stroke); }
+.action[data-state="done"] .actionGlyph[data-rams-presence="present"] > svg, .action[data-state="error"] .actionGlyph[data-rams-presence="present"] > svg { stroke-width: var(--rams-detail-json-copy-feedback-glyph-stroke); }
+.row[data-active] .actions, .row:focus-within .actions { opacity: 1; pointer-events: auto; }
+
+/* The current path, always readable in full through its copy action. */
+.pathBar { display: flex; min-width: 0; align-items: center; gap: var(--rams-detail-json-path-bar-gap); padding: var(--rams-detail-json-path-bar-inset); border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); }
+.path { min-width: 0; flex: var(--rams-detail-layout-flex-fill); overflow: hidden; color: var(--rams-detail-text-secondary); font-family: var(--rams-detail-mono); font-size: var(--rams-detail-text-xs); letter-spacing: 0; text-overflow: ellipsis; white-space: nowrap; }
+.pathType { flex: none; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.pathCopy { width: var(--rams-detail-json-path-copy-size); height: var(--rams-detail-json-path-copy-size); border-radius: var(--radius-control); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (hover: hover) and (pointer: fine) {
+  .row:hover .actions { opacity: 1; pointer-events: auto; }
+  /* Same inset and corner as the current-row highlight, so hover and selection share one shape. */
+  .row:not([data-active]):hover { --rams-detail-row-hover: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-json-row-hover-share), var(--rams-detail-surface)); }
+  .row:not([data-active]):hover::before { content: ""; position: absolute; inset: var(--rams-detail-json-selection-inset) 0; border-radius: max(0px, calc(var(--radius-control) - var(--rams-detail-json-selection-inset))); background: var(--rams-detail-row-hover); pointer-events: none; }
+  .row:not([data-active]):hover .actions { background: linear-gradient(var(--rams-detail-json-action-fade-direction, var(--rams-detail-json-action-fade-direction-fallback)), transparent, var(--rams-detail-row-hover) var(--rams-detail-json-action-fade-width)); }
+  .row:hover .chevron[data-branch] { color: var(--rams-detail-foreground); }
+  .tool:hover:not(:disabled), .action:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+  .search .tool:hover:not(:disabled) { background: var(--rams-detail-surface); }
+  .action[data-state="done"]:hover { color: var(--rams-detail-success); }
+}
+
+@media (max-width: 420px) {
+  .tree { --rams-detail-indent: var(--rams-detail-json-indent-compact); }
+  .key { max-inline-size: var(--rams-detail-json-key-inline-limit-compact); }
+  .pathType { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron, .actions, .tool, .action, .mark { transition: none; }
+  .matches[aria-hidden="true"] { display: none; }
+  .matches, .actionGlyph { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .actionGlyph[data-rams-presence="exiting"] { display: none; }
+}
+
+:where(.root,.toolbar,.search,.searchIcon,.input,.matches,.count,.grow,.divider,.tool,.tree,.row,.highlight,.line,.chevron,.key,.index,.colon,.summary,.preview,.countLabel,.value,.mark,.more,.moreLabel,.muted,.actions,.action,.actionGlyph,.pathBar,.path,.pathType,.pathCopy,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Owned primitives preserve these compact composite control geometries. */
+.root .tool, .root .action { min-inline-size: 0; min-block-size: 0; box-shadow: none; font-family: inherit; font-weight: inherit; }
+.root .input { min-block-size: 0; box-shadow: none; }
+
+/* Preserve the toolbar glyph geometry inside owned Button, independent of enlarged text. */
+.root .tool > svg, .searchIcon { inline-size: var(--rams-detail-json-toolbar-glyph-size); block-size: var(--rams-detail-json-toolbar-glyph-size); stroke-width: var(--rams-detail-json-glyph-stroke); }
+.chevron > svg { inline-size: var(--rams-detail-json-chevron-size); block-size: var(--rams-detail-json-chevron-size); stroke-width: var(--rams-detail-json-glyph-stroke); }

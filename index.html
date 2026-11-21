@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content="RAMS by PabloZarate™ — components, foundations and interaction guidelines." />
+    <title>RAMS by PabloZarate™</title>
+    <script>
+      // Apply the saved theme before the first paint. Next Themes owns updates after mount.
+      let preference = "system";
+      try {
+        const saved = localStorage.getItem("rams-theme");
+        const legacy = saved ? null : localStorage.getItem("rams-shadcn-theme");
+        preference = saved || legacy || preference;
+        if (legacy) localStorage.setItem("rams-theme", legacy);
+      } catch {}
+      const dark = preference === "dark" ||
+        (preference !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.classList.toggle("dark", dark);
+      document.documentElement.style.colorScheme = dark ? "dark" : "light";
+    </script>
+    <link rel="preload" href="/rams-source/fonts/GeistSans-VF.ttf" as="font" type="font/ttf" crossorigin />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

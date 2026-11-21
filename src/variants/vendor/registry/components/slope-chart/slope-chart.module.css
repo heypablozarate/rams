@@ -1,0 +1,64 @@
+.figure { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; max-width: 100%; min-width: 0; contain: inline-size; container-type: inline-size; overflow-x: auto; margin: 0; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); scrollbar-width: thin; }
+
+/* Series colors (--rams-detail-series-1 to --rams-detail-series-4) come from registry/foundation.css. */
+
+.stage { position: relative; width: 100%; min-width: 0; outline: none; touch-action: pan-x pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+.columns { position: relative; height: var(--rams-detail-slope-heading-block); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-slope-heading-leading); }
+.column { position: absolute; top: 0; color: var(--rams-detail-text-muted); font-size: inherit; line-height: inherit; white-space: nowrap; }
+
+.plot { position: relative; }
+.svg { display: block; width: 100%; max-width: 100%; overflow: visible; }
+.axis { stroke: var(--rams-detail-border); stroke-width: var(--rams-detail-slope-axis-stroke); shape-rendering: crispEdges; }
+
+/* Every line is one neutral ink; the story item takes the first series (derived from the accent) and the item in focus comes forward. */
+.item { --rams-detail-ink: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-slope-series-ink-share), var(--rams-detail-surface)); transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.item[data-accent] { --rams-detail-ink: var(--rams-detail-series-1); }
+.item[data-on]:not([data-accent]) { --rams-detail-ink: var(--rams-detail-foreground); }
+.item[data-dim] { opacity: var(--rams-detail-slope-series-dim-opacity); }
+.line { stroke: var(--rams-detail-ink); stroke-width: var(--rams-detail-slope-series-stroke); stroke-linecap: var(--rams-detail-chart-series-linecap); fill: none; transition: stroke var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.dot { fill: var(--rams-detail-ink); stroke: var(--rams-detail-surface); stroke-width: var(--rams-detail-slope-dot-outline); transform-box: fill-box; transform-origin: center; transition: fill var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.leader { fill: none; stroke: var(--rams-detail-border-strong); stroke-width: var(--rams-detail-slope-leader-stroke); }
+
+.labels { transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.labels[data-dim] { opacity: var(--rams-detail-slope-label-dim-opacity); }
+.start, .end { position: absolute; top: 0; display: flex; height: var(--rams-detail-slope-label-block); align-items: center; gap: var(--rams-detail-slope-label-gap); margin-top: calc(-.5 * var(--rams-detail-slope-label-block)); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-slope-label-block); white-space: nowrap; pointer-events: none; }
+.start { justify-content: flex-end; max-width: 100%; }
+/* On a phone the labels step down a size so the longest names fit beside the first column instead of running off the edge. */
+.stage[data-narrow] .start, .stage[data-narrow] .end { gap: var(--rams-detail-slope-label-compact-gap); font-size: var(--rams-detail-text-xs); }
+.name { min-width: 0; overflow: hidden; color: var(--rams-detail-text-secondary); text-overflow: ellipsis; }
+.value { color: var(--rams-detail-foreground); }
+.labels[data-on] .name, .labels[data-accent] .name { color: var(--rams-detail-foreground); }
+/* Only the story item is medium; the item in focus changes color, not weight, so its label never shifts sideways. */
+.labels[data-accent] .value { font-weight: var(--rams-detail-chart-value-weight); }
+
+.rank { display: inline-flex; min-width: var(--rams-detail-slope-rank-min-inline); align-items: center; gap: var(--rams-detail-slope-rank-gap); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--type-data-variant); }
+.rank[data-move="up"] { color: var(--rams-detail-text-secondary); }
+.rank > svg > path { stroke-linecap: var(--rams-detail-glyph-stroke-cap); stroke-linejoin: var(--rams-detail-glyph-stroke-join); }
+.rankSwap { position: relative; display: inline-flex; overflow: hidden; }
+
+.tooltip { position: absolute; top: 0; left: 0; z-index: var(--rams-detail-slope-tooltip-layer); display: grid; min-width: min(var(--rams-detail-slope-chart-tooltip-min-inline), 100cqi); box-sizing: border-box; max-width: min(var(--rams-detail-slope-tooltip-max-inline), 100cqi); gap: var(--rams-detail-slope-tooltip-gap); padding: var(--rams-detail-chart-tooltip-fixed-padding); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-panel); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); opacity: 0; pointer-events: none; scale: var(--rams-motion-slope-chart-tooltip-start-scale); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), scale var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.stage[data-active] .tooltip { opacity: 1; scale: var(--rams-detail-transform-rest-scale); }
+.tipTitle { margin: 0 0 var(--rams-detail-slope-tooltip-title-gap); color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); white-space: normal; overflow-wrap: anywhere; }
+.tipRow { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rams-detail-slope-tooltip-row-gap); margin: 0; font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-slope-tooltip-leading); }
+.tipName { color: var(--rams-detail-text-secondary); }
+.tipValue { color: var(--rams-detail-foreground); font-weight: var(--rams-detail-chart-value-weight); }
+.tipMeta { margin: var(--rams-detail-slope-tooltip-meta-gap) 0 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); font-variant-numeric: var(--type-data-variant); }
+
+.message { display: grid; min-height: var(--rams-detail-slope-empty-min-block); place-items: center; margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+.figure[data-scroll]::-webkit-scrollbar { height: var(--rams-detail-slope-scrollbar-block); }
+.figure[data-scroll]::-webkit-scrollbar-track { background: var(--rams-detail-surface); }
+.figure[data-scroll]::-webkit-scrollbar-thumb { border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-border-strong); }
+
+@media (prefers-reduced-motion: reduce) {
+  .item, .line, .dot, .labels, .tooltip { transition: none; }
+}
+
+:where(.figure,.stage,.columns,.column,.plot,.svg,.axis,.item,.line,.dot,.leader,.labels,.start,.end,.name,.value,.rank,.rankSwap,.tooltip,.tipTitle,.tipRow,.tipName,.tipValue,.tipMeta,.message,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.value, .tipValue { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* Channel names stay readable in the narrow left gutter; numeric endpoints keep their own column. */
+.stage[data-narrow] .start { display:grid; grid-template-columns:minmax(0,1fr) auto; height:auto; min-height:var(--rams-detail-slope-label-compact-block); margin-top:calc(-.5 * var(--rams-detail-slope-label-compact-block)); }
+.stage[data-narrow] .name { white-space:normal; overflow:visible; overflow-wrap:normal; text-overflow:clip; line-height:var(--rams-detail-slope-label-compact-leading); }

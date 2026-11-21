@@ -1,0 +1,66 @@
+.figure { display: grid; min-width: 0; gap: var(--rams-detail-space-4); margin: 0; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+/* Series toggles: a plain line swatch beside each name. A hidden series keeps its place, its swatch empties and its name steps back. */
+.legend { display: flex; flex-wrap: wrap; gap: var(--rams-detail-line-chart-legend-gap); min-width: 0; margin-inline: 0; padding-inline: calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset)); box-sizing: border-box; }
+.toggle { display: inline-flex; min-height: var(--rams-detail-line-chart-legend-toggle-min-height); align-items: center; gap: var(--rams-detail-line-chart-legend-toggle-gap); padding-block: 0; padding-inline-start: 0; padding-inline-end: var(--rams-detail-line-chart-legend-toggle-inset); border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer; font: inherit; font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.toggle:active { transform: scale(var(--rams-motion-line-chart-legend-press-scale)); }
+.toggle[aria-pressed="false"] { color: var(--rams-detail-text-muted); }
+.toggleLabel { white-space: nowrap; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.toggle[aria-pressed="false"] .toggleLabel { opacity: var(--rams-detail-line-chart-legend-disabled-label-opacity); text-decoration: line-through; text-decoration-color: color-mix(in oklab, currentColor var(--rams-detail-line-chart-legend-disabled-strike-share), transparent); }
+.swatch { position: relative; width: var(--rams-detail-line-chart-legend-swatch-inline); height: var(--rams-detail-line-chart-legend-swatch-block); flex: none; }
+.swatch::before { position: absolute; top: 50%; left: 0; width: 100%; height: var(--rams-detail-line-chart-legend-swatch-stroke); border-radius: var(--rams-detail-line-chart-swatch-radius); background: var(--rams-detail-stroke-preview, var(--rams-detail-series)); content: ""; transform: translateY(-50%) scaleX(var(--rams-detail-transform-rest-scale)); transform-origin: left; transition: transform var(--rams-detail-duration-standard) var(--rams-detail-ease-spring), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.toggle[aria-pressed="false"] .swatch::before { opacity: var(--rams-detail-line-chart-legend-disabled-swatch-opacity); transform: translateY(-50%) scaleX(var(--rams-motion-line-chart-legend-disabled-swatch-scale)); }
+@media (hover: hover) and (pointer: fine) { .toggle:hover { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-line-chart-legend-hover-fill-share), transparent); color: var(--rams-detail-foreground); } }
+
+/* Plot, right-hand value axis, and the date axis beneath. */
+.chart { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) var(--rams-detail-line-chart-value-axis-width); grid-template-rows: auto var(--rams-detail-line-chart-time-axis-height); min-width: 0; }
+.plot { position: relative; grid-area: 1 / 1; min-width: 0; outline: none; touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+.svg { display: block; overflow: visible; }
+.grid { stroke: var(--rams-detail-border); stroke-width: var(--rams-detail-line-chart-grid-stroke); shape-rendering: crispEdges; }
+.baseline { stroke: var(--rams-detail-border-strong); stroke-width: var(--rams-detail-line-chart-baseline-stroke); shape-rendering: crispEdges; }
+.crosshair { stroke: var(--rams-detail-border-strong); stroke-width: var(--rams-detail-line-chart-crosshair-stroke); shape-rendering: crispEdges; opacity: 0; transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.chart[data-scrubbing] .crosshair { opacity: 1; }
+
+.series { transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.chart[data-loading] .series { opacity: var(--rams-detail-line-chart-loading-opacity); animation: breathe var(--rams-motion-breathing-duration) var(--rams-detail-ease-in-out) var(--rams-motion-skeleton-pulse-cycles) alternate forwards; }
+.line { fill: none; stroke: var(--rams-detail-series); stroke-width: var(--rams-detail-line-chart-line-stroke); stroke-linecap: var(--rams-detail-chart-series-linecap); stroke-linejoin: var(--rams-detail-chart-series-linejoin); transition: stroke var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.area { fill: color-mix(in oklab, var(--rams-detail-series) var(--rams-detail-line-chart-area-fill-share), transparent); stroke: none; }
+.dot { fill: var(--rams-detail-series); stroke: var(--rams-detail-surface); stroke-width: var(--rams-detail-line-chart-dot-border); opacity: 0; transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.chart[data-scrubbing] .dot:not([data-hidden]) { opacity: 1; }
+
+/* The tooltip floats over the plot, so it is the one layer here with a shadow. Springs carry its position; opacity and a small scale bring it in. */
+.tooltip { position: absolute; top: 0; left: 0; z-index: var(--rams-detail-line-chart-tooltip-layer); display: grid; min-width: var(--rams-detail-line-chart-tooltip-min-inline); max-width: min(var(--rams-detail-line-chart-tooltip-max-inline), 100%); gap: var(--rams-detail-line-chart-tooltip-gap); padding: var(--rams-detail-chart-tooltip-fixed-padding); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-panel); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); opacity: 0; pointer-events: none; scale: var(--rams-motion-line-chart-tooltip-enter-scale); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), scale var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.chart[data-scrubbing] .tooltip { opacity: 1; scale: var(--rams-detail-transform-rest-scale); }
+.tipTitle { margin: 0 0 var(--rams-detail-line-chart-tooltip-title-gap); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); white-space: nowrap; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.tipRow { display: flex; min-width: 0; align-items: center; gap: var(--rams-detail-chart-tooltip-row-gap-fixed); margin: 0; font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); }
+.tipSwatch { width: var(--rams-detail-line-chart-tooltip-swatch-inline); height: var(--rams-detail-line-chart-tooltip-swatch-block); flex: none; border-radius: var(--rams-detail-line-chart-swatch-radius); background: var(--rams-detail-stroke-preview, var(--rams-detail-series)); }
+.tipName { min-width: 0; flex: var(--rams-detail-layout-flex-fill); overflow: hidden; color: var(--rams-detail-text-secondary); text-overflow: ellipsis; white-space: nowrap; }
+.tipValue { flex: none; margin-left: var(--rams-detail-line-chart-tooltip-value-gap); color: var(--rams-detail-foreground); font-weight: var(--rams-detail-chart-value-weight); white-space: nowrap; }
+
+.message { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); pointer-events: none; }
+/* First load with nothing to keep on screen: a calm band that breathes where the lines will be. */
+.skeleton { position: absolute; inset: var(--rams-detail-line-chart-loading-inset); border-radius: var(--rams-detail-line-chart-loading-radius); background: linear-gradient(to bottom, transparent, color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-line-chart-skeleton-fill-share), transparent)); animation: breathe var(--rams-motion-breathing-duration) var(--rams-detail-ease-in-out) var(--rams-motion-skeleton-pulse-cycles) alternate forwards; }
+
+.gutter { position: relative; grid-area: 1 / 2; min-width: 0; }
+.tick { position: absolute; top: 0; left: var(--rams-detail-line-chart-tick-inline-inset); display: block; height: 0; white-space: nowrap; pointer-events: none; }
+.tickText { display: block; transform: translateY(-50%); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-line-chart-axis-leading); }
+
+.axis { position: relative; grid-area: 2 / 1; min-width: 0; }
+.axisLabel { position: absolute; top: var(--rams-detail-line-chart-axis-label-inset); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-line-chart-axis-leading); white-space: nowrap; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: var(--rams-detail-accessible-hidden-margin); padding: var(--rams-detail-accessible-hidden-padding); border: var(--rams-detail-accessible-hidden-border); overflow: hidden; clip: rect(0 0 0 0); clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@keyframes breathe { 0% { opacity: var(--rams-detail-line-chart-loading-opacity); } 10% { opacity: var(--rams-motion-line-chart-loading-breath-min); } 100% { opacity: var(--rams-motion-line-chart-loading-breath-max); } }
+@media (prefers-reduced-motion: reduce) {
+  .message[data-rams-presence="exiting"] { display: none; }
+  .message[data-rams-presence="present"] { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .toggle:active { transform: none; }
+  .toggle, .swatch::before, .line, .tooltip, .crosshair, .dot, .series { transition: none; }
+  .chart[data-loading] .series, .skeleton { animation: none; }
+}
+:where(.figure,.legend,.toggle,.toggleLabel,.swatch,.chart,.plot,.svg,.grid,.baseline,.crosshair,.series,.line,.area,.dot,.tooltip,.tipTitle,.tipRow,.tipSwatch,.tipName,.tipValue,.message,.skeleton,.gutter,.tick,.tickText,.axis,.axisLabel,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.tipValue, .tickText { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* Preserve composite geometry while consuming the shared native action. */
+.figure .toggle { min-inline-size: 0; min-block-size: 0; box-shadow: none; }

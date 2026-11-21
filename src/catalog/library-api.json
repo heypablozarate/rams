@@ -1,0 +1,8439 @@
+{
+  "button": {
+    "props": [
+      [
+        "variant?",
+        "\"default\" | \"secondary\" | \"outline\" | \"ghost\" | \"link\" | \"destructive\"",
+        ""
+      ],
+      [
+        "size?",
+        "\"xs\" | \"sm\" | \"default\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\"",
+        ""
+      ],
+      [
+        "loading?",
+        "boolean",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"default\"",
+      "size": "\"default\"",
+      "loading": "false"
+    },
+    "exports": [
+      "Button"
+    ],
+    "defaultExport": "Button",
+    "example": "import Button from \"@/variants/vendor/registry/components/button/button\";"
+  },
+  "action-button": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "size?",
+        "\"xs\" | \"sm\" | \"default\" | \"lg\"",
+        ""
+      ],
+      [
+        "variant?",
+        "\"default\" | \"secondary\" | \"outline\" | \"ghost\" | \"link\" | \"destructive\"",
+        ""
+      ],
+      [
+        "successLabel?",
+        "string",
+        ""
+      ],
+      [
+        "pendingLabel?",
+        "string",
+        ""
+      ],
+      [
+        "onAction",
+        "() => void | Promise<void>",
+        ""
+      ],
+      [
+        "resetAfterMs?",
+        "number",
+        ""
+      ],
+      [
+        "onActionError?",
+        "(error: unknown) => void",
+        ""
+      ]
+    ],
+    "defaults": {
+      "successLabel": "\"Saved\"",
+      "pendingLabel": "\"Saving\"",
+      "resetAfterMs": "2400",
+      "size": "\"default\"",
+      "variant": "\"default\""
+    },
+    "exports": [
+      "ActionButton"
+    ],
+    "defaultExport": "ActionButton",
+    "example": "import ActionButton from \"@/variants/vendor/registry/components/action-button/action-button\";"
+  },
+  "split-button": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "actions",
+        "SplitButtonAction[]",
+        ""
+      ],
+      [
+        "onClick?",
+        "() => void",
+        ""
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "icon?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "variant?",
+        "\"default\" | \"outline\"",
+        ""
+      ],
+      [
+        "size?",
+        "\"xs\" | \"sm\" | \"default\" | \"lg\"",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"default\"",
+      "size": "\"default\""
+    },
+    "exports": [
+      "SplitButton"
+    ],
+    "defaultExport": "SplitButton",
+    "example": "import SplitButton from \"@/variants/vendor/registry/components/split-button/split-button\";"
+  },
+  "button-group": {
+    "props": [
+      [
+        "items",
+        "ButtonGroupItem[]",
+        ""
+      ],
+      [
+        "menu?",
+        "ButtonGroupMenu",
+        "Adds a trailing chevron segment that opens these actions in a menu aligned to the group's edge."
+      ],
+      [
+        "label",
+        "string",
+        "Accessible name of the group, such as \"Document actions\"."
+      ],
+      [
+        "variant?",
+        "\"outline\" | \"solid\"",
+        ""
+      ],
+      [
+        "size?",
+        "\"xs\" | \"sm\" | \"default\" | \"lg\"",
+        ""
+      ],
+      [
+        "orientation?",
+        "\"horizontal\" | \"vertical\"",
+        ""
+      ],
+      [
+        "collapseLabels?",
+        "boolean",
+        "When the row does not fit its container, segments with an icon drop their label and keep the icon. Horizontal only."
+      ],
+      [
+        "disabled?",
+        "boolean",
+        "Disables every segment and the menu."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "style?",
+        "CSSProperties",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"outline\"",
+      "size": "\"default\"",
+      "orientation": "\"horizontal\"",
+      "collapseLabels": "true",
+      "disabled": "false"
+    },
+    "exports": [
+      "ButtonGroup"
+    ],
+    "defaultExport": "ButtonGroup",
+    "example": "import ButtonGroup from \"@/variants/vendor/registry/components/button-group/button-group\";"
+  },
+  "floating-button-group": {
+    "props": [
+      [
+        "items",
+        "readonly FloatingButtonGroupItem[]",
+        ""
+      ],
+      [
+        "label",
+        "string",
+        "Accessible name of the toolbar, such as \"Board actions\"."
+      ],
+      [
+        "variant?",
+        "\"muted\" | \"floating\"",
+        "muted sits quietly on a page; floating raises the tray with the floating shadow for overlays such as a selection toolbar."
+      ],
+      [
+        "size?",
+        "\"xs\" | \"sm\" | \"default\" | \"lg\"",
+        ""
+      ],
+      [
+        "orientation?",
+        "\"horizontal\" | \"vertical\"",
+        ""
+      ],
+      [
+        "iconOnly?",
+        "boolean",
+        "Shows every item as an icon only, with its label in a tooltip. Items with their own iconOnly win."
+      ],
+      [
+        "tooltipSide?",
+        "\"top\" | \"bottom\" | \"left\" | \"right\"",
+        "Side of the item tooltips. Defaults to top for a row and right for a column."
+      ],
+      [
+        "onAction?",
+        "(id: string) => void",
+        "Called with the item id after the item's own onSelect."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "style?",
+        "CSSProperties",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"muted\"",
+      "size": "\"default\"",
+      "orientation": "\"horizontal\"",
+      "iconOnly": "false"
+    },
+    "exports": [
+      "FloatingButtonGroup"
+    ],
+    "defaultExport": "FloatingButtonGroup",
+    "example": "import FloatingButtonGroup from \"@/variants/vendor/registry/components/floating-button-group/floating-button-group\";"
+  },
+  "expanding-button-group": {
+    "props": [
+      [
+        "items",
+        "readonly ExpandingButtonGroupItem[]",
+        ""
+      ],
+      [
+        "label",
+        "string",
+        "Accessible name of the toolbar, such as \"Message actions\"."
+      ],
+      [
+        "size?",
+        "\"xs\" | \"sm\" | \"default\" | \"lg\"",
+        ""
+      ],
+      [
+        "defaultExpanded?",
+        "string | null",
+        "Id of the action whose label shows at rest, usually the primary one. Defaults to the first enabled action: one action is always\nexpanded. Pointing at or focusing another moves the expansion there, and it returns here when the pointer and focus leave."
+      ],
+      [
+        "onAction?",
+        "(id: string) => void",
+        "Called with the item id whenever an action runs, before its own onSelect."
+      ],
+      [
+        "confirmDuration?",
+        "number",
+        "How long the confirmation stays, in milliseconds."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "style?",
+        "CSSProperties",
+        ""
+      ]
+    ],
+    "defaults": {
+      "size": "\"default\"",
+      "defaultExpanded": "null",
+      "confirmDuration": "expandingGroupMotion.confirmHoldMs"
+    },
+    "exports": [
+      "ExpandingButtonGroup"
+    ],
+    "defaultExport": "ExpandingButtonGroup",
+    "example": "import ExpandingButtonGroup from \"@/variants/vendor/registry/components/expanding-button-group/expanding-button-group\";"
+  },
+  "dropdown-menu": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "items",
+        "DropdownItem[]",
+        ""
+      ],
+      [
+        "icon?",
+        "ReactNode",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "DropdownMenu"
+    ],
+    "defaultExport": "DropdownMenu",
+    "example": "import DropdownMenu from \"@/variants/vendor/registry/components/dropdown-menu/dropdown-menu\";"
+  },
+  "context-menu": {
+    "props": [
+      [
+        "children",
+        "ReactNode",
+        ""
+      ],
+      [
+        "items",
+        "ContextMenuItem[]",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "label": "\"Context menu\""
+    },
+    "exports": [
+      "ContextMenu",
+      "contextMenuExampleItems"
+    ],
+    "defaultExport": "ContextMenu",
+    "example": "import ContextMenu from \"@/variants/vendor/registry/components/context-menu/context-menu\";"
+  },
+  "copy-button": {
+    "props": [
+      [
+        "value",
+        "string",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "iconOnly?",
+        "boolean",
+        ""
+      ],
+      [
+        "variant?",
+        "\"default\" | \"secondary\" | \"outline\" | \"ghost\" | \"link\" | \"destructive\"",
+        ""
+      ],
+      [
+        "size?",
+        "\"xs\" | \"sm\" | \"default\" | \"lg\"",
+        ""
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "onCopied?",
+        "() => void",
+        ""
+      ]
+    ],
+    "defaults": {
+      "label": "\"Copy\"",
+      "iconOnly": "false",
+      "variant": "\"outline\"",
+      "size": "\"default\""
+    },
+    "exports": [
+      "CopyButton"
+    ],
+    "defaultExport": null,
+    "example": "import { CopyButton } from \"@/variants/vendor/registry/components/copy-button/copy-button\";"
+  },
+  "drawer": {
+    "props": [
+      [
+        "title",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "children",
+        "ReactNode",
+        ""
+      ],
+      [
+        "footer?",
+        "ReactNode",
+        "Actions share the surface footer gap; the surrounding shell owns inset."
+      ],
+      [
+        "side?",
+        "\"left\" | \"right\" | \"top\" | \"bottom\"",
+        ""
+      ],
+      [
+        "container?",
+        "HTMLElement | null",
+        "Renders the drawer inside this element instead of the page body, anchored to its edges. The element needs position: relative and overflow: hidden."
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "useDrawerItem",
+      "Drawer",
+      "DrawerTrigger",
+      "DrawerClose",
+      "DrawerContent"
+    ],
+    "defaultExport": "Drawer",
+    "example": "import Drawer from \"@/variants/vendor/registry/components/drawer/drawer\";"
+  },
+  "theme-switch": {
+    "props": [
+      [
+        "theme",
+        "\"light\" | \"dark\"",
+        ""
+      ],
+      [
+        "variant?",
+        "\"reveal\" | \"eclipse\" | \"split\" | \"rise\"",
+        ""
+      ],
+      [
+        "onThemeChange",
+        "(next: Theme, variant: ThemeSwitchVariant, trigger: HTMLElement) => void",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "iconOnly?",
+        "boolean",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"reveal\"",
+      "iconOnly": "false"
+    },
+    "exports": [
+      "ThemeSwitch"
+    ],
+    "defaultExport": "ThemeSwitch",
+    "example": "import ThemeSwitch from \"@/variants/vendor/registry/components/theme-switch/theme-switch\";"
+  },
+  "theme-switch-eclipse": {
+    "props": [
+      [
+        "theme",
+        "\"light\" | \"dark\"",
+        ""
+      ],
+      [
+        "variant?",
+        "\"reveal\" | \"eclipse\" | \"split\" | \"rise\"",
+        ""
+      ],
+      [
+        "onThemeChange",
+        "(next: Theme, variant: ThemeSwitchVariant, trigger: HTMLElement) => void",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "iconOnly?",
+        "boolean",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"reveal\"",
+      "iconOnly": "false"
+    },
+    "exports": [
+      "ThemeSwitch"
+    ],
+    "defaultExport": "ThemeSwitch",
+    "example": "import ThemeSwitch from \"@/variants/vendor/registry/components/theme-switch/theme-switch\";"
+  },
+  "theme-switch-split": {
+    "props": [
+      [
+        "theme",
+        "\"light\" | \"dark\"",
+        ""
+      ],
+      [
+        "variant?",
+        "\"reveal\" | \"eclipse\" | \"split\" | \"rise\"",
+        ""
+      ],
+      [
+        "onThemeChange",
+        "(next: Theme, variant: ThemeSwitchVariant, trigger: HTMLElement) => void",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "iconOnly?",
+        "boolean",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"reveal\"",
+      "iconOnly": "false"
+    },
+    "exports": [
+      "ThemeSwitch"
+    ],
+    "defaultExport": "ThemeSwitch",
+    "example": "import ThemeSwitch from \"@/variants/vendor/registry/components/theme-switch/theme-switch\";"
+  },
+  "theme-switch-rise": {
+    "props": [
+      [
+        "theme",
+        "\"light\" | \"dark\"",
+        ""
+      ],
+      [
+        "variant?",
+        "\"reveal\" | \"eclipse\" | \"split\" | \"rise\"",
+        ""
+      ],
+      [
+        "onThemeChange",
+        "(next: Theme, variant: ThemeSwitchVariant, trigger: HTMLElement) => void",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "iconOnly?",
+        "boolean",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"reveal\"",
+      "iconOnly": "false"
+    },
+    "exports": [
+      "ThemeSwitch"
+    ],
+    "defaultExport": "ThemeSwitch",
+    "example": "import ThemeSwitch from \"@/variants/vendor/registry/components/theme-switch/theme-switch\";"
+  },
+  "avatar": {
+    "props": [
+      [
+        "name",
+        "string",
+        ""
+      ],
+      [
+        "src?",
+        "string",
+        ""
+      ],
+      [
+        "size?",
+        "\"sm\" | \"default\" | \"lg\" | \"xl\"",
+        ""
+      ],
+      [
+        "status?",
+        "\"online\" | \"offline\"",
+        ""
+      ]
+    ],
+    "defaults": {
+      "size": "\"default\""
+    },
+    "exports": [
+      "Avatar"
+    ],
+    "defaultExport": null,
+    "example": "import { Avatar } from \"@/variants/vendor/registry/components/avatar/avatar\";"
+  },
+  "avatar-group": {
+    "props": [
+      [
+        "members",
+        "AvatarGroupMember[]",
+        ""
+      ],
+      [
+        "max?",
+        "number",
+        ""
+      ],
+      [
+        "size?",
+        "\"sm\" | \"default\" | \"lg\"",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "max": "collectionPresentation.avatarGroupMaxMembers",
+      "size": "\"default\"",
+      "label": "\"Team members\""
+    },
+    "exports": [
+      "AvatarGroup"
+    ],
+    "defaultExport": "AvatarGroup",
+    "example": "import AvatarGroup from \"@/variants/vendor/registry/components/avatar-group/avatar-group\";"
+  },
+  "input": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "error?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "Input"
+    ],
+    "defaultExport": null,
+    "example": "import { Input } from \"@/variants/vendor/registry/components/input/input\";"
+  },
+  "textarea": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "error?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "Textarea"
+    ],
+    "defaultExport": null,
+    "example": "import { Textarea } from \"@/variants/vendor/registry/components/textarea/textarea\";"
+  },
+  "select": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "id?",
+        "string",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "options",
+        "{ value: string; label: string; disabled?: boolean }[]",
+        ""
+      ]
+    ],
+    "defaults": {
+      "placeholder": "\"Select an option\""
+    },
+    "exports": [
+      "Select"
+    ],
+    "defaultExport": null,
+    "example": "import { Select } from \"@/variants/vendor/registry/components/select/select\";"
+  },
+  "combobox": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "options",
+        "ComboboxOption[]",
+        ""
+      ],
+      [
+        "value?",
+        "string",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "string",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: string) => void",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "emptyMessage?",
+        "string",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "\"\"",
+      "placeholder": "\"Search or select…\"",
+      "emptyMessage": "\"No matches found\""
+    },
+    "exports": [
+      "Combobox"
+    ],
+    "defaultExport": null,
+    "example": "import { Combobox } from \"@/variants/vendor/registry/components/combobox/combobox\";"
+  },
+  "checkbox": {
+    "props": [
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "Checkbox"
+    ],
+    "defaultExport": null,
+    "example": "import { Checkbox } from \"@/variants/vendor/registry/components/checkbox/checkbox\";"
+  },
+  "switch": {
+    "props": [
+      [
+        "label?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "Switch"
+    ],
+    "defaultExport": "Switch",
+    "example": "import Switch from \"@/variants/vendor/registry/components/switch/switch\";"
+  },
+  "multi-select": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "options",
+        "MultiSelectOption[]",
+        ""
+      ],
+      [
+        "value?",
+        "string[]",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "string[]",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: string[]) => void",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "maxVisible?",
+        "number",
+        ""
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "panelClassName?",
+        "string",
+        "Applied to the actual portaled panel, not inherited from the trigger."
+      ],
+      [
+        "panelStyle?",
+        "MenuPanelStyle",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "[]",
+      "placeholder": "\"Select options\"",
+      "maxVisible": "contentPresentation.multiSelect.defaultVisibleLabels",
+      "disabled": "false"
+    },
+    "exports": [
+      "MultiSelect"
+    ],
+    "defaultExport": null,
+    "example": "import { MultiSelect } from \"@/variants/vendor/registry/components/multi-select/multi-select\";"
+  },
+  "number-field": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "value?",
+        "number",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "number",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: number) => void",
+        ""
+      ],
+      [
+        "min?",
+        "number",
+        ""
+      ],
+      [
+        "max?",
+        "number",
+        ""
+      ],
+      [
+        "step?",
+        "number",
+        ""
+      ],
+      [
+        "largeStep?",
+        "number",
+        "PageUp, PageDown, and Shift with an arrow move this far. Defaults to ten steps."
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "id?",
+        "string",
+        ""
+      ],
+      [
+        "prefix?",
+        "NumberFieldAffix",
+        "Text before the number, such as \"$\"."
+      ],
+      [
+        "suffix?",
+        "NumberFieldAffix",
+        "Text after the number, such as \" seats\"."
+      ],
+      [
+        "scrub?",
+        "boolean",
+        "Drag the label sideways to scrub the value, one step every few pixels."
+      ],
+      [
+        "locale?",
+        "string",
+        "Formatting locale. Fixed by default so server and client render the same digits."
+      ],
+      [
+        "formatOptions?",
+        "{ minimumFractionDigits?: number; maximumFractionDigits?: number; useGrouping?: boolean }",
+        "Fraction digits and grouping. Fraction digits follow the precision of `step` by default."
+      ],
+      [
+        "size?",
+        "\"sm\" | \"default\" | \"lg\"",
+        "Control height, type size, and default width."
+      ],
+      [
+        "limitHint?",
+        "boolean | ((edge: \"min\" | \"max\", limit: number) => string)",
+        "A short note beside the label when a press meets a limit or a typed value passes one. `false` hides it; a function writes the copy."
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "0",
+      "min": "0",
+      "max": "Number.MAX_SAFE_INTEGER",
+      "step": "1",
+      "scrub": "false",
+      "locale": "\"en-US\"",
+      "size": "\"default\"",
+      "limitHint": "true"
+    },
+    "exports": [
+      "NumberField"
+    ],
+    "defaultExport": null,
+    "example": "import { NumberField } from \"@/variants/vendor/registry/components/number-field/number-field\";"
+  },
+  "password-field": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "messages?",
+        "Partial<PasswordFieldMessages>",
+        "Translated or reworded toggle names."
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "defaultPasswordFieldMessages",
+      "PasswordField"
+    ],
+    "defaultExport": null,
+    "example": "import { PasswordField } from \"@/variants/vendor/registry/components/password-field/password-field\";"
+  },
+  "search-field": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "value",
+        "string",
+        ""
+      ],
+      [
+        "onValueChange",
+        "(value: string) => void",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "SearchField"
+    ],
+    "defaultExport": null,
+    "example": "import { SearchField } from \"@/variants/vendor/registry/components/search-field/search-field\";"
+  },
+  "tag-input": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "value?",
+        "string[]",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "string[]",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: string[]) => void",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "id?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "[]",
+      "placeholder": "\"Add a tag\""
+    },
+    "exports": [
+      "TagInput"
+    ],
+    "defaultExport": null,
+    "example": "import { TagInput } from \"@/variants/vendor/registry/components/tag-input/tag-input\";"
+  },
+  "file-dropzone": {
+    "props": [
+      [
+        "accept?",
+        "string",
+        ""
+      ],
+      [
+        "multiple?",
+        "boolean",
+        ""
+      ],
+      [
+        "maxFiles?",
+        "number",
+        ""
+      ],
+      [
+        "onFilesChange?",
+        "(files: File[]) => void",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "defaultItems?",
+        "FileDropzoneItem[]",
+        "Rows present at mount, such as files uploaded earlier. They render in place without an entrance."
+      ],
+      [
+        "onUpload?",
+        "FileDropzoneUpload",
+        "Uploads each added file. Without it the list shows plain selections."
+      ],
+      [
+        "maxSize?",
+        "number",
+        "Files above this many bytes fail with a size reason and never upload."
+      ],
+      [
+        "listPlacement?",
+        "\"below\" | \"inside\"",
+        "Render the file list under the drop target or inside its edge."
+      ],
+      [
+        "note?",
+        "string",
+        "Replaces the small line under the description."
+      ],
+      [
+        "dropLabel?",
+        "string",
+        "Label while files hover over the target."
+      ],
+      [
+        "compactAt?",
+        "number",
+        "Once the list holds this many files, the prompt folds to a slim bar so the list has room. A file dragged over brings the icon back."
+      ]
+    ],
+    "defaults": {
+      "multiple": "true",
+      "maxFiles": "5",
+      "label": "\"Add files\"",
+      "description": "\"Drop files here or choose from your device\"",
+      "listPlacement": "\"below\""
+    },
+    "exports": [
+      "formatFileSize",
+      "FileDropzone"
+    ],
+    "defaultExport": "FileDropzone",
+    "example": "import FileDropzone from \"@/variants/vendor/registry/components/file-dropzone/file-dropzone\";"
+  },
+  "radio-group": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "options",
+        "{ value: string; label: string; description?: string }[]",
+        ""
+      ],
+      [
+        "value",
+        "string",
+        ""
+      ],
+      [
+        "onValueChange",
+        "(value: string) => void",
+        ""
+      ],
+      [
+        "name?",
+        "string",
+        ""
+      ],
+      [
+        "tone?",
+        "\"accent\" | \"neutral\"",
+        "Accent is the existing selection palette; neutral follows the theme ink and surface."
+      ]
+    ],
+    "defaults": {
+      "tone": "\"accent\""
+    },
+    "exports": [
+      "RadioGroup"
+    ],
+    "defaultExport": null,
+    "example": "import { RadioGroup } from \"@/variants/vendor/registry/components/radio-group/radio-group\";"
+  },
+  "segmented-control": {
+    "props": [
+      [
+        "options",
+        "Segment[]",
+        ""
+      ],
+      [
+        "value",
+        "string",
+        ""
+      ],
+      [
+        "onValueChange",
+        "(value: string) => void",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "onOptionIntent?",
+        "(value: string) => void",
+        "Called when the pointer or focus reaches an option, before it is chosen. Use it to start loading what that option shows."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "SegmentedControl"
+    ],
+    "defaultExport": "SegmentedControl",
+    "example": "import SegmentedControl from \"@/variants/vendor/registry/components/segmented-control/segmented-control\";"
+  },
+  "calendar": {
+    "props": [
+      [
+        "value?",
+        "Date",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(date: Date) => void",
+        ""
+      ],
+      [
+        "month?",
+        "Date",
+        ""
+      ],
+      [
+        "onMonthChange?",
+        "(month: Date) => void",
+        ""
+      ],
+      [
+        "minDate?",
+        "Date",
+        ""
+      ],
+      [
+        "maxDate?",
+        "Date",
+        ""
+      ],
+      [
+        "disabledDates?",
+        "CalendarDateMatcher",
+        ""
+      ],
+      [
+        "locale?",
+        "string",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "showToday?",
+        "boolean",
+        "Adds a Today button that slides back to the current month and selects today when it is available."
+      ]
+    ],
+    "defaults": {
+      "locale": "\"en-US\"",
+      "showToday": "false"
+    },
+    "exports": [
+      "Calendar"
+    ],
+    "defaultExport": null,
+    "example": "import { Calendar } from \"@/variants/vendor/registry/components/calendar/calendar\";"
+  },
+  "date-picker": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "value?",
+        "Date",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(date: Date | undefined) => void",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "minDate?",
+        "Date",
+        ""
+      ],
+      [
+        "maxDate?",
+        "Date",
+        ""
+      ],
+      [
+        "disabledDates?",
+        "CalendarDateMatcher",
+        ""
+      ],
+      [
+        "locale?",
+        "string",
+        ""
+      ],
+      [
+        "format?",
+        "Intl.DateTimeFormatOptions",
+        ""
+      ],
+      [
+        "showToday?",
+        "boolean",
+        "Adds a Today button to the calendar header."
+      ]
+    ],
+    "defaults": {
+      "placeholder": "\"Select a date\"",
+      "locale": "\"en-US\"",
+      "format": "{ month: \"short\", day: \"numeric\", year: \"numeric\" }"
+    },
+    "exports": [
+      "DatePicker"
+    ],
+    "defaultExport": null,
+    "example": "import { DatePicker } from \"@/variants/vendor/registry/components/date-picker/date-picker\";"
+  },
+  "time-picker": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "value?",
+        "string",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "string",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: string) => void",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "minuteStep?",
+        "1 | 5 | 10 | 15 | 30",
+        ""
+      ],
+      [
+        "format?",
+        "\"12h\" | \"24h\"",
+        ""
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "\"09:00\"",
+      "placeholder": "\"Select a time\"",
+      "minuteStep": "collectionPresentation.timePickerDefaultStepMinutes",
+      "format": "\"12h\"",
+      "disabled": "false"
+    },
+    "exports": [
+      "TimePicker"
+    ],
+    "defaultExport": null,
+    "example": "import { TimePicker } from \"@/variants/vendor/registry/components/time-picker/time-picker\";"
+  },
+  "accordion": {
+    "props": [
+      [
+        "items",
+        "AccordionItem[]",
+        ""
+      ],
+      [
+        "defaultOpen?",
+        "number",
+        ""
+      ],
+      [
+        "size?",
+        "\"default\" | \"lg\"",
+        "\"lg\" suits page-level FAQs: questions at the large text size, answers at body size."
+      ]
+    ],
+    "defaults": {
+      "defaultOpen": "0",
+      "size": "\"default\""
+    },
+    "exports": [
+      "Accordion"
+    ],
+    "defaultExport": "Accordion",
+    "example": "import Accordion from \"@/variants/vendor/registry/components/accordion/accordion\";"
+  },
+  "dialog": {
+    "props": [
+      [
+        "title",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "children",
+        "ReactNode",
+        ""
+      ],
+      [
+        "footer?",
+        "ReactNode",
+        "Actions share the surface footer gap; the surrounding shell owns inset."
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "Dialog",
+      "DialogTrigger",
+      "DialogClose",
+      "DialogContent"
+    ],
+    "defaultExport": null,
+    "example": "import { Dialog } from \"@/variants/vendor/registry/components/dialog/dialog\";"
+  },
+  "popover": {
+    "props": [],
+    "defaults": {},
+    "exports": [
+      "Popover",
+      "PopoverClose",
+      "PopoverTrigger",
+      "PopoverContent"
+    ],
+    "defaultExport": null,
+    "example": "import { Popover } from \"@/variants/vendor/registry/components/popover/popover\";"
+  },
+  "tooltip": {
+    "props": [
+      [
+        "content",
+        "ReactNode",
+        ""
+      ],
+      [
+        "children",
+        "ReactElement",
+        ""
+      ],
+      [
+        "side?",
+        "\"top\" | \"bottom\" | \"left\" | \"right\"",
+        ""
+      ]
+    ],
+    "defaults": {
+      "side": "\"top\""
+    },
+    "exports": [
+      "Tooltip"
+    ],
+    "defaultExport": "Tooltip",
+    "example": "import Tooltip from \"@/variants/vendor/registry/components/tooltip/tooltip\";"
+  },
+  "tabs": {
+    "props": [],
+    "defaults": {},
+    "exports": [
+      "Tabs",
+      "TabsList",
+      "TabsTrigger",
+      "TabsContent"
+    ],
+    "defaultExport": null,
+    "example": "import { Tabs } from \"@/variants/vendor/registry/components/tabs/tabs\";"
+  },
+  "expandable-card": {
+    "props": [
+      [
+        "title",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "children",
+        "ReactNode",
+        ""
+      ],
+      [
+        "defaultExpanded?",
+        "boolean",
+        ""
+      ],
+      [
+        "width?",
+        "number",
+        "Collapsed width cap in px. The card is centered and never wider than its container. Fills the container when omitted."
+      ],
+      [
+        "expandedWidth?",
+        "number",
+        "Expanded width cap in px, so the card can grow sideways into more room. Defaults to `width`."
+      ]
+    ],
+    "defaults": {
+      "defaultExpanded": "false"
+    },
+    "exports": [
+      "ExpandableCard"
+    ],
+    "defaultExport": "ExpandableCard",
+    "example": "import ExpandableCard from \"@/variants/vendor/registry/components/expandable-card/expandable-card\";"
+  },
+  "breadcrumb": {
+    "props": [
+      [
+        "items",
+        "BreadcrumbItem[]",
+        ""
+      ],
+      [
+        "ariaLabel?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "ariaLabel": "\"Breadcrumb\""
+    },
+    "exports": [
+      "Breadcrumb"
+    ],
+    "defaultExport": null,
+    "example": "import { Breadcrumb } from \"@/variants/vendor/registry/components/breadcrumb/breadcrumb\";"
+  },
+  "alert": {
+    "props": [
+      [
+        "tone?",
+        "\"info\" | \"success\" | \"warning\" | \"danger\"",
+        ""
+      ],
+      [
+        "title",
+        "string",
+        ""
+      ],
+      [
+        "children?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "open?",
+        "boolean",
+        "Controls presence. Hiding the alert collapses its height and fades it out."
+      ],
+      [
+        "onDismiss?",
+        "() => void",
+        "Shows a dismiss button. An uncontrolled alert collapses first, then calls this."
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "Alert"
+    ],
+    "defaultExport": "Alert",
+    "example": "import Alert from \"@/variants/vendor/registry/components/alert/alert\";"
+  },
+  "toast": {
+    "props": [
+      [
+        "title",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "open?",
+        "boolean",
+        ""
+      ],
+      [
+        "onOpenChange?",
+        "(open: boolean) => void",
+        ""
+      ],
+      [
+        "duration?",
+        "number",
+        ""
+      ]
+    ],
+    "defaults": {
+      "open": "true",
+      "duration": "4500"
+    },
+    "exports": [
+      "Toast"
+    ],
+    "defaultExport": "Toast",
+    "example": "import Toast from \"@/variants/vendor/registry/components/toast/toast\";"
+  },
+  "rating": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "value?",
+        "number",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "number",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: number) => void",
+        "Receives the committed value; 0 means the rating was cleared."
+      ],
+      [
+        "max?",
+        "number",
+        ""
+      ],
+      [
+        "readOnly?",
+        "boolean",
+        ""
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "size?",
+        "\"sm\" | \"default\" | \"lg\"",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "allowHalf?",
+        "boolean",
+        "Pointer, touch, and arrow keys move in half stars."
+      ],
+      [
+        "allowClear?",
+        "boolean",
+        "Choosing the current value again clears it; Backspace and Delete clear from the keyboard."
+      ],
+      [
+        "showValue?",
+        "boolean",
+        "Show the word or number for the previewed value beside the stars."
+      ],
+      [
+        "valueLabels?",
+        "readonly string[]",
+        "One word per whole star. Five whole stars default to \"Poor\" through \"Excellent\"; anything else reads \"4 out of 5\"."
+      ],
+      [
+        "emptyLabel?",
+        "string",
+        "Shown beside empty stars."
+      ],
+      [
+        "name?",
+        "string",
+        "Submits the value with a surrounding form."
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "0",
+      "max": "5",
+      "readOnly": "false",
+      "disabled": "false",
+      "size": "\"default\"",
+      "allowHalf": "false",
+      "allowClear": "true",
+      "showValue": "true",
+      "emptyLabel": "\"Not rated\""
+    },
+    "exports": [
+      "Rating"
+    ],
+    "defaultExport": null,
+    "example": "import { Rating } from \"@/variants/vendor/registry/components/rating/rating\";"
+  },
+  "progress": {
+    "props": [
+      [
+        "value?",
+        "number",
+        ""
+      ],
+      [
+        "max?",
+        "number",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "showValue?",
+        "boolean",
+        ""
+      ]
+    ],
+    "defaults": {
+      "value": "0",
+      "max": "100",
+      "showValue": "false"
+    },
+    "exports": [
+      "Progress"
+    ],
+    "defaultExport": "Progress",
+    "example": "import Progress from \"@/variants/vendor/registry/components/progress/progress\";"
+  },
+  "skeleton": {
+    "props": [
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "lines?",
+        "number",
+        ""
+      ],
+      [
+        "avatar?",
+        "boolean",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "children?",
+        "ReactNode",
+        "Content to reveal once loading finishes. With children, the placeholder crossfades into them."
+      ],
+      [
+        "loading?",
+        "boolean",
+        "Keeps the placeholder visible while true. Only used together with children."
+      ]
+    ],
+    "defaults": {
+      "label": "\"Loading content\"",
+      "lines": "3",
+      "avatar": "false",
+      "loading": "true"
+    },
+    "exports": [
+      "Skeleton"
+    ],
+    "defaultExport": "Skeleton",
+    "example": "import Skeleton from \"@/variants/vendor/registry/components/skeleton/skeleton\";"
+  },
+  "badge": {
+    "props": [
+      [
+        "tone?",
+        "\"neutral\" | \"success\" | \"info\" | \"warning\" | \"danger\"",
+        ""
+      ],
+      [
+        "size?",
+        "\"sm\" | \"default\"",
+        ""
+      ],
+      [
+        "icon?",
+        "ReactNode",
+        ""
+      ]
+    ],
+    "defaults": {
+      "tone": "\"neutral\"",
+      "size": "\"default\""
+    },
+    "exports": [
+      "Badge"
+    ],
+    "defaultExport": "Badge",
+    "example": "import Badge from \"@/variants/vendor/registry/components/badge/badge\";"
+  },
+  "card": {
+    "props": [
+      [
+        "title",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "media?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "action?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "avatar?",
+        "ReactNode",
+        "A small leading visual for the footer, such as the owner's avatar."
+      ],
+      [
+        "meta?",
+        "ReactNode",
+        "Who the card belongs to, such as the owner's name."
+      ],
+      [
+        "status?",
+        "string",
+        "A short status under the meta, such as \"Updated 2 hours ago\". Changed words rise in and are announced politely."
+      ],
+      [
+        "details?",
+        "ReactNode",
+        "Content for a quick look. When set, the whole card opens and grows into a larger view; Escape or the close control morphs it back."
+      ],
+      [
+        "open?",
+        "boolean",
+        ""
+      ],
+      [
+        "defaultOpen?",
+        "boolean",
+        ""
+      ],
+      [
+        "onOpenChange?",
+        "(open: boolean) => void",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultOpen": "false"
+    },
+    "exports": [
+      "Card"
+    ],
+    "defaultExport": null,
+    "example": "import { Card } from \"@/variants/vendor/registry/components/card/card\";"
+  },
+  "metric-card": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "value",
+        "number",
+        ""
+      ],
+      [
+        "suffix?",
+        "string",
+        ""
+      ],
+      [
+        "context",
+        "string",
+        ""
+      ],
+      [
+        "change?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "MetricCard"
+    ],
+    "defaultExport": null,
+    "example": "import { MetricCard } from \"@/variants/vendor/registry/components/metric-card/metric-card\";"
+  },
+  "empty-state": {
+    "props": [
+      [
+        "title",
+        "string",
+        ""
+      ],
+      [
+        "description",
+        "string",
+        ""
+      ],
+      [
+        "action?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "icon?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        "Optional accessible label for the state region."
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "EmptyState"
+    ],
+    "defaultExport": "EmptyState",
+    "example": "import EmptyState from \"@/variants/vendor/registry/components/empty-state/empty-state\";"
+  },
+  "tree-view": {
+    "props": [
+      [
+        "nodes",
+        "TreeNode[]",
+        ""
+      ],
+      [
+        "defaultExpandedIds?",
+        "string[]",
+        ""
+      ],
+      [
+        "expandedIds?",
+        "string[]",
+        ""
+      ],
+      [
+        "onExpandedChange?",
+        "(expandedIds: string[]) => void",
+        ""
+      ],
+      [
+        "onSelect?",
+        "(node: TreeNode) => void",
+        ""
+      ],
+      [
+        "\"aria-label\"?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultExpandedIds": "[]"
+    },
+    "exports": [
+      "TreeView"
+    ],
+    "defaultExport": "TreeView",
+    "example": "import TreeView from \"@/variants/vendor/registry/components/tree-view/tree-view\";"
+  },
+  "pagination": {
+    "props": [
+      [
+        "page",
+        "number",
+        ""
+      ],
+      [
+        "pageCount",
+        "number",
+        ""
+      ],
+      [
+        "onPageChange",
+        "(page: number) => void",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "label": "\"Pagination\""
+    },
+    "exports": [
+      "Pagination"
+    ],
+    "defaultExport": null,
+    "example": "import { Pagination } from \"@/variants/vendor/registry/components/pagination/pagination\";"
+  },
+  "filter-toolbar": {
+    "props": [
+      [
+        "filters",
+        "FilterChip[]",
+        ""
+      ],
+      [
+        "onRemove",
+        "(id: string) => void",
+        ""
+      ],
+      [
+        "onClearAll?",
+        "() => void",
+        ""
+      ],
+      [
+        "children?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "addFilter?",
+        "{ fields: FilterField[]; onAdd: (filter: FilterChip, field: FilterField) => void; label?: string; align?: \"start\" | \"end\"; panelClassName?: string; panelStyle?: MenuPanelStyle }",
+        "Adds an Add filter trigger that morphs into a two step field and value menu."
+      ]
+    ],
+    "defaults": {
+      "label": "\"Active filters\""
+    },
+    "exports": [
+      "FilterMenu",
+      "FilterToolbar"
+    ],
+    "defaultExport": "FilterToolbar",
+    "example": "import FilterToolbar from \"@/variants/vendor/registry/components/filter-toolbar/filter-toolbar\";"
+  },
+  "sortable-data-table": {
+    "props": [
+      [
+        "rows",
+        "T[]",
+        ""
+      ],
+      [
+        "columns",
+        "DataColumn<T>[]",
+        ""
+      ],
+      [
+        "rowKey",
+        "keyof T | ((row: T) => string)",
+        ""
+      ],
+      [
+        "caption?",
+        "string",
+        ""
+      ],
+      [
+        "emptyMessage?",
+        "string",
+        ""
+      ],
+      [
+        "defaultSort?",
+        "SortState",
+        "Sort applied on the first render."
+      ],
+      [
+        "onSortChange?",
+        "(sort: SortState) => void",
+        ""
+      ],
+      [
+        "selectable?",
+        "boolean",
+        "Adds a checkbox column, row click selection, and a count line with a clear action."
+      ],
+      [
+        "selectedKeys?",
+        "string[]",
+        ""
+      ],
+      [
+        "defaultSelectedKeys?",
+        "string[]",
+        ""
+      ],
+      [
+        "onSelectionChange?",
+        "(keys: string[]) => void",
+        ""
+      ],
+      [
+        "itemName?",
+        "{ one: string; other: string }",
+        "Noun for the count line, as in \"6 projects\"."
+      ]
+    ],
+    "defaults": {
+      "caption": "\"Data table\"",
+      "emptyMessage": "\"No rows to show\"",
+      "selectable": "false",
+      "itemName": "{ one: \"row\", other: \"rows\" }"
+    },
+    "exports": [
+      "SortableDataTable"
+    ],
+    "defaultExport": "SortableDataTable",
+    "example": "import SortableDataTable from \"@/variants/vendor/registry/components/sortable-data-table/sortable-data-table\";"
+  },
+  "sparkline": {
+    "props": [
+      [
+        "data",
+        "number[]",
+        ""
+      ],
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "value?",
+        "string",
+        ""
+      ],
+      [
+        "change?",
+        "string",
+        ""
+      ],
+      [
+        "tone?",
+        "\"accent\" | \"success\" | \"warning\" | \"danger\"",
+        ""
+      ],
+      [
+        "changeTone?",
+        "\"accent\" | \"success\" | \"warning\" | \"danger\"",
+        "Outcome of the change, independent of the line color and mathematical sign."
+      ],
+      [
+        "width?",
+        "number",
+        ""
+      ],
+      [
+        "height?",
+        "number",
+        ""
+      ],
+      [
+        "labels?",
+        "string[]",
+        "One label per point, such as a date. It replaces the change while that point is scrubbed."
+      ],
+      [
+        "formatValue?",
+        "(value: number, index: number) => string",
+        "Formats a scrubbed point for the headline. Defaults to a grouped number."
+      ],
+      [
+        "area?",
+        "boolean",
+        "A quiet neutral fill under the line."
+      ],
+      [
+        "interactive?",
+        "boolean",
+        "Pointer and keyboard scrubbing through the points."
+      ]
+    ],
+    "defaults": {
+      "tone": "\"accent\"",
+      "changeTone": "tone",
+      "width": "sparkline.defaultWidthPx",
+      "height": "sparkline.defaultHeightPx",
+      "area": "true",
+      "interactive": "true"
+    },
+    "exports": [
+      "Sparkline"
+    ],
+    "defaultExport": "Sparkline",
+    "example": "import Sparkline from \"@/variants/vendor/registry/components/sparkline/sparkline\";"
+  },
+  "gauge": {
+    "props": [
+      [
+        "value",
+        "number",
+        ""
+      ],
+      [
+        "min?",
+        "number",
+        ""
+      ],
+      [
+        "max?",
+        "number",
+        ""
+      ],
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "detail?",
+        "string",
+        ""
+      ],
+      [
+        "tone?",
+        "\"accent\" | \"success\" | \"warning\" | \"danger\"",
+        ""
+      ],
+      [
+        "thresholds?",
+        "GaugeThreshold[]",
+        ""
+      ],
+      [
+        "formatValue?",
+        "(value: number) => string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "min": "0",
+      "max": "100",
+      "tone": "\"accent\""
+    },
+    "exports": [
+      "Gauge"
+    ],
+    "defaultExport": "Gauge",
+    "example": "import Gauge from \"@/variants/vendor/registry/components/gauge/gauge\";"
+  },
+  "animated-counter": {
+    "props": [
+      [
+        "value",
+        "number",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "prefix?",
+        "string",
+        ""
+      ],
+      [
+        "suffix?",
+        "string",
+        ""
+      ],
+      [
+        "decimals?",
+        "number",
+        ""
+      ],
+      [
+        "animateOnView?",
+        "boolean",
+        "Roll every digit up from zero the first time the counter scrolls into view."
+      ],
+      [
+        "locale?",
+        "string",
+        "Formatting locale. Fixed by default so server and client render the same digits."
+      ]
+    ],
+    "defaults": {
+      "prefix": "\"\"",
+      "suffix": "\"\"",
+      "decimals": "0",
+      "animateOnView": "false",
+      "locale": "\"en-US\""
+    },
+    "exports": [
+      "AnimatedCounter"
+    ],
+    "defaultExport": "AnimatedCounter",
+    "example": "import AnimatedCounter from \"@/variants/vendor/registry/components/animated-counter/animated-counter\";"
+  },
+  "code-block": {
+    "props": [
+      [
+        "code",
+        "string",
+        "Source shown in the block and copied by the action."
+      ],
+      [
+        "filename?",
+        "string",
+        "File name displayed in the header."
+      ],
+      [
+        "language?",
+        "string",
+        "Used for the header label and lightweight syntax highlighting."
+      ],
+      [
+        "maxLines?",
+        "number",
+        "Collapse longer sources to this many lines, with a toggle that expands the rest in place."
+      ]
+    ],
+    "defaults": {
+      "language": "\"tsx\""
+    },
+    "exports": [
+      "CodeBlock"
+    ],
+    "defaultExport": null,
+    "example": "import { CodeBlock } from \"@/variants/vendor/registry/components/code-block/code-block\";"
+  },
+  "reorderable-list": {
+    "props": [
+      [
+        "items",
+        "ReorderableItem[]",
+        ""
+      ],
+      [
+        "onReorder",
+        "(items: ReorderableItem[]) => void",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "label": "\"Reorder items\""
+    },
+    "exports": [
+      "ReorderableList"
+    ],
+    "defaultExport": null,
+    "example": "import { ReorderableList } from \"@/variants/vendor/registry/components/reorderable-list/reorderable-list\";"
+  },
+  "text-reveal": {
+    "props": [
+      [
+        "text",
+        "string",
+        ""
+      ],
+      [
+        "as?",
+        "\"h1\" | \"h2\" | \"h3\" | \"p\"",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "id?",
+        "string",
+        ""
+      ],
+      [
+        "delay?",
+        "number",
+        ""
+      ]
+    ],
+    "defaults": {
+      "as": "\"h2\"",
+      "delay": "motionTokens.reduced.stagger"
+    },
+    "exports": [
+      "TextReveal"
+    ],
+    "defaultExport": "TextReveal",
+    "example": "import TextReveal from \"@/variants/vendor/registry/components/text-reveal/text-reveal\";"
+  },
+  "in-view-title": {
+    "props": [
+      [
+        "text",
+        "string",
+        ""
+      ],
+      [
+        "variant?",
+        "\"word\" | \"line\" | \"blur\" | \"tracking\" | \"wipe\"",
+        ""
+      ],
+      [
+        "as?",
+        "\"h1\" | \"h2\" | \"h3\"",
+        ""
+      ],
+      [
+        "lines?",
+        "string[]",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "id?",
+        "string",
+        ""
+      ],
+      [
+        "once?",
+        "boolean",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"blur\"",
+      "as": "\"h2\"",
+      "once": "true"
+    },
+    "exports": [
+      "InViewTitle"
+    ],
+    "defaultExport": "InViewTitle",
+    "example": "import InViewTitle from \"@/variants/vendor/registry/components/in-view-title/in-view-title\";"
+  },
+  "text-morph": {
+    "props": [
+      [
+        "children",
+        "string",
+        ""
+      ],
+      [
+        "as?",
+        "\"span\" | \"div\" | \"p\" | \"strong\" | \"h1\" | \"h2\" | \"h3\"",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "id?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "as": "\"span\""
+    },
+    "exports": [
+      "TextMorph"
+    ],
+    "defaultExport": "TextMorph",
+    "example": "import TextMorph from \"@/variants/vendor/registry/components/text-morph/text-morph\";"
+  },
+  "text-shimmer": {
+    "props": [
+      [
+        "children",
+        "string",
+        "The status text. Keep it to one short line."
+      ],
+      [
+        "active?",
+        "boolean",
+        "Enable the visual sweep. Reduced motion and visibility can keep it still. Defaults to true."
+      ],
+      [
+        "duration?",
+        "number",
+        "Seconds for one sweep across the text. Defaults to the shared breathing duration."
+      ],
+      [
+        "as?",
+        "\"span\" | \"p\" | \"div\" | \"h2\" | \"h3\" | \"h4\"",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "id?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "active": "true",
+      "duration": "motionTokens.roleDuration.breathing",
+      "as": "\"span\""
+    },
+    "exports": [
+      "TextShimmer"
+    ],
+    "defaultExport": "TextShimmer",
+    "example": "import TextShimmer from \"@/variants/vendor/registry/components/text-shimmer/text-shimmer\";"
+  },
+  "hold-to-confirm": {
+    "props": [
+      [
+        "label",
+        "string",
+        "The instruction and the action, for example “Hold to delete project”."
+      ],
+      [
+        "size?",
+        "\"xs\" | \"sm\" | \"default\" | \"lg\"",
+        ""
+      ],
+      [
+        "confirmedLabel?",
+        "string",
+        "Shown once the hold completes, for example “Deleted”."
+      ],
+      [
+        "onConfirm",
+        "() => void",
+        "Called once when the hold completes."
+      ],
+      [
+        "duration?",
+        "number",
+        "Hold length in milliseconds."
+      ],
+      [
+        "icon?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "tone?",
+        "\"accent\" | \"danger\" | \"neutral\"",
+        "`accent` (default) fills with the selected accent; `danger` is for an irreversible action; `neutral` fills with the foreground."
+      ],
+      [
+        "confirmed?",
+        "boolean",
+        "Controls the done state. Set it back to false to reset the button; leave it undefined to let the button keep its own state."
+      ],
+      [
+        "onHoldChange?",
+        "(holding: boolean) => void",
+        "Reports when a hold starts and ends, for surrounding hints such as “Keep holding”."
+      ]
+    ],
+    "defaults": {
+      "confirmedLabel": "\"Done\"",
+      "duration": "motionTokens.keyframes.holdToConfirmPresentation.defaultHoldMs",
+      "icon": "<Trash2 strokeWidth=\"var(--rams-detail-motion-button-glyph-stroke)\" />",
+      "tone": "\"accent\"",
+      "size": "\"default\""
+    },
+    "exports": [
+      "HoldToConfirm"
+    ],
+    "defaultExport": "HoldToConfirm",
+    "example": "import HoldToConfirm from \"@/variants/vendor/registry/components/hold-to-confirm/hold-to-confirm\";"
+  },
+  "swipe-actions": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "children",
+        "ReactNode",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "emptyState?",
+        "ReactNode",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "SwipeActions",
+      "SwipeActionsRow"
+    ],
+    "defaultExport": "SwipeActions",
+    "example": "import SwipeActions from \"@/variants/vendor/registry/components/swipe-actions/swipe-actions\";"
+  },
+  "reactions": {
+    "props": [
+      [
+        "options",
+        "ReactionOption[]",
+        "Every reaction the picker offers, in picker order."
+      ],
+      [
+        "value?",
+        "Reaction[]",
+        "Controlled reactions. Pills keep this order, and a reaction whose count reaches zero leaves the bar."
+      ],
+      [
+        "defaultValue?",
+        "Reaction[]",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(next: Reaction[], change: { id: string; reacted: boolean }) => void",
+        "Called with the next reactions and the change that produced them."
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name for the bar."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "[]",
+      "label": "\"Reactions\""
+    },
+    "exports": [
+      "Reactions"
+    ],
+    "defaultExport": "Reactions",
+    "example": "import Reactions from \"@/variants/vendor/registry/components/reactions/reactions\";"
+  },
+  "slider": {
+    "props": [
+      [
+        "label",
+        "string",
+        "Visible label. Range thumbs are named from it unless `thumbLabels` says otherwise."
+      ],
+      [
+        "value?",
+        "T",
+        "A number for one thumb, a pair for a range."
+      ],
+      [
+        "defaultValue?",
+        "T",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: T) => void",
+        ""
+      ],
+      [
+        "onValueCommit?",
+        "(value: T) => void",
+        "Runs once a drag is released or a key changes the value, for work too heavy for every step."
+      ],
+      [
+        "min?",
+        "number",
+        ""
+      ],
+      [
+        "max?",
+        "number",
+        ""
+      ],
+      [
+        "step?",
+        "number",
+        ""
+      ],
+      [
+        "largeStep?",
+        "number",
+        "PageUp, PageDown, and Shift with an arrow move this far. Defaults to a tenth of the range."
+      ],
+      [
+        "marks?",
+        "(number | SliderMark)[]",
+        "Ticks on the track. A number draws a tick; a mark with a label also prints it under the track, and clicking it moves there."
+      ],
+      [
+        "minStepsBetweenThumbs?",
+        "number",
+        "The closest two range thumbs may sit, in steps."
+      ],
+      [
+        "format?",
+        "(value: number) => string",
+        "Formats the readout, the bubble, and the spoken value."
+      ],
+      [
+        "showValue?",
+        "boolean",
+        "Show the value beside the label. The bubble over the thumb still appears while dragging or focused."
+      ],
+      [
+        "thumbLabels?",
+        "[string, string]",
+        "Accessible names for the two range thumbs."
+      ],
+      [
+        "start?",
+        "ReactNode",
+        "Content beside the track, such as an icon or a mute button."
+      ],
+      [
+        "end?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "name?",
+        "string",
+        "Submits the value with a form, one hidden input per thumb."
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "min": "0",
+      "max": "100",
+      "step": "1",
+      "minStepsBetweenThumbs": "0",
+      "showValue": "true"
+    },
+    "exports": [
+      "Slider"
+    ],
+    "defaultExport": "Slider",
+    "example": "import Slider from \"@/variants/vendor/registry/components/slider/slider\";"
+  },
+  "elastic-slider": {
+    "props": [
+      [
+        "label",
+        "string",
+        "Visible label; it also names the thumb."
+      ],
+      [
+        "value?",
+        "number",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "number",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: number) => void",
+        ""
+      ],
+      [
+        "onValueCommit?",
+        "(value: number) => void",
+        "Runs once a drag is released or a key changes the value."
+      ],
+      [
+        "min?",
+        "number",
+        ""
+      ],
+      [
+        "max?",
+        "number",
+        ""
+      ],
+      [
+        "step?",
+        "number",
+        ""
+      ],
+      [
+        "largeStep?",
+        "number",
+        "PageUp, PageDown, and Shift with an arrow move this far. Defaults to a tenth of the range."
+      ],
+      [
+        "marks?",
+        "(number | ElasticSliderMark)[]",
+        "Detents. A dragged thumb clicks into each one and holds for a few pixels before letting go. Labels print under the track."
+      ],
+      [
+        "format?",
+        "(value: number) => string",
+        "Formats the readout, the bubble, and the spoken value."
+      ],
+      [
+        "showValue?",
+        "boolean",
+        "Show the value beside the label. The bubble over the thumb still appears while dragging or using keys."
+      ],
+      [
+        "startIcon?",
+        "ReactNode",
+        "Icons at either end. The one on the side being pulled past its limit is pushed outward with the track."
+      ],
+      [
+        "endIcon?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "name?",
+        "string",
+        "Submits the value with a form."
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "min": "0",
+      "max": "100",
+      "step": "1",
+      "showValue": "true"
+    },
+    "exports": [
+      "ElasticSlider"
+    ],
+    "defaultExport": "ElasticSlider",
+    "example": "import ElasticSlider from \"@/variants/vendor/registry/components/elastic-slider/elastic-slider\";"
+  },
+  "range-histogram-slider": {
+    "props": [
+      [
+        "label",
+        "string",
+        "Visible label. The thumbs are named from it unless `thumbLabels` says otherwise."
+      ],
+      [
+        "data",
+        "number[]",
+        "The raw values the histogram counts, such as every listing's price."
+      ],
+      [
+        "value?",
+        "[number, number]",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "[number, number]",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: [number, number]) => void",
+        ""
+      ],
+      [
+        "onValueCommit?",
+        "(value: [number, number]) => void",
+        "Runs once a drag is released or a key changes the value."
+      ],
+      [
+        "min?",
+        "number",
+        "Defaults to the smallest and largest data values."
+      ],
+      [
+        "max?",
+        "number",
+        ""
+      ],
+      [
+        "step?",
+        "number",
+        ""
+      ],
+      [
+        "bins?",
+        "number",
+        "How many bars the histogram draws."
+      ],
+      [
+        "snapToBins?",
+        "boolean",
+        "On release, a thumb near a bin edge moves toward that edge when snapping is enabled."
+      ],
+      [
+        "minStepsBetweenThumbs?",
+        "number",
+        "The closest the two thumbs may sit, in steps."
+      ],
+      [
+        "format?",
+        "(value: number) => string",
+        "Formats the readout and the spoken values."
+      ],
+      [
+        "thumbLabels?",
+        "[string, string]",
+        ""
+      ],
+      [
+        "name?",
+        "string",
+        "Submits the range with a form, one hidden input per thumb."
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "step": "1",
+      "bins": "rangeHistogramGeometry.defaultBinCount",
+      "snapToBins": "true",
+      "minStepsBetweenThumbs": "1"
+    },
+    "exports": [
+      "histogram",
+      "RangeHistogramSlider"
+    ],
+    "defaultExport": "RangeHistogramSlider",
+    "example": "import RangeHistogramSlider from \"@/variants/vendor/registry/components/range-histogram-slider/range-histogram-slider\";"
+  },
+  "inline-edit": {
+    "props": [
+      [
+        "value",
+        "string",
+        "The saved value. A new value from outside replaces the text while it is not being edited."
+      ],
+      [
+        "onSave",
+        "(next: string) => void | Promise<unknown>",
+        "Persists the new value. Return a promise to show the saving state, and reject it to roll back."
+      ],
+      [
+        "label",
+        "string",
+        "Accessible name, for example “Project name”."
+      ],
+      [
+        "validate?",
+        "(next: string) => string | null | undefined",
+        "Returns a message when the draft cannot be saved."
+      ],
+      [
+        "placeholder?",
+        "string",
+        "Shown when the value is empty."
+      ],
+      [
+        "multiline?",
+        "boolean",
+        "Wraps onto several lines and grows in height. Enter still saves; Shift+Enter adds a line break."
+      ],
+      [
+        "variant?",
+        "\"title\" | \"body\"",
+        "`title` for names and headings, `body` for descriptions."
+      ],
+      [
+        "as?",
+        "\"span\" | \"p\" | \"h1\" | \"h2\" | \"h3\"",
+        "The element that holds the text, so a title can stay a heading."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "placeholder": "\"\"",
+      "multiline": "false",
+      "variant": "\"title\"",
+      "as": "\"span\""
+    },
+    "exports": [
+      "InlineEdit"
+    ],
+    "defaultExport": "InlineEdit",
+    "example": "import InlineEdit from \"@/variants/vendor/registry/components/inline-edit/inline-edit\";"
+  },
+  "expanding-search": {
+    "props": [
+      [
+        "label",
+        "string",
+        "Names the button, the field, and the results, such as \"Search projects and docs\"."
+      ],
+      [
+        "items",
+        "ExpandingSearchItem[]",
+        ""
+      ],
+      [
+        "suggestions?",
+        "ExpandingSearchItem[]",
+        "Shown before anything is typed, such as recent searches."
+      ],
+      [
+        "suggestionsLabel?",
+        "string",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "onSelect?",
+        "(item: ExpandingSearchItem) => void",
+        ""
+      ],
+      [
+        "onExpandedChange?",
+        "(expanded: boolean) => void",
+        ""
+      ],
+      [
+        "expandedWidth?",
+        "number",
+        "The widest the field grows. It never grows past its container."
+      ],
+      [
+        "maxResults?",
+        "number",
+        ""
+      ],
+      [
+        "anchor?",
+        "\"start\" | \"end\"",
+        "The edge the button sits on; the field grows away from it."
+      ],
+      [
+        "emptyHint?",
+        "string",
+        "A short tip under the empty state."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "suggestions": "[]",
+      "suggestionsLabel": "\"Recent\"",
+      "expandedWidth": "searchGeometry.defaultWidthPx",
+      "maxResults": "searchGeometry.visibleResultLimit",
+      "anchor": "\"end\"",
+      "emptyHint": "\"Try a shorter word or check the spelling.\""
+    },
+    "exports": [
+      "ExpandingSearch"
+    ],
+    "defaultExport": "ExpandingSearch",
+    "example": "import ExpandingSearch from \"@/variants/vendor/registry/components/expanding-search/expanding-search\";"
+  },
+  "chip-group": {
+    "props": [
+      [
+        "options",
+        "ChipOption[]",
+        ""
+      ],
+      [
+        "value",
+        "string[]",
+        ""
+      ],
+      [
+        "onValueChange",
+        "(value: string[]) => void",
+        ""
+      ],
+      [
+        "label",
+        "string",
+        "Accessible name of the group, such as “Topics”."
+      ],
+      [
+        "multiple?",
+        "boolean",
+        "Allow several chips at once. In single mode the selected chip can still be cleared."
+      ],
+      [
+        "maxVisible?",
+        "number",
+        "Chips shown before the rest fold behind a “+N more” chip. Chips selected when it folds stay in view."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "multiple": "true",
+      "maxVisible": "Infinity"
+    },
+    "exports": [
+      "ChipGroup"
+    ],
+    "defaultExport": "ChipGroup",
+    "example": "import ChipGroup from \"@/variants/vendor/registry/components/chip-group/chip-group\";"
+  },
+  "password-strength": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "value?",
+        "string",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "string",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: string, strength: PasswordStrengthResult) => void",
+        ""
+      ],
+      [
+        "rules?",
+        "PasswordRule[]",
+        "Rules to check. Strength is the share of rules met, spread over four steps."
+      ],
+      [
+        "error?",
+        "string",
+        "Error copy tied to the field. The field shakes once each time a new error appears."
+      ],
+      [
+        "revealed?",
+        "boolean",
+        ""
+      ],
+      [
+        "onRevealedChange?",
+        "(revealed: boolean) => void",
+        ""
+      ],
+      [
+        "messages?",
+        "PasswordStrengthMessagesInput",
+        "Translated or reworded copy. Every string has an English default; see PasswordStrengthMessages."
+      ],
+      [
+        "shortLength?",
+        "number",
+        "Below this many characters the meter holds at its first step and reads \"Too short\". Defaults to 8."
+      ],
+      [
+        "countCharacters?",
+        "(password: string) => number",
+        "How characters are counted for shortLength. Defaults to code points, so an emoji counts once; pass `password => password.length` to count UTF-16 units like a server might."
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "\"\"",
+      "rules": "defaultPasswordRules"
+    },
+    "exports": [
+      "defaultPasswordStrengthMessages",
+      "countCodePoints",
+      "createPasswordRules",
+      "defaultPasswordRules",
+      "estimateStrength",
+      "PasswordStrength"
+    ],
+    "defaultExport": "PasswordStrength",
+    "example": "import PasswordStrength from \"@/variants/vendor/registry/components/password-strength/password-strength\";"
+  },
+  "bottom-sheet": {
+    "props": [
+      [
+        "trigger?",
+        "ReactNode",
+        "The control that opens the sheet, usually a button. Focus returns to it when the sheet closes."
+      ],
+      [
+        "open?",
+        "boolean",
+        ""
+      ],
+      [
+        "defaultOpen?",
+        "boolean",
+        ""
+      ],
+      [
+        "onOpenChange?",
+        "(open: boolean) => void",
+        ""
+      ],
+      [
+        "title",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "detents?",
+        "number[]",
+        "Resting heights as fractions of the viewport height. The sheet opens at `initialDetent` and never grows past the largest."
+      ],
+      [
+        "initialDetent?",
+        "number",
+        "Index into the sorted detents the sheet opens at. Defaults to the smallest."
+      ],
+      [
+        "onDetentChange?",
+        "(index: number) => void",
+        ""
+      ],
+      [
+        "closeLabel?",
+        "string",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "panelStyle?",
+        "CSSProperties",
+        "Explicit portal-surface overrides; trigger styles are not inherited across portals."
+      ],
+      [
+        "children",
+        "ReactNode",
+        ""
+      ],
+      [
+        "footer?",
+        "ReactNode",
+        "Actions share the surface footer gap; the surrounding shell owns inset."
+      ]
+    ],
+    "defaults": {
+      "defaultOpen": "false"
+    },
+    "exports": [
+      "BottomSheet",
+      "BottomSheetClose"
+    ],
+    "defaultExport": "BottomSheet",
+    "example": "import BottomSheet from \"@/variants/vendor/registry/components/bottom-sheet/bottom-sheet\";"
+  },
+  "hover-card": {
+    "props": [
+      [
+        "children",
+        "ReactElement",
+        "The trigger, such as a mention button or a link. It must accept a ref and be focusable."
+      ],
+      [
+        "content",
+        "ReactNode",
+        "The preview. `HoverCardProfile` covers people; any read only content works."
+      ],
+      [
+        "side?",
+        "\"top\" | \"bottom\" | \"left\" | \"right\"",
+        ""
+      ],
+      [
+        "align?",
+        "\"start\" | \"center\" | \"end\"",
+        ""
+      ],
+      [
+        "openDelay?",
+        "number",
+        "Milliseconds of hover before the first card opens."
+      ],
+      [
+        "closeDelay?",
+        "number",
+        "Milliseconds of grace after the pointer leaves, so it can travel into the card."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "side": "\"bottom\"",
+      "align": "\"start\"",
+      "openDelay": "hoverMotion.openDelayMs",
+      "closeDelay": "hoverMotion.closeDelayMs"
+    },
+    "exports": [
+      "HoverCard",
+      "HoverCardProfile"
+    ],
+    "defaultExport": "HoverCard",
+    "example": "import HoverCard from \"@/variants/vendor/registry/components/hover-card/hover-card\";"
+  },
+  "resizable-panels": {
+    "props": [
+      [
+        "label?",
+        "string",
+        "Names the group for assistive technology."
+      ],
+      [
+        "children",
+        "ReactNode",
+        "`ResizablePanel` elements, in order. The set of panes should stay the same for the life of the group."
+      ],
+      [
+        "onLayoutChange?",
+        "(sizes: number[]) => void",
+        "Called with each pane's share in percent after a resize settles."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "ResizablePanel",
+      "ResizablePanels"
+    ],
+    "defaultExport": "ResizablePanels",
+    "example": "import ResizablePanels from \"@/variants/vendor/registry/components/resizable-panels/resizable-panels\";"
+  },
+  "toast-stack": {
+    "props": [
+      [
+        "label?",
+        "string",
+        "Accessible name of the notification region."
+      ],
+      [
+        "position?",
+        "\"bottom-right\" | \"bottom-center\" | \"bottom-left\"",
+        ""
+      ],
+      [
+        "contained?",
+        "boolean",
+        "Pins the stack inside the nearest positioned ancestor instead of the window, for panels and previews."
+      ],
+      [
+        "visibleToasts?",
+        "number",
+        "How many toasts show at once. Older ones wait behind and return as the front ones close."
+      ],
+      [
+        "hotkey?",
+        "boolean",
+        "Alt+T moves focus into the stack."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "label": "\"Notifications\"",
+      "position": "\"bottom-right\"",
+      "contained": "false",
+      "visibleToasts": "stackMotion.visibleToasts",
+      "hotkey": "true"
+    },
+    "exports": [
+      "ToastStackProvider",
+      "useToastStack",
+      "ToastStack"
+    ],
+    "defaultExport": "ToastStack",
+    "example": "import ToastStack from \"@/variants/vendor/registry/components/toast-stack/toast-stack\";"
+  },
+  "usage-meter": {
+    "props": [
+      [
+        "label",
+        "string",
+        "What is measured, such as \"Workspace storage\"."
+      ],
+      [
+        "segments",
+        "UsageMeterSegment[]",
+        "Used amounts in display order. Up to four read clearly."
+      ],
+      [
+        "limit",
+        "number",
+        "The plan limit, in the same unit as the segments."
+      ],
+      [
+        "unit?",
+        "string",
+        ""
+      ],
+      [
+        "decimals?",
+        "number",
+        "Digits after the decimal point."
+      ],
+      [
+        "freeLabel?",
+        "string",
+        ""
+      ],
+      [
+        "overLabel?",
+        "string",
+        ""
+      ],
+      [
+        "warnAt?",
+        "number",
+        "Share of the limit at which the meter warns that it is almost full."
+      ]
+    ],
+    "defaults": {
+      "unit": "\"\"",
+      "decimals": "1",
+      "freeLabel": "\"Free\"",
+      "overLabel": "\"Over limit\"",
+      "warnAt": ".9"
+    },
+    "exports": [
+      "UsageMeter"
+    ],
+    "defaultExport": "UsageMeter",
+    "example": "import UsageMeter from \"@/variants/vendor/registry/components/usage-meter/usage-meter\";"
+  },
+  "onboarding-checklist": {
+    "props": [
+      [
+        "title",
+        "string",
+        ""
+      ],
+      [
+        "doneTitle?",
+        "string",
+        "Title once every step is done."
+      ],
+      [
+        "steps",
+        "OnboardingStep[]",
+        ""
+      ],
+      [
+        "defaultCompleted?",
+        "string[]",
+        ""
+      ],
+      [
+        "onCompletedChange?",
+        "(completed: string[]) => void",
+        ""
+      ],
+      [
+        "defaultHidden?",
+        "boolean",
+        ""
+      ],
+      [
+        "onHiddenChange?",
+        "(hidden: boolean) => void",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "doneTitle": "\"You’re all set\"",
+      "defaultCompleted": "[]",
+      "defaultHidden": "false"
+    },
+    "exports": [
+      "OnboardingChecklist"
+    ],
+    "defaultExport": "OnboardingChecklist",
+    "example": "import OnboardingChecklist from \"@/variants/vendor/registry/components/onboarding-checklist/onboarding-checklist\";"
+  },
+  "image-compare": {
+    "props": [
+      [
+        "before",
+        "ReactNode",
+        "The original, shown on the left (or top). Pass an image with its own alt text; it is sized to cover the frame."
+      ],
+      [
+        "after",
+        "ReactNode",
+        "The result, shown on the right (or bottom)."
+      ],
+      [
+        "position?",
+        "number",
+        "Where the divider sits, in percent from the left (or top)."
+      ],
+      [
+        "defaultPosition?",
+        "number",
+        ""
+      ],
+      [
+        "onPositionChange?",
+        "(position: number) => void",
+        ""
+      ],
+      [
+        "orientation?",
+        "\"horizontal\" | \"vertical\"",
+        "Vertical stacks the images top and bottom. Changing it swings the divider a quarter turn instead of swapping layouts."
+      ],
+      [
+        "labels?",
+        "[string, string] | false",
+        "Captions over each side. They fade as the divider reaches them. Pass false to hide them."
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name of the divider."
+      ],
+      [
+        "aspectRatio?",
+        "string",
+        "Frame proportions, as a CSS aspect-ratio."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultPosition": "50",
+      "orientation": "\"horizontal\"",
+      "labels": "[\"Before\", \"After\"]",
+      "label": "\"Before and after\"",
+      "aspectRatio": "\"var(--rams-detail-image-compare-aspect-ratio)\""
+    },
+    "exports": [
+      "ImageCompare"
+    ],
+    "defaultExport": "ImageCompare",
+    "example": "import ImageCompare from \"@/variants/vendor/registry/components/image-compare/image-compare\";"
+  },
+  "carousel": {
+    "props": [
+      [
+        "label",
+        "string",
+        "Names the carousel for assistive technology, for example \"From the Harbour suites\"."
+      ],
+      [
+        "children",
+        "ReactNode",
+        "One child per slide."
+      ],
+      [
+        "index?",
+        "number",
+        "Controlled active slide. Pair with `onIndexChange`."
+      ],
+      [
+        "defaultIndex?",
+        "number",
+        ""
+      ],
+      [
+        "onIndexChange?",
+        "(index: number) => void",
+        ""
+      ],
+      [
+        "slideSize?",
+        "string",
+        "Width of one slide as a CSS length. Use `cqw` for a share of the carousel width."
+      ],
+      [
+        "slideLabel?",
+        "(index: number, count: number) => string",
+        "Names each slide and its indicator. Defaults to \"2 of 5\"."
+      ],
+      [
+        "interval?",
+        "number",
+        "Milliseconds per slide. Adds a play control that rotates through the slides; rotation pauses on hover, keyboard focus, and drag, and is unavailable with reduced motion."
+      ],
+      [
+        "autoplay?",
+        "boolean",
+        "Starts rotating on mount. Off by default, so motion begins with the viewer."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultIndex": "0",
+      "slideLabel": "defaultSlideLabel",
+      "autoplay": "false"
+    },
+    "exports": [
+      "Carousel"
+    ],
+    "defaultExport": "Carousel",
+    "example": "import Carousel from \"@/variants/vendor/registry/components/carousel/carousel\";"
+  },
+  "card-stack": {
+    "props": [
+      [
+        "items",
+        "T[]",
+        ""
+      ],
+      [
+        "getKey",
+        "(item: T) => string",
+        ""
+      ],
+      [
+        "getLabel",
+        "(item: T) => string",
+        "A short name for the card, used in its accessible label and announcements, such as \"Lisbon\"."
+      ],
+      [
+        "renderCard",
+        "(item: T) => ReactNode",
+        ""
+      ],
+      [
+        "onDecide?",
+        "(item: T, decision: CardDecision) => void",
+        ""
+      ],
+      [
+        "onUndo?",
+        "(item: T, decision: CardDecision) => void",
+        ""
+      ],
+      [
+        "onReset?",
+        "() => void",
+        ""
+      ],
+      [
+        "labels?",
+        "{ left: string; right: string }",
+        "Action names for each side, used on the buttons and the stamps that appear while dragging."
+      ],
+      [
+        "outcomes?",
+        "{ left: string; right: string }",
+        "Past tense of each action for announcements, such as \"skipped\" and \"shortlisted\"."
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name for the stack."
+      ],
+      [
+        "renderEmpty?",
+        "(reset: () => void) => ReactNode",
+        "Shown once every card has been decided. Receives a function that brings all cards back."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "labels": "{ left: \"Pass\", right: \"Keep\" }",
+      "label": "\"Cards\""
+    },
+    "exports": [
+      "CardStack"
+    ],
+    "defaultExport": "CardStack",
+    "example": "import CardStack from \"@/variants/vendor/registry/components/card-stack/card-stack\";"
+  },
+  "bar-chart": {
+    "props": [
+      [
+        "data",
+        "BarChartDatum[]",
+        ""
+      ],
+      [
+        "label",
+        "string",
+        "What is measured, such as \"Active minutes\". Names the chart for assistive technology."
+      ],
+      [
+        "period",
+        "string",
+        "The range on show, such as \"Sep 15–21, 2026\". It rests under the headline."
+      ],
+      [
+        "unit?",
+        "string",
+        "Unit after each value, such as \"min\"."
+      ],
+      [
+        "averageLabel?",
+        "string",
+        "Headline label at rest, above the average."
+      ],
+      [
+        "valueLabel?",
+        "string",
+        "Headline label while a bar is scrubbed."
+      ],
+      [
+        "categoryLabel?",
+        "string",
+        "Header of the first column in the data table read by screen readers."
+      ],
+      [
+        "showAverage?",
+        "boolean",
+        "Draws the average as a reference line that springs to each new range."
+      ],
+      [
+        "height?",
+        "number",
+        "Plot height in pixels."
+      ],
+      [
+        "formatValue?",
+        "(value: number) => string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "unit": "\"\"",
+      "averageLabel": "\"Daily average\"",
+      "valueLabel": "\"Total\"",
+      "categoryLabel": "\"Day\"",
+      "showAverage": "true",
+      "height": "barChartGeometry.defaultHeightPx",
+      "formatValue": "value => grouped.format(value)"
+    },
+    "exports": [
+      "BarChart"
+    ],
+    "defaultExport": "BarChart",
+    "example": "import BarChart from \"@/variants/vendor/registry/components/bar-chart/bar-chart\";"
+  },
+  "activity-heatmap": {
+    "props": [
+      [
+        "days",
+        "ActivityDay[]",
+        "One entry per day, oldest first. Days missing inside the range count as zero."
+      ],
+      [
+        "label",
+        "string",
+        "Accessible name for the grid, such as \"Contributions in 2025\"."
+      ],
+      [
+        "period",
+        "string",
+        "Finishes the summary line: \"1,284 contributions in {period}\"."
+      ],
+      [
+        "unit?",
+        "{ one: string; other: string }",
+        "Nouns for the count."
+      ],
+      [
+        "thresholds?",
+        "[number, number, number]",
+        "Upper bounds for levels one to three; anything above the last is level four. Defaults to quarters of the busiest day."
+      ],
+      [
+        "weekStartsOn?",
+        "0 | 1",
+        ""
+      ],
+      [
+        "selectedDate?",
+        "string | null",
+        ""
+      ],
+      [
+        "onSelectDate?",
+        "(date: string) => void",
+        ""
+      ],
+      [
+        "actions?",
+        "ReactNode",
+        "Controls beside the summary, such as a range switch."
+      ],
+      [
+        "locale?",
+        "string",
+        "Formatting locale. Fixed by default so server and client render the same labels."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "unit": "CONTRIBUTIONS",
+      "weekStartsOn": "0",
+      "selectedDate": "null",
+      "locale": "\"en-US\""
+    },
+    "exports": [
+      "ActivityHeatmap"
+    ],
+    "defaultExport": "ActivityHeatmap",
+    "example": "import ActivityHeatmap from \"@/variants/vendor/registry/components/activity-heatmap/activity-heatmap\";"
+  },
+  "timeline": {
+    "props": [
+      [
+        "events",
+        "TimelineEvent[]",
+        "Updates in any order; the newest shows first."
+      ],
+      [
+        "now",
+        "number",
+        "Reference time for relative labels and day groups, in epoch milliseconds. Pass a ticking clock to keep labels fresh."
+      ],
+      [
+        "relativeTime?",
+        "boolean",
+        "Use absolute day and clock labels for fixed records and sample datasets."
+      ],
+      [
+        "label",
+        "string",
+        "Accessible name for the feed."
+      ],
+      [
+        "timeZone?",
+        "string",
+        "Time zone for day groups and clock times. Fixed by default so server and client agree."
+      ],
+      [
+        "locale?",
+        "string",
+        ""
+      ],
+      [
+        "maxHeight?",
+        "number | string",
+        "Height of the scrolling area. Without it the feed grows with the page and reveals on page scroll."
+      ],
+      [
+        "scrollToNew?",
+        "boolean",
+        "Scroll back to the top when a new update arrives while the feed is scrolled down."
+      ],
+      [
+        "defaultExpanded?",
+        "string[]",
+        ""
+      ],
+      [
+        "headingLevel?",
+        "2 | 3 | 4 | 5 | 6",
+        "Heading level for the day labels."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "relativeTime": "true",
+      "timeZone": "\"UTC\"",
+      "locale": "\"en-US\"",
+      "scrollToNew": "true",
+      "defaultExpanded": "[]",
+      "headingLevel": "3"
+    },
+    "exports": [
+      "Timeline"
+    ],
+    "defaultExport": "Timeline",
+    "example": "import Timeline from \"@/variants/vendor/registry/components/timeline/timeline\";"
+  },
+  "user-menu": {
+    "props": [
+      [
+        "user",
+        "UserMenuUser",
+        ""
+      ],
+      [
+        "status?",
+        "\"available\" | \"busy\" | \"away\"",
+        "Presence status. Passing `status` or `onStatusChange` shows the presence dot and an inline status switch."
+      ],
+      [
+        "defaultStatus?",
+        "\"available\" | \"busy\" | \"away\"",
+        ""
+      ],
+      [
+        "onStatusChange?",
+        "(status: UserStatus) => void",
+        ""
+      ],
+      [
+        "theme?",
+        "\"light\" | \"dark\" | \"system\"",
+        ""
+      ],
+      [
+        "defaultTheme?",
+        "\"light\" | \"dark\" | \"system\"",
+        ""
+      ],
+      [
+        "onThemeChange?",
+        "(theme: ThemePreference) => void",
+        "Reports the choice. Applying it to the page is up to the app."
+      ],
+      [
+        "showTheme?",
+        "boolean",
+        "Shows the inline light, dark, and system switch."
+      ],
+      [
+        "items?",
+        "UserMenuItem[]",
+        "Account destinations with optional shortcut hints, such as [\"⌘\", \",\"]. Keep it to three or four."
+      ],
+      [
+        "onSignOut?",
+        "() => void | Promise<unknown>",
+        ""
+      ],
+      [
+        "signOutKeys?",
+        "string[]",
+        ""
+      ],
+      [
+        "align?",
+        "\"start\" | \"center\" | \"end\"",
+        "Align the panel to the logical start, center, or end of the trigger."
+      ],
+      [
+        "showName?",
+        "boolean",
+        "Shows the name and a chevron beside the avatar on wider screens."
+      ],
+      [
+        "open?",
+        "boolean",
+        ""
+      ],
+      [
+        "defaultOpen?",
+        "boolean",
+        ""
+      ],
+      [
+        "onOpenChange?",
+        "(open: boolean) => void",
+        ""
+      ],
+      [
+        "portal?",
+        "boolean",
+        "Renders the desktop panel in a portal on the body. Pass false to keep it inside the trigger's wrapper."
+      ],
+      [
+        "ref?",
+        "Ref<HTMLButtonElement>",
+        "The trigger button, for returning focus after the menu is swapped out."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "panelClassName?",
+        "string",
+        "Applies to the portaled panel/sheet, not its trigger."
+      ],
+      [
+        "panelStyle?",
+        "CSSProperties",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultStatus": "\"available\"",
+      "defaultTheme": "\"system\"",
+      "showTheme": "true",
+      "items": "[]",
+      "align": "\"end\"",
+      "showName": "false",
+      "defaultOpen": "false",
+      "portal": "true"
+    },
+    "exports": [
+      "userStatuses",
+      "PresenceDot",
+      "UserMenu"
+    ],
+    "defaultExport": "UserMenu",
+    "example": "import UserMenu from \"@/variants/vendor/registry/components/user-menu/user-menu\";"
+  },
+  "stepper": {
+    "props": [
+      [
+        "steps",
+        "StepperStep[]",
+        ""
+      ],
+      [
+        "current",
+        "number",
+        "Index of the step in progress. `steps.length` marks the whole flow complete."
+      ],
+      [
+        "orientation?",
+        "\"horizontal\" | \"vertical\"",
+        ""
+      ],
+      [
+        "onStepSelect?",
+        "(index: number) => void",
+        "Called with the index of a completed step when it is chosen. Without it the stepper is a read-only indicator."
+      ],
+      [
+        "details?",
+        "\"all\" | \"current\"",
+        "`current` shows only the active step's description, for tight spaces. Errors always show."
+      ],
+      [
+        "compact?",
+        "boolean",
+        "Markers only; labels stay available to assistive tech. Horizontal steppers switch to this below 30rem on their own\nand show the current step's label underneath. The compact marker row scrolls when its targets need more space."
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name for the stepper."
+      ],
+      [
+        "completeLabel?",
+        "string",
+        "Announced, and shown in the compact caption, once every step is complete."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "orientation": "\"horizontal\"",
+      "details": "\"all\"",
+      "compact": "false",
+      "label": "\"Progress\"",
+      "completeLabel": "\"All steps complete\""
+    },
+    "exports": [
+      "Stepper"
+    ],
+    "defaultExport": "Stepper",
+    "example": "import Stepper from \"@/variants/vendor/registry/components/stepper/stepper\";"
+  },
+  "signature-pad": {
+    "props": [
+      [
+        "signer?",
+        "string",
+        "Printed under the baseline, such as the signer's name."
+      ],
+      [
+        "hint?",
+        "string",
+        "Resting hint on the baseline before the first stroke."
+      ],
+      [
+        "defaultColor?",
+        "\"black\" | \"blue\" | \"violet\"",
+        ""
+      ],
+      [
+        "defaultWidth?",
+        "\"fine\" | \"medium\" | \"bold\"",
+        ""
+      ],
+      [
+        "onChange?",
+        "(strokes: InkStroke[]) => void",
+        "Receives the strokes after every change."
+      ],
+      [
+        "fileName?",
+        "string",
+        "File name for exports, without extension."
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name of the drawing surface."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "hint": "\"Sign here\"",
+      "defaultColor": "\"black\"",
+      "defaultWidth": "\"medium\"",
+      "fileName": "\"signature\"",
+      "label": "\"Signature pad\""
+    },
+    "exports": [
+      "PAD_WIDTH",
+      "PAD_HEIGHT",
+      "getStrokeOutline",
+      "outlineToPath",
+      "strokePath",
+      "signatureToSvg",
+      "signatureToPng",
+      "SignaturePad"
+    ],
+    "defaultExport": "SignaturePad",
+    "example": "import SignaturePad from \"@/variants/vendor/registry/components/signature-pad/signature-pad\";"
+  },
+  "icon-morph": {
+    "props": [
+      [
+        "name",
+        "\"menu\" | \"play\" | \"plus\" | \"copy\" | \"theme\" | \"chevron\" | \"bell\" | \"heart\"",
+        ""
+      ],
+      [
+        "state?",
+        "boolean",
+        "The second state of the icon. menu: close, play: pause, plus: check, copy: check,\ntheme: moon, chevron: turned, bell: notifications on, heart: liked."
+      ],
+      [
+        "size?",
+        "number",
+        "Rendered size in px. When omitted, uses the Icon Morph default size role."
+      ],
+      [
+        "strokeWidth?",
+        "number",
+        "Frame stroke in the 24-unit grid. When omitted, uses the Icon Morph default stroke role. Play/pause paths use their own optical stroke."
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "MenuIcon",
+      "PlayPauseIcon",
+      "PlusCheckIcon",
+      "CopyCheckIcon",
+      "SunMoonIcon",
+      "ChevronIcon",
+      "BellIcon",
+      "HeartIcon",
+      "IconMorph"
+    ],
+    "defaultExport": "IconMorph",
+    "example": "import IconMorph from \"@/variants/vendor/registry/components/icon-morph/icon-morph\";"
+  },
+  "date-range-picker": {
+    "props": [
+      [
+        "value?",
+        "DateRange | null",
+        "Controlled value. Pass `null` for no selection."
+      ],
+      [
+        "defaultValue?",
+        "DateRange | null",
+        "Uncontrolled starting value."
+      ],
+      [
+        "onValueChange?",
+        "(range: DateRange) => void",
+        "Called with the applied range."
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name of the trigger and the dialog. Defaults to \"Date range\"."
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "presets?",
+        "DateRangePreset[]",
+        ""
+      ],
+      [
+        "minDate?",
+        "Date",
+        ""
+      ],
+      [
+        "maxDate?",
+        "Date",
+        ""
+      ],
+      [
+        "weekStartsOn?",
+        "0 | 1",
+        "0 is Sunday, 1 is Monday. Defaults to 0."
+      ],
+      [
+        "locale?",
+        "string",
+        ""
+      ],
+      [
+        "months?",
+        "\"auto\" | 1 | 2",
+        "Force one or two months. `auto` picks two when the boundary is wide enough."
+      ],
+      [
+        "boundary?",
+        "() => HTMLElement | null",
+        "The element the panel should stay inside. Defaults to the viewport."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "null",
+      "label": "\"Date range\"",
+      "placeholder": "\"Select dates\"",
+      "presets": "defaultDateRangePresets",
+      "weekStartsOn": "0",
+      "locale": "\"en-US\"",
+      "months": "\"auto\""
+    },
+    "exports": [
+      "defaultDateRangePresets",
+      "DateRangePicker"
+    ],
+    "defaultExport": "DateRangePicker",
+    "example": "import DateRangePicker from \"@/variants/vendor/registry/components/date-range-picker/date-range-picker\";"
+  },
+  "color-picker": {
+    "props": [
+      [
+        "value?",
+        "string",
+        "Any color the picker can read: hex, rgb(), hsl(), or oklch()."
+      ],
+      [
+        "defaultValue?",
+        "string",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(hex: string) => void",
+        "Receives the color as hex, with two alpha digits when it is not opaque."
+      ],
+      [
+        "background?",
+        "string",
+        "The background the color will sit on, for the contrast readout."
+      ],
+      [
+        "label?",
+        "string",
+        "Name shown on the swatch, such as \"Accent\"."
+      ],
+      [
+        "swatches?",
+        "ColorSwatch[]",
+        ""
+      ],
+      [
+        "defaultSwatches?",
+        "ColorSwatch[]",
+        ""
+      ],
+      [
+        "onSwatchesChange?",
+        "(swatches: ColorSwatch[]) => void",
+        ""
+      ],
+      [
+        "maxSwatches?",
+        "number",
+        "Most saved swatches. Saving past it drops the oldest."
+      ],
+      [
+        "defaultFormat?",
+        "\"hex\" | \"rgb\" | \"hsl\" | \"oklch\"",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "colorPickerPalette.initialInk",
+      "background": "colorPickerPalette.contrastPaper",
+      "label": "\"Color\"",
+      "maxSwatches": "collectionPresentation.colorPickerMaxSwatches",
+      "defaultFormat": "\"hex\""
+    },
+    "exports": [
+      "toHex",
+      "parseColor",
+      "ColorPicker"
+    ],
+    "defaultExport": "ColorPicker",
+    "example": "import ColorPicker from \"@/variants/vendor/registry/components/color-picker/color-picker\";"
+  },
+  "morph-select": {
+    "props": [
+      [
+        "label",
+        "string",
+        "Visible label, also the accessible name of the trigger and the list."
+      ],
+      [
+        "hideLabel?",
+        "boolean",
+        "Keeps the label for assistive technology only."
+      ],
+      [
+        "items",
+        "MorphSelectItem[]",
+        ""
+      ],
+      [
+        "value?",
+        "string | null",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "string | null",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: string, option: MorphSelectOption) => void",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "searchable?",
+        "boolean | \"auto\"",
+        "Shows a search field in place of the trigger when open. \"auto\" turns it on above eight options."
+      ],
+      [
+        "searchPlaceholder?",
+        "string",
+        ""
+      ],
+      [
+        "panelWidth?",
+        "number",
+        "Width of the open surface in px. It never gets narrower than the trigger. Defaults to 272."
+      ],
+      [
+        "maxListHeight?",
+        "number",
+        "Tallest the option list gets before it scrolls, in px. Defaults to 296."
+      ],
+      [
+        "align?",
+        "\"start\" | \"end\"",
+        "Which edge of the trigger stays put while the surface grows."
+      ],
+      [
+        "name?",
+        "string",
+        "Adds a hidden input for native form submission."
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "hideLabel": "false",
+      "defaultValue": "null",
+      "placeholder": "\"Select\"",
+      "searchable": "\"auto\"",
+      "align": "\"start\"",
+      "disabled": "false"
+    },
+    "exports": [
+      "MorphSelect"
+    ],
+    "defaultExport": "MorphSelect",
+    "example": "import MorphSelect from \"@/variants/vendor/registry/components/morph-select/morph-select\";"
+  },
+  "line-chart": {
+    "props": [
+      [
+        "data",
+        "LineChartDatum[]",
+        ""
+      ],
+      [
+        "series",
+        "LineChartSeries[]",
+        ""
+      ],
+      [
+        "label",
+        "string",
+        "What is measured, such as \"Signups\". Names the chart for assistive technology."
+      ],
+      [
+        "unit?",
+        "string",
+        "Unit after each value in the tooltip, such as \"ms\"."
+      ],
+      [
+        "height?",
+        "number",
+        "Plot height in pixels. The width follows the container."
+      ],
+      [
+        "formatValue?",
+        "(value: number, series: LineChartSeries) => string",
+        "Formats values in the tooltip and data table."
+      ],
+      [
+        "formatTick?",
+        "(value: number) => string",
+        "Formats the value axis. Defaults to a compact number, such as 1.2K."
+      ],
+      [
+        "hiddenSeries?",
+        "string[]",
+        "Controlled hidden series keys."
+      ],
+      [
+        "defaultHiddenSeries?",
+        "string[]",
+        ""
+      ],
+      [
+        "onHiddenSeriesChange?",
+        "(hidden: string[]) => void",
+        ""
+      ],
+      [
+        "onActiveChange?",
+        "(index: number | null, datum: LineChartDatum | null) => void",
+        "Called as the crosshair moves, and with null when it leaves. Use it to drive a headline readout."
+      ],
+      [
+        "loading?",
+        "boolean",
+        "Keeps the current lines on screen, dimmed, while the next range loads."
+      ],
+      [
+        "emptyLabel?",
+        "string",
+        "Shown when there are no points."
+      ],
+      [
+        "legend?",
+        "boolean",
+        "Series toggles above the plot. Shown by default when there is more than one series."
+      ],
+      [
+        "categoryLabel?",
+        "string",
+        "Header of the first column in the data table read by screen readers."
+      ],
+      [
+        "curve?",
+        "\"smooth\" | \"linear\"",
+        "Smooth monotone curves that never swing past the data, or straight segments."
+      ],
+      [
+        "ref?",
+        "Ref<HTMLElement>",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "unit": "\"\"",
+      "height": "lineChartGeometry.defaultHeightPx",
+      "formatTick": "value => compact.format(value)",
+      "loading": "false",
+      "emptyLabel": "\"No data for this range\"",
+      "categoryLabel": "\"Date\"",
+      "curve": "\"smooth\""
+    },
+    "exports": [
+      "LineChart"
+    ],
+    "defaultExport": "LineChart",
+    "example": "import LineChart from \"@/variants/vendor/registry/components/line-chart/line-chart\";"
+  },
+  "donut-chart": {
+    "props": [
+      [
+        "data",
+        "DonutChartDatum[]",
+        ""
+      ],
+      [
+        "label",
+        "string",
+        "What the whole is, such as \"Visits by source\". Names the chart for assistive technology."
+      ],
+      [
+        "unit?",
+        "string",
+        "Unit after values, such as \"visits\"."
+      ],
+      [
+        "formatValue?",
+        "(value: number) => string",
+        ""
+      ],
+      [
+        "totalLabel?",
+        "string",
+        "Center label at rest, above the total."
+      ],
+      [
+        "size?",
+        "number",
+        "Diameter in pixels. The chart scales down to fit narrower containers."
+      ],
+      [
+        "thickness?",
+        "number",
+        "Ring thickness in pixels."
+      ],
+      [
+        "groupBelow?",
+        "number",
+        "Segments below this share of the total join \"Other\"."
+      ],
+      [
+        "maxSegments?",
+        "number",
+        "The most segments drawn, counting \"Other\". The smallest parts beyond it are grouped."
+      ],
+      [
+        "otherLabel?",
+        "string",
+        ""
+      ],
+      [
+        "activeKey?",
+        "string | null",
+        "Controlled selected segment key. Hover and focus preview other segments without changing it."
+      ],
+      [
+        "defaultActiveKey?",
+        "string | null",
+        ""
+      ],
+      [
+        "onActiveChange?",
+        "(key: string | null) => void",
+        ""
+      ],
+      [
+        "hiddenKeys?",
+        "string[]",
+        "Controlled hidden segment keys. A hidden segment closes and the rest of the ring redistributes."
+      ],
+      [
+        "defaultHiddenKeys?",
+        "string[]",
+        ""
+      ],
+      [
+        "onHiddenKeysChange?",
+        "(keys: string[]) => void",
+        ""
+      ],
+      [
+        "legendAction?",
+        "\"toggle\" | \"select\"",
+        "What clicking a legend row does: show or hide its segment, or pin it as the selected segment."
+      ],
+      [
+        "legend?",
+        "boolean",
+        "The synced legend beside or below the ring."
+      ],
+      [
+        "emptyLabel?",
+        "string",
+        ""
+      ],
+      [
+        "ref?",
+        "Ref<HTMLElement>",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "unit": "\"\"",
+      "formatValue": "value => grouped.format(value)",
+      "totalLabel": "\"Total\"",
+      "size": "donutChartGeometry.sizePx",
+      "thickness": "donutChartGeometry.thicknessPx",
+      "groupBelow": "donutChartGeometry.groupBelowShare",
+      "maxSegments": "donutChartGeometry.maxSegments",
+      "otherLabel": "\"Other\"",
+      "defaultActiveKey": "null",
+      "legendAction": "\"toggle\"",
+      "legend": "true",
+      "emptyLabel": "\"No data yet\""
+    },
+    "exports": [
+      "DonutChart"
+    ],
+    "defaultExport": "DonutChart",
+    "example": "import DonutChart from \"@/variants/vendor/registry/components/donut-chart/donut-chart\";"
+  },
+  "streamgraph": {
+    "props": [
+      [
+        "data",
+        "StreamgraphDatum[]",
+        ""
+      ],
+      [
+        "series",
+        "StreamgraphSeries[]",
+        "Layers from the centre out: the first runs through the middle of the stream, the rest alternate above and below it."
+      ],
+      [
+        "label",
+        "string",
+        "What is measured, such as \"Support tickets by topic\". Names the chart for assistive technology."
+      ],
+      [
+        "unit?",
+        "string",
+        "Unit after each value, such as \"tickets\"."
+      ],
+      [
+        "height?",
+        "number",
+        "Plot height in pixels. The width follows the container."
+      ],
+      [
+        "offset?",
+        "\"wiggle\" | \"silhouette\" | \"zero\"",
+        "\"wiggle\" minimises layer slopes for a flowing stream, \"silhouette\" centres the stack, \"zero\" stacks from a flat baseline."
+      ],
+      [
+        "formatValue?",
+        "(value: number, series: StreamgraphSeries) => string",
+        ""
+      ],
+      [
+        "hiddenSeries?",
+        "string[]",
+        "Controlled hidden layer keys. A hidden layer thins to nothing and the rest reflow."
+      ],
+      [
+        "defaultHiddenSeries?",
+        "string[]",
+        ""
+      ],
+      [
+        "onHiddenSeriesChange?",
+        "(hidden: string[]) => void",
+        ""
+      ],
+      [
+        "onActiveChange?",
+        "(index: number | null, seriesKey: string | null) => void",
+        "Called as the reading moves, and with nulls when it leaves."
+      ],
+      [
+        "legend?",
+        "boolean",
+        "Layer toggles above the plot."
+      ],
+      [
+        "directLabels?",
+        "boolean",
+        "Names each layer inside its widest stretch when it is thick enough to hold the text."
+      ],
+      [
+        "categoryLabel?",
+        "string",
+        "Header of the first column in the screen reader table."
+      ],
+      [
+        "emptyLabel?",
+        "string",
+        ""
+      ],
+      [
+        "ref?",
+        "Ref<HTMLElement>",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "unit": "\"\"",
+      "height": "streamgraphGeometry.defaultHeightPx",
+      "offset": "\"wiggle\"",
+      "legend": "true",
+      "directLabels": "true",
+      "categoryLabel": "\"Date\"",
+      "emptyLabel": "\"No data for this range\""
+    },
+    "exports": [
+      "Streamgraph"
+    ],
+    "defaultExport": "Streamgraph",
+    "example": "import Streamgraph from \"@/variants/vendor/registry/components/streamgraph/streamgraph\";"
+  },
+  "brush-chart": {
+    "props": [
+      [
+        "data",
+        "BrushChartDatum[]",
+        ""
+      ],
+      [
+        "label",
+        "string",
+        "What is measured, such as \"Daily active users\". Names the chart for assistive technology."
+      ],
+      [
+        "unit?",
+        "string",
+        "Unit after each value, such as \"users\"."
+      ],
+      [
+        "formatValue?",
+        "(value: number) => string",
+        ""
+      ],
+      [
+        "formatTick?",
+        "(value: number) => string",
+        "Formats the value axis. Defaults to a compact number, such as 12K."
+      ],
+      [
+        "formatDate?",
+        "(date: Date) => string",
+        "Formats a date in the tooltip and announcements."
+      ],
+      [
+        "annotations?",
+        "BrushChartAnnotation[]",
+        "Events drawn as markers on both charts."
+      ],
+      [
+        "range?",
+        "[number, number]",
+        "Controlled window as [start, end] epoch milliseconds. A new value glides the window there."
+      ],
+      [
+        "defaultRange?",
+        "[number, number]",
+        "Initial window when uncontrolled. Defaults to the whole series."
+      ],
+      [
+        "onRangeChange?",
+        "(range: [number, number]) => void",
+        "Called while the window is dragged, resized, stepped, or reset."
+      ],
+      [
+        "minSpan?",
+        "number",
+        "Smallest window in milliseconds. Defaults to seven days."
+      ],
+      [
+        "height?",
+        "number",
+        "Main plot height in pixels."
+      ],
+      [
+        "overviewHeight?",
+        "number",
+        "Overview strip height in pixels."
+      ],
+      [
+        "emptyLabel?",
+        "string",
+        ""
+      ],
+      [
+        "ref?",
+        "Ref<HTMLElement>",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "unit": "\"\"",
+      "formatValue": "value => grouped.format(value)",
+      "formatTick": "value => compact.format(value)",
+      "formatDate": "date => fullDate.format(date)",
+      "annotations": "[]",
+      "minSpan": "7 * DAY",
+      "height": "brushChartGeometry.defaultPlotHeightPx",
+      "overviewHeight": "brushChartGeometry.defaultOverviewHeightPx",
+      "emptyLabel": "\"No data yet\""
+    },
+    "exports": [
+      "BrushChart"
+    ],
+    "defaultExport": "BrushChart",
+    "example": "import BrushChart from \"@/variants/vendor/registry/components/brush-chart/brush-chart\";"
+  },
+  "ridgeline": {
+    "props": [
+      [
+        "series",
+        "RidgelineSeries[]",
+        "One ridge per series, drawn top to bottom."
+      ],
+      [
+        "label",
+        "string",
+        "What is measured, such as \"Daily highs in Zurich\". Names the chart for assistive technology."
+      ],
+      [
+        "unit?",
+        "string",
+        "Unit after each value, such as \"°C\"."
+      ],
+      [
+        "formatValue?",
+        "(value: number) => string",
+        ""
+      ],
+      [
+        "domain?",
+        "[number, number]",
+        "Value range of the axis. Defaults to the data with a little room on each side."
+      ],
+      [
+        "overlap?",
+        "number",
+        "How far a ridge may rise into the rows above, in row heights."
+      ],
+      [
+        "rowHeight?",
+        "number",
+        "Height of one row in pixels."
+      ],
+      [
+        "bandwidth?",
+        "number",
+        "Smoothing in value units. Defaults to Silverman's rule per series."
+      ],
+      [
+        "tint?",
+        "boolean",
+        "Shades each ridge by its median, from a light tint to the full first series color, and shows the scale under the axis."
+      ],
+      [
+        "active?",
+        "string | null",
+        "Controlled id of the lifted ridge."
+      ],
+      [
+        "defaultActive?",
+        "string | null",
+        ""
+      ],
+      [
+        "onActiveChange?",
+        "(id: string | null) => void",
+        ""
+      ],
+      [
+        "emptyLabel?",
+        "string",
+        ""
+      ],
+      [
+        "ref?",
+        "Ref<HTMLElement>",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "unit": "\"\"",
+      "overlap": "ridgelineGeometry.defaultOverlap",
+      "rowHeight": "ridgelineGeometry.defaultRowHeightPx",
+      "tint": "true",
+      "defaultActive": "null",
+      "emptyLabel": "\"No data yet\""
+    },
+    "exports": [
+      "Ridgeline"
+    ],
+    "defaultExport": "Ridgeline",
+    "example": "import Ridgeline from \"@/variants/vendor/registry/components/ridgeline/ridgeline\";"
+  },
+  "treemap": {
+    "props": [
+      [
+        "data",
+        "TreemapNode",
+        "The root. Its label names the whole in the first breadcrumb."
+      ],
+      [
+        "label",
+        "string",
+        "What the whole is, such as \"Revenue\". Names the chart for assistive technology."
+      ],
+      [
+        "formatValue?",
+        "(value: number) => string",
+        ""
+      ],
+      [
+        "colorLabel?",
+        "string",
+        "Names the shading measure in the tooltip and scale, such as \"Growth\". Measured tiles share the same accent ramp as the legend. Without a shading measure, top-level branches use distinct tonal series."
+      ],
+      [
+        "formatColor?",
+        "(value: number) => string",
+        ""
+      ],
+      [
+        "colorDomain?",
+        "[number, number]",
+        "Range of the color measure. Defaults to the range of the leaves."
+      ],
+      [
+        "focus?",
+        "string",
+        "Controlled id of the node that fills the view."
+      ],
+      [
+        "defaultFocus?",
+        "string",
+        ""
+      ],
+      [
+        "onFocusChange?",
+        "(id: string) => void",
+        ""
+      ],
+      [
+        "height?",
+        "number",
+        "Height of the tiles in pixels."
+      ],
+      [
+        "emptyLabel?",
+        "string",
+        ""
+      ],
+      [
+        "ref?",
+        "Ref<HTMLElement>",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "formatValue": "defaultFormatValue",
+      "formatColor": "value => grouped.format(value)",
+      "height": "treemapGeometry.defaultHeightPx",
+      "emptyLabel": "\"No data yet\""
+    },
+    "exports": [
+      "Treemap"
+    ],
+    "defaultExport": "Treemap",
+    "example": "import Treemap from \"@/variants/vendor/registry/components/treemap/treemap\";"
+  },
+  "waffle-chart": {
+    "props": [
+      [
+        "data",
+        "WaffleCategory[]",
+        "Categories in fill order. The first fills from the bottom-left corner, column by column."
+      ],
+      [
+        "label",
+        "string",
+        "What the whole is, such as \"Electricity generation, 2023\". Names the chart for assistive technology."
+      ],
+      [
+        "unit?",
+        "string",
+        "Unit after each raw value in the tooltip and table, such as \"TWh\"."
+      ],
+      [
+        "formatValue?",
+        "(value: number, category: WaffleCategory) => string",
+        ""
+      ],
+      [
+        "rows?",
+        "number",
+        "Grid rows. rows × columns cells make the whole; 10 × 10 means one cell per percent."
+      ],
+      [
+        "columns?",
+        "number",
+        ""
+      ],
+      [
+        "accentKey?",
+        "string | null",
+        "The category painted in the accent. Pass null to keep every category neutral. Defaults to the first category."
+      ],
+      [
+        "activeKey?",
+        "string | null",
+        "Controlled focused category. Others dim while one is focused."
+      ],
+      [
+        "defaultActiveKey?",
+        "string | null",
+        ""
+      ],
+      [
+        "onActiveChange?",
+        "(key: string | null) => void",
+        ""
+      ],
+      [
+        "legend?",
+        "boolean",
+        "Category list with shares that roll to their new value."
+      ],
+      [
+        "decimals?",
+        "number",
+        "Decimal places for shares."
+      ],
+      [
+        "emptyLabel?",
+        "string",
+        ""
+      ],
+      [
+        "ref?",
+        "Ref<HTMLElement>",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "unit": "\"\"",
+      "rows": "waffleChartGeometry.defaultRows",
+      "columns": "waffleChartGeometry.defaultColumns",
+      "defaultActiveKey": "null",
+      "legend": "true",
+      "decimals": "0",
+      "emptyLabel": "\"No data\""
+    },
+    "exports": [
+      "WaffleChart"
+    ],
+    "defaultExport": "WaffleChart",
+    "example": "import WaffleChart from \"@/variants/vendor/registry/components/waffle-chart/waffle-chart\";"
+  },
+  "slope-chart": {
+    "props": [
+      [
+        "data",
+        "SlopeItem[]",
+        ""
+      ],
+      [
+        "label",
+        "string",
+        "What is measured, such as \"Conversion rate by channel\". Names the chart for assistive technology."
+      ],
+      [
+        "startLabel",
+        "string",
+        "Heading of the first column, such as \"Q1\"."
+      ],
+      [
+        "endLabel",
+        "string",
+        "Heading of the second column, such as \"Q2\"."
+      ],
+      [
+        "formatValue?",
+        "(value: number) => string",
+        ""
+      ],
+      [
+        "formatChange?",
+        "(change: number, item: SlopeItem) => string",
+        "Formats the change in the tooltip. Defaults to the difference in formatValue's terms."
+      ],
+      [
+        "height?",
+        "number",
+        "Plot height in pixels. Defaults to a token-based measure scaled for the number of items and text size."
+      ],
+      [
+        "highlightKey?",
+        "string | null",
+        "The item drawn in the accent, such as the one the story is about."
+      ],
+      [
+        "activeKey?",
+        "string | null",
+        "Controlled item in focus. The others fade while one is in focus."
+      ],
+      [
+        "onActiveChange?",
+        "(key: string | null) => void",
+        ""
+      ],
+      [
+        "ranks?",
+        "boolean",
+        "Rank movement beside each end value."
+      ],
+      [
+        "emptyLabel?",
+        "string",
+        ""
+      ],
+      [
+        "ref?",
+        "Ref<HTMLElement>",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "highlightKey": "null",
+      "ranks": "true",
+      "emptyLabel": "\"No data\""
+    },
+    "exports": [
+      "SlopeChart"
+    ],
+    "defaultExport": "SlopeChart",
+    "example": "import SlopeChart from \"@/variants/vendor/registry/components/slope-chart/slope-chart\";"
+  },
+  "countdown": {
+    "props": [
+      [
+        "target",
+        "Date | number | string",
+        "The moment to count down to. A number is epoch milliseconds, a Date is used as is, and an ISO string with `Z` or an offset\nsuch as `2026-10-06T10:00:00-07:00` is exact. A string without an offset is wall time in `timeZone`, or UTC when no zone is given,\nso the result never depends on the visitor's own time zone."
+      ],
+      [
+        "timeZone?",
+        "string",
+        "IANA zone for a target string without an offset, such as \"America/Los_Angeles\". Daylight saving is resolved for the target date."
+      ],
+      [
+        "units?",
+        "CountdownUnit[]",
+        "Units to show, largest first. The largest unit absorbs the rest, so hours can pass 24 when days are left out."
+      ],
+      [
+        "variant?",
+        "\"large\" | \"compact\"",
+        "Large digits with unit labels, or one compact line for banners and table cells."
+      ],
+      [
+        "completeLabel?",
+        "ReactNode",
+        "Shown once the target passes. The digits morph into it."
+      ],
+      [
+        "onComplete?",
+        "() => void",
+        "Fires once, the moment the countdown reaches zero while mounted. It fires on time even when the tab is hidden."
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name, such as \"Keynote starts in\"."
+      ],
+      [
+        "clock?",
+        "() => number",
+        "Clock source in epoch milliseconds. Pass a server-synced clock when the visitor's device time cannot be trusted."
+      ],
+      [
+        "ref?",
+        "Ref<HTMLDivElement>",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "units": "DEFAULT_UNITS",
+      "variant": "\"large\"",
+      "completeLabel": "\"Live now\"",
+      "label": "\"Time remaining\"",
+      "clock": "systemClock"
+    },
+    "exports": [
+      "toEpoch",
+      "Countdown"
+    ],
+    "defaultExport": "Countdown",
+    "example": "import Countdown from \"@/variants/vendor/registry/components/countdown/countdown\";"
+  },
+  "cookie-consent": {
+    "props": [
+      [
+        "categories?",
+        "CookieCategory[]",
+        ""
+      ],
+      [
+        "value?",
+        "CookieConsentValue | null",
+        "The saved choice. `null` means the visitor has not decided yet. Leave it out to let the component manage it."
+      ],
+      [
+        "defaultValue?",
+        "CookieConsentValue | null",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: CookieConsentValue | null, detail: { action: CookieConsentAction; updatedAt: Date }) => void",
+        ""
+      ],
+      [
+        "storageKey?",
+        "string",
+        "Remembers the choice in `localStorage` under this key. Read it elsewhere with `readCookieConsent`."
+      ],
+      [
+        "version?",
+        "string",
+        "Bump when your categories or policy change to ask again."
+      ],
+      [
+        "preferencesOpen?",
+        "boolean",
+        "Whether the preferences panel is open."
+      ],
+      [
+        "defaultPreferencesOpen?",
+        "boolean",
+        ""
+      ],
+      [
+        "onPreferencesOpenChange?",
+        "(open: boolean) => void",
+        ""
+      ],
+      [
+        "policy?",
+        "{ label: string; href?: string; onClick?: () => void }",
+        "Link to the full policy, shown in the bar and panel."
+      ],
+      [
+        "position?",
+        "\"bottom\" | \"bottom-left\" | \"bottom-right\"",
+        ""
+      ],
+      [
+        "strategy?",
+        "\"fixed\" | \"absolute\"",
+        "`fixed` pins to the viewport; `absolute` fills the nearest positioned ancestor, useful for previews."
+      ],
+      [
+        "showReopenButton?",
+        "boolean",
+        "Keep a small button after a choice so visitors can change their mind. Defaults to true."
+      ],
+      [
+        "reopenSide?",
+        "\"left\" | \"right\"",
+        "Corner for the reopen button. Defaults to the bar's side, or left when the bar is centered."
+      ],
+      [
+        "labels?",
+        "Partial<CookieConsentLabels>",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "categories": "defaultCookieCategories",
+      "defaultValue": "null",
+      "version": "\"1\"",
+      "defaultPreferencesOpen": "false",
+      "position": "\"bottom\"",
+      "strategy": "\"fixed\"",
+      "showReopenButton": "true"
+    },
+    "exports": [
+      "defaultCookieCategories",
+      "readCookieConsent",
+      "CookieConsent"
+    ],
+    "defaultExport": "CookieConsent",
+    "example": "import CookieConsent from \"@/variants/vendor/registry/components/cookie-consent/cookie-consent\";"
+  },
+  "announcement-bar": {
+    "props": [
+      [
+        "messages",
+        "Announcement[]",
+        ""
+      ],
+      [
+        "id?",
+        "string",
+        "Remembers dismissal under this id. Change the id to show a new campaign to everyone again."
+      ],
+      [
+        "open?",
+        "boolean",
+        "Whether the bar is shown. Leave it out to let the component manage it."
+      ],
+      [
+        "defaultOpen?",
+        "boolean",
+        ""
+      ],
+      [
+        "onOpenChange?",
+        "(open: boolean) => void",
+        ""
+      ],
+      [
+        "index?",
+        "number",
+        "Index of the visible message."
+      ],
+      [
+        "defaultIndex?",
+        "number",
+        ""
+      ],
+      [
+        "onIndexChange?",
+        "(index: number) => void",
+        ""
+      ],
+      [
+        "interval?",
+        "number",
+        "Milliseconds each message stays before the next one. Defaults to 6000."
+      ],
+      [
+        "autoPlay?",
+        "boolean",
+        "Rotate automatically. Pauses on hover, focus, or a hidden tab, and is turned off when the visitor prefers reduced motion. Defaults to false."
+      ],
+      [
+        "controls?",
+        "boolean",
+        "Show previous, next, and pause controls when there are several messages. Defaults to false: only the close button shows."
+      ],
+      [
+        "dismissible?",
+        "boolean",
+        ""
+      ],
+      [
+        "tone?",
+        "\"neutral\" | \"inverted\"",
+        ""
+      ],
+      [
+        "onAction?",
+        "(announcement: Announcement) => void",
+        ""
+      ],
+      [
+        "onCountdownEnd?",
+        "(announcement: Announcement) => void",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name of the region."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultOpen": "true",
+      "defaultIndex": "0",
+      "interval": "6000",
+      "autoPlay": "false",
+      "controls": "false",
+      "dismissible": "true",
+      "tone": "\"neutral\"",
+      "label": "\"Announcements\""
+    },
+    "exports": [
+      "clearAnnouncementDismissal",
+      "AnnouncementBar"
+    ],
+    "defaultExport": "AnnouncementBar",
+    "example": "import AnnouncementBar from \"@/variants/vendor/registry/components/announcement-bar/announcement-bar\";"
+  },
+  "json-viewer": {
+    "props": [
+      [
+        "data",
+        "unknown",
+        ""
+      ],
+      [
+        "rootName?",
+        "string",
+        "Name of the root in paths, as in `root.users[0].name`. Defaults to \"root\"."
+      ],
+      [
+        "defaultExpandDepth?",
+        "number",
+        "Levels open on first render when `defaultExpanded` is not set. Defaults to 1, which opens the root."
+      ],
+      [
+        "expanded?",
+        "string[]",
+        "Paths of open branches."
+      ],
+      [
+        "defaultExpanded?",
+        "string[]",
+        ""
+      ],
+      [
+        "onExpandedChange?",
+        "(paths: string[]) => void",
+        ""
+      ],
+      [
+        "searchable?",
+        "boolean",
+        "Show the search field. Defaults to true."
+      ],
+      [
+        "query?",
+        "string",
+        ""
+      ],
+      [
+        "defaultQuery?",
+        "string",
+        ""
+      ],
+      [
+        "onQueryChange?",
+        "(query: string) => void",
+        ""
+      ],
+      [
+        "pageSize?",
+        "number",
+        "Children shown per page in a long array or object. Defaults to 50."
+      ],
+      [
+        "copyable?",
+        "boolean",
+        "Show copy value and copy path actions. Defaults to true."
+      ],
+      [
+        "onCopy?",
+        "(detail: JsonViewerCopyDetail) => void",
+        ""
+      ],
+      [
+        "onSelect?",
+        "(detail: { path: string; value: unknown; type: JsonValueType }) => void",
+        "Called when a row becomes the current one."
+      ],
+      [
+        "showPath?",
+        "boolean",
+        "Show the path of the current row under the tree. Defaults to true."
+      ],
+      [
+        "maxHeight?",
+        "number | string",
+        "Height of the scrolling tree area. Defaults to 420px."
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name of the tree."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "rootName": "\"root\"",
+      "defaultExpandDepth": "collectionPresentation.jsonTreeExpandDepth",
+      "searchable": "true",
+      "defaultQuery": "\"\"",
+      "pageSize": "collectionPresentation.jsonTreePageSize",
+      "copyable": "true",
+      "showPath": "true",
+      "label": "\"JSON\""
+    },
+    "exports": [
+      "JsonViewer"
+    ],
+    "defaultExport": "JsonViewer",
+    "example": "import JsonViewer from \"@/variants/vendor/registry/components/json-viewer/json-viewer\";"
+  },
+  "scrub-input": {
+    "props": [
+      [
+        "label",
+        "ReactNode",
+        "Text or an icon. Icon labels need `aria-label` so the field keeps an accessible name."
+      ],
+      [
+        "value?",
+        "number",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "number",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: number, details: ScrubInputChangeDetails) => void",
+        "Fires for every change, including each step of a scrub."
+      ],
+      [
+        "onValueCommit?",
+        "(value: number, details: ScrubInputChangeDetails) => void",
+        "Fires once when a change settles: a scrub ends, Enter or blur commits typing, or a key step lands."
+      ],
+      [
+        "min?",
+        "number",
+        ""
+      ],
+      [
+        "max?",
+        "number",
+        ""
+      ],
+      [
+        "step?",
+        "number",
+        "One step for arrows and scrubbing. Defaults to 1."
+      ],
+      [
+        "fineStep?",
+        "number",
+        "Step with Alt held. Defaults to a tenth of `step`."
+      ],
+      [
+        "coarseStep?",
+        "number",
+        "Step with Shift held. Defaults to ten times `step`."
+      ],
+      [
+        "precision?",
+        "number",
+        "Decimal places kept. Defaults to the precision of `fineStep`."
+      ],
+      [
+        "pixelsPerStep?",
+        "number",
+        "Pointer travel in px for one step while scrubbing. Defaults to 2."
+      ],
+      [
+        "wrap?",
+        "boolean",
+        "Values wrap around from `max` to `min` instead of stopping, as rotation does. Needs both limits."
+      ],
+      [
+        "unit?",
+        "string",
+        "The unit shown after the number. With more than one entry in `units`, it becomes a button that cycles them."
+      ],
+      [
+        "defaultUnit?",
+        "string",
+        ""
+      ],
+      [
+        "units?",
+        "readonly string[]",
+        "Units a typed value may carry, such as [\"px\", \"%\"]. Defaults to the current unit."
+      ],
+      [
+        "onUnitChange?",
+        "(unit: string) => void",
+        ""
+      ],
+      [
+        "resetValue?",
+        "number",
+        "Double click the label to return here."
+      ],
+      [
+        "track?",
+        "boolean",
+        "Shows how far the value sits between `min` and `max` as a quiet fill. On by default when both limits are set."
+      ],
+      [
+        "size?",
+        "\"sm\" | \"default\"",
+        ""
+      ],
+      [
+        "pointerLock?",
+        "boolean",
+        "Locks the pointer while scrubbing when the browser allows it. On by default."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "0",
+      "min": "-Infinity",
+      "max": "Infinity",
+      "step": "1",
+      "pixelsPerStep": "presentation.defaultPixelsPerStep",
+      "wrap": "false",
+      "size": "\"default\"",
+      "pointerLock": "true"
+    },
+    "exports": [
+      "evaluateScrubExpression",
+      "ScrubInput"
+    ],
+    "defaultExport": "ScrubInput",
+    "example": "import ScrubInput from \"@/variants/vendor/registry/components/scrub-input/scrub-input\";"
+  },
+  "phone-input": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "hideLabel?",
+        "boolean",
+        ""
+      ],
+      [
+        "value?",
+        "string",
+        "The number in E.164, such as \"+14155550132\". An empty string clears the field."
+      ],
+      [
+        "defaultValue?",
+        "string",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: string, details: PhoneInputDetails) => void",
+        "Fires on every edit with the E.164 number (empty when there are no digits) and its parsed details."
+      ],
+      [
+        "country?",
+        "string",
+        "ISO code of the selected country."
+      ],
+      [
+        "defaultCountry?",
+        "string",
+        "ISO code used until someone picks a country or enters an international number."
+      ],
+      [
+        "onCountryChange?",
+        "(iso: string) => void",
+        ""
+      ],
+      [
+        "countries?",
+        "string[]",
+        "Limit the picker to these ISO codes."
+      ],
+      [
+        "preferredCountries?",
+        "string[]",
+        "Pinned at the top of the picker under \"Suggested\"."
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "error?",
+        "string",
+        "Replaces the built-in validation message."
+      ],
+      [
+        "validate?",
+        "boolean",
+        "Show a message after blur when the number is incomplete. On by default."
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "required?",
+        "boolean",
+        ""
+      ],
+      [
+        "name?",
+        "string",
+        "Adds a hidden input carrying the E.164 value for native form submission."
+      ],
+      [
+        "id?",
+        "string",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "onBlur?",
+        "(event: ReactFocusEvent<HTMLInputElement>) => void",
+        ""
+      ]
+    ],
+    "defaults": {
+      "hideLabel": "false",
+      "defaultCountry": "\"US\"",
+      "preferredCountries": "[\"US\", \"CA\", \"GB\"]",
+      "validate": "true",
+      "disabled": "false"
+    },
+    "exports": [
+      "PHONE_COUNTRIES",
+      "flagOf",
+      "formatNational",
+      "parsePhoneNumber",
+      "formatPhoneNumber",
+      "PhoneInput"
+    ],
+    "defaultExport": "PhoneInput",
+    "example": "import PhoneInput from \"@/variants/vendor/registry/components/phone-input/phone-input\";"
+  },
+  "money-input": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "hideLabel?",
+        "boolean",
+        ""
+      ],
+      [
+        "value?",
+        "number | null",
+        "Amount in minor units (cents for USD, yen for JPY). `null` is empty."
+      ],
+      [
+        "defaultValue?",
+        "number | null",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: number | null, details: MoneyInputDetails) => void",
+        ""
+      ],
+      [
+        "currency?",
+        "string",
+        "ISO 4217 code, such as \"USD\"."
+      ],
+      [
+        "defaultCurrency?",
+        "string",
+        ""
+      ],
+      [
+        "onCurrencyChange?",
+        "(currency: string) => void",
+        ""
+      ],
+      [
+        "currencies?",
+        "string[]",
+        "Codes offered by the currency menu. Pass one code to hide the menu."
+      ],
+      [
+        "min?",
+        "number",
+        "Lowest amount in minor units. Checked when the field loses focus."
+      ],
+      [
+        "max?",
+        "number",
+        "Highest amount in minor units. Typing past it is refused with a nudge."
+      ],
+      [
+        "quickAdd?",
+        "number[]",
+        "Quick add chips in major units. Pass an empty array to hide them."
+      ],
+      [
+        "step?",
+        "number",
+        "Arrow keys move by this many minor units. Defaults to one major unit; Shift moves ten times as far."
+      ],
+      [
+        "locale?",
+        "string",
+        "Formatting locale. Fixed by default so server and client render the same digits."
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "error?",
+        "string",
+        "Replaces the built-in range message."
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "name?",
+        "string",
+        "Adds a hidden input carrying the amount in minor units."
+      ],
+      [
+        "id?",
+        "string",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "onBlur?",
+        "(event: ReactFocusEvent<HTMLInputElement>) => void",
+        ""
+      ]
+    ],
+    "defaults": {
+      "hideLabel": "false",
+      "defaultValue": "null",
+      "defaultCurrency": "\"USD\"",
+      "currencies": "[\"USD\", \"EUR\", \"GBP\", \"JPY\", \"CAD\", \"AUD\", \"CHF\", \"INR\"]",
+      "quickAdd": "[10, 50, 100]",
+      "locale": "\"en-US\"",
+      "disabled": "false"
+    },
+    "exports": [
+      "MoneyInput"
+    ],
+    "defaultExport": "MoneyInput",
+    "example": "import MoneyInput from \"@/variants/vendor/registry/components/money-input/money-input\";"
+  },
+  "shortcut-recorder": {
+    "props": [
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "hideLabel?",
+        "boolean",
+        ""
+      ],
+      [
+        "value?",
+        "string | null",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "string | null",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: string | null, details: { replaced?: ShortcutBinding }) => void",
+        "`replaced` is the binding the new shortcut was taken from after \"Use anyway\", so the caller can unbind it."
+      ],
+      [
+        "resetValue?",
+        "string | null",
+        "What the reset button restores. Defaults to `defaultValue`."
+      ],
+      [
+        "bindings?",
+        "ShortcutBinding[]",
+        "Shortcuts already in use. Recording one of them asks before taking it."
+      ],
+      [
+        "warnReserved?",
+        "boolean",
+        "Also warn about combinations the browser or system keeps, such as ⌘W and ⌘C. On by default."
+      ],
+      [
+        "requireModifier?",
+        "boolean",
+        "Require ⌘, Ctrl, or ⌥ (function keys are always allowed). On by default."
+      ],
+      [
+        "platform?",
+        "\"mac\" | \"other\"",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "id?",
+        "string",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "hideLabel": "false",
+      "defaultValue": "null",
+      "bindings": "[]",
+      "warnReserved": "true",
+      "requireModifier": "true",
+      "placeholder": "\"Record shortcut\"",
+      "disabled": "false"
+    },
+    "exports": [
+      "keyId",
+      "normalizeShortcut",
+      "shortcutFromEvent",
+      "matchesShortcut",
+      "shortcutTokens",
+      "formatShortcut",
+      "usePlatform",
+      "usePressedKeys",
+      "ShortcutKbd",
+      "Kbd",
+      "ShortcutKeys",
+      "ShortcutRecorder",
+      "ShortcutList"
+    ],
+    "defaultExport": "ShortcutRecorder",
+    "example": "import ShortcutRecorder from \"@/variants/vendor/registry/components/shortcut-recorder/shortcut-recorder\";"
+  },
+  "confirm-morph": {
+    "props": [
+      [
+        "label",
+        "ReactNode",
+        "The resting label, such as \"Delete project\"."
+      ],
+      [
+        "icon?",
+        "ReactNode",
+        "A plain icon before the resting label."
+      ],
+      [
+        "prompt?",
+        "ReactNode",
+        "The question shown while confirming, such as \"Delete 3 files?\". Defaults to the label with a question mark."
+      ],
+      [
+        "confirmLabel?",
+        "string",
+        ""
+      ],
+      [
+        "cancelLabel?",
+        "string",
+        ""
+      ],
+      [
+        "pendingLabel?",
+        "string",
+        "Shown beside the spinner while `onConfirm` resolves."
+      ],
+      [
+        "doneLabel?",
+        "string",
+        ""
+      ],
+      [
+        "errorLabel?",
+        "string",
+        ""
+      ],
+      [
+        "retryLabel?",
+        "string",
+        ""
+      ],
+      [
+        "undoLabel?",
+        "string",
+        ""
+      ],
+      [
+        "undoingLabel?",
+        "string",
+        "Shown beside the spinner while `onUndo` resolves."
+      ],
+      [
+        "tone?",
+        "\"danger\" | \"neutral\"",
+        "`danger` (default) gives the confirm button the danger colour, for actions that destroy something. `neutral` gives it the\nprimary action color pair, for important actions that can be reversed. The resting button is neutral either way."
+      ],
+      [
+        "confirmMode?",
+        "\"press\" | \"hold\" | \"countdown\"",
+        "`press` confirms on a press. `hold` asks for a press held for `holdDuration`. `countdown` confirms, then counts down `countdown` seconds that Cancel or Escape can still stop."
+      ],
+      [
+        "holdDuration?",
+        "number",
+        "Milliseconds the confirm button must be held in `hold` mode."
+      ],
+      [
+        "countdown?",
+        "number",
+        "Seconds counted down before the action runs in `countdown` mode."
+      ],
+      [
+        "countdownLabel?",
+        "string",
+        "Text before the seconds in `countdown` mode, such as \"Deleting in\". Defaults to the pending label followed by \"in\"."
+      ],
+      [
+        "onConfirm?",
+        "() => void | Promise<unknown>",
+        "Runs on confirm. Return a promise to show the pending face; a rejection shows the error face with Retry."
+      ],
+      [
+        "onUndo?",
+        "() => void | Promise<unknown>",
+        "Offering it adds Undo to the result. Return a promise to show a pending face while it runs."
+      ],
+      [
+        "onCancel?",
+        "() => void",
+        ""
+      ],
+      [
+        "state?",
+        "\"idle\" | \"confirming\" | \"pending\" | \"done\" | \"error\"",
+        "Controlled state. Pair it with `onStateChange`."
+      ],
+      [
+        "defaultState?",
+        "\"idle\" | \"confirming\" | \"pending\" | \"done\" | \"error\"",
+        "Starting state when uncontrolled."
+      ],
+      [
+        "onStateChange?",
+        "(state: ConfirmMorphState) => void",
+        ""
+      ],
+      [
+        "confirmTimeout?",
+        "number",
+        "Milliseconds before an unanswered question returns to rest. Resting the pointer on the control pauses it. 0 turns it off."
+      ],
+      [
+        "resultTimeout?",
+        "number",
+        "Milliseconds a result stays before returning to rest. Resting the pointer on the control pauses it. 0 turns it off."
+      ],
+      [
+        "cancelOnOutsidePress?",
+        "boolean",
+        "A press outside the control cancels an open question. Defaults to true."
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "ref?",
+        "Ref<HTMLDivElement>",
+        "Receives the root element, which also takes focus while the action is pending."
+      ]
+    ],
+    "defaults": {
+      "confirmLabel": "\"Delete\"",
+      "cancelLabel": "\"Cancel\"",
+      "pendingLabel": "\"Deleting\"",
+      "doneLabel": "\"Deleted\"",
+      "errorLabel": "\"Couldn’t finish\"",
+      "retryLabel": "\"Retry\"",
+      "undoLabel": "\"Undo\"",
+      "undoingLabel": "\"Restoring\"",
+      "tone": "\"danger\"",
+      "confirmMode": "\"press\"",
+      "holdDuration": "1000",
+      "countdown": "3",
+      "defaultState": "\"idle\"",
+      "confirmTimeout": "6000",
+      "resultTimeout": "5000",
+      "cancelOnOutsidePress": "true",
+      "disabled": "false"
+    },
+    "exports": [
+      "ConfirmMorph"
+    ],
+    "defaultExport": "ConfirmMorph",
+    "example": "import ConfirmMorph from \"@/variants/vendor/registry/components/confirm-morph/confirm-morph\";"
+  },
+  "mention-input": {
+    "props": [
+      [
+        "value?",
+        "MentionValue",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "MentionValue",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: MentionValue) => void",
+        ""
+      ],
+      [
+        "people?",
+        "MentionPerson[]",
+        "People offered after `@`. Leave it out to turn person mentions off."
+      ],
+      [
+        "channels?",
+        "MentionChannel[]",
+        "Channels offered after `#`. Leave it out to turn channel mentions off."
+      ],
+      [
+        "onMentionAdd?",
+        "(mention: Mention) => void",
+        "Called when a suggestion becomes a mention."
+      ],
+      [
+        "onSubmit?",
+        "(value: MentionValue) => void",
+        "With `submitOnEnter`, Enter submits and Shift+Enter adds a line."
+      ],
+      [
+        "submitOnEnter?",
+        "boolean",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "minRows?",
+        "number",
+        ""
+      ],
+      [
+        "maxRows?",
+        "number",
+        "The field grows to this many rows, then scrolls."
+      ],
+      [
+        "placement?",
+        "\"auto\" | \"top\" | \"bottom\"",
+        "Where suggestions open. `auto` flips above when there is no room below."
+      ],
+      [
+        "maxSuggestions?",
+        "number",
+        ""
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "name?",
+        "string",
+        ""
+      ],
+      [
+        "id?",
+        "string",
+        ""
+      ],
+      [
+        "\"aria-label\"?",
+        "string",
+        ""
+      ],
+      [
+        "\"aria-describedby\"?",
+        "string",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "submitOnEnter": "false",
+      "minRows": "contentPresentation.mentionInput.minimumRows",
+      "maxRows": "contentPresentation.mentionInput.maximumRows",
+      "placement": "\"auto\"",
+      "maxSuggestions": "contentPresentation.mentionInput.visibleSuggestions"
+    },
+    "exports": [
+      "mentionText",
+      "serializeMentions",
+      "MentionInput"
+    ],
+    "defaultExport": "MentionInput",
+    "example": "import MentionInput from \"@/variants/vendor/registry/components/mention-input/mention-input\";"
+  },
+  "chat-thread": {
+    "props": [
+      [
+        "participants",
+        "ChatParticipant[]",
+        ""
+      ],
+      [
+        "currentUserId",
+        "string",
+        ""
+      ],
+      [
+        "messages?",
+        "ChatMessage[]",
+        "Controlled messages, oldest first. Leave it out to let the thread keep its own list."
+      ],
+      [
+        "defaultMessages?",
+        "ChatMessage[]",
+        ""
+      ],
+      [
+        "typing?",
+        "string[]",
+        "Participant ids currently typing."
+      ],
+      [
+        "readBy?",
+        "Record<string, string>",
+        "The last message each participant has read, by participant id. Their avatar sits under that message and glides as it moves."
+      ],
+      [
+        "onSend?",
+        "(draft: ChatDraft) => void | Promise<void>",
+        "Called with the composer's text and files. Uncontrolled threads also append the message themselves."
+      ],
+      [
+        "onReact?",
+        "(messageId: string, emoji: string) => void",
+        ""
+      ],
+      [
+        "onRetry?",
+        "(messageId: string) => void",
+        ""
+      ],
+      [
+        "reactions?",
+        "string[]",
+        "Emoji offered by the reaction picker."
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "composer?",
+        "boolean",
+        "Show the composer. Defaults to true."
+      ],
+      [
+        "allowAttachments?",
+        "boolean",
+        ""
+      ],
+      [
+        "accept?",
+        "string",
+        "File types the attach button offers, as for `<input accept>`."
+      ],
+      [
+        "groupWindow?",
+        "number",
+        "Messages from one person closer together than this, in ms, share a group. Defaults to five minutes."
+      ],
+      [
+        "locale?",
+        "string",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name of the message log."
+      ],
+      [
+        "labels?",
+        "ChatThreadLabels",
+        "Words for localization. Leave out any key to keep its English default."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "typing": "[]",
+      "reactions": "DEFAULT_REACTIONS",
+      "placeholder": "\"Message\"",
+      "composer": "true",
+      "allowAttachments": "true",
+      "groupWindow": "collectionPresentation.chatGroupWindowMinutes * 60_000",
+      "locale": "\"en-US\"",
+      "label": "\"Conversation\""
+    },
+    "exports": [
+      "formatBytes",
+      "ChatComposer",
+      "ChatThread"
+    ],
+    "defaultExport": "ChatThread",
+    "example": "import ChatThread from \"@/variants/vendor/registry/components/chat-thread/chat-thread\";"
+  },
+  "rich-text-editor": {
+    "props": [
+      [
+        "value?",
+        "string",
+        "Controlled HTML. The editor only rewrites its content when this differs from what it last emitted."
+      ],
+      [
+        "defaultValue?",
+        "string",
+        ""
+      ],
+      [
+        "defaultMarkdown?",
+        "string",
+        "Initial content as Markdown, used when no HTML value is given."
+      ],
+      [
+        "onValueChange?",
+        "(value: string, details: RichTextValue) => void",
+        ""
+      ],
+      [
+        "onHistoryChange?",
+        "(state: { canUndo: boolean; canRedo: boolean }) => void",
+        "Reports whether undo and redo are available, for your own toolbar."
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "blockHint?",
+        "string",
+        "The hint on an empty line while typing."
+      ],
+      [
+        "readOnly?",
+        "boolean",
+        ""
+      ],
+      [
+        "autoFocus?",
+        "boolean",
+        ""
+      ],
+      [
+        "\"aria-label\"?",
+        "string",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "style?",
+        "CSSProperties",
+        ""
+      ]
+    ],
+    "defaults": {
+      "placeholder": "\"Start writing\"",
+      "blockHint": "\"Type / for blocks\"",
+      "readOnly": "false",
+      "autoFocus": "false"
+    },
+    "exports": [
+      "normalizeUrl",
+      "markdownToHtml",
+      "htmlToMarkdown",
+      "sanitizeHtml",
+      "RichTextEditor"
+    ],
+    "defaultExport": "RichTextEditor",
+    "example": "import RichTextEditor from \"@/variants/vendor/registry/components/rich-text-editor/rich-text-editor\";"
+  },
+  "billing-toggle": {
+    "props": [
+      [
+        "value",
+        "string",
+        ""
+      ],
+      [
+        "onValueChange",
+        "(value: string) => void",
+        ""
+      ],
+      [
+        "options?",
+        "BillingToggleOption[]",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name of the group."
+      ],
+      [
+        "size?",
+        "\"default\" | \"lg\"",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "options": "DEFAULT_OPTIONS",
+      "label": "\"Billing period\"",
+      "size": "\"default\""
+    },
+    "exports": [
+      "BillingToggle",
+      "BillingPrice"
+    ],
+    "defaultExport": "BillingToggle",
+    "example": "import BillingToggle from \"@/variants/vendor/registry/components/billing-toggle/billing-toggle\";"
+  },
+  "scroll-area": {
+    "props": [
+      [
+        "children?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "orientation?",
+        "\"vertical\" | \"horizontal\" | \"both\"",
+        "Axes that scroll. Defaults to vertical."
+      ],
+      [
+        "fade?",
+        "number",
+        "Length of the edge fade in px. 0 turns the fades off."
+      ],
+      [
+        "scrollbars?",
+        "\"auto\" | \"always\"",
+        "\"auto\" shows scrollbars while scrolling or hovering; \"always\" keeps them visible when content overflows."
+      ],
+      [
+        "hideDelay?",
+        "number",
+        "How long scrollbars linger after scrolling stops, in ms."
+      ],
+      [
+        "maxHeight?",
+        "CSSProperties[\"maxHeight\"]",
+        "Maximum height of the viewport, for vertical areas that should grow with their content."
+      ],
+      [
+        "snap?",
+        "CSSProperties[\"scrollSnapType\"]",
+        "Passed to the viewport's `scroll-snap-type`, for example \"x mandatory\". Children set their own `scroll-snap-align`."
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name. The viewport becomes a labelled, focusable region that arrow and page keys scroll."
+      ],
+      [
+        "wheelToHorizontal?",
+        "boolean",
+        "Turns vertical wheel movement into horizontal scrolling for horizontal areas. Defaults to true."
+      ],
+      [
+        "viewportClassName?",
+        "string",
+        ""
+      ],
+      [
+        "viewportStyle?",
+        "CSSProperties",
+        ""
+      ],
+      [
+        "viewportRef?",
+        "Ref<HTMLDivElement>",
+        ""
+      ],
+      [
+        "onScroll?",
+        "(event: UIEvent<HTMLDivElement>) => void",
+        ""
+      ],
+      [
+        "onEdgeChange?",
+        "(edges: ScrollAreaEdges) => void",
+        "Called when content starts or stops extending past an edge."
+      ]
+    ],
+    "defaults": {
+      "orientation": "\"vertical\"",
+      "fade": "scrollAreaGeometry.fadePx",
+      "scrollbars": "\"auto\"",
+      "hideDelay": "motionTokens.keyframes.scrollArea.hideDelayMs",
+      "wheelToHorizontal": "true"
+    },
+    "exports": [
+      "ScrollArea"
+    ],
+    "defaultExport": "ScrollArea",
+    "example": "import ScrollArea from \"@/variants/vendor/registry/components/scroll-area/scroll-area\";"
+  },
+  "radio-cards": {
+    "props": [
+      [
+        "options",
+        "RadioCardOption[]",
+        ""
+      ],
+      [
+        "value?",
+        "string | null",
+        ""
+      ],
+      [
+        "defaultValue?",
+        "string | null",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: string) => void",
+        ""
+      ],
+      [
+        "layout?",
+        "\"grid\" | \"list\"",
+        "\"grid\" places cards in responsive columns; \"list\" stacks full width rows."
+      ],
+      [
+        "minColumnWidth?",
+        "number",
+        "Narrowest a grid column may get before the grid drops a column, in px."
+      ],
+      [
+        "name?",
+        "string",
+        "Form field name. Renders a hidden input with the selected value."
+      ],
+      [
+        "required?",
+        "boolean",
+        ""
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultValue": "null",
+      "layout": "\"grid\"",
+      "minColumnWidth": "radioCardsGeometry.minColumnWidthPx",
+      "disabled": "false"
+    },
+    "exports": [
+      "RadioCards"
+    ],
+    "defaultExport": "RadioCards",
+    "example": "import RadioCards from \"@/variants/vendor/registry/components/radio-cards/radio-cards\";"
+  },
+  "comment-thread": {
+    "props": [
+      [
+        "comments?",
+        "ThreadComment[]",
+        ""
+      ],
+      [
+        "defaultComments?",
+        "ThreadComment[]",
+        ""
+      ],
+      [
+        "onCommentsChange?",
+        "(comments: ThreadComment[], event: CommentThreadEvent) => void",
+        ""
+      ],
+      [
+        "currentUser",
+        "CommentAuthor",
+        "The person writing. Their comments can be edited and deleted."
+      ],
+      [
+        "people?",
+        "CommentAuthor[]",
+        "People who can be mentioned. Defaults to everyone in the thread."
+      ],
+      [
+        "resolved?",
+        "boolean",
+        ""
+      ],
+      [
+        "defaultResolved?",
+        "boolean",
+        ""
+      ],
+      [
+        "onResolvedChange?",
+        "(resolved: boolean) => void",
+        ""
+      ],
+      [
+        "title?",
+        "ReactNode",
+        "What the thread is about, shown in its header, such as \"Hero headline\"."
+      ],
+      [
+        "reactions?",
+        "string[]",
+        "Emoji offered by the reaction picker."
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "maxDepth?",
+        "number",
+        "Replies deeper than this attach to the deepest allowed parent. Defaults to 2."
+      ],
+      [
+        "nowLabel?",
+        "string",
+        "Label for comments written now."
+      ],
+      [
+        "labels?",
+        "CommentThreadLabels",
+        "Words for localization. Leave out any key to keep its English default."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "defaultComments": "[]",
+      "defaultResolved": "false",
+      "reactions": "DEFAULT_REACTIONS",
+      "placeholder": "\"Reply, or @mention someone\"",
+      "maxDepth": "2",
+      "nowLabel": "\"Just now\""
+    },
+    "exports": [
+      "CommentThread"
+    ],
+    "defaultExport": "CommentThread",
+    "example": "import CommentThread from \"@/variants/vendor/registry/components/comment-thread/comment-thread\";"
+  },
+  "slot-text": {
+    "props": [
+      [
+        "value",
+        "string | number",
+        "The value to show. Numbers pass through format; strings render as they are."
+      ],
+      [
+        "format?",
+        "(value: number) => string",
+        "Formats a number value. Defaults to en-US grouping, so 12480 reads 12,480."
+      ],
+      [
+        "duration?",
+        "number",
+        "Seconds each reel spins. Later reels start after a bounded stagger."
+      ],
+      [
+        "stagger?",
+        "number",
+        "Seconds between reel starts, left to right; total delay is bounded by the RAMS text sequence budget."
+      ],
+      [
+        "spins?",
+        "number",
+        "Extra full turns a digit makes before it lands. 0 rolls straight to the new digit."
+      ],
+      [
+        "align?",
+        "\"start\" | \"end\"",
+        "Which end reels are matched from when the length changes. Numbers default to end, so 999 to 1,000 grows on the left."
+      ],
+      [
+        "announce?",
+        "boolean",
+        "Announce new values politely to screen readers."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ],
+      [
+        "style?",
+        "CSSProperties",
+        ""
+      ]
+    ],
+    "defaults": {
+      "duration": "motionTokens.roleDuration.displayReveal",
+      "stagger": "motionTokens.stagger.word",
+      "spins": "motionTokens.keyframes.slotText.defaultSpins",
+      "announce": "false"
+    },
+    "exports": [
+      "SlotText"
+    ],
+    "defaultExport": "SlotText",
+    "example": "import SlotText from \"@/variants/vendor/registry/components/slot-text/slot-text\";"
+  },
+  "expandable-text": {
+    "props": [
+      [
+        "children",
+        "ReactNode",
+        "The text. Plain strings, paragraphs, and inline links all work; the whole text stays available to screen readers while clamped."
+      ],
+      [
+        "lines?",
+        "number",
+        "How many lines show while collapsed."
+      ],
+      [
+        "expanded?",
+        "boolean",
+        "Controlled open state."
+      ],
+      [
+        "defaultExpanded?",
+        "boolean",
+        ""
+      ],
+      [
+        "onExpandedChange?",
+        "(expanded: boolean) => void",
+        ""
+      ],
+      [
+        "moreLabel?",
+        "string",
+        "Toggle label while collapsed."
+      ],
+      [
+        "lessLabel?",
+        "string",
+        "Toggle label while open."
+      ]
+    ],
+    "defaults": {
+      "defaultExpanded": "false",
+      "moreLabel": "\"Read more\"",
+      "lessLabel": "\"Show less\""
+    },
+    "exports": [
+      "ExpandableText"
+    ],
+    "defaultExport": "ExpandableText",
+    "example": "import ExpandableText from \"@/variants/vendor/registry/components/expandable-text/expandable-text\";"
+  },
+  "signup-form": {
+    "props": [
+      [
+        "onSubmit?",
+        "(details: SignupDetails) => void | Promise<void>",
+        "Receives valid reader details, including the password, and may submit them to your service. Throw to show an error. When absent, details are captured in this form only."
+      ],
+      [
+        "serverError?",
+        "string | null",
+        "An error from your API, shown above the submit button."
+      ],
+      [
+        "onProvider?",
+        "(provider: Provider) => void",
+        "Called when someone picks a single sign-on provider. The caller owns navigation and provider completion. The provider group is omitted when absent."
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "SignupForm"
+    ],
+    "defaultExport": "SignupForm",
+    "example": "import SignupForm from \"@/variants/vendor/registry/blocks/signup-form/signup-form\";"
+  },
+  "logo-marquee": {
+    "props": [
+      [
+        "title?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "brands?",
+        "LogoMarqueeBrand[]",
+        ""
+      ],
+      [
+        "tone?",
+        "\"color\" | \"mono\"",
+        "`color` shows each mark in its official colors; `mono` draws every mark in the text color."
+      ],
+      [
+        "defaultPaused?",
+        "boolean",
+        "Start with motion paused; the default remains playing."
+      ]
+    ],
+    "defaults": {
+      "title": "\"Brand marks\"",
+      "description": "\"Pause the row to inspect each mark.\"",
+      "brands": "[]",
+      "tone": "\"color\"",
+      "defaultPaused": "false"
+    },
+    "exports": [
+      "LogoMarquee"
+    ],
+    "defaultExport": "LogoMarquee",
+    "example": "import LogoMarquee from \"@/variants/vendor/registry/blocks/logo-marquee/logo-marquee\";"
+  },
+  "plan-comparison": {
+    "props": [],
+    "defaults": {},
+    "exports": [
+      "PlanComparison"
+    ],
+    "defaultExport": "PlanComparison",
+    "example": "import PlanComparison from \"@/variants/vendor/registry/blocks/plan-comparison/plan-comparison\";"
+  },
+  "command-palette": {
+    "props": [
+      [
+        "items",
+        "CommandItem[]",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "onSelect?",
+        "(item: CommandItem) => void",
+        ""
+      ],
+      [
+        "onClose?",
+        "() => void",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "autoFocus?",
+        "boolean",
+        ""
+      ]
+    ],
+    "defaults": {
+      "placeholder": "\"Search commands\"",
+      "label": "\"Command palette\"",
+      "autoFocus": "false"
+    },
+    "exports": [
+      "CommandPalette"
+    ],
+    "defaultExport": "CommandPalette",
+    "example": "import CommandPalette from \"@/variants/vendor/registry/components/command-palette/command-palette\";"
+  },
+  "notification-center": {
+    "props": [
+      [
+        "notifications",
+        "NotificationItem[]",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "onReadChange?",
+        "(notification: NotificationItem, read: boolean) => void",
+        ""
+      ],
+      [
+        "onDismiss?",
+        "(notification: NotificationItem) => void",
+        ""
+      ],
+      [
+        "open?",
+        "boolean",
+        ""
+      ],
+      [
+        "onOpenChange?",
+        "(open: boolean) => void",
+        ""
+      ],
+      [
+        "avoidCollisions?",
+        "boolean",
+        ""
+      ],
+      [
+        "panelClassName?",
+        "string",
+        "Class applied to the actual portal surface, not the trigger."
+      ],
+      [
+        "panelStyle?",
+        "CSSProperties & { [token: `--${string}`]: string | number | undefined }",
+        "Scoped token overrides applied on the portal surface."
+      ]
+    ],
+    "defaults": {
+      "label": "\"Notifications\"",
+      "avoidCollisions": "true"
+    },
+    "exports": [
+      "NotificationCenter"
+    ],
+    "defaultExport": "NotificationCenter",
+    "example": "import NotificationCenter from \"@/variants/vendor/registry/components/notification-center/notification-center\";"
+  },
+  "file-upload": {
+    "props": [
+      [
+        "accept?",
+        "string",
+        ""
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "label?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "multiple?",
+        "boolean",
+        ""
+      ],
+      [
+        "maxSize?",
+        "number",
+        ""
+      ],
+      [
+        "value?",
+        "FileUploadItem[]",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(files: FileUploadItem[]) => void",
+        ""
+      ],
+      [
+        "onUpload?",
+        "(file: File, options: { onProgress: (percent: number) => void; signal: AbortSignal }) => Promise<void>",
+        "Uploads each accepted file. Report progress from 0 to 100, resolve when done, or reject to mark the file as failed. Removing a file aborts its signal."
+      ]
+    ],
+    "defaults": {
+      "disabled": "false",
+      "label": "\"Upload files\"",
+      "description": "\"Drop files here or browse from your device.\"",
+      "multiple": "true"
+    },
+    "exports": [
+      "FileUpload"
+    ],
+    "defaultExport": "FileUpload",
+    "example": "import FileUpload from \"@/variants/vendor/registry/components/file-upload/file-upload\";"
+  },
+  "otp-input": {
+    "props": [
+      [
+        "length?",
+        "number",
+        ""
+      ],
+      [
+        "value?",
+        "string",
+        ""
+      ],
+      [
+        "onValueChange?",
+        "(value: string) => void",
+        ""
+      ],
+      [
+        "label",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "error?",
+        "string",
+        ""
+      ],
+      [
+        "autoFocus?",
+        "boolean",
+        ""
+      ],
+      [
+        "disabled?",
+        "boolean",
+        ""
+      ],
+      [
+        "inputMode?",
+        "\"numeric\" | \"text\"",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "length": "6",
+      "value": "\"\"",
+      "autoFocus": "false",
+      "disabled": "false",
+      "inputMode": "\"numeric\""
+    },
+    "exports": [
+      "OtpInput"
+    ],
+    "defaultExport": null,
+    "example": "import { OtpInput } from \"@/variants/vendor/registry/components/otp-input/otp-input\";"
+  },
+  "changelog-feed": {
+    "props": [
+      [
+        "entries?",
+        "ChangelogEntry[]",
+        "Release notes, newest first. Each entry belongs to one of `months` by key."
+      ],
+      [
+        "months?",
+        "ChangelogMonth[]",
+        "Months shown in the month bar, newest first."
+      ],
+      [
+        "title?",
+        "string",
+        ""
+      ],
+      [
+        "subtitle?",
+        "string",
+        "One line under the title, such as the latest release."
+      ],
+      [
+        "endNote?",
+        "string",
+        "Closing line at the end of the list."
+      ],
+      [
+        "defaultOpen?",
+        "string[]",
+        "Entry ids open on first render. Defaults to the newest entry."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "entries": "exampleEntries",
+      "months": "exampleMonths",
+      "title": "\"Folio21 · production notes\"",
+      "subtitle": "\"Trim, fold and packing revisions for the three-station print edition.\"",
+      "endNote": "\"First proof to final sheet · end of the production record.\""
+    },
+    "exports": [
+      "ChangelogFeed"
+    ],
+    "defaultExport": "ChangelogFeed",
+    "example": "import ChangelogFeed from \"@/variants/vendor/registry/blocks/changelog-feed/changelog-feed\";"
+  },
+  "sign-in": {
+    "props": [
+      [
+        "demoCode?",
+        "string",
+        "Six digits compared locally; no email is delivered."
+      ],
+      [
+        "onSignIn?",
+        "(account: SignInAccount, method: SignInMethod) => void",
+        "Receives the entered address and chosen illustrative method, not an authenticated identity."
+      ]
+    ],
+    "defaults": {
+      "demoCode": "\"210624\""
+    },
+    "exports": [
+      "SignIn"
+    ],
+    "defaultExport": "SignIn",
+    "example": "import SignIn from \"@/variants/vendor/registry/blocks/sign-in/sign-in\";"
+  },
+  "page-header": {
+    "props": [],
+    "defaults": {},
+    "exports": [
+      "PageHeader"
+    ],
+    "defaultExport": "PageHeader",
+    "example": "import PageHeader from \"@/variants/vendor/registry/blocks/page-header/page-header\";"
+  },
+  "empty-states": {
+    "props": [],
+    "defaults": {},
+    "exports": [
+      "EmptyStates"
+    ],
+    "defaultExport": "EmptyStates",
+    "example": "import EmptyStates from \"@/variants/vendor/registry/blocks/empty-states/empty-states\";"
+  },
+  "login-centered": {
+    "props": [
+      [
+        "demoCode?",
+        "string",
+        "Six digits compared locally, without email delivery."
+      ],
+      [
+        "fullScreen?",
+        "boolean",
+        "Fill the viewport when this block is the whole page. Content can grow naturally."
+      ],
+      [
+        "demoEmail?",
+        "string",
+        "Explicit illustrative address attached to passkey/provider method records."
+      ],
+      [
+        "termsHref?",
+        "string",
+        "Native caller-owned links; local legal disclosures appear when omitted."
+      ],
+      [
+        "privacyHref?",
+        "string",
+        ""
+      ],
+      [
+        "onSignIn?",
+        "(email: string, method: LoginMethod, mode: Mode) => void",
+        "Receives the address, illustrative method and mode; no authentication is performed."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "demoCode": "\"241140\"",
+      "fullScreen": "false",
+      "demoEmail": "\"reader@folio21.example\""
+    },
+    "exports": [
+      "LoginCentered"
+    ],
+    "defaultExport": "LoginCentered",
+    "example": "import LoginCentered from \"@/variants/vendor/registry/blocks/login-centered/login-centered\";"
+  },
+  "site-header": {
+    "props": [
+      [
+        "variant?",
+        "\"simple\" | \"centered\" | \"mega\"",
+        "`simple` puts links beside the brand, `centered` centers them in a quiet capsule, `mega` opens panels for items with links."
+      ],
+      [
+        "brand?",
+        "{ name: string; href?: string; mark?: ReactNode }",
+        ""
+      ],
+      [
+        "items?",
+        "SiteHeaderItem[]",
+        ""
+      ],
+      [
+        "current?",
+        "string",
+        "Value of the item that holds the current page (controlled)."
+      ],
+      [
+        "defaultCurrent?",
+        "string",
+        "Initial current item when uncontrolled."
+      ],
+      [
+        "onCurrentChange?",
+        "(value: string) => void",
+        "Called when a destination inside an item is chosen, with that item's value."
+      ],
+      [
+        "onNavigate?",
+        "(destination: SiteHeaderDestination) => void",
+        "Called for every destination: items, panel links, the brand, and actions with an href."
+      ],
+      [
+        "secondaryAction?",
+        "SiteHeaderAction | null",
+        "A quiet action before the primary one, such as Sign in. Pass null to hide it."
+      ],
+      [
+        "primaryAction?",
+        "SiteHeaderAction | null",
+        "The one primary action at the end of the bar. Pass null to hide it."
+      ],
+      [
+        "sticky?",
+        "boolean",
+        "Sticks to the top of its scroll container. Defaults to true."
+      ],
+      [
+        "scrollContainer?",
+        "RefObject<HTMLElement | null>",
+        "The element that scrolls, when it is not the window. The header turns solid once it scrolls."
+      ],
+      [
+        "scrollThreshold?",
+        "number",
+        "Pixels of scroll before the background turns solid. Defaults to 8."
+      ],
+      [
+        "label?",
+        "string",
+        "Accessible name of the navigation landmark."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"mega\""
+    },
+    "exports": [
+      "BrandMark",
+      "siteHeaderExampleItems",
+      "SiteHeader",
+      "SiteHeaderBlock"
+    ],
+    "defaultExport": "SiteHeaderBlock",
+    "example": "import SiteHeaderBlock from \"@/variants/vendor/registry/blocks/site-header/site-header\";"
+  },
+  "site-footer": {
+    "props": [
+      [
+        "variant?",
+        "\"columns\" | \"minimal\" | \"logo\"",
+        "`columns` pairs a newsletter with link columns, `minimal` is one quiet row, and `logo` ends with a large fading brand name."
+      ],
+      [
+        "brand?",
+        "{ name: string; href?: string; mark?: ReactNode }",
+        ""
+      ],
+      [
+        "tagline?",
+        "string",
+        "One short line under the brand."
+      ],
+      [
+        "columns?",
+        "SiteFooterColumn[]",
+        ""
+      ],
+      [
+        "links?",
+        "SiteFooterLink[]",
+        "Links for the minimal variant. Defaults to the first link of each column."
+      ],
+      [
+        "legal?",
+        "SiteFooterLink[]",
+        "Small links beside the copyright, such as Privacy and Terms."
+      ],
+      [
+        "socials?",
+        "SiteFooterLink[]",
+        ""
+      ],
+      [
+        "newsletter?",
+        "SiteFooterNewsletter | null",
+        "Newsletter signup. Pass null to hide it."
+      ],
+      [
+        "status?",
+        "{ label: string; tone?: \"success\" | \"warning\" | \"danger\"; href?: string } | null",
+        "A system status link. Pass null to hide it."
+      ],
+      [
+        "year?",
+        "number",
+        "Year in the copyright line."
+      ],
+      [
+        "onNavigate?",
+        "(link: SiteFooterLink) => void",
+        "Called for every link that is pressed. Links without an href render as buttons and only call this."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"columns\""
+    },
+    "exports": [
+      "siteFooterExampleColumns",
+      "SiteFooter",
+      "SiteFooterBlock"
+    ],
+    "defaultExport": "SiteFooterBlock",
+    "example": "import SiteFooterBlock from \"@/variants/vendor/registry/blocks/site-footer/site-footer\";"
+  },
+  "hero-section": {
+    "props": [
+      [
+        "variant?",
+        "\"centered\" | \"split\" | \"minimal\"",
+        "`centered` presents a signature-order study, `split` places a cover-plate study beside the copy,\nand `minimal` is a content-height editorial opening. These layouts follow their supplied content."
+      ],
+      [
+        "animateIn?",
+        "boolean",
+        "Plays the entrance once on mount. Defaults to true."
+      ],
+      [
+        "primaryAction?",
+        "HeroAction | null",
+        "The main call to action. With `doneLabel` and no `href`, the button confirms in place."
+      ],
+      [
+        "secondaryAction?",
+        "HeroAction | null",
+        "The second call to action."
+      ],
+      [
+        "title?",
+        "string",
+        "Your own headline. When set, the hero renders your content in the chosen layout (see `HeroContent`) instead of the\ndesigned sample, together with the props below."
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "announcement?",
+        "HeroAction | null",
+        ""
+      ],
+      [
+        "install?",
+        "HeroInstallCommand[] | null",
+        "Install commands for your own content; the first one is shown with a copy button."
+      ],
+      [
+        "media?",
+        "ReactNode",
+        "A visual beside your own content in the split layout."
+      ],
+      [
+        "meta?",
+        "string[]",
+        "Small facts under your own content, such as the version and license."
+      ],
+      [
+        "highlight?",
+        "string",
+        "Kept for compatibility; highlighted phrases render as plain text."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"minimal\""
+    },
+    "exports": [
+      "HeroSection",
+      "HeroSectionBlock"
+    ],
+    "defaultExport": "HeroSectionBlock",
+    "example": "import HeroSectionBlock from \"@/variants/vendor/registry/blocks/hero-section/hero-section\";"
+  },
+  "faq-section": {
+    "props": [
+      [
+        "variant?",
+        "\"accordion\" | \"columns\" | \"search\"",
+        "`accordion` is one centered list, `columns` groups questions beside a category rail, `search` filters as you type."
+      ],
+      [
+        "title?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "items?",
+        "FaqItem[]",
+        ""
+      ],
+      [
+        "multiple?",
+        "boolean",
+        "Allow several answers open at once. Defaults to false."
+      ],
+      [
+        "value?",
+        "string[]",
+        "Open item ids (controlled)."
+      ],
+      [
+        "defaultValue?",
+        "string[]",
+        "Initially open item ids when uncontrolled."
+      ],
+      [
+        "onValueChange?",
+        "(value: string[]) => void",
+        ""
+      ],
+      [
+        "category?",
+        "string",
+        "Active category in the columns variant (controlled)."
+      ],
+      [
+        "onCategoryChange?",
+        "(category: string) => void",
+        ""
+      ],
+      [
+        "query?",
+        "string",
+        "Search text in the search variant (controlled)."
+      ],
+      [
+        "onQueryChange?",
+        "(query: string) => void",
+        ""
+      ],
+      [
+        "contact?",
+        "{ label: string; description?: string; href?: string; onClick?: () => void } | null",
+        "A way to reach a person when the answer isn't here. Pass null to hide it."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"accordion\""
+    },
+    "exports": [
+      "faqExampleItems",
+      "FaqSection",
+      "FaqSectionBlock"
+    ],
+    "defaultExport": "FaqSectionBlock",
+    "example": "import FaqSectionBlock from \"@/variants/vendor/registry/blocks/faq-section/faq-section\";"
+  },
+  "contact-section": {
+    "props": [
+      [
+        "variant?",
+        "\"form\" | \"channels\" | \"offices\"",
+        "`form` validates and morphs into a confirmation, `channels` lists ways to reach you, `offices` shows live local times."
+      ],
+      [
+        "title?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "topics?",
+        "string[]",
+        "Topics offered in the form."
+      ],
+      [
+        "onSubmit?",
+        "(message: ContactMessage) => void | Promise<void>",
+        "Called with a valid message. Reject to keep the form and show an error; resolve to show the confirmation."
+      ],
+      [
+        "channels?",
+        "ContactChannel[]",
+        ""
+      ],
+      [
+        "channel?",
+        "string",
+        "Selected channel (controlled)."
+      ],
+      [
+        "defaultChannel?",
+        "string",
+        ""
+      ],
+      [
+        "onChannelChange?",
+        "(value: string) => void",
+        ""
+      ],
+      [
+        "offices?",
+        "ContactOffice[]",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {
+      "variant": "\"form\""
+    },
+    "exports": [
+      "contactExampleChannels",
+      "contactExampleOffices",
+      "ContactSection",
+      "ContactSectionBlock"
+    ],
+    "defaultExport": "ContactSectionBlock",
+    "example": "import ContactSectionBlock from \"@/variants/vendor/registry/blocks/contact-section/contact-section\";"
+  },
+  "blog-grid": {
+    "props": [
+      [
+        "title?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "posts?",
+        "BlogPost[]",
+        ""
+      ],
+      [
+        "categories?",
+        "string[]",
+        "Category filter labels, in order. \"All\" is added in front."
+      ],
+      [
+        "category?",
+        "string",
+        "Active category, or \"All\" (controlled)."
+      ],
+      [
+        "defaultCategory?",
+        "string",
+        ""
+      ],
+      [
+        "onCategoryChange?",
+        "(category: string) => void",
+        ""
+      ],
+      [
+        "page?",
+        "number",
+        "One based page (controlled)."
+      ],
+      [
+        "defaultPage?",
+        "number",
+        ""
+      ],
+      [
+        "onPageChange?",
+        "(page: number) => void",
+        ""
+      ],
+      [
+        "pageSize?",
+        "number",
+        "Cards per page below the featured post. Defaults to 6."
+      ],
+      [
+        "showFeatured?",
+        "boolean",
+        "Shows the newest post of the current filter as a large card on page one. Defaults to true."
+      ],
+      [
+        "getHref?",
+        "(post: BlogPost) => string",
+        "Link for each post. When set, cards render as links and the in-place reader is off."
+      ],
+      [
+        "onPostOpen?",
+        "(post: BlogPost) => void",
+        "Called when a post opens, from a link or the in-place reader."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "BlogGrid",
+      "BlogGridBlock"
+    ],
+    "defaultExport": "BlogGridBlock",
+    "example": "import BlogGridBlock from \"@/variants/vendor/registry/blocks/blog-grid/blog-grid\";"
+  },
+  "comparison-table": {
+    "props": [
+      [
+        "columns?",
+        "ComparisonColumn[]",
+        ""
+      ],
+      [
+        "sections?",
+        "ComparisonSection[]",
+        ""
+      ],
+      [
+        "title?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "differencesOnly?",
+        "boolean",
+        ""
+      ],
+      [
+        "defaultDifferencesOnly?",
+        "boolean",
+        ""
+      ],
+      [
+        "onDifferencesOnlyChange?",
+        "(value: boolean) => void",
+        ""
+      ],
+      [
+        "compareWith?",
+        "string",
+        ""
+      ],
+      [
+        "onCompareWithChange?",
+        "(id: string) => void",
+        ""
+      ],
+      [
+        "mobileLayout?",
+        "\"pair\" | \"all\"",
+        "Pair a reference and one alternative, or retain every column on mobile."
+      ],
+      [
+        "selectable?",
+        "boolean",
+        ""
+      ],
+      [
+        "selectedColumn?",
+        "string | null",
+        "null clears selection; undefined lets the component own it."
+      ],
+      [
+        "defaultSelectedColumn?",
+        "string | null",
+        ""
+      ],
+      [
+        "onSelectionChange?",
+        "(id: string | null) => void",
+        ""
+      ],
+      [
+        "cta?",
+        "ComparisonAction",
+        ""
+      ],
+      [
+        "stickyTop?",
+        "number",
+        ""
+      ],
+      [
+        "maxHeight?",
+        "number | string",
+        ""
+      ],
+      [
+        "stackBelow?",
+        "number",
+        "Stack below this component border-box width in CSS pixels."
+      ],
+      [
+        "toolbar?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "footer?",
+        "ReactNode",
+        ""
+      ],
+      [
+        "featureLabel?",
+        "string",
+        ""
+      ],
+      [
+        "sectionLabel?",
+        "string",
+        ""
+      ],
+      [
+        "countLabel?",
+        "string",
+        ""
+      ],
+      [
+        "differencesLabel?",
+        "string",
+        ""
+      ],
+      [
+        "showLegend?",
+        "boolean",
+        ""
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "ComparisonTable",
+      "ComparisonTableBlock",
+      "Comparison"
+    ],
+    "defaultExport": "ComparisonTableBlock",
+    "example": "import ComparisonTableBlock from \"@/variants/vendor/registry/blocks/comparison-table/comparison-table\";"
+  },
+  "stats-band": {
+    "props": [
+      [
+        "stats?",
+        "Stat[]",
+        "Three or four stats read best."
+      ],
+      [
+        "layout?",
+        "\"plain\" | \"divided\"",
+        "`plain` lets the stats float on whitespace; `divided` sets them in a hairline grid ruled above and below."
+      ],
+      [
+        "title?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "duration?",
+        "number",
+        "Seconds each number takes to count up. Defaults to the shared data duration."
+      ],
+      [
+        "locale?",
+        "string",
+        "Number formatting locale. Fixed by default so server and client agree."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "StatsBand",
+      "StatsBandBlock"
+    ],
+    "defaultExport": "StatsBandBlock",
+    "example": "import StatsBandBlock from \"@/variants/vendor/registry/blocks/stats-band/stats-band\";"
+  },
+  "cta-section": {
+    "props": [
+      [
+        "variant?",
+        "\"centered\" | \"split\" | \"banner\"",
+        "`centered` is a closing section, `split` sits beside a product visual, `banner` is one dismissible line."
+      ],
+      [
+        "title?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "primaryAction?",
+        "CtaAction",
+        ""
+      ],
+      [
+        "secondaryAction?",
+        "CtaAction | null",
+        "Not shown in the banner variant. Pass null to hide it."
+      ],
+      [
+        "note?",
+        "string",
+        "Small print under the actions in the centered variant, such as \"No credit card required\"."
+      ],
+      [
+        "faces?",
+        "string[]",
+        "Faces beside the note in the centered variant. Pass an empty array to hide them."
+      ],
+      [
+        "points?",
+        "string[]",
+        "Short benefit lines in the split variant."
+      ],
+      [
+        "visual?",
+        "ReactNode",
+        "Replaces the split variant's worksheet."
+      ],
+      [
+        "onDismiss?",
+        "() => void",
+        "Banner only: shows a dismiss button and calls this after it closes."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "CtaSection",
+      "CtaSectionBlock"
+    ],
+    "defaultExport": "CtaSectionBlock",
+    "example": "import CtaSectionBlock from \"@/variants/vendor/registry/blocks/cta-section/cta-section\";"
+  },
+  "newsletter-signup": {
+    "props": [
+      [
+        "variant?",
+        "\"inline\" | \"card\"",
+        "`inline` puts the copy and form beside the issue stack; `card` is a self-contained card with the stack in a tray on top."
+      ],
+      [
+        "title?",
+        "string",
+        ""
+      ],
+      [
+        "description?",
+        "string",
+        ""
+      ],
+      [
+        "placeholder?",
+        "string",
+        ""
+      ],
+      [
+        "buttonLabel?",
+        "string",
+        ""
+      ],
+      [
+        "privacyNote?",
+        "ReactNode",
+        "Short line under the form about frequency and privacy."
+      ],
+      [
+        "privacyLink?",
+        "{ label: string; href: string } | null",
+        "Link after the privacy note. Pass null to hide it."
+      ],
+      [
+        "readers?",
+        "{ count: number; faces: string[] } | null",
+        "Reader count and up to three faces. The count ticks up by one when someone subscribes. Pass null to hide it."
+      ],
+      [
+        "publication?",
+        "NewsletterPublication | null",
+        "The issue stack. On success the upcoming issue, addressed to the new reader, lands on top. Pass null for a form without the stack."
+      ],
+      [
+        "onSubscribe?",
+        "(email: string) => void | Promise<void>",
+        "Called with a valid, trimmed email. Reject to show an error and keep the email; resolve to show the success state."
+      ],
+      [
+        "className?",
+        "string",
+        ""
+      ]
+    ],
+    "defaults": {},
+    "exports": [
+      "NewsletterSignup",
+      "NewsletterSignupBlock"
+    ],
+    "defaultExport": "NewsletterSignupBlock",
+    "example": "import NewsletterSignupBlock from \"@/variants/vendor/registry/blocks/newsletter-signup/newsletter-signup\";"
+  }
+}

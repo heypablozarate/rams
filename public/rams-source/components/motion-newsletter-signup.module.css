@@ -1,0 +1,203 @@
+.newsletter {
+  --rams-detail-paper: var(--rams-detail-surface-raised);
+  --rams-detail-paper-back: color-mix(in oklab, var(--rams-detail-surface-raised), var(--rams-detail-surface-muted) var(--rams-detail-newsletter-issue-stack-muted-mix));
+  --rams-detail-paper-far: var(--rams-detail-surface-muted);
+  --rams-detail-paper-shadow: var(--rams-detail-shadow-raised);
+  container: newsletter / inline-size;
+  background: var(--rams-detail-background);
+  color: var(--rams-detail-foreground);
+  font-family: var(--rams-detail-font-body);
+  letter-spacing: var(--rams-detail-tracking-body);
+  text-align: start;
+}
+
+.newsletter *, .newsletter *::before, .newsletter *::after { box-sizing: border-box; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: var(--rams-detail-accessible-hidden-margin); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+/* Inline: copy and form on the left, the issue stack on the right. */
+.inline { display: grid; max-width: var(--rams-detail-newsletter-inline-measure); grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-space-12) var(--rams-detail-space-16); margin: 0 auto; padding: var(--rams-detail-space-24) var(--rams-detail-space-8); }
+.newsletter[data-aside] .inline { grid-template-columns: minmax(0, 1fr) minmax(0, var(--rams-detail-newsletter-issue-measure)); align-items: center; }
+/* Without the stack or readers the section is the copy and form alone. */
+.newsletter[data-variant="inline"]:not([data-aside]) .inline { max-width: var(--rams-detail-newsletter-inline-solo-measure); }
+.intro { display: grid; max-width: var(--rams-detail-newsletter-intro-measure); }
+.title { margin: 0; font-family: var(--rams-detail-font-display); font-weight: var(--rams-detail-newsletter-editorial-heading-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-leading-display); text-wrap: balance; }
+.description { margin: var(--rams-detail-space-4) 0 0; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-lg); line-height: var(--rams-detail-leading-body); text-wrap: pretty; }
+.intro .form { margin-top: var(--rams-detail-space-10); }
+.aside { display: grid; justify-items: center; gap: var(--rams-detail-space-6); min-width: 0; }
+
+/* The stack: every issue shares one grid cell, so the stack is as tall as one issue and nothing shifts when they trade places. */
+.stack { display: grid; width: 100%; max-width: var(--rams-detail-newsletter-issue-measure); padding-top: calc(var(--rams-motion-newsletter-issue-depth-step) * 2); }
+.issue {
+  display: grid;
+  grid-area: 1 / 1;
+  align-content: start;
+  min-width: 0;
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border);
+  border-radius: var(--rams-detail-newsletter-issue-radius);
+  padding: var(--rams-detail-newsletter-issue-padding);
+  background: var(--rams-detail-paper);
+  box-shadow: var(--rams-detail-paper-shadow);
+  transform-origin: 50% 0;
+  transition: background-color var(--rams-detail-duration-considered) var(--rams-detail-ease-standard);
+}
+.issueSizer { visibility: hidden; box-shadow: none; }
+.issue[data-depth="1"] { background: var(--rams-detail-paper-back); box-shadow: none; }
+.issue[data-depth="2"] { background: var(--rams-detail-paper-far); box-shadow: none; }
+.issueHead { display: flex; align-items: baseline; justify-content: space-between; gap: var(--rams-detail-space-3); }
+.masthead { font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-text-xl); font-weight: var(--rams-detail-newsletter-editorial-heading-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-leading-display); }
+.issueNumber, .issueMeta { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.issueMeta { display: flex; min-width: 0; gap: var(--rams-detail-newsletter-issue-meta-gap); margin: var(--rams-detail-newsletter-issue-meta-block-start) 0 0; white-space: nowrap; }
+.issueMeta > span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.recipient { color: var(--rams-detail-text-secondary); }
+.recipientEmail { color: var(--rams-detail-foreground); }
+.subject { min-height: calc(var(--rams-detail-newsletter-subject-min-lines) * 1em * var(--rams-detail-leading-display)); margin: var(--rams-detail-space-5) 0 var(--rams-detail-space-4); border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); padding-top: var(--rams-detail-space-5); font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-text-2xl); font-weight: var(--rams-detail-newsletter-editorial-heading-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-leading-display); text-wrap: balance; box-sizing: content-box; }
+.stack[data-compact] .subject { font-size: var(--rams-detail-text-xl); }
+.stories { display: grid; gap: var(--rams-detail-newsletter-story-stack-gap); margin: 0; padding: 0; list-style: none; }
+.story { display: grid; grid-template-columns: var(--rams-detail-newsletter-story-thumb-size) minmax(0, 1fr) auto; align-items: center; gap: var(--rams-detail-newsletter-story-content-gap); min-height: var(--rams-detail-newsletter-story-thumb-size); }
+.thumb { display: block; width: var(--rams-detail-newsletter-story-thumb-size); height: var(--rams-detail-newsletter-story-thumb-size); border-radius: var(--radius-inset); object-fit: cover; background: var(--rams-detail-surface-muted); }
+.storyTitle { color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); text-wrap: pretty; }
+.minutes { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); white-space: nowrap; }
+
+/* Readers: faces and a count that ticks up by one. */
+.readers { display: flex; align-items: center; gap: var(--rams-detail-space-3); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); }
+.faces { display: flex; flex: none; padding-left: var(--rams-detail-newsletter-avatar-overlap); }
+.faces img { display: block; width: var(--rams-detail-newsletter-avatar-size); height: var(--rams-detail-newsletter-avatar-size); margin-left: calc(-1 * var(--rams-detail-newsletter-avatar-overlap)); border: var(--rams-detail-newsletter-reader-ring-width) solid var(--rams-detail-background); border-radius: var(--rams-detail-elliptical-corner-radius); object-fit: cover; }
+.card .faces img { border-color: var(--rams-detail-surface); }
+.readerLine { min-width: 0; font-variant-numeric: var(--rams-detail-numeric-column-variant); white-space: nowrap; }
+.count { display: inline-block; color: var(--rams-detail-foreground); }
+.count > span { color: inherit; font-family: inherit; font-size: inherit; font-weight: var(--rams-detail-newsletter-reader-count-weight); letter-spacing: inherit; line-height: inherit; vertical-align: bottom; }
+.you { display: inline-block; overflow: hidden; color: var(--rams-detail-text-secondary); vertical-align: bottom; white-space: nowrap; }
+
+/* Card: a self-contained card whose top is a tray holding the stack, cropped where the card body begins. */
+.newsletter[data-variant="card"] { padding: var(--rams-detail-space-20) var(--rams-detail-space-6); }
+.cardShell { display: grid; width: 100%; place-items: center; }
+.card { display: grid; width: min(100%, var(--rams-detail-newsletter-card-measure)); overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-surface); background: var(--rams-detail-surface); box-shadow: var(--rams-detail-shadow-resting); }
+.tray { display: grid; grid-template-rows: minmax(0, 1fr); overflow: hidden; justify-items: center; border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border); padding: var(--rams-detail-newsletter-tray-padding); background: var(--rams-detail-surface-muted); }
+.tray .issue { box-shadow: none; }
+.cardBody { display: grid; padding: var(--rams-detail-space-8); }
+.cardTitle { margin: 0; font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-text-2xl); font-weight: var(--rams-detail-newsletter-editorial-heading-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-leading-display); text-wrap: balance; }
+.card .description { margin-top: var(--rams-detail-space-2); font-size: var(--rams-detail-text-base); }
+.card .form { margin-top: var(--rams-detail-space-6); }
+.card .readers { margin-top: var(--rams-detail-space-5); border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); padding-top: var(--rams-detail-space-5); }
+:global(:root.dark) .tray { background: var(--rams-detail-background); }
+
+/* The pill: one field that holds the input and the button. */
+.form { container: signup / inline-size; display: grid; gap: var(--rams-detail-space-3); min-width: 0; }
+.pill { display: flex; min-width: 0; align-items: center; gap: var(--rams-detail-newsletter-form-control-gap); border-radius: var(--radius-pill); }
+.input { width: 100%; min-width: 0; height: 100%; flex: var(--rams-detail-layout-flex-fill); padding: 0; }
+.pill[data-done] .input { color: var(--rams-detail-text-secondary); }
+
+.submit { min-width: 0; max-width: 100%; flex: 0 1 auto; }
+.submitArrow { stroke-width: var(--rams-detail-motion-button-glyph-stroke); }
+.successLabelCompact { display: none; }
+.sizer { visibility: hidden; }
+.note.sizer { display: block; }
+
+/* Two lines are reserved so the note, an error, and the confirmation never move what sits below. */
+.message { display: grid; }
+.message > * { grid-area: 1 / 1; min-width: 0; }
+.messageLive { position: relative; }
+.note { margin: 0; padding-left: var(--rams-detail-newsletter-form-note-indent); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); text-wrap: pretty; }
+.note[data-tone="error"] { color: var(--rams-detail-danger); }
+.note[data-tone="success"] { color: var(--rams-detail-text-secondary); }
+.link, .textButton { color: var(--rams-detail-foreground); text-decoration: underline; text-decoration-color: var(--rams-detail-border-strong); text-underline-offset: var(--rams-detail-newsletter-form-note-link-underline-offset); transition: text-decoration-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.textButton { border: 0; padding: 0; background: none; font: inherit; cursor: pointer; }
+@media (hover: hover) and (pointer: fine) { .link:hover, .textButton:hover { text-decoration-color: currentColor; } }
+
+@container newsletter (max-width: 860px) {
+  .newsletter[data-variant="inline"] .inline { grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-space-12); padding: var(--rams-detail-space-16) var(--rams-detail-space-8); }
+  .intro { max-width: var(--rams-detail-newsletter-intro-compact-measure); }
+}
+@container newsletter (max-width: 520px) {
+  .newsletter[data-variant="inline"] .inline { padding: var(--rams-detail-space-12) var(--rams-detail-space-4); gap: var(--rams-detail-space-10); }
+  .description { font-size: var(--rams-detail-text-base); }
+  .intro .form { margin-top: var(--rams-detail-space-8); }
+  .issue { border-radius: var(--rams-detail-newsletter-issue-radius-compact); padding: var(--rams-detail-newsletter-issue-padding-compact); }
+  .subject, .stack[data-compact] .subject { font-size: var(--rams-detail-text-xl); }
+  .newsletter[data-variant="card"] { padding: var(--rams-detail-space-10) var(--rams-detail-space-4); }
+  .card { border-radius: var(--radius-surface); }
+  .tray { padding: var(--rams-detail-newsletter-tray-padding-compact); }
+  .cardBody { padding: var(--rams-detail-space-6); }
+  .note { padding-left: var(--rams-detail-newsletter-form-note-indent-compact); }
+}
+@container newsletter (max-width: 400px) {
+  .minutes { display: none; }
+  /* The recipient matters more than the date once the issue is addressed. */
+  .issueMeta:has(.recipient) > :not(.recipient) { display: none; }
+  .story { grid-template-columns: var(--rams-detail-newsletter-story-thumb-size) minmax(0, 1fr); }
+  .faces img { width: var(--rams-detail-newsletter-avatar-size-compact); height: var(--rams-detail-newsletter-avatar-size-compact); }
+  .readers { gap: var(--rams-detail-space-2); }
+}
+@container newsletter (max-width: 360px) {
+  .readers { align-items: flex-start; }
+  .readerLine { min-height: calc(var(--rams-detail-newsletter-reader-wrapped-min-lines) * var(--rams-detail-newsletter-reader-wrap-line)); white-space: normal; }
+}
+/* On narrow phones the field and the button separate and stack, both full width. */
+@container signup (max-width: 300px) {
+  .pill { height: auto; flex-direction: column; align-items: stretch; gap: var(--rams-detail-newsletter-form-control-gap-detached); border: 0; padding: 0; background: none; }
+  .input { flex: none; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-strong); border-radius: var(--radius-pill); padding-block: 0; background: var(--rams-detail-surface); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+  .input:focus { border-color: var(--rams-detail-foreground); }
+  .pill.pill[data-invalid] .input { border-color: var(--rams-detail-danger); }
+  .pill.pill[data-done] .input { border-color: color-mix(in oklab, var(--rams-detail-success) var(--rams-detail-newsletter-form-success-border-mix), var(--rams-detail-border)); }
+  .note { padding-left: var(--rams-detail-newsletter-form-note-indent-compact); }
+}
+
+/* Preview chrome. */
+.preview { display: grid; width: 100%; justify-items: center; gap: var(--rams-detail-space-4); }
+.controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--rams-detail-space-3) var(--rams-detail-space-6); }
+.frame { width: 100%; overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-surface); background: var(--rams-detail-background); }
+.caption { margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pill, .submit, .input, .issue { transition: none; }
+  .spinner { animation: none; }
+}
+
+:where(.newsletter,.srOnly,.inline,.intro,.title,.description,.form,.aside,.stack,.issue,.issueSizer,.issueHead,.masthead,.issueNumber,.issueMeta,.recipient,.recipientEmail,.subject,.stories,.story,.thumb,.storyTitle,.minutes,.readers,.faces,.card,.readerLine,.count,.you,.cardShell,.tray,.cardBody,.cardTitle,.pill,.input,.submit,.labels,.sizer,.label,.note,.spinner,.check,.message,.messageLive,.link,.textButton,.preview,.controls,.simulate,.frame,.caption):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Let the shared Button own label wrapping and natural loading dimensions. */
+.newsletter[data-variant="inline"] .inline, .newsletter[data-variant="card"] { padding-inline: min(var(--rams-detail-space-8), var(--rams-detail-newsletter-content-inset-limit)); }
+.cardBody { min-width: 0; padding: min(var(--rams-detail-space-8), var(--rams-detail-newsletter-content-inset-limit)); }
+.title { font-size: var(--rams-detail-text-3xl); }
+.pill { height: auto; min-height: var(--rams-detail-newsletter-form-group-min-block-size); flex-wrap: wrap; padding: var(--rams-detail-newsletter-form-group-padding); border-radius: var(--radius-control); }
+.input { min-width: 0; height: auto; padding-inline: var(--rams-detail-newsletter-form-input-padding-inline); }
+.submit { height: auto; }
+.issueHead { flex-wrap: wrap; }
+.masthead, .subject, .storyTitle, .recipientEmail { overflow-wrap: anywhere; }
+.issueMeta { flex-wrap: wrap; white-space: normal; }
+.issueMeta > span:last-child { overflow: visible; }
+.storyTitle { display: block; overflow: visible; }
+.issue { padding-inline: min(var(--rams-detail-newsletter-issue-padding-inline-limit), var(--rams-detail-newsletter-content-inset-limit)); }
+.tray { padding-inline: min(var(--rams-detail-newsletter-tray-padding-inline-limit), var(--rams-detail-newsletter-content-inset-limit)); }
+@container signup (max-width: 20rem) {
+  .pill { flex-direction: column; align-items: stretch; }
+  .input { flex: none; height: auto; }
+  .submit { width: 100%; height: auto; }
+}
+/* The owned InputGroup uses logical sizing. Reset that inline size for this layout,
+   rather than setting a physical width that leaves the input at zero. */
+.newsletter .pill > .input { inline-size: 100%; min-inline-size: 0; }
+.submit { padding-inline: min(var(--rams-detail-space-4), var(--rams-detail-newsletter-content-inset-limit)); }
+@container signup (max-width: 20rem) {
+  .newsletter .pill > .input { flex: none; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-strong); border-radius: var(--rams-detail-radius-control); }
+}
+@container signup (max-width: 10rem) {
+  .submitArrow, .successLabelWide { display: none; }
+  .successLabelCompact { display: inline; }
+}
+/* A painted shared field owns its inset contours, including the bordered input
+   in the stacked layout. Borderless separate controls retain their own corners. */
+.newsletter .pill > :is(.submit, .input) { border-radius: var(--rams-detail-newsletter-inner-radius, var(--radius-control)); }
+
+/* The sample issue is readable content, including its recipient, not a clipped decoration. */
+.tray { height: auto; grid-template-rows: auto; overflow: visible; padding-bottom: min(var(--rams-detail-newsletter-tray-padding-block-end-limit), var(--rams-detail-newsletter-content-inset-limit)); }
+.tray .stack { height: auto; -webkit-mask-image: none; mask-image: none; }
+/* A reset action gets its own text line and focus space in the confirmation. */
+.textButton { display: block; max-width: 100%; margin-block: var(--rams-detail-newsletter-form-reset-margin-block); text-align: start; }
+@container newsletter (max-width: 14rem) {
+  .story { grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-newsletter-story-stacked-gap); }
+}
+/* Keep the focus ring away from the curved bottom: only inline insets are capped. */
+.cardBody { padding-block: var(--rams-detail-space-6); }
+/* Both live errors and their hidden height measures must wrap long email examples. */
+.note { overflow-wrap: anywhere; }

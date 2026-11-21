@@ -1,0 +1,15 @@
+.name {
+  font-family: var(--rams-detail-brand-wordmark-family);
+  font-feature-settings: var(--rams-detail-wordmark-features);
+  font-variation-settings: normal;
+  font-synthesis: none;
+}
+
+.name[data-rams-logo] {
+  font-weight: var(--rams-detail-brand-wordmark-weight);
+  color: var(--rams-brand-accent);
+}
+
+:global(.dark) .name[data-rams-logo] {
+  color: var(--rams-brand-accent);
+}

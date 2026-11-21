@@ -1,0 +1,50 @@
+/* The frame follows the chip rows' height on a spring; the rows re-flow once and every chip glides to its new place. */
+.frame { min-width: 0; }
+.content { position: relative; }
+.group { position: relative; isolation: isolate; display: flex; flex-wrap: wrap; gap: var(--rams-detail-space-2); }
+
+/* The button is only the hit area and the layout box. What you see is the surface, which trails the box on a spring while the width morphs. */
+.chip { position: relative; display: inline-flex; max-width: 100%; padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill); background: none; color: var(--rams-detail-text-secondary); font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); letter-spacing: var(--rams-detail-tracking-body); line-height: var(--rams-detail-chip-group-label-leading); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+/* Press answers on the body with the individual scale property, so it never fights the layout transform on the button. */
+.body { position: relative; isolation: isolate; display: inline-flex; min-width: 0; height: var(--rams-detail-control-height-sm); align-items: center; padding: 0 var(--rams-detail-chip-group-body-padding-inline); transition: scale var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.chip:active .body { scale: var(--rams-motion-chip-group-press-scale); transition-duration: var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard); }
+.surface { position: absolute; z-index: var(--rams-detail-layer-behind); top: 0; bottom: 0; inset-inline-start: 0; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+/* The check grows from its left edge where the label started; the slot hands its width to the label in one layout step, and the label's offset springs it over. */
+.check { position: absolute; top: calc((100% - var(--rams-detail-chip-group-check-size)) / 2); inset-inline-start: var(--rams-detail-chip-group-check-inset); display: grid; width: var(--rams-detail-chip-group-check-size); height: var(--rams-detail-chip-group-check-size); place-items: center; color: var(--rams-detail-accent-strong); transform-origin: 0 50%; }
+.check:dir(rtl) { transform-origin: 100% 50%; }
+.check svg { display: block; width: 100%; height: 100%; overflow: visible; stroke-width: var(--rams-detail-chip-group-check-stroke); }
+.slot { width: calc(var(--rams-detail-chip-group-check-size) + var(--rams-detail-chip-group-check-gap)); margin-inline-end: calc(-1 * (var(--rams-detail-chip-group-check-size) + var(--rams-detail-chip-group-check-gap))); flex: none; }
+.body[data-selected="true"] .slot { margin-inline-end: 0; }
+.label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Selected reads as a quiet tint of the accent (neutral by default) plus the check, never color alone. */
+.body[data-selected="true"] .surface { border-color: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-chip-group-selected-border-share), var(--rams-detail-border)); background: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-chip-group-selected-fill-share), var(--rams-detail-surface)); }
+.chip[aria-pressed="true"] { color: var(--rams-detail-foreground); }
+@media (hover: hover) and (pointer: fine) {
+  .chip:hover { color: var(--rams-detail-foreground); }
+  .chip:hover .surface { border-color: var(--rams-detail-border-strong); }
+  .chip[aria-pressed="true"]:hover .surface { border-color: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-chip-group-selected-hover-border-share), var(--rams-detail-border)); background: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-chip-group-selected-hover-fill-share), var(--rams-detail-surface)); }
+}
+
+/* The overflow chip travels under the chips it reveals, so they seem to come out of it. */
+.chip:not(.more) { z-index: var(--rams-detail-local-overlay-layer); }
+.more { color: var(--rams-detail-text-muted); }
+.more .surface { border-color: var(--rams-detail-border); background: var(--rams-detail-surface-muted); }
+.moreText { position: relative; display: inline-flex; justify-content: center; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.moreLine { display: block; white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .chip, .body, .surface { transition: none; }
+  .chip:active .body { scale: none; }
+  .chip, .label, .moreLine { transform: none !important; opacity: 1 !important; filter: none !important; }
+  .surface { inset-inline-end: 0 !important; }
+  .check { transform: none !important; filter: none !important; }
+  .body[data-selected="false"] .check { visibility: hidden; }
+  .body[data-selected="true"] .check { opacity: 1 !important; }
+  .check path { stroke-dasharray: none; }
+}
+
+:where(.frame,.content,.group,.chip,.body,.surface,.check,.slot,.label,.more,.moreText,.moreLine):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Preserve the composite geometry while consuming owned native primitives. */
+.chip { min-inline-size: 0; min-block-size: 0; flex-wrap: nowrap; }

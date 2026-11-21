@@ -1,0 +1,46 @@
+.overlay { position: fixed; inset: 0; z-index: var(--rams-detail-surface-overlay-z); background: var(--rams-detail-surface-overlay-paint); }
+/* Centered with auto margins (like a native modal dialog) so transform stays free for the entrance spring. */
+.content { box-sizing: border-box; position: fixed; z-index: var(--rams-detail-surface-content-z); inset: 0; display: grid; gap: var(--rams-detail-surface-stack-gap); padding: var(--rams-detail-surface-padding); width: min(var(--rams-detail-surface-dialog-inline-size), calc(var(--rams-detail-surface-viewport-inline-size) - var(--rams-detail-surface-viewport-inset))); height: fit-content; max-height: var(--rams-detail-surface-max-block-size); margin: auto; overflow: auto; border: var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border); border-radius: var(--rams-detail-surface-modal-radius); background: var(--rams-detail-background); color: var(--rams-detail-foreground); box-shadow: var(--rams-detail-surface-elevation); }
+/* Motion animates both layers. Keyframes only run when DialogContent sits under a bare Radix root. */
+.keyframes.overlay[data-state="open"] { animation: overlay-in var(--rams-detail-duration-standard) var(--rams-detail-ease-enter) both; }
+.keyframes.overlay[data-state="closed"] { animation: overlay-out var(--rams-detail-duration-fast) var(--rams-detail-ease-standard) both; }
+.keyframes.content[data-state="open"] { animation: content-fade-in var(--rams-detail-duration-fast) var(--rams-detail-ease-enter) both, content-rise-in var(--rams-detail-duration-spring) var(--rams-detail-ease-spring) both; }
+.keyframes.content[data-state="closed"] { animation: content-out var(--rams-detail-duration-fast) var(--rams-detail-ease-standard) both; }
+.content:focus { outline: none; }
+/* While the layers leave, clicks pass through, so the trigger can reopen the dialog mid-exit. Radix sets pointer-events inline on the overlay. */
+.overlay[data-state="closed"], .content[data-state="closed"] { pointer-events: none !important; }
+.header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; min-width: 0; }
+.title { min-width: 0; margin: 0; font-family: var(--type-title-family); font-size: var(--rams-detail-surface-title-size); font-weight: var(--rams-detail-surface-title-weight); letter-spacing: var(--rams-detail-surface-title-tracking); line-height: var(--rams-detail-surface-title-leading); }
+.description { grid-column: 1 / -1; margin: 0; color: var(--rams-detail-surface-muted-ink); font-size: var(--rams-detail-surface-body-size); line-height: var(--rams-detail-surface-body-leading); font-family: var(--type-body-family); font-weight: var(--rams-detail-surface-body-weight); letter-spacing: var(--rams-detail-surface-body-tracking); }
+.title, .description { position: relative; overflow-wrap: anywhere; }
+.swap { display: block; }
+.semanticText {
+  position: absolute;
+  inline-size: var(--rams-detail-accessible-hidden-inline-size);
+  block-size: var(--rams-detail-accessible-hidden-block-size);
+  overflow: hidden;
+  clip-path: var(--rams-detail-accessible-hidden-clip-path);
+  white-space: nowrap;
+}
+/* Line height sits on the text itself, so a page-level heading reset cannot shrink the title and pull the close button off its line. */
+.title .swap { line-height: var(--rams-detail-surface-title-leading); }
+/* The close control owns its grid track, including when user text settings enlarge it. */
+.close { align-self: start; color: var(--rams-detail-text-muted); }
+.close svg { inline-size: var(--rams-detail-dialog-close-glyph-size); block-size: var(--rams-detail-dialog-close-glyph-size); }
+.body { min-width: 0;  }
+@keyframes overlay-in { from { opacity: 0; } }
+@keyframes overlay-out { to { opacity: 0; } }
+@keyframes content-fade-in { from { opacity: 0; } }
+@keyframes content-rise-in { from { transform: translateY(var(--rams-motion-dialog-enter-offset)) scale(var(--rams-motion-dialog-enter-scale)); } }
+@keyframes content-out { to { opacity: 0; transform: translateY(var(--rams-motion-dialog-exit-offset)) scale(var(--rams-motion-dialog-exit-scale)); } }
+@keyframes content-fade-out { to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .keyframes.overlay[data-state="open"], .keyframes.content[data-state="open"] { animation: overlay-in var(--rams-detail-duration-instant) var(--rams-detail-ease-standard) both; }
+  .keyframes.overlay[data-state="closed"] { animation: overlay-out var(--rams-detail-duration-instant) var(--rams-detail-ease-standard) both; }
+  .keyframes.content[data-state="closed"] { animation: content-fade-out var(--rams-detail-duration-instant) var(--rams-detail-ease-standard) both; }
+  .close, .close:active { transition: none; }
+  .close:active { transform: none; }
+}
+:where(.overlay,.content,.keyframes,.header,.title,.description,.swap,.close,.body):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+.footer { min-inline-size: var(--rams-detail-space-0); }

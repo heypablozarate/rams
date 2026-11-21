@@ -1,0 +1,28 @@
+.card { min-width: 0; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-surface); padding: var(--rams-detail-space-6); background: var(--rams-detail-surface); box-shadow: var(--rams-detail-shadow-resting); }
+.top { display: flex; align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3); margin-bottom: var(--rams-detail-space-8); }
+.top span { color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); }
+.top small { display: inline-flex; flex: 0 0 auto; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); padding: var(--rams-detail-metric-card-change-padding); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); }
+.card p { margin: var(--rams-detail-space-4) 0 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); }
+@media (max-width: 380px) { .card { padding: var(--rams-detail-space-4); } .top { align-items: flex-start; flex-wrap: wrap; margin-bottom: var(--rams-detail-space-6); } }
+/* Text swaps: the outgoing copy is popped out of flow so the wrapper never holds both widths. */
+.swap, .swapBlock { position: relative; max-width: 100%; }
+.swap { display: inline-flex; overflow-x: clip; white-space: nowrap; vertical-align: top; }
+.swapBlock { display: block; }
+.swap > .text { display: inline-block; }
+.swapBlock > .text { display: block; }
+@media (prefers-reduced-motion: reduce) {
+  .swap { width: auto !important; }
+  .text:not([aria-hidden="true"]) { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .text[aria-hidden="true"], .change[aria-hidden="true"] { display: none; }
+  .change:not([aria-hidden="true"]) { opacity: 1 !important; transform: none !important; }
+}
+.sizer { position: absolute; top: 0; left: 0; visibility: hidden; white-space: nowrap; pointer-events: none; }
+/* A signed change reads its direction in color as well as sign: a faint tint behind, the color on the text. */
+.top small[data-trend] span { color: inherit; }
+.top small[data-trend] { border-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.top small[data-trend="up"] { background: color-mix(in oklab, var(--rams-detail-success) var(--rams-detail-metric-card-trend-tint-share), transparent); color: var(--rams-detail-success); }
+@media (prefers-reduced-motion: reduce) { .top small[data-trend] { transition: none; } }
+.top small[data-trend="down"] { background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-metric-card-trend-tint-share), transparent); color: var(--rams-detail-danger); }
+:where(.card,.top,.swap,.swapBlock,.text,.sizer):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.top small { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }

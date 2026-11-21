@@ -1,0 +1,44 @@
+/* The button hugs its label: labels crossfade in place and the width follows on a spring with no overshoot, so no state ever snaps the layout. */
+.button { position:relative; height:auto; overflow:hidden; -webkit-tap-highlight-color:transparent; transition:background var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .button:hover:not(:disabled):not([aria-disabled="true"]):not([data-state="pending"]) { box-shadow: var(--rams-detail-shadow-resting); } }
+.button:disabled { cursor: not-allowed; }
+.button[data-state="pending"] { cursor: progress; }
+.content { position: relative; display: inline-flex; align-items: center; justify-content: center; min-inline-size: 0; max-inline-size: 100%; gap: var(--rams-detail-inline-glyph-gap); }
+.morph { position: relative; display: inline-grid; flex: none; min-inline-size: 0; max-inline-size: 100%; justify-items: start; }
+.morph[data-morphing] { clip-path: inset(calc(-1 * var(--rams-detail-space-3)) 0 calc(-1 * var(--rams-detail-space-3)) calc(-1 * var(--rams-detail-space-1))); }
+.morph[data-morphing]:dir(rtl) { clip-path: inset(calc(-1 * var(--rams-detail-space-3)) calc(-1 * var(--rams-detail-space-1)) calc(-1 * var(--rams-detail-space-3)) 0); }
+/* The sizer and current label share a cell; the fading label does not affect its size. */
+.sizer, .label { grid-area: 1 / 1; inline-size: max-content; max-inline-size: var(--rams-detail-action-label-available, var(--rams-detail-action-label-available-fallback)); white-space: normal; overflow-wrap: anywhere; }
+.sizer { visibility: hidden; }
+.label[data-rams-presence="exiting"] { position: absolute; inset-block-start: 0; inset-inline-start: 0; }
+.iconSlot, .phase, .phase > svg, .spinner { inline-size: var(--rams-detail-native-inline-glyph-size); block-size: var(--rams-detail-native-inline-glyph-size); }
+.iconSlot, .phase { display: grid; place-items: center; }
+.iconSlot { flex: none; }
+.phase { grid-area: 1 / 1; }
+.spinner { display: inline-block; border: var(--rams-detail-activity-indicator-stroke-width) solid currentColor; border-inline-end-color: transparent; border-radius: var(--rams-detail-radius-pill); animation: spin var(--rams-motion-activity-duration) var(--rams-motion-activity-ease) var(--rams-motion-active-iterations); }
+.visuallyHidden { position: absolute; inline-size: var(--rams-detail-accessible-hidden-inline-size); block-size: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+@keyframes spin { to { transform: var(--rams-detail-native-activity-cycle-transform); } }
+@media (prefers-reduced-motion: reduce) { .button { transition: none; } .spinner { animation: none; } }
+.button:focus-visible:not([tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Primary feedback uses the themed action-sunset token layer. Rest stays neutral;
+   keyboard focus and press share feedback without depending on hover capability. */
+.button[data-variant="default"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: var(--rams-detail-action-sunset);
+  opacity: 0;
+  transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .button[data-variant="default"]:hover:not(:disabled):not([aria-disabled="true"]):not([data-state="pending"])::before { opacity: 1; }
+}
+.button[data-variant="default"]:focus-visible:not(:disabled):not([aria-disabled="true"]):not([data-state="pending"])::before { opacity: 1; }
+/* Press wins when hover and keyboard focus coincide, including coarse pointers. */
+.button[data-variant="default"]:active:not(:disabled):not([aria-disabled="true"]):not([data-state="pending"])::before { opacity: var(--rams-detail-action-sunset-active-opacity); }
+@media (prefers-reduced-motion: reduce) {
+  .button[data-variant="default"]::before { transition: none; }
+}

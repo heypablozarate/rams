@@ -1,0 +1,29 @@
+/* The dark material shares the light glass geometry and shader. */
+:is(.dark .rams-public-glass-scope, .rams-public-glass-scope.dark) {
+  --glass-bg: var(--rams-detail-public-header-glass-dark-fill);
+  --glass-line: var(--rams-detail-public-header-glass-dark-edge);
+  --glass-fallback-saturation: var(--rams-detail-public-header-glass-dark-saturation);
+  --glass-fallback-contrast: var(--rams-detail-public-header-glass-dark-contrast);
+  --glass-fallback-brightness: var(--rams-detail-public-header-glass-dark-brightness);
+}
+
+:where(.dark) .rams-public-glass-layer[data-active="true"] {
+  background: var(--glass-bg);
+}
+
+:where(.dark) .rams-public-glass-layer:is([data-active="true"], [data-hairline="true"]) {
+  box-shadow: inset 0 calc(-1 * var(--rams-detail-separator-thickness)) 0 var(--glass-line);
+}
+
+:where(.dark) .rams-public-glass-layer[data-active="true"]::before {
+  background: linear-gradient(to bottom, var(--rams-detail-public-header-glass-dark-reflection), transparent);
+  mix-blend-mode: normal;
+}
+
+:where(.dark) .rams-public-glass-layer[data-active="true"]::after {
+  background: none;
+}
+
+:where(.dark) .rams-public-glass-layer[data-webgl="true"] .rams-public-glass-shader {
+  opacity: var(--rams-detail-public-header-glass-dark-shader-opacity);
+}

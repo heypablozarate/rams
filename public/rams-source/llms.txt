@@ -1,0 +1,26 @@
+# RAMS source package
+
+Start here for source installation. This entry describes the forkable package;
+authored website examples are not additional installation rules.
+
+1. Read [AGENTS.md](AGENTS.md) and [foundations](docs/foundations.md).
+2. Query `node tools/discover.mjs --query "date range"` or read [agent-index.json](agent-index.json).
+3. Select an exact ID with `node tools/discover.mjs --item motion-date-range-picker`.
+   Read its attached guide and actual exports/declarations. Inherited props remain in the source.
+4. Inspect `node tools/install.mjs --target <app> --items <IDs> --dry-run`, then install.
+5. Compile and exercise the consuming view; report what was and was not verified.
+
+[rams.json](rams.json) owns item IDs, files, hashes and dependency versions.
+The generated index derives from that inventory and the actual source, not a second catalog.
+Queries return at most ten concise matches; use `--list` deliberately for the full list.
+Search is ranked keyword matching, not semantic understanding. `matchedTerms` and
+`completeMatch` identify partial matches; read the selected guide before choosing an item.
+
+Default typography is Geist. [Optional colors](palette.css) can be imported separately.
+[Project profiles](docs/profiles.md) require explicit local configuration outside this package.
+No profile is inferred from identity, Git configuration or environment variables.
+
+[Installation prompt](docs/install-prompt.md) · [README](README.md) · [Licenses](NOTICE.md)
+
+An agent needs filesystem/shell tools to install, or ordinary HTTP/file tools to read these files.
+This workflow requires no MCP server and does not promise universal model autodiscovery.

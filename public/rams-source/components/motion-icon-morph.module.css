@@ -1,0 +1,6 @@
+.icon { display: block; flex: none; overflow: visible; }
+
+/* Saved state uses the brand accent; its existing stroke preserves shape contrast on muted controls. */
+.heart { transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.heart[data-on] { color: var(--rams-detail-icon-morph-like, var(--rams-detail-accent)); stroke: var(--rams-detail-foreground); }
+:where(.icon,.heart):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

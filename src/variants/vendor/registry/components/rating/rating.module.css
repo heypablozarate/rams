@@ -1,0 +1,37 @@
+.field { display: grid; justify-items: start; gap: var(--rams-detail-rating-field-gap); min-width: 0; }
+.label { color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); letter-spacing: var(--rams-detail-tracking-body); }
+.row { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--rams-detail-rating-row-inline-gap); row-gap: var(--rams-detail-rating-row-block-gap); max-width: 100%; }
+/* Cells are wider than their stars; the negative inline margin lines the first star up with the label. */
+.stars { --rams-detail-cell: var(--rams-detail-rating-cell-size-default); --rams-detail-glyph: var(--rams-detail-rating-glyph-size-default); display: inline-flex; gap: var(--rams-detail-rating-cell-gap); margin-inline: calc((var(--rams-detail-glyph) - var(--rams-detail-cell)) / 2); touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.sm .stars { --rams-detail-cell: var(--rams-detail-rating-cell-size-small); --rams-detail-glyph: var(--rams-detail-rating-glyph-size-small); }
+.lg .stars { --rams-detail-cell: var(--rams-detail-rating-cell-size-large); --rams-detail-glyph: var(--rams-detail-rating-glyph-size-large); }
+.cell { position: relative; display: grid; width: var(--rams-detail-cell); height: var(--rams-detail-cell); flex: none; place-items: center; border-radius: calc(var(--rams-detail-radius-control) - var(--rams-detail-rating-cell-radius-inset)); }
+/* The radio covers the cell; with half stars a second radio takes the leading half. */
+.hit { position: absolute; inset: 0; margin: 0; border: 0; border-radius: inherit; padding: 0; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.hit:focus-visible { outline: none; }
+.half { z-index: var(--rams-detail-local-overlay-layer); inset-inline-end: 50%; border-start-end-radius: var(--rams-detail-flush-corner-radius); border-end-end-radius: var(--rams-detail-flush-corner-radius); }
+.hit:disabled { cursor: default; }
+/* The lift answers press and softening; the pop inside carries the commit impulse, so the two transforms never fight. */
+.lift, .pop { display: grid; width: var(--rams-detail-glyph); height: var(--rams-detail-glyph); pointer-events: none; }
+.base, .kept, .fill { display: grid; grid-area: 1 / 1; }
+.base svg, .kept svg, .fill svg { width: var(--rams-detail-glyph); height: var(--rams-detail-glyph); stroke-width: var(--rams-detail-rating-glyph-stroke-width); }
+.base svg { fill: transparent; stroke: var(--rams-detail-text-secondary); transition: fill var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), stroke var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+/* Once a value shows, empty stars soften from an outline into a quiet solid, so a partly filled star reads as one shape. */
+.stars[data-rated] .base svg { fill: var(--rams-detail-border); stroke: var(--rams-detail-text-secondary); }
+.kept { color: color-mix(in oklab, var(--rams-detail-control-on) var(--rams-detail-rating-kept-share), transparent); }
+.fill { color: var(--rams-detail-control-on); }
+.kept svg, .fill svg { fill: currentColor; stroke: var(--rams-detail-text-secondary); }
+.value { display: inline-grid; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); letter-spacing: var(--rams-detail-tracking-body); font-variant-numeric: var(--rams-detail-numeric-column-variant); white-space: nowrap; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.value[data-empty] { color: var(--rams-detail-text-muted); }
+.value > * { grid-area: 1 / 1; }
+.sizer { visibility: hidden; }
+.description { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); letter-spacing: var(--rams-detail-tracking-body); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.roll { position: relative; display: block; }
+.word { display: inline-block; white-space: pre; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+.field[data-disabled] .stars, .field[data-disabled] .value { opacity: var(--rams-detail-control-disabled-opacity); }
+@media (prefers-reduced-motion: reduce) { .base svg, .value { transition: none; } .word:not([aria-hidden="true"]) { opacity: 1 !important; transform: none !important; filter: none !important; }  .lift { transform: scale(var(--rams-detail-rating-final-lift)) !important; } .pop { transform: none !important; } .kept, .fill { clip-path: var(--rams-detail-rating-final-clip) !important; } .word[aria-hidden="true"] { display: none; } }
+:where(.field,.label,.row,.stars,.sm,.lg,.cell,.hit,.half,.lift,.pop,.base,.kept,.fill,.value,.sizer,.description,.roll,.word,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The native Button uses this radio cell’s own hit geometry. */
+.hit { min-block-size: 0; min-inline-size: 0; }

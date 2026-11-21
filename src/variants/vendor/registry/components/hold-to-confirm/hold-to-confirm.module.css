@@ -1,0 +1,45 @@
+/* The button hugs its label; the fill is a second, inverted copy of the face revealed by clip-path, so the text flips colour exactly at the edge. */
+/* The default tone follows the selected accent; danger stays available for a truly irreversible action. */
+.button { --rams-detail-hold-ink: var(--rams-detail-foreground); --rams-detail-hold-fill: var(--rams-detail-accent); --rams-detail-hold-on-fill: var(--rams-detail-accent-foreground); --rams-detail-hold-border: var(--rams-detail-border-strong); position: relative; display: inline-flex; min-height: var(--rams-native-hit); align-items: center; justify-content: center; padding: 0 var(--rams-detail-space-5); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-hold-border); border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-surface); color: var(--rams-detail-hold-ink); font-family: var(--type-action-family); font-size: var(--type-action-size); font-weight: var(--type-action-weight); line-height: var(--type-action-leading); letter-spacing: var(--type-action-tracking); cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.button[data-tone="danger"] { --rams-detail-hold-ink: var(--rams-detail-danger); --rams-detail-hold-fill: var(--rams-detail-danger); --rams-detail-hold-on-fill: var(--rams-detail-background); --rams-detail-hold-border: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-hold-to-confirm-danger-border-mix), var(--rams-detail-border)); }
+.button[data-tone="neutral"] { --rams-detail-hold-ink: var(--rams-detail-foreground); --rams-detail-hold-fill: var(--rams-detail-foreground); --rams-detail-hold-on-fill: var(--rams-detail-background); --rams-detail-hold-border: var(--rams-detail-border-strong); }
+@media (hover: hover) and (pointer: fine) { .button:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in oklab, var(--rams-detail-hold-fill) var(--rams-detail-hold-to-confirm-hover-mix), var(--rams-detail-surface)); } }
+.button[aria-disabled="true"] { cursor: default; }
+.button:disabled { cursor: not-allowed; opacity: var(--rams-detail-control-disabled-opacity); }
+.face { display: inline-flex; align-items: center; gap: var(--rams-detail-space-2); white-space: nowrap; }
+/* Covers the border too, and keeps its own rounded corners; the clip only ever cuts a straight leading edge. */
+.fill { position: absolute; inset: calc(var(--rams-detail-primitive-border-width) * -1); display: flex; align-items: center; justify-content: center; border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-hold-fill); color: var(--rams-detail-hold-on-fill); pointer-events: none; }
+.iconSlot { display: grid; width: var(--rams-detail-hold-to-confirm-icon-size); height: var(--rams-detail-hold-to-confirm-icon-size); flex: none; place-items: center; }
+.iconPhase { display: grid; grid-area: 1 / 1; place-items: center; }
+.iconPhase svg { width: var(--rams-detail-hold-to-confirm-icon-size); height: var(--rams-detail-hold-to-confirm-icon-size); }
+/* Clips the outgoing label while the frame narrows, with room for the rise and the soft blur. */
+.labelFrame { position: relative; display: inline-flex; min-width: 0; clip-path: inset(var(--rams-detail-hold-to-confirm-label-clip-inset-block) var(--rams-detail-hold-to-confirm-label-clip-inset-inline)); }
+.label { display: block; white-space: nowrap; }
+.measure { position: absolute; top: 0; left: 0; visibility: hidden; white-space: nowrap; pointer-events: none; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .button { transition: none; } }
+:where(.button,.face,.fill,.iconSlot,.iconPhase,.labelFrame,.label,.measure,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Constrain the real face, preserving intrinsic label measurement for morphing. */
+.button { --rams-detail-hold-padding-inline: var(--rams-button-padding-inline); --rams-detail-hold-padding-block:max(0px,calc((var(--rams-native-hit) - 1em * var(--rams-detail-leading-body) - var(--rams-detail-primitive-border-width) * 2) / 2)); box-sizing: border-box; min-width: 0; max-width: 100%; padding: var(--rams-detail-hold-padding-block) var(--rams-detail-hold-padding-inline); }
+.face { min-width: 0; max-width: 100%; flex: 0 1 auto; flex-wrap: wrap; justify-content: center; white-space: normal; }
+.labelFrame { flex: 0 1 auto; max-width: 100%; }
+.label { white-space: normal; overflow-wrap: normal; }
+/* The fill includes the border; match the normal face's content box exactly. */
+.fill { box-sizing: border-box; padding: calc(var(--rams-detail-hold-padding-block) + var(--rams-detail-primitive-border-width)) calc(var(--rams-detail-hold-padding-inline) + var(--rams-detail-primitive-border-width)); }
+/* The intrinsic probe keeps its width without extending the document. */
+.measureBox { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
+.measure { width: max-content; }
+
+/* Both faces wrap the intrinsic icon and label as whole items; the label receives a complete row before its words wrap. */
+.label { width: 100%; }
+
+/* Invisible idle/done faces reserve only block space, using the available
+   container width rather than the current animated label width. */
+.button { min-block-size: max(var(--rams-native-hit), var(--rams-detail-hold-reserved-block, var(--rams-detail-hold-reserved-block-fallback))); }
+.reserveFace { position: absolute; inline-size: max-content; max-inline-size: var(--rams-detail-hold-probe-width); visibility: hidden; pointer-events: none; }
+.reserveFace .labelFrame { inline-size: max-content; }
+
+/* Text takes its natural constrained measure immediately; only its visual frame
+   follows the spring, so reset never wraps against an intermediate tiny width. */
+.label { flex: none; inline-size: max-content; max-inline-size: var(--rams-detail-hold-probe-width, var(--rams-detail-hold-probe-width-fallback)); }

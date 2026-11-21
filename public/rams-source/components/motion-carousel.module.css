@@ -1,0 +1,51 @@
+/* The root is the size container, so slide widths, centering padding, and the control row all share one measure. It needs a definite width. */
+.root { --rams-detail-carousel-slide: var(--rams-detail-carousel-slide-default); --rams-detail-carousel-gap: var(--rams-detail-space-4); display: grid; width: 100%; grid-template-columns: minmax(0, 1fr); min-width: 0; gap: var(--rams-detail-space-4); container-type: inline-size; }
+/* Only the horizontal axis clips, so focus rings inside the active slide are never cut off at the top or bottom. */
+.viewport { position: relative; min-width: 0; overflow-x: clip; overflow-y: visible; border-radius: var(--rams-detail-radius-panel); cursor: grab; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.viewport[data-dragging] { cursor: grabbing; }
+.viewport:focus-visible { --rams-detail-focus-outline-offset: var(--rams-detail-carousel-focus-offset); }
+/* Side padding centers the first and last slides; before hydration the start slide is placed with CSS so nothing moves on first paint. */
+.track { display: flex; gap: var(--rams-detail-carousel-gap); padding-inline: calc((100cqw - var(--rams-detail-carousel-slide)) / 2); user-select: none; -webkit-user-select: none; }
+.track:not([data-measured]) { translate: calc(var(--rams-detail-carousel-start) * -1 * (var(--rams-detail-carousel-slide) + var(--rams-detail-carousel-gap))) 0; }
+.track:not([data-measured]):dir(rtl) { translate: calc(var(--rams-detail-carousel-start) * (var(--rams-detail-carousel-slide) + var(--rams-detail-carousel-gap))) 0; }
+.slide { flex: 0 0 var(--rams-detail-carousel-slide); min-width: 0; transform-origin: 50% 50%; will-change: transform, opacity; }
+.slide img { -webkit-user-drag: none; }
+
+/* Controls line up with the edges of the centered slide. */
+.controls { display: flex; min-width: 0; align-items: center; gap: var(--rams-detail-space-2); padding-inline: calc((100cqw - var(--rams-detail-carousel-slide)) / 2); }
+.tabs { display: flex; min-width: 0; align-items: center; }
+.tab { display: grid; height: var(--rams-detail-control-height-sm); flex: none; place-items: center; border: 0; border-radius: var(--rams-detail-radius-pill); padding: 0 var(--rams-detail-carousel-tab-inset); background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+/* Resting dots use the strong border color; the fill fades in as the pill forms, and the drain covers it from the right while rotation runs. */
+.dot { position: relative; display: block; width: var(--rams-detail-carousel-dot-size); height: var(--rams-detail-carousel-dot-size); overflow: hidden; border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-border-strong); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.dotFill, .dotDrain { position: absolute; inset: 0; }
+.dotFill { background: var(--rams-detail-foreground); }
+.dotDrain { background: var(--rams-detail-border-strong); transform-origin: 100% 50%; }
+@media (hover: hover) and (pointer: fine) { .tab:hover .dot { background: var(--rams-detail-text-muted); } }
+.tab:focus-visible { --rams-detail-focus-outline-offset: calc(-1 * var(--rams-detail-carousel-focus-offset)); }
+
+.arrows { display: flex; flex: none; gap: var(--rams-detail-space-2); margin-left: auto; }
+.control { display: grid; width: var(--rams-detail-control-height-sm); height: var(--rams-detail-control-height-sm); flex: none; place-items: center; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); padding: 0; background: var(--rams-detail-surface); color: var(--rams-detail-foreground); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+@media (hover: hover) and (pointer: fine) { .control:hover:not([aria-disabled="true"]) { background: var(--rams-detail-surface-muted); } }
+.control:active:not([aria-disabled="true"]) { transform: scale(var(--rams-motion-carousel-press-scale)); transition: transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.control[aria-disabled="true"] { color: var(--rams-detail-text-muted); cursor: default; opacity: var(--rams-detail-carousel-disabled-opacity); }
+.iconSlot { display: grid; width: var(--rams-detail-carousel-icon-slot-size); height: var(--rams-detail-carousel-icon-slot-size); place-items: center; }
+.icon { grid-area: 1 / 1; display: grid; place-items: center; }
+/* On phone widths the row tightens so play, indicators, and arrows still fit beside a narrow slide. */
+@container (max-width: 340px) {
+  .controls { gap: var(--rams-detail-space-1); padding-inline: max(0px, calc((100cqw - var(--rams-detail-carousel-slide)) / 2 - var(--rams-detail-space-2))); }
+  .arrows { gap: var(--rams-detail-space-1); }
+  .tab { padding: 0 var(--rams-detail-carousel-tab-compact-inset); }
+}
+.visuallyHidden { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dot, .control, .control:active:not([aria-disabled="true"]) { transition: none; transform: none; }
+}
+
+:where(.root,.viewport,.track,.slide,.controls,.tabs,.tab,.dot,.dotFill,.dotDrain,.arrows,.control,.iconSlot,.icon,.visuallyHidden):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Native buttons retain the engine’s optical dots and arrow targets. */
+.root button { min-inline-size:0; min-block-size:0; box-shadow:none; gap:0; }
+.control > svg { inline-size:var(--rams-detail-carousel-arrow-glyph-size); block-size:var(--rams-detail-carousel-arrow-glyph-size); stroke-width:var(--rams-detail-carousel-glyph-stroke); }
+
+.icon > svg { inline-size: var(--rams-detail-carousel-play-glyph-size); block-size: var(--rams-detail-carousel-play-glyph-size); stroke-width: var(--rams-detail-carousel-glyph-stroke); }

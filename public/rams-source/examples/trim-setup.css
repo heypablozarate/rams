@@ -1,0 +1,50 @@
+.trim-setup {
+  max-inline-size: var(--rams-detail-example-page-measure-trim);
+  margin-inline: auto;
+  padding: var(--rams-detail-example-page-inset);
+  color: var(--rams-ink);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-leading);
+  overflow-wrap: anywhere;
+}
+.trim-setup header {
+  max-inline-size: var(--rams-detail-example-intro-measure);
+  margin-block-end: var(--rams-detail-example-section-gap-wide);
+}
+.trim-setup header p {
+  color: var(--rams-muted);
+  font-size: var(--type-control-size);
+}
+.trim-setup h2 {
+  font-size: var(--type-title-size);
+}
+.trim-setup section {
+  margin-block-end: var(--rams-detail-example-section-gap-wide);
+}
+.trim-setup output {
+  display: block;
+  font-variant-numeric: var(--rams-detail-numeric-column-variant);
+}
+.trim-setup-diagram {
+  margin: var(--rams-detail-example-section-gap) 0;
+}
+.trim-setup-diagram svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+.trim-setup-diagram figcaption {
+  margin-block-start: var(--rams-detail-preview-element-gap);
+  color: var(--rams-muted);
+  font-size: var(--type-control-size);
+}
+.trim-setup form > p {
+  font-size: var(--type-control-size);
+  color: var(--rams-muted);
+}
+.trim-setup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rams-detail-preview-element-gap);
+  margin-block: var(--rams-detail-preview-field-group-gap);
+}

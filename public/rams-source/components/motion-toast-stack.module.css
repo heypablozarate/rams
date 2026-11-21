@@ -1,0 +1,81 @@
+/* The region only holds the list; it never blocks clicks outside the toasts themselves. */
+.viewport { position: fixed; z-index: var(--rams-detail-surface-floating-z); bottom: var(--rams-detail-space-6); pointer-events: none; }
+.bottom-right { right: var(--rams-detail-space-6); }
+.bottom-left { left: var(--rams-detail-space-6); }
+.bottom-center { right: 0; left: 0; margin-inline: auto; }
+.contained { position: absolute; z-index: var(--rams-detail-motion-toast-stack-contained-z); bottom: var(--rams-detail-space-4); }
+.contained.bottom-right { right: var(--rams-detail-space-4); }
+.contained.bottom-left { left: var(--rams-detail-space-4); }
+@media (max-width: 30rem) { .viewport:not(.contained) { right: 0; bottom: var(--rams-detail-space-4); left: 0; margin-inline: auto; } }
+
+/* Toasts hang from the bottom of the list. Its height covers the gaps between open toasts, so hover survives the space between them. */
+.list { position: relative; margin: 0; padding: 0; list-style: none; pointer-events: auto; }
+/* Contained hosts reserve the natural expanded height; the actual hit target
+   stays bottom-anchored and follows only the visible stack, not the blank area. */
+.contained .list { position: absolute; inset-inline: 0; bottom: 0; }
+/* Tucked toasts scale from their top edge, so exactly the peek shows above the toast in front. */
+.item { position: absolute; right: 0; bottom: 0; left: 0; transform-origin: 50% 0; }
+.card { position: absolute; inset: 0; overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface-raised); color: var(--rams-detail-foreground); box-shadow: var(--rams-detail-shadow-raised); container-type: inline-size; touch-action: pan-y; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.item[data-front="true"] .card, .item[data-expanded="true"] .card { box-shadow: var(--rams-detail-shadow-floating); }
+/* Tucked toasts sit a step back in tone as well as scale. */
+.item[data-front="false"][data-expanded="false"] .card { background: var(--rams-detail-surface-muted); }
+.card[data-dragging] { cursor: grabbing; user-select: none; }
+
+.content { display: flex; align-items: flex-start; gap: var(--rams-detail-space-3); padding: var(--rams-detail-space-3) var(--rams-detail-space-3) var(--rams-detail-space-3) var(--rams-detail-space-4); }
+.icon { position: relative; display: grid; width: var(--rams-detail-motion-toast-stack-icon-inline-size); height: var(--rams-detail-motion-toast-stack-icon-block-size); flex: none; place-items: center; color: var(--rams-detail-text-muted); transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.icon[data-type="success"] { color: var(--rams-detail-success); }
+.icon[data-type="info"] { color: var(--rams-detail-accent); }
+.icon[data-type="warning"] { color: var(--rams-detail-warning); }
+.icon[data-type="error"] { color: var(--rams-detail-danger); }
+.glyph { grid-area: 1 / 1; display: grid; place-items: center; }
+.glyph svg { display: block; inline-size: var(--rams-detail-motion-toast-stack-icon-inline-size); block-size: var(--rams-detail-motion-toast-stack-icon-inline-size); stroke-width: var(--rams-detail-motion-toast-stack-status-stroke); }
+/* The spinner turns only while something is loading; the icon swap is its stop. */
+.spinner { display: block; width: var(--rams-detail-motion-toast-stack-spinner-size); height: var(--rams-detail-motion-toast-stack-spinner-size); border: var(--rams-detail-motion-toast-stack-spinner-stroke) solid currentColor; border-right-color: transparent; border-radius: var(--rams-detail-radius-pill); animation: spin var(--rams-motion-activity-duration) var(--rams-motion-activity-ease) var(--rams-motion-active-iterations); }
+
+.copy { position: relative; min-width: 0; flex: var(--rams-detail-layout-flex-fill); font-size: var(--rams-detail-text-sm); letter-spacing: var(--rams-detail-tracking-body); line-height: var(--rams-detail-leading-body); }
+.title { position: relative; display: block; font-weight: var(--rams-detail-label-weight); }
+.line { display: block; }
+.description { display: block; margin-top: var(--rams-detail-motion-toast-stack-copy-gap); color: var(--rams-detail-text-secondary); }
+
+/* Clips only while its width folds, so the focus ring stays whole at rest. */
+.actionSlot { display: flex; flex: none; justify-content: flex-end; margin-top: calc(-1 * var(--rams-detail-motion-toast-stack-action-lift)); }
+.actionSlot[data-moving="true"] { overflow: hidden; }
+.action, .close { flex: none; border: var(--rams-detail-primitive-border-width) solid transparent; font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: scale var(--rams-detail-duration-spring) var(--rams-detail-ease-spring), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.action { height: var(--rams-detail-motion-toast-stack-action-size); padding: 0 var(--rams-detail-space-3); border-color: var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); white-space: nowrap; }
+.close { display: grid; width: var(--rams-detail-motion-toast-stack-action-size); height: var(--rams-detail-motion-toast-stack-action-size); margin: calc(-1 * var(--rams-detail-motion-toast-stack-action-lift)) calc(-1 * var(--rams-detail-motion-toast-stack-close-inline-outset)) 0 0; place-items: center; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-text-muted); }
+@media (hover: hover) and (pointer: fine) {
+  .action:hover { border-color: var(--rams-detail-border-strong); background: var(--rams-detail-surface-muted); }
+  .close:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+}
+/* Quick press, spring release. */
+.action:active, .close:active { scale: var(--rams-motion-dismiss-press-scale); transition-duration: var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard); }
+/* A narrow toast keeps its copy wide: the action drops under the copy instead of squeezing it. */
+@container (max-width: 21rem) {
+  .content { flex-wrap: wrap; row-gap: var(--rams-detail-space-2); }
+  .actionSlot { order: var(--rams-detail-layout-order-following); flex-basis: 100%; justify-content: flex-start; margin-top: 0; padding-left: calc(var(--rams-detail-motion-toast-stack-icon-inline-size) + var(--rams-detail-space-3)); }
+}
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@keyframes spin { to { rotate: var(--rams-detail-activity-cycle-rotation); } }
+@media (prefers-reduced-motion: reduce) {
+  .card, .icon, .action, .close { transition: none; }
+  .action:active, .close:active { scale: none; }
+  .spinner { animation: none; }
+}
+:where(.viewport,.bottom-right,.bottom-left,.bottom-center,.contained,.list,.item,.card,.content,.icon,.glyph,.spinner,.copy,.title,.line,.description,.actionSlot,.action,.close,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Owned toast actions retain their original target and glyph geometry. */
+.action, .close { min-block-size: 0; }
+.close { padding: 0; }
+.close > svg { inline-size: var(--rams-detail-notice-close-glyph-size); block-size: var(--rams-detail-notice-close-glyph-size); stroke-width: var(--rams-detail-motion-toast-stack-close-stroke); }
+
+/* Keep the message measure and line height independent of side actions. */
+.viewport { width: min(var(--rams-detail-motion-toast-stack-inline-max), calc(100% - min(var(--rams-detail-space-8), var(--rams-detail-motion-toast-stack-inline-inset-cap)))); }
+@container (max-width: 21rem) {
+  .content { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "icon close" "copy copy" "action action"; padding: min(var(--rams-detail-space-3), var(--rams-detail-notice-content-inset-cap)); gap: var(--rams-detail-space-2); }
+  .icon { grid-area: icon; }
+  .close { grid-area: close; margin: 0; }
+  .copy { grid-area: copy; }
+  .actionSlot { grid-area: action; min-width: 0; padding-left: 0; }
+  .action { flex-shrink: 1; min-inline-size: 0; max-inline-size: 100%; height: auto; min-height: var(--rams-detail-motion-toast-stack-action-size); white-space: normal; overflow-wrap: anywhere; line-height: var(--rams-detail-leading-body); }
+}

@@ -1,0 +1,62 @@
+.countdown { position: relative; min-width: 0; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+.countdown[data-variant="large"] { container-type: inline-size; display: flex; justify-content: center; }
+.countdown[data-variant="compact"] { display: inline-flex; vertical-align: middle; }
+
+/* The shell springs to whatever it holds; the compact pill shows that morph as its own outline. */
+.shell { position: relative; display: flex; justify-content: center; }
+.content { position: relative; display: inline-flex; flex: none; align-items: center; justify-content: center; }
+.countdown[data-variant="compact"] .shell { overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface); transition: border-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.countdown[data-variant="compact"] .content { min-height: var(--rams-detail-countdown-pill-min-block); padding: 0 var(--rams-detail-space-3); }
+.countdown[data-variant="compact"][data-complete] .shell { border-color: color-mix(in oklab, var(--rams-detail-success) var(--rams-detail-countdown-done-border-share), var(--rams-detail-border)); background: color-mix(in oklab, var(--rams-detail-success) var(--rams-detail-countdown-done-fill-share), var(--rams-detail-surface)); }
+
+.units { display: inline-flex; align-items: flex-start; white-space: nowrap; }
+.unit { display: inline-flex; align-items: flex-start; }
+.group { display: inline-grid; justify-items: center; gap: var(--rams-detail-countdown-group-gap); }
+.number { display: inline-flex; font-variant-numeric: var(--type-data-variant); transition: opacity var(--rams-detail-duration-considered) var(--rams-detail-ease-standard); }
+.countdown[data-pending] .number { opacity: var(--rams-detail-countdown-pending-opacity); }
+.name { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-countdown-unit-leading); }
+.colon { color: var(--rams-detail-text-muted); opacity: var(--rams-detail-countdown-divider-opacity); }
+
+/* Large: display digits sized to the container, so four groups fit at 320px and breathe on a wide card. */
+.countdown[data-variant="large"] .units { gap: 0; font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-countdown-display-size); font-weight: var(--rams-detail-label-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-countdown-unit-leading); }
+.countdown[data-variant="large"] .colon { padding-inline: var(--rams-detail-countdown-divider-inset); line-height: var(--rams-detail-countdown-unit-leading); transform: translateY(var(--rams-detail-countdown-divider-baseline)); }
+/* On a narrow card the unit names outgrow the digits; an even column floor keeps the colons evenly spaced instead of following each name's width. */
+.countdown[data-variant="large"] .group { min-width: min(calc((100cqi - var(--rams-detail-countdown-row-divider-clearance)) / var(--rams-detail-countdown-reference-columns)), var(--rams-detail-countdown-unit-name-min-inline)); }
+.countdown[data-variant="large"] .name { font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+/* Compact: one line, digits then a quiet unit letter. */
+.countdown[data-variant="compact"] .units { gap: var(--rams-detail-countdown-group-gap); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-countdown-compact-leading); }
+.countdown[data-variant="compact"] .group { display: inline-flex; align-items: baseline; gap: var(--rams-detail-countdown-compact-unit-gap); }
+.countdown[data-variant="compact"] .name { font-size: var(--rams-detail-text-sm); font-weight: var(--type-body-weight); line-height: var(--rams-detail-countdown-compact-leading); }
+
+/* Each digit is a clipped wheel whose window feathers out, so a turning digit fades at the edge instead of being cut. */
+.wheel { --rams-detail-feather: var(--rams-detail-countdown-wheel-feather); position: relative; display: inline-block; overflow: hidden; margin-block: calc(var(--rams-detail-feather) * -1); padding-block: var(--rams-detail-feather); mask-image: linear-gradient(to bottom, transparent, var(--rams-detail-detail-countdown-mask-image-81ef715e) calc(var(--rams-detail-feather) * var(--rams-detail-numeric-wheel-feather-spread)), var(--rams-detail-detail-countdown-mask-image-81ef715e) calc(100% - var(--rams-detail-feather) * var(--rams-detail-numeric-wheel-feather-spread)), transparent); }
+.sizer { visibility: hidden; }
+.glyph { position: absolute; inset: var(--rams-detail-feather) 0; text-align: center; }
+
+/* Finished: the digits give way to the label and a live mark. */
+.done { display: inline-flex; align-items: center; gap: var(--rams-detail-countdown-done-gap); white-space: nowrap; }
+.countdown[data-variant="large"] .done { font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-countdown-done-size); font-weight: var(--rams-detail-label-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-countdown-done-leading); }
+.countdown[data-variant="compact"] .done { color: var(--rams-detail-success); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-countdown-compact-leading); }
+.pulse { position: relative; width: var(--rams-detail-countdown-status-mark-size); height: var(--rams-detail-countdown-status-mark-size); min-width: var(--rams-detail-countdown-status-mark-min); min-height: var(--rams-detail-countdown-status-mark-min); flex: none; border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-success); }
+.pulse::after { position: absolute; inset: 0; border-radius: inherit; background: var(--rams-detail-success); content: ""; animation: pulse var(--rams-motion-breathing-duration) var(--rams-detail-ease-standard) var(--rams-motion-countdown-pulse-cycles); }
+@keyframes pulse { from { opacity: var(--rams-motion-countdown-pulse-opacity); transform: var(--rams-detail-zoom-rest-transform); } 70%, to { opacity: 0; transform: scale(var(--rams-motion-countdown-pulse-scale)); } }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .pulse::after { animation: none; }
+  .number, .shell { transition: none; }
+}
+:where(.countdown,.shell,.content,.units,.unit,.group,.number,.name,.colon,.wheel,.sizer,.glyph,.done,.pulse,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.number { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* Preserve the user's type size by placing large timer units on separate rows. */
+.countdown[data-variant="large"] .shell { width: 100%; max-width: 100%; align-items: flex-start; }
+.countdown[data-variant="large"] .content { width: 100%; min-width: 0; max-width: 100%; flex: 1 1 auto; align-self: flex-start; }
+.countdown[data-variant="large"] .done { max-width: 100%; flex-wrap: wrap; white-space: normal; text-align: center; }
+@container (max-width: 24em) {
+  .countdown[data-variant="large"] .units { display: grid; width: 100%; grid-template-columns: repeat(var(--rams-detail-countdown-compact-columns), minmax(0, 1fr)); gap: var(--rams-detail-countdown-compact-grid-gap); white-space: normal; }
+  .countdown[data-variant="large"] .unit { justify-content: center; min-width: 0; }
+  .countdown[data-variant="large"] .colon { display: none; }
+}

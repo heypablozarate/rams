@@ -1,0 +1,41 @@
+/* Press feedback on the anchor stays in color. Radix measures the trigger when the panel opens, so a scaled trigger would move the panel. */
+.anchor:active:not(:disabled) { transform: none; }
+.content { box-sizing: border-box;
+  --rams-detail-popover-x: var(--rams-detail-popover-rest-offset);
+  --rams-detail-popover-y: calc(-1 * var(--rams-motion-popover-enter-travel));
+  /* Share the floating-menu layer: a nested Select portal mounts later and
+     paints above its parent, rather than accepting clicks while hidden. */
+  z-index: var(--rams-detail-surface-floating-z);
+  min-width: var(--rams-detail-space-0);
+  width: var(--rams-detail-surface-compact-inline-size);
+  max-width: calc(var(--rams-detail-surface-viewport-inline-size) - var(--rams-detail-surface-viewport-inset));
+  max-height: var(--radix-popover-content-available-height, var(--rams-detail-surface-max-block-size));
+  overflow: auto;
+  overflow-wrap: anywhere;
+  font-size: var(--rams-detail-surface-body-size);
+  line-height: var(--rams-detail-surface-body-leading);
+  padding: var(--rams-detail-surface-padding);
+  border: var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border);
+  border-radius: var(--rams-detail-surface-popover-radius);
+  background: var(--rams-detail-surface-raised);
+  color: var(--rams-detail-foreground);
+  box-shadow: var(--rams-detail-surface-elevation);
+  transform-origin: var(--radix-popover-content-transform-origin);
+  transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-enter), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring);
+}
+/* The panel starts a few pixels toward its trigger and settles on a spring; it leaves faster than it arrives.
+   Transitions instead of keyframes, so a close that interrupts the open, or a reopen during the close, reverses from where the panel is. */
+.content[data-side="top"] { --rams-detail-popover-y: var(--rams-motion-popover-enter-travel); }
+.content[data-side="left"] { --rams-detail-popover-x: var(--rams-motion-popover-enter-travel); --rams-detail-popover-y: var(--rams-detail-popover-rest-offset); }
+.content[data-side="right"] { --rams-detail-popover-x: calc(-1 * var(--rams-motion-popover-enter-travel)); --rams-detail-popover-y: var(--rams-detail-popover-rest-offset); }
+@starting-style {
+  .content[data-state="open"] { opacity: 0; transform: translate(var(--rams-detail-popover-x), var(--rams-detail-popover-y)) scale(var(--rams-motion-popover-enter-scale)); }
+}
+/* Radix unmounts when the exit animation ends, so a no-op keyframe times the exit while the transition does the visual work. */
+.content[data-state="closed"] { opacity: 0; transform: translate(calc(var(--rams-detail-popover-x) * var(--rams-motion-popover-exit-travel-ratio)), calc(var(--rams-detail-popover-y) * var(--rams-motion-popover-exit-travel-ratio))) scale(var(--rams-motion-popover-exit-scale)); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); animation: popover-exit var(--rams-detail-duration-fast) var(--rams-motion-uniform-ease) both; pointer-events: none; }
+.content:focus { outline: none; }
+@keyframes popover-exit { to { --rams-detail-popover-exit: var(--rams-detail-popover-exit-complete); } }
+@media (prefers-reduced-motion: reduce) {
+  .content, .content[data-state="closed"] { transform: none; transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+}
+:where(.anchor,.content):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

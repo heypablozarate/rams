@@ -1,0 +1,3116 @@
+{
+  "input": {
+    "exportName": "InputDemo",
+    "previewTitle": "Animated plate reference",
+    "summary": "Edit a plate reference and see it applied to the print specimen.",
+    "limits": [
+      "References contain two uppercase letters, a hyphen and two digits; invalid values are identified after blur."
+    ],
+    "checks": [
+      "Edit and blur invalid/valid references; verify the specimen, associated error, helper count and focus."
+    ],
+    "file": "src/variants/demos/original-motion-fields.tsx",
+    "guidelines": [
+      "Keep the real RAMS primitive, label and helper/error association; motion decorates the same control rather than replacing its anatomy."
+    ]
+  },
+  "textarea": {
+    "exportName": "TextareaDemo",
+    "previewTitle": "Animated colophon help",
+    "summary": "Edit the edition colophon with a matching preview and remaining-character help.",
+    "limits": [
+      "The native limit is 140 characters. Blur checks for at least eight characters after trimming leading and trailing spaces."
+    ],
+    "checks": [
+      "Edit, clear and recover the colophon; verify the real preview, count, associated error and native limit."
+    ],
+    "file": "src/variants/demos/original-motion-fields.tsx",
+    "guidelines": [
+      "Keep the real RAMS primitive, label and helper/error association; motion decorates the same control rather than replacing its anatomy."
+    ]
+  },
+  "select": {
+    "exportName": "SelectDemo",
+    "previewTitle": "Animated stock selection",
+    "summary": "Choose the cover stock and update the actual paper weight and finish.",
+    "limits": [
+      "Three cover stocks have fixed weights and finishes. Only one stock is selected."
+    ],
+    "checks": [
+      "Choose each stock by keyboard; verify selected text, weight, finish and trigger focus."
+    ],
+    "file": "src/variants/demos/original-motion-fields.tsx",
+    "guidelines": [
+      "Keep the real RAMS primitive, label and helper/error association; motion decorates the same control rather than replacing its anatomy."
+    ]
+  },
+  "switch": {
+    "exportName": "SwitchDemo",
+    "previewTitle": "Elastic crop-mark switch",
+    "summary": "Toggle crop marks on the actual plate using the same RAMS switch anatomy.",
+    "limits": [
+      "The function is binary. Only the thumb response differs from the base switch; the model owns the crop marks."
+    ],
+    "checks": [
+      "Toggle by pointer and keyboard; inspect marks, label, thumb boundaries, resize and reduced motion."
+    ],
+    "file": "src/variants/demos/original-motion-fields.tsx",
+    "guidelines": [
+      "Keep the real RAMS primitive, label and helper/error association; motion decorates the same control rather than replacing its anatomy."
+    ]
+  },
+  "password-field": {
+    "exportName": "PasswordFieldDemo",
+    "previewTitle": "Reveal proof passphrase",
+    "summary": "Edit and reveal the proof passphrase while preserving the native field value.",
+    "limits": [
+      "Reveal changes the input type and its pressed action; the character count follows the current value."
+    ],
+    "checks": [
+      "Edit, reveal and hide; verify value/selection, action name, pressed state and focus."
+    ],
+    "file": "src/variants/demos/original-motion-fields.tsx",
+    "guidelines": [
+      "Keep the real RAMS primitive, label and helper/error association; motion decorates the same control rather than replacing its anatomy."
+    ]
+  },
+  "accordion": {
+    "exportName": "AccordionDemo",
+    "previewTitle": "Animated production notes",
+    "summary": "Read one production answer at a time while the panel follows its content.",
+    "limits": [
+      "Three production notes use single, collapsible selection; the first note starts open."
+    ],
+    "checks": [
+      "Open, collapse and traverse questions by keyboard; verify only the selected answer is exposed and live reduced motion settles it."
+    ],
+    "file": "src/variants/demos/original-motion-reading.tsx",
+    "guidelines": [
+      "Compose the owned RAMS primitive; preserve its anatomy, semantics and current information while motion follows the selected state."
+    ]
+  },
+  "tabs": {
+    "exportName": "TabsDemo",
+    "previewTitle": "Animated production studies",
+    "summary": "Compare stock, ink and imposition studies with a moving selection and measured panel changes.",
+    "limits": [
+      "Three production studies select one panel. Overflowing tab strips scroll locally; a focused tab is revealed."
+    ],
+    "checks": [
+      "Traverse tabs by keyboard, check the matching artwork and panel, local strip bounds, resize and live reduced motion."
+    ],
+    "file": "src/variants/demos/original-motion-reading.tsx",
+    "guidelines": [
+      "Compose the owned RAMS primitive; preserve its anatomy, semantics and current information while motion follows the selected state."
+    ]
+  },
+  "alert": {
+    "exportName": "AlertDemo",
+    "previewTitle": "Animated plate readiness",
+    "summary": "Add or remove actual trim marks and read the matching warning or success message.",
+    "limits": [
+      "Adding or removing marks changes the four corners of the displayed plate and the matching readiness state."
+    ],
+    "checks": [
+      "Add and remove marks; verify title, tone, icon, complete action and matching artwork through motion/reduced motion and reflow."
+    ],
+    "file": "src/variants/demos/original-motion-reading.tsx",
+    "guidelines": [
+      "Compose the owned RAMS primitive; preserve its anatomy, semantics and current information while motion follows the selected state."
+    ]
+  },
+  "progress": {
+    "exportName": "ProgressDemo",
+    "previewTitle": "Animated checklist progress",
+    "summary": "Check the actual stock, ink and fold tasks and see the matching fraction and percent.",
+    "limits": [
+      "Three checklist states derive one native progress value with max 3; toggling a task reverses the same model."
+    ],
+    "checks": [
+      "Complete and undo checks; compare native value/max, counted percent, fill, keyboard and reduced motion."
+    ],
+    "guidelines": [
+      "Keep value and max in the same units; derive percent and fill from that ratio."
+    ],
+    "file": "src/variants/demos/original-motion-presentation.tsx"
+  },
+  "skeleton": {
+    "exportName": "SkeletonDemo",
+    "previewTitle": "Placeholder and cover reveal",
+    "summary": "Replace a labelled placeholder with the original cover specimen, then show the placeholder again.",
+    "limits": [
+      "The Reveal cover action controls local placeholder/content presence; no timed transfer is claimed."
+    ],
+    "checks": [
+      "Reveal, reset and repeat; verify busy/status visibility, complete artwork, focus and live reduced motion."
+    ],
+    "guidelines": [
+      "Keep the placeholder labelled, hide decoration, and replace it with the actual content."
+    ],
+    "file": "src/variants/demos/original-motion-presentation.tsx"
+  },
+  "badge": {
+    "exportName": "BadgeDemo",
+    "previewTitle": "Animated proof status",
+    "summary": "Mark the ink proof checked or reopen it while its status label and tone update in place.",
+    "limits": [
+      "The model owns one binary proof state; the label always identifies the state."
+    ],
+    "checks": [
+      "Mark and reopen by pointer/keyboard; verify badge text, action wrapping, focus, resize and reduced motion."
+    ],
+    "guidelines": [
+      "Use text to state the proof status; motion and color add emphasis without replacing the label."
+    ],
+    "file": "src/variants/demos/original-motion-presentation.tsx"
+  },
+  "empty-state": {
+    "exportName": "EmptyDemo",
+    "previewTitle": "Empty rack and first cover",
+    "summary": "Add the first cover to the rack, inspect the actual artwork, and remove it to recover the empty state.",
+    "limits": [
+      "The empty state is shown only while there is no cover; actions update one local cover."
+    ],
+    "checks": [
+      "Add and remove by keyboard; verify actual cover, empty recovery, new action focus, labels and reflow."
+    ],
+    "guidelines": [
+      "Use an empty state only while the rack has no cover; actions update the displayed content."
+    ],
+    "file": "src/variants/demos/original-motion-presentation.tsx"
+  },
+  "avatar": {
+    "exportName": "AvatarReferenceStory",
+    "previewTitle": "Station identity",
+    "summary": "Cycle through named workshop stations with original marks and matching assignments.",
+    "limits": [
+      "Five station marks and assignments share one selected index; these are original resource identities, not portraits."
+    ],
+    "checks": [
+      "Cycle all stations; verify matching mark, visible and accessible name, assignment and retained button focus."
+    ],
+    "guidelines": [
+      "Identify the resource by its name as well as artwork; changing station updates both."
+    ],
+    "file": "src/variants/demos/avatar-stories.tsx"
+  },
+  "avatar-sizes": {
+    "exportName": "AvatarSizesStory",
+    "previewTitle": "Four station-mark sizes",
+    "summary": "Compare the same station mark at four honestly labelled circular diameters.",
+    "limits": [
+      "This optical geometry specimen uses fixed diameters of 28, 36, 48 and 88 px while explanatory text stays fluid."
+    ],
+    "checks": [
+      "Measure all four actual circles and inspect labels, image loading and reflow."
+    ],
+    "guidelines": [
+      "Preserve circular geometry; labels show the actual CSS-pixel diameter."
+    ],
+    "file": "src/variants/demos/avatar-stories.tsx"
+  },
+  "avatar-presence": {
+    "exportName": "AvatarPresenceStory",
+    "previewTitle": "Availability indicator",
+    "summary": "Change the station availability between online, offline and not shown.",
+    "limits": [
+      "The local availability state updates the indicator, text and accessible name together."
+    ],
+    "checks": [
+      "Cycle the three states by keyboard; verify indicators, accessible names, text and focus."
+    ],
+    "guidelines": [
+      "Expose availability in the name and text, including when no status is shown."
+    ],
+    "file": "src/variants/demos/avatar-stories.tsx"
+  },
+  "avatar-initials": {
+    "exportName": "AvatarInitialsStory",
+    "previewTitle": "Initials and artwork recovery",
+    "summary": "Use station initials without artwork, then load their original marks without changing identity.",
+    "limits": [
+      "Three resources keep their names as artwork is added or removed."
+    ],
+    "checks": [
+      "Verify initials, load/recover/remove marks, accessible names and unchanged action focus."
+    ],
+    "guidelines": [
+      "Show the correct mark once it loads; keep the resource name unchanged."
+    ],
+    "file": "src/variants/demos/avatar-stories.tsx"
+  },
+  "avatar-group": {
+    "exportName": "AvatarGroupStory",
+    "previewTitle": "Overflow and assignments",
+    "summary": "Expand three visible station marks into the full five-station collection and assignment list.",
+    "limits": [
+      "The same five stations supply both the overlapping group and complete assignment list."
+    ],
+    "checks": [
+      "Expand and collapse; verify three/five visible marks, remaining count two/zero, full assignments, action state, focus and reflow."
+    ],
+    "guidelines": [
+      "Name the collection, expose remaining count and allow opening a complete assignment list."
+    ],
+    "file": "src/variants/demos/avatar-stories.tsx"
+  },
+  "radio-group": {
+    "file": "src/baseline/original/radio-group.tsx",
+    "exportName": "MotionFoldPatternDemo",
+    "previewTitle": "Fold-pattern selection with a measured highlight",
+    "summary": "Choose the same paper fold while a single measured highlight follows the selected row.",
+    "limits": [
+      "The motion wrapper retains its existing controlled label/options/value/onValueChange/name API.",
+      "Primitive-only form, disabled, orientation and loop configuration are not added to the motion wrapper."
+    ],
+    "checks": [
+      "Use labels, Arrow keys and Space; verify native input checked state and focus, including a short press.",
+      "Home and End move focus without changing selection; Space selects the focused option.",
+      "Verify uncontrolled and controlled form reset, native required validation and external form association in the clean consumer.",
+      "Change selection, enable reduced motion mid-spring and compare the highlight with the already selected row.",
+      "Resize text/viewport, inspect focus-visible rows and verify cleanup after unmount."
+    ],
+    "guidelines": [
+      "Keep one geometry owner for the row highlight.",
+      "Descriptions name the actual choice; visual movement does not commit the selection.",
+      "Use the primitive directly when a consuming form needs its wider native configuration."
+    ]
+  },
+  "button": {
+    "file": "src/variants/demos/original-motion-actions.tsx",
+    "exportName": "MotionImpositionButtonDemo",
+    "previewTitle": "Folded and unfolded Rosario booklet",
+    "summary": "Switch between a cover and its four-page print imposition while the action label and width change.",
+    "limits": [
+      "The fold view changes local artwork; it does not create a print file."
+    ],
+    "checks": [
+      "Activate with Enter and Space; retain focus as the label changes.",
+      "Switch reduced motion during the label morph and resize to a narrow viewport."
+    ],
+    "guidelines": [
+      "Use one primary action for the active composition.",
+      "Keep changing labels specific to the next operation; disabled Reset fold becomes available only in the unfolded view."
+    ]
+  },
+  "action-button": {
+    "file": "src/variants/demos/original-motion-actions.tsx",
+    "exportName": "MotionProofActionDemo",
+    "previewTitle": "Córdoba proof fingerprint",
+    "summary": "Validate an edition name and calculate a SHA-256 fingerprint from the actual local drawing parameters.",
+    "limits": [
+      "Web Crypto must be available in a secure browser context.",
+      "This fingerprint identifies the sample name and drawing parameters; it is not a prepress inspection, colour proof, or authenticity certificate.",
+      "The native pending state follows the operation; no artificial delay is added."
+    ],
+    "checks": [
+      "Submit an empty edition, read the error, then enter a name and retry.",
+      "Compare the displayed digest with the SHA-256 of the documented JSON bytes.",
+      "Check pending reentry, focus retention, caller refs and unmount during an unsettled operation in a consuming fixture."
+    ],
+    "guidelines": [
+      "Use pendingLabel and successLabel for the actual operation.",
+      "Handle rejected work with onActionError and provide a visible recovery route.",
+      "Keep focus on the action while it is pending; animation never gates the digest result."
+    ]
+  },
+  "split-button": {
+    "file": "src/variants/demos/original-motion-actions.tsx",
+    "exportName": "MotionPrintExportDemo",
+    "previewTitle": "Mendoza poster SVG export",
+    "summary": "Download original one-colour poster artwork in portrait or square proportions through a main action and its menu.",
+    "limits": [
+      "Exports SVG files generated in this browser; it does not submit a print order.",
+      "The downloadable artwork uses system sans-serif text and contains no private font files.",
+      "Browser download behaviour remains user-agent controlled."
+    ],
+    "checks": [
+      "Download the current format and verify the filename and non-empty SVG contents.",
+      "Open the alternatives by keyboard, download the other format and verify focus returns to the trigger.",
+      "Repeat with reduced motion and a narrow viewport; the trigger must remain a stable anchor."
+    ],
+    "guidelines": [
+      "Keep the main action frequent and alternatives closely related.",
+      "Menu selection must perform the named export and update the artwork proportion.",
+      "Treat the joined surface as one action composition and keep other view actions secondary."
+    ]
+  },
+  "button-group": {
+    "file": "src/variants/demos/original-motion-actions.tsx",
+    "exportName": "MotionEditionNavigationDemo",
+    "previewTitle": "Rosario wayfinding sheets",
+    "summary": "Navigate three original wayfinding artworks with joined actions and a sheet chooser.",
+    "limits": [
+      "The group changes local artwork only; sheet choice is not persisted.",
+      "Each segment is a button or a native link; the group does not assign a selected/tab role."
+    ],
+    "checks": [
+      "Check both disabled endpoints and the corresponding artwork.",
+      "Use ArrowLeft/ArrowRight, Home/End and Tab; then select a sheet in the menu.",
+      "Check compact-label collapse and recovery after increasing available width."
+    ],
+    "guidelines": [
+      "Use a group name that identifies the shared object.",
+      "Disabled individual actions remain discoverable through aria-disabled while suppressing activation.",
+      "Reserve labels when a consumer needs stable segment width across known label changes."
+    ]
+  },
+  "floating-button-group": {
+    "file": "src/variants/demos/original-motion-actions.tsx",
+    "exportName": "MotionCompositionToolsDemo",
+    "previewTitle": "Paraná composition tools",
+    "summary": "Toggle an alignment grid, registration marks and mirroring on an original two-ink composition.",
+    "limits": [
+      "The controls modify the local SVG; they do not edit an external design document.",
+      "No keyboard shortcuts are advertised or bound by this scenario."
+    ],
+    "checks": [
+      "Toggle every tool and compare pressed state with visible artwork.",
+      "Use the toolbar arrow keys and Home/End; confirm a single roving tab stop.",
+      "Focus icon-only tools and inspect their own RAMS tooltip; check live reduced motion during highlight travel."
+    ],
+    "guidelines": [
+      "Use aria-pressed for tools with persistent on/off state.",
+      "Keep the floating tray adjacent to the artwork it affects.",
+      "The tray owns its shared moving highlight; its native buttons retain a visible focus outline."
+    ]
+  },
+  "expanding-button-group": {
+    "file": "src/variants/demos/original-motion-actions.tsx",
+    "exportName": "MotionBlockPrintToolsDemo",
+    "previewTitle": "La Plata block-print matrix",
+    "summary": "Rotate, mirror, invert and reset a local block-print matrix while labels expand on focus or hover.",
+    "limits": [
+      "The drawing changes immediately; confirmation labels are temporary feedback.",
+      "The component exposes one busy and confirmation indicator; consumers must coordinate overlapping asynchronous actions.",
+      "On touch, an action whose label is collapsed needs a reveal tap before activation."
+    ],
+    "checks": [
+      "Use Rotate, Mirror and Invert, then reset and compare the matrix.",
+      "Use keyboard arrows and Home/End, including disabled Reset at the initial state.",
+      "Test reveal-then-activate on touch and live reduced motion while width changes.",
+      "In a consuming async fixture, reject an operation and confirm no doneLabel is announced."
+    ],
+    "guidelines": [
+      "Use short verb labels and factual doneLabel text.",
+      "Keep the result available immediately and keep disabled actions labelled.",
+      "Use onSelect=false or a rejection when confirmation should be suppressed."
+    ]
+  },
+  "text-reveal": {
+    "exportName": "TextRevealDemo",
+    "file": "src/variants/demos/original-motion-text.tsx",
+    "previewTitle": "Printmaking sentence entrance",
+    "summary": "Presents a short printmaking sentence as a heading with its mount-time entrance.",
+    "limits": [
+      "The entrance runs at mount; the final heading remains available without animation."
+    ],
+    "checks": [
+      "Reload the preview to observe the entrance",
+      "Confirm the heading remains readable"
+    ],
+    "guidelines": [
+      "Use a concise factual sentence",
+      "Keep the heading semantics intact"
+    ]
+  },
+  "in-view-title": {
+    "exportName": "InViewTitleDemo",
+    "file": "src/variants/demos/original-motion-text.tsx",
+    "previewTitle": "Print registration heading",
+    "summary": "Lets the reader select among word, line, blur, tracking, and wipe entrances for a registration heading.",
+    "limits": [
+      "Changing the selected style remounts this heading to replay its entrance."
+    ],
+    "checks": [
+      "Select every entrance style with the keyboard",
+      "Check that the heading is readable in each style"
+    ],
+    "guidelines": [
+      "Keep the heading short enough to read",
+      "Treat the selector as a local presentation control"
+    ]
+  },
+  "text-morph": {
+    "exportName": "TextMorphDemo",
+    "file": "src/variants/demos/original-motion-text.tsx",
+    "previewTitle": "Print proof label change",
+    "summary": "Changes a visible proof label between Ink proof and Paper proof.",
+    "limits": [
+      "Only the proof label changes; its button stays mounted and keyboard-focusable."
+    ],
+    "checks": [
+      "Activate the button repeatedly",
+      "Confirm the current label and button action stay in sync"
+    ],
+    "guidelines": [
+      "Use brief, distinct labels",
+      "Name the action for the next value"
+    ]
+  },
+  "text-shimmer": {
+    "exportName": "TextShimmerDemo",
+    "file": "src/variants/demos/original-motion-text.tsx",
+    "previewTitle": "Pauseable plate-label sweep",
+    "summary": "Shows a print-registration sample label with a control for pausing or resuming its visual sweep.",
+    "limits": [
+      "The status reports the enabled setting; reduced motion can keep an enabled label still."
+    ],
+    "checks": [
+      "Pause and resume the sweep",
+      "Confirm the status text matches the control state"
+    ],
+    "guidelines": [
+      "Use a meaningful static label",
+      "Keep the pause control explicit"
+    ]
+  },
+  "code-block": {
+    "exportName": "CodeBlockDemo",
+    "file": "src/variants/demos/original-motion-text.tsx",
+    "previewTitle": "Plate layout source code",
+    "summary": "Displays a short local CSS layout example with the component's copy and expand controls.",
+    "limits": [
+      "The initial view shows five lines; Copy code includes the complete CSS source."
+    ],
+    "checks": [
+      "Use the copy control",
+      "Expand and collapse the displayed code"
+    ],
+    "guidelines": [
+      "Keep the snippet self-contained",
+      "Set its filename and language to match the content"
+    ]
+  },
+  "expandable-text": {
+    "exportName": "ExpandableTextDemo",
+    "file": "src/variants/demos/original-motion-text.tsx",
+    "previewTitle": "Print edition notes",
+    "summary": "Shows original print-workshop notes that can be expanded and collapsed.",
+    "limits": [
+      "The collapsed note keeps three lines; the toggle is omitted when the content fits."
+    ],
+    "checks": [
+      "Read the note in both collapsed and expanded states",
+      "Check wrapping at a narrow width"
+    ],
+    "guidelines": [
+      "Preserve the complete note when collapsed",
+      "Use enough real content to demonstrate truncation"
+    ]
+  },
+  "copy-button": {
+    "file": "src/variants/demos/original-motion-text.tsx",
+    "exportName": "CopyEditionReferenceDemo",
+    "previewTitle": "Copy an edition reference",
+    "summary": "Copy the visible Rosario edition reference to the actual clipboard.",
+    "limits": [
+      "Clipboard access requires a supported secure context and permission; failures remain actionable."
+    ],
+    "checks": [
+      "Copy with the keyboard; verify the complete reference in the clipboard and retain focus."
+    ],
+    "guidelines": [
+      "Show the exact value being copied and name its action."
+    ]
+  },
+  "checkbox": {
+    "exportName": "CheckboxDemo",
+    "file": "src/variants/demos/original-motion-choice.tsx",
+    "previewTitle": "Animated check mark",
+    "summary": "Add or remove registration marks from the print sheet.",
+    "limits": [
+      "The artwork retains its position while the marks change."
+    ],
+    "checks": [
+      "Toggle the checkbox and confirm the marks appear and disappear",
+      "Check that its visible label activates the control"
+    ],
+    "guidelines": [
+      "Use a checkbox for an independent on/off choice."
+    ]
+  },
+  "segmented-control": {
+    "exportName": "SegmentedControlDemo",
+    "file": "src/variants/demos/original-motion-choice.tsx",
+    "previewTitle": "Sliding selection",
+    "summary": "The segmented control switches the displayed sheet between its front, reverse, and plate detail views.",
+    "limits": [
+      "Front, reverse and detail are views of the same sheet."
+    ],
+    "checks": [
+      "Select each view and confirm its title, description, and illustration change together",
+      "Use arrow keys or Home and End to move between options"
+    ],
+    "guidelines": [
+      "Make each segment select a real view of the same subject",
+      "Keep the selected view named in the content"
+    ]
+  },
+  "rating": {
+    "exportName": "RatingDemo",
+    "file": "src/variants/demos/original-motion-choice.tsx",
+    "previewTitle": "Interactive star rating",
+    "summary": "A five-level rating records an impression-alignment score for the illustrated proof and shows the current value.",
+    "limits": [
+      "Five named levels describe contour alignment. Click the selected star again or press Delete or Backspace to clear the score."
+    ],
+    "checks": [
+      "Choose several values and confirm the visible score changes",
+      "Clear the rating and confirm the status returns to Not rated"
+    ],
+    "guidelines": [
+      "Name each rating level clearly",
+      "Keep the displayed result in sync with the control"
+    ]
+  },
+  "slider": {
+    "file": "src/variants/demos/original-motion-range.tsx",
+    "exportName": "MotionPrintMarginSliderDemo",
+    "previewTitle": "Thumb and value bubble",
+    "summary": "Adjust an original river print’s margin in millimetres and inspect the resulting printable rectangle.",
+    "limits": [
+      "The output is calculated from the current control value."
+    ],
+    "checks": [
+      "Press Home on Margin. 6 mm margin; printable rectangle 198 × 136 mm.",
+      "Start at 12 and press ArrowRight. 13 mm margin; printable rectangle 184 × 122 mm.",
+      "Press End, then try moving beyond the maximum. 24 mm margin; printable rectangle 162 × 100 mm; value remains bounded.",
+      "Drag and release the thumb, including a release near a bound. The output and SVG describe the actual stepped value emitted by the slider.",
+      "At 320px and root 200%, inspect all controls, derived outputs and artwork without clipping or font reduction; repeat keyboard focus and live reduced-motion checks."
+    ],
+    "guidelines": [
+      "Use an explicit unit in format and the derived output.",
+      "Keep the original sheet size visible so the margin calculation has context.",
+      "Use a short control label and a flowing result when the derived dimensions need more space than a header readout."
+    ]
+  },
+  "number-field": {
+    "file": "src/variants/demos/original-motion-range.tsx",
+    "exportName": "MotionInkPassNumberFieldDemo",
+    "previewTitle": "Animated stepper",
+    "summary": "Set the number of ink passes, add the corresponding SVG separation layers, and calculate impressions for sixty sheets.",
+    "limits": [
+      "Impressions are arithmetic for this sample edition; no press job is submitted.",
+      "During an invalid or incomplete draft, the artwork retains the last accepted value until the component commits a valid value.",
+      "Label scrubbing, decimal affixes and locale variation are not enabled in this specimen."
+    ],
+    "checks": [
+      "Activate Increase Passes once from the initial value. 4 input value, 4 SVG ink-layer groups and 240 impressions.",
+      "Set 1, then try decreasing again. 1 layer and 60 impressions; decrease remains focusable with the component’s existing limit feedback.",
+      "Press End in the spinbutton. 8 layers and 480 impressions; increase indicates its upper limit.",
+      "Type 0 or an incomplete draft and commit with Enter or blur. The existing NumberField draft/limit rules apply; artwork follows only accepted values and recovery remains possible.",
+      "At 320px and root 200%, inspect all controls, derived outputs and artwork without clipping or font reduction; repeat keyboard focus and live reduced-motion checks."
+    ],
+    "guidelines": [
+      "Keep the accepted value distinct from an incomplete input draft.",
+      "Expose the edition quantity next to the resulting impression count.",
+      "Use the existing width custom property for a responsive composition; do not shrink the numeric text or step targets."
+    ]
+  },
+  "elastic-slider": {
+    "file": "src/variants/demos/original-motion-range.tsx",
+    "exportName": "MotionPrintOverlapElasticDemo",
+    "previewTitle": "Elastic thumb",
+    "summary": "Adjust the overlap of two one-hundred-millimetre panels and inspect their combined width.",
+    "limits": [
+      "This is a geometric joint study; it does not certify a physical overlap, press tolerance or ink result.",
+      "The component engine owns elastic stretch, release momentum and detents; verify reduced-motion behavior in the consuming layout."
+    ],
+    "checks": [
+      "Press Home on Overlap. 0 mm overlap; two panels meet at the edge; combined width 200 mm.",
+      "Start at 12 and press ArrowRight. 13 mm overlap and 187 mm combined width.",
+      "Press End. 24 mm overlap, right panel x=96 in diagram units and combined width 176 mm.",
+      "Drag through the numeric marks and release. The geometry follows the actual stepped/detent value; stretch does not change the output beyond 0–24 mm.",
+      "At 320px and root 200%, inspect all controls, derived outputs and artwork without clipping or font reduction; repeat keyboard focus and live reduced-motion checks."
+    ],
+    "guidelines": [
+      "Distinguish visual elastic travel from the bounded value used for geometry.",
+      "Keep both source panel widths visible when displaying the derived width.",
+      "Use numeric detents without long absolute-positioned tick labels when the surrounding composition must accommodate enlarged text."
+    ]
+  },
+  "icon-morph": {
+    "exportName": "MotionReversibleProofIconDemo",
+    "file": "src/variants/demos/original-motion-data.tsx",
+    "previewTitle": "Interactive icon buttons",
+    "summary": "Use button-sized icon transitions to show changes of action or state.",
+    "limits": [
+      "These controls change local presentation; they do not send alerts or alter external settings."
+    ],
+    "checks": [
+      "Toggle all eight icons by pointer and keyboard, including reversing a transition.",
+      "Inspect icon drawing and alignment in both states at desktop and narrow widths.",
+      "Change reduced motion during a transition and verify the latest state."
+    ],
+    "guidelines": [
+      "Pair a changing icon with a stable accessible name and the appropriate pressed state.",
+      "Use the actual icon at control size; surrounding artwork must not replace the demonstrated interaction."
+    ],
+    "demonstrates": [
+      "Toggle eight independent icon buttons between their actual two states.",
+      "Keep accessible button names and pressed state while the icon changes."
+    ]
+  },
+  "json-viewer": {
+    "exportName": "MotionPrintTicketJsonDemo",
+    "file": "src/variants/demos/original-motion-data.tsx",
+    "previewTitle": "Editable print ticket",
+    "summary": "Edit a Tucumán edition and inspect its calculated sheet records, copy totals and impression count in the JSON tree.",
+    "limits": [
+      "Title edits apply immediately, including an empty title.",
+      "Sheet records are paged four at a time; search highlights matching keys and values and opens their branches.",
+      "Copy actions are omitted with copyable=false."
+    ],
+    "checks": [
+      "Edit Edition title; the title value in the tree follows the input.",
+      "Folio with 24, 48 and 72 copies produces 12, 24 and 36 sheets, with 24, 48 and 72 impressions respectively.",
+      "Cards with 24, 48 and 72 copies produces 6, 12 and 18 sheets and the same respective impression counts.",
+      "Open sheets and load the next page; the row quantities sum to the selected copy count.",
+      "Search for Rain, impressions and a missing term; clear the query and recover ordinary tree navigation.",
+      "Use the tree's arrows, Home, End and Enter; the wrapping Selected path output follows the active row.",
+      "Inspect the tree and external controls at 320px/root 200%, in both themes and with reduced motion."
+    ],
+    "guidelines": [
+      "Calculate totals and per-sheet rows from the same configuration values.",
+      "Keep editable fields separate from tree navigation.",
+      "Use a flowing path output when a selected path needs to remain readable at enlarged text sizes."
+    ]
+  },
+  "slot-text": {
+    "exportName": "MotionRegistrationSlotDemo",
+    "file": "src/variants/demos/original-motion-data.tsx",
+    "previewTitle": "Signed registration correction",
+    "summary": "Select a signed horizontal correction for a Rosario registration detail and read its numeric two-decimal reel value.",
+    "limits": [
+      "The sample offers four corrections: −1.25, 0.00, +0.50 and +1.50 mm.",
+      "The millimetre unit is outside the reels; the diagram is a magnified registration detail."
+    ],
+    "checks": [
+      "Initial value is the number -1.25; its formatted text is −1.25 and the artwork translates -15 diagram units.",
+      "Select 0.00: the text has two decimals without a sign, the artwork is centred, and Centre artwork is disabled.",
+      "Select +0.50 and +1.50: the actual positive values format as +0.50 and +1.50 and translate the artwork 6 and 18 diagram units.",
+      "Switch directly between negative and positive values, then use Centre artwork; inspect the final sign, decimal point and digits.",
+      "Inspect numeric announcements, live reduced motion and 320px/root 200% reflow without changing font size to hide overflow."
+    ],
+    "guidelines": [
+      "Pass a numeric value and let format render its true sign and decimal precision.",
+      "Keep compact numeric values manageable at the selected type size and put units beside the component.",
+      "Update the diagram immediately from the accepted number; reel motion does not commit the correction."
+    ]
+  },
+  "signature-pad": {
+    "exportName": "SignaturePadDemo",
+    "file": "src/variants/demos/original-motion-media.tsx",
+    "previewTitle": "Edition mark signing pad",
+    "summary": "Draw a mark for Rosario edition 07, then undo, replay or export its actual strokes.",
+    "limits": [
+      "Strokes are held in the current page; Clear removes the current drawing.",
+      "An empty pad disables replay and PNG/SVG export."
+    ],
+    "checks": [
+      "Draw two real pointer strokes; undo, redo, clear and verify the changed drawing.",
+      "Download PNG and SVG and inspect the actual drawing; preserve focus and reduced-motion controls."
+    ],
+    "guidelines": [
+      "Keep the drawing area and its actions accessible without moving the document horizontally."
+    ]
+  },
+  "image-compare": {
+    "exportName": "ImageCompareDemo",
+    "file": "src/variants/demos/original-motion-media.tsx",
+    "previewTitle": "First and revised print proofs",
+    "summary": "Compare two original print proofs using the same controlled divider position.",
+    "limits": [
+      "The divider moves from 0 to 100%; both complete SVG proofs remain available at the extremes."
+    ],
+    "checks": [
+      "Drag the divider; use arrows, Home/End and reset to verify position and exposed proof."
+    ],
+    "guidelines": [
+      "Describe the actual differences and preserve keyboard access to the divider."
+    ]
+  },
+  "logo-marquee": {
+    "exportName": "LogoMarqueeDemo",
+    "file": "src/variants/demos/original-motion-media.tsx",
+    "previewTitle": "Edition marks in motion",
+    "summary": "Inspect three edition marks in a row, with tone selection and play and pause actions.",
+    "limits": [
+      "Reduced motion makes the row static; the pause action is then unnecessary and hidden."
+    ],
+    "checks": [
+      "Change between ink tones and single tone",
+      "Play and pause the row"
+    ],
+    "guidelines": [
+      "Keep repeated visual copies hidden from assistive technology; preserve the readable original list."
+    ]
+  },
+  "combobox": {
+    "exportName": "MotionTrimComboboxDemo",
+    "file": "src/variants/demos/original-motion-advanced-selection.tsx",
+    "previewTitle": "Searchable trim imposition",
+    "summary": "Choose a Rosario edition's trim size and recalculate its sheet layout, sheet count and spare positions for 72 copies.",
+    "limits": [
+      "The working area is 240 × 330 mm, with fixed orientation and no gutters. Poster exceeds that area and is disabled.",
+      "Typing narrows the available trims; the plan changes when a choice is committed. Clearing selection removes the plan."
+    ],
+    "checks": [
+      "Initial Card selection shows four imposed copies and 18 sheets for 72 copies.",
+      "Choose Leaflet: one copy fits each sheet and the plan requires 72 sheets.",
+      "Search tall and choose Bookmark: five copies fit each sheet, with 15 sheets and three spare positions.",
+      "Find Poster and verify that its disabled option cannot replace the selection.",
+      "Search an unmatched term, recover by editing the query, then clear selection and choose a trim again.",
+      "Use keyboard search, arrows, Enter and Escape; verify focus and result state. Inspect enlarged text and live reduced motion."
+    ],
+    "guidelines": [
+      "Update the drawing and the arithmetic from the same selected trim.",
+      "Give search keywords a concrete meaning, such as tall for Bookmark.",
+      "Explain why an unavailable option does not fit the model."
+    ]
+  },
+  "multi-select": {
+    "exportName": "MotionSeparationMultiSelectDemo",
+    "file": "src/variants/demos/original-motion-advanced-selection.tsx",
+    "previewTitle": "Print separation selection",
+    "summary": "Select Mendoza ink layers to change the actual separation artwork and calculate impressions for a 60-sheet proof run.",
+    "limits": [
+      "One visible chip and an overflow count summarize the selection; the listbox contains all four layer names.",
+      "Selection controls inclusion. The proof uses a fixed paint order, with one pass per selected layer."
+    ],
+    "checks": [
+      "Initial Line and Tone selections produce two visible SVG separations and 120 impressions.",
+      "Select all four layers: the drawing includes Line, Tone, Grain and Type, and the total becomes 240 impressions.",
+      "Keep one layer selected and verify one separation and 60 impressions.",
+      "Clear selections: the sheet becomes blank and the total becomes zero impressions; select a layer to recover.",
+      "Open and toggle choices with the keyboard, then dismiss with Escape; inspect checked state, focus return and the overflow count.",
+      "Inspect the selected chip, count, menu and proof at enlarged text sizes and with live reduced motion."
+    ],
+    "guidelines": [
+      "Show what each selected item adds to the shared composition.",
+      "Calculate totals from the same active layers that are rendered.",
+      "Keep the empty selection meaningful and provide a direct way to select again."
+    ]
+  },
+  "tag-input": {
+    "exportName": "MotionArchiveTagInputDemo",
+    "file": "src/variants/demos/original-motion-advanced-selection.tsx",
+    "previewTitle": "Paper archive tag filters",
+    "summary": "Add and remove keywords to filter a La Plata paper index, showing matching editions and their actual reference-sheet total.",
+    "limits": [
+      "Every tag must match a record keyword after trimming and case folding. An empty tag list shows all six editions.",
+      "Enter, comma or blur commits one draft. Duplicate tags are compared without case sensitivity."
+    ],
+    "checks": [
+      "Initial river filter shows River fold and Delta lines: two editions and 28 reference sheets.",
+      "Add fold: only River fold remains, with 12 reference sheets.",
+      "Try grain on its own: Clay grain and Night fold total 16 sheets.",
+      "Add an unknown tag, inspect the empty result and remove that tag to recover.",
+      "Remove every tag: all six editions appear and the total becomes 66 sheets.",
+      "Try a differently cased duplicate; use Backspace twice to select and remove the last tag, and verify input focus after removal.",
+      "Inspect wrapping tags, matching records and announcements at enlarged text sizes and with live reduced motion."
+    ],
+    "guidelines": [
+      "State whether multiple tags use AND or OR matching.",
+      "Show record keywords so users can discover useful filters.",
+      "Make empty results recoverable by removing or editing the filters."
+    ]
+  },
+  "search-field": {
+    "exportName": "SearchFieldDemo",
+    "file": "src/variants/demos/original-motion-editing.tsx",
+    "previewTitle": "Workshop print index search",
+    "summary": "Filters a fixed set of Argentine print-index entries by title, city, or process as the query changes.",
+    "limits": [
+      "Matching ignores case and surrounding query whitespace across title, city and process. An empty query shows all six entries."
+    ],
+    "checks": [
+      "Search by title, city, and process",
+      "Clear the field and confirm all entries return",
+      "Try a query with no matches"
+    ],
+    "guidelines": [
+      "Keep results tied to the query",
+      "Announce result changes without replacing the search field"
+    ]
+  },
+  "inline-edit": {
+    "exportName": "InlineEditDemo",
+    "file": "src/variants/demos/original-motion-editing.tsx",
+    "previewTitle": "Inline title and production note",
+    "summary": "Edit a short title in place or a longer multiline note, with explicit save and cancel controls.",
+    "limits": [
+      "The title wraps with the available width. Enter saves, Shift+Enter adds a line break and Escape cancels.",
+      "Blank titles are rejected by the validation callback; cancelling preserves the previous title."
+    ],
+    "checks": [
+      "Edit, save and cancel each mode with keyboard and pointer.",
+      "Submit a blank proof title and verify its validation and recovery.",
+      "Inspect controls at narrow widths and enlarged text."
+    ],
+    "guidelines": [
+      "Use the component's built-in save and cancel actions",
+      "Keep the edited value connected to visible content"
+    ],
+    "demonstrates": [
+      "Edit and validate the wrapping proof title.",
+      "Edit a multiline production note, then save or cancel without moving the action controls out of their editing rail."
+    ]
+  },
+  "chip-group": {
+    "exportName": "ChipGroupDemo",
+    "file": "src/variants/demos/original-motion-editing.tsx",
+    "previewTitle": "Print-index process filters",
+    "summary": "Multiple selected process chips filter the visible print-index entries.",
+    "limits": [
+      "Multiple selections use OR matching; clearing every chip shows all six entries."
+    ],
+    "checks": [
+      "Select and clear each process chip",
+      "Confirm the visible entries and count update with the selection"
+    ],
+    "guidelines": [
+      "Use concise process labels",
+      "Keep filter results synchronized with the selected chips"
+    ]
+  },
+  "breadcrumb": {
+    "file": "src/variants/demos/original-motion-navigation.tsx",
+    "exportName": "MotionPrintArchiveBreadcrumbDemo",
+    "previewTitle": "Animated path",
+    "summary": "Navigate a Rosario collection and its plate records through ancestor breadcrumbs and directory entries.",
+    "demonstrates": [
+      "The initial path is Archive → River atlas → Plate 03, with the selected plate's artwork, process, paper and trim.",
+      "Ancestor crumbs and directory entries change the current heading, description and displayed directory or plate content.",
+      "The current crumb is noninteractive text with aria-current; navigation moves focus to the new content heading."
+    ],
+    "limits": [
+      "Five local locations are available: Archive, River atlas and Plates 01–03."
+    ],
+    "checks": [
+      "Initially verify two ancestor controls and one text-only current crumb, Plate 03, with Low-water grid and its relief-print details.",
+      "Choose River atlas: its heading and three plate entries replace the plate details, and River atlas becomes the noninteractive current crumb.",
+      "Choose Archive: its directory contains Open River atlas, with Archive as the only current crumb.",
+      "Open River atlas, then each plate; verify the complete path, current heading, artwork and process/paper/trim change together.",
+      "Check that the current crumb has no button or link action, including after rapid ancestor/child navigation.",
+      "Use Enter and Space on directory entries and ancestor controls; verify heading focus and enlarged-text/reduced-motion behaviour."
+    ],
+    "guidelines": [
+      "Render the current location as text; give ancestor crumbs real route destinations or state-navigation callbacks."
+    ]
+  },
+  "pagination": {
+    "file": "src/variants/demos/original-motion-navigation.tsx",
+    "exportName": "MotionProofIndexPaginationDemo",
+    "previewTitle": "Proof index pages",
+    "summary": "Browse 28 original Córdoba proof records, with four actual records per page and an exact visible-range total.",
+    "demonstrates": [
+      "Seven edition studies supply plate identifiers, titles and printing processes for the visible list.",
+      "Previous, Next and numbered page controls select actual four-record slices while the five-number window follows the current page.",
+      "The range output updates with the list, and aria-current identifies the selected page."
+    ],
+    "limits": [
+      "The fixed 28-record index has seven nonempty pages of four records each."
+    ],
+    "checks": [
+      "On page 1, verify RL-01 Bank through RL-04 Silt, Showing proofs 1–4 of 28, Page 1 aria-current and disabled Previous page.",
+      "Choose Next page: TR-01 Corner through TR-04 Edge replace the records and the range becomes 5–8 of 28.",
+      "Choose Page 4: RS-01 Sleeper through RS-04 Track appear, the range becomes 13–16, and the numbered window shows pages 2–6.",
+      "Reach Page 7 through Next or the numbered window: CY-01 Arch through CY-04 Gate appear, the range becomes 25–28, and Next page is disabled.",
+      "Verify Page 7 aria-current and the 3–7 window, then use Previous and numbered pages to return through earlier slices.",
+      "Check that boundary buttons do not move outside pages 1–7 and each page presents exactly four records.",
+      "Traverse the controls with Tab, Enter and Space; inspect wrapped controls, focus, range announcements and live reduced motion at enlarged text sizes."
+    ],
+    "guidelines": [
+      "Update the controlled page and the displayed collection slice from the same page state."
+    ]
+  },
+  "card": {
+    "exportName": "CardDemo",
+    "file": "src/variants/demos/original-motion-reading-surfaces.tsx",
+    "previewTitle": "Delta fold print specimen",
+    "summary": "Opens the Delta fold proof into the Card quick look, retaining the same original sheet artwork and paper/ink dimensions.",
+    "demonstrates": [
+      "A titled card with print artwork, concise metadata, and an expandable quick look containing the proof's paper, ink-field, and fold details."
+    ],
+    "limits": [
+      "Paper is 180 × 240 mm and the ink field is 120 × 180 mm in both card and quick look."
+    ],
+    "checks": [
+      "Open the card and confirm the same artwork, dimensions, and edition details appear",
+      "Close the quick look and confirm it returns to the card"
+    ],
+    "guidelines": [
+      "Keep the card itself as the quick-look trigger",
+      "Use the detail panel for information about the same specimen"
+    ]
+  },
+  "scroll-area": {
+    "exportName": "ScrollAreaDemo",
+    "file": "src/variants/demos/original-motion-reading-surfaces.tsx",
+    "previewTitle": "Argentine paper-stock inventory",
+    "summary": "Lists twelve named paper stocks with city, process, gsm, and sheet count in a bounded vertical viewport.",
+    "demonstrates": [
+      "Native scrolling in a labelled viewport; the edge callback changes a short status hint as more rows become available or the list ends."
+    ],
+    "limits": [
+      "All twelve entries remain in the list; there is no pagination or remote loading.",
+      "The endpoint hint reflects whether content remains below the viewport."
+    ],
+    "checks": [
+      "Scroll through all twelve records and reach Orchard 15",
+      "Confirm the hint changes to End of stock list at the bottom and back when scrolling upward"
+    ],
+    "guidelines": [
+      "Keep each record readable when its text wraps",
+      "Retain the final row in the scrollable content"
+    ]
+  },
+  "resizable-panels": {
+    "file": "src/variants/demos/original-motion-reading-layouts.tsx",
+    "exportName": "ResizablePanelsDemo",
+    "previewTitle": "Print plate layout",
+    "summary": "Resize a two-pane proof layout and choose which original plate appears in the proof pane.",
+    "demonstrates": [
+      "The requested starting ratio is 35/65; the divider and output report the actual settled shares when pane minima constrain the layout.",
+      "Choose P01, P02, or P03 to update the proof title and inline SVG artwork.",
+      "Resize the panes with the divider and read their settled shares."
+    ],
+    "limits": [
+      "The first pane is collapsible; the proof pane remains available.",
+      "On narrow panes, the proof canvas scrolls locally so its type keeps the selected size."
+    ],
+    "checks": [
+      "Choose each plate and confirm its title and proof artwork change together.",
+      "Resize with pointer and keyboard; verify each pane respects its minimum and the first pane can collapse and restore.",
+      "Check the settled share output after resizing and at a narrow viewport.",
+      "At 320px and text 200%, verify complete P01/P02/P03 codes, keyboard pan of the proof canvas, and actual shares matching the divider and output."
+    ],
+    "guidelines": [
+      "Give the group a definite height and keep its panel IDs stable while the group is mounted.",
+      "Collapse the plate list when the proof needs more room on a narrow screen."
+    ]
+  },
+  "carousel": {
+    "file": "src/variants/demos/original-motion-reading-layouts.tsx",
+    "exportName": "CarouselDemo",
+    "previewTitle": "Original print studies",
+    "summary": "Browse Riverbend, Railrhythm, and Openframe as three original inline SVG studies.",
+    "demonstrates": [
+      "The carousel controls update the selected study title and detail.",
+      "Each slide contains distinct original vector artwork."
+    ],
+    "limits": [
+      "The carousel does not autoplay."
+    ],
+    "checks": [
+      "Use the carousel arrows and slide controls; confirm the selected title and detail match the artwork.",
+      "Check keyboard navigation and drag selection at a narrow viewport."
+    ],
+    "guidelines": [
+      "Keep the controlled slide index and its associated description synchronized; use this pattern for a short ordered set of peers."
+    ]
+  },
+  "dialog": {
+    "file": "src/variants/demos/original-motion-overlays.tsx",
+    "exportName": "MotionPrintTitleDialogDemo",
+    "previewTitle": "Print title editor",
+    "summary": "Edit a Rosario print title in a modal dialog, committing the proof heading with Save or discarding the draft with Cancel.",
+    "demonstrates": [
+      "The committed title and editable draft are separate values.",
+      "Save title updates the actual heading and closes the dialog; dismissing the editor restores the committed value for the next open."
+    ],
+    "limits": [
+      "The title contains at most 48 characters and must remain nonempty after trimming.",
+      "Cancel, Close, Escape and outside dismissal discard the draft."
+    ],
+    "checks": [
+      "Open Edit print title, enter a new title and save; verify the proof heading changes and focus returns to the trigger.",
+      "Change the draft and cancel; verify the heading stays committed and reopening restores that value.",
+      "Repeat draft dismissal through Close, Escape and an outside click.",
+      "Submit an empty or whitespace-only draft; verify the associated error, retained dialog and unchanged heading, then recover with a valid title.",
+      "Verify Close receives initial focus, Tab and Shift+Tab contain focus, Enter submits a valid title, and the enlarged dialog preserves its layout during a stable-open reduced-motion preference change."
+    ],
+    "guidelines": [
+      "Keep drafts separate from committed content until Save succeeds.",
+      "Validate before closing and make every dismissal path follow the same rollback rule."
+    ]
+  },
+  "drawer": {
+    "file": "src/variants/demos/original-motion-overlays.tsx",
+    "exportName": "MotionProofStockDrawerDemo",
+    "previewTitle": "Proof paper chooser",
+    "summary": "Choose one of three paper stocks in a drawer and update the Córdoba proof's stock, weight and finish.",
+    "demonstrates": [
+      "The owned Select reads and updates the same stock record used by the visible proof metadata.",
+      "Smooth is 120 gsm, Cotton is 160 gsm and Rag is 220 gsm."
+    ],
+    "limits": [
+      "Selection applies immediately and remains selected when the drawer closes."
+    ],
+    "checks": [
+      "Open Choose paper and verify initial Cotton, 160 gsm and Soft, uncoated metadata.",
+      "Choose Smooth and Rag; verify the matching 120/220 gsm weights and Calendered/Textured finishes.",
+      "Close with Done, Close drawer, Escape and outside dismissal; verify the selected record remains and focus returns to Choose paper.",
+      "Check keyboard Select operation inside the modal, focus containment/return and the actual header drag behaviour.",
+      "Inspect drawer content, nested Select and close controls at narrow/enlarged sizes and with live reduced motion."
+    ],
+    "guidelines": [
+      "Keep the selected name, weight and finish tied to one record.",
+      "State clearly that selection applies immediately so dismissal does not imply rollback."
+    ]
+  },
+  "popover": {
+    "file": "src/variants/demos/original-motion-overlays.tsx",
+    "exportName": "MotionInkPassPopoverDemo",
+    "previewTitle": "Ink pass settings",
+    "summary": "Choose one or two ink passes in a popover, changing the actual Mendoza separation layers and impression total.",
+    "demonstrates": [
+      "One pass renders one SVG layer and 60 impressions; two passes render two layers and 120 impressions.",
+      "The result remains visible outside the popover."
+    ],
+    "limits": [
+      "The proof run is fixed at 60 sheets; each selected pass corresponds to one separation layer.",
+      "The choice applies immediately and remains after dismissal."
+    ],
+    "checks": [
+      "Open Ink passes and choose 2; verify two actual SVG pass groups and 120 impressions.",
+      "Choose 1 again; verify the second layer is removed and the total returns to 60 impressions.",
+      "Dismiss with Done, Escape and an outside click; reopen and verify the current choice.",
+      "Check keyboard entry, the nested Select, trigger focus return and panel collision handling.",
+      "Inspect the anchored panel and controls at narrow/enlarged sizes and with reduced motion."
+    ],
+    "guidelines": [
+      "Derive the artwork and arithmetic from the same pass value.",
+      "Keep the result available after the settings panel closes and keep the trigger's anchor stable."
+    ]
+  },
+  "hover-card": {
+    "file": "src/variants/demos/original-motion-overlays.tsx",
+    "exportName": "MotionPlateSpecsHoverCardDemo",
+    "previewTitle": "Plate specification preview",
+    "summary": "Inspect the read-only process and material specifications of La Plata plate LP-07, Brick arch.",
+    "demonstrates": [
+      "The trigger reference and preview title come from the same plate record.",
+      "The preview exposes Drypoint, Copper plate, Rag 180 gsm and 105 × 148 mm trim."
+    ],
+    "limits": [
+      "The preview contains one static, read-only plate record.",
+      "Overflowing specifications scroll locally; navigation keys on the focused trigger scroll the open preview without moving focus."
+    ],
+    "checks": [
+      "Hover or keyboard-focus Plate LP-07; verify LP-07, Brick arch and all four matching specifications.",
+      "Move the pointer into the card and back; verify the preview remains usable through the existing intent/grace behaviour.",
+      "Dismiss with Escape or leave the trigger/card; verify focus stays on the trigger during informational preview use.",
+      "Inspect narrow/enlarged content and live reduced motion; confirm that the card has no action or form controls.",
+      "When the specifications overflow the available height, keep focus on Plate LP-07 and use Home/End or Page Up/Page Down to reach both ends of the actual preview."
+    ],
+    "guidelines": [
+      "Use one record for the trigger identity and the expanded details.",
+      "Keep informational previews read-only; the trigger retains focus."
+    ]
+  },
+  "tooltip": {
+    "file": "src/variants/demos/original-motion-overlays.tsx",
+    "exportName": "MotionCropGuideTooltipDemo",
+    "previewTitle": "Crop guide explanation",
+    "summary": "Explain a named Crop marks button that adds or removes cut guides on an original Tucumán print diagram.",
+    "demonstrates": [
+      "The owned button keeps its visible accessible name and pressed state while Tooltip supplies supplementary help.",
+      "Toggling changes four actual crop-mark corner paths around a 140 × 200 mm trim."
+    ],
+    "limits": [
+      "The trim stays at 140 × 200 mm; the button controls only its crop marks."
+    ],
+    "checks": [
+      "Hover or focus Crop marks and verify the Cut guides. tooltip.",
+      "Activate with a click, Enter and Space; verify aria-pressed, the SVG corner marks and the visible on/off result.",
+      "Dismiss the tooltip with Escape and leave/blur the trigger; verify the button retains its name and operation.",
+      "Inspect tooltip placement, focus and mark visibility at narrow/enlarged sizes and with reduced motion."
+    ],
+    "guidelines": [
+      "Keep the control named independently of its tooltip.",
+      "Use pressed state and the actual drawing to communicate the toggle; the tooltip only explains its purpose."
+    ]
+  },
+  "dropdown-menu": {
+    "exportName": "DropdownMenuDemo",
+    "file": "src/variants/demos/original-motion-menu-scenes.tsx",
+    "previewTitle": "Print proof settings",
+    "summary": "Menu commands show or hide crop guides, reverse ink and paper, or restore the original proof state.",
+    "demonstrates": [
+      "Selecting a menu item changes the print SVG and its visible state description."
+    ],
+    "limits": [
+      "Changes affect only this proof preview.",
+      "Reset restores visible crop guides and dark ink on light paper."
+    ],
+    "checks": [
+      "Open the menu and toggle crop guides",
+      "Reverse ink and paper, then reset the proof"
+    ],
+    "guidelines": [
+      "Name each item for the action it performs",
+      "Keep the SVG state and status description synchronized"
+    ]
+  },
+  "context-menu": {
+    "exportName": "ContextMenuDemo",
+    "file": "src/variants/demos/original-motion-menu-scenes.tsx",
+    "previewTitle": "Print plate layout",
+    "summary": "A context menu on the original plate changes its orientation and margin width, and the SVG updates to match.",
+    "demonstrates": [
+      "The plate is the menu target; its portrait/landscape proportions and ink-frame margins follow the chosen actions."
+    ],
+    "limits": [
+      "Actions update the visible plate layout in this preview only.",
+      "The component also supports its built-in click and keyboard triggers."
+    ],
+    "checks": [
+      "Open the menu on the plate with a right-click",
+      "Choose each orientation and margin option and inspect the updated plate",
+      "Focus the plate and open its menu with Shift+F10"
+    ],
+    "guidelines": [
+      "Keep the menu attached to the object it changes",
+      "Avoid actions that imply deletion, download, or persistence"
+    ]
+  },
+  "command-palette": {
+    "exportName": "CommandPaletteDemo",
+    "file": "src/variants/demos/original-motion-menu-scenes.tsx",
+    "previewTitle": "Search print records",
+    "summary": "Searches five authored Argentine print records by title, city, process, or paper, then updates the selected record display.",
+    "demonstrates": [
+      "Choosing a result replaces the selected heading, SVG mark, city, process, and paper specification."
+    ],
+    "limits": [
+      "Search covers five fixed records in this preview.",
+      "The command results are local selections and do not fetch or persist records."
+    ],
+    "checks": [
+      "Search by city or process and choose a result",
+      "Search for an absent term, then clear the query and confirm results return",
+      "Verify the chosen record updates the heading, artwork, and specifications"
+    ],
+    "guidelines": [
+      "Keep result descriptions tied to the displayed record",
+      "Use the command palette's built-in empty and recovery states"
+    ]
+  },
+  "metric-card": {
+    "file": "src/variants/demos/original-motion-print-metrics.tsx",
+    "exportName": "MetricCardDemo",
+    "previewTitle": "Accepted sheets · edition 08",
+    "summary": "Compares accepted sheets across two consecutive seven-run periods for a Rosario print edition.",
+    "demonstrates": [
+      "The current seven run values total 1,006 sheets; the previous seven total 820.",
+      "The displayed change is +22.7%, calculated from those two totals."
+    ],
+    "limits": [
+      "The comparison covers the two displayed seven-run lists."
+    ],
+    "checks": [
+      "Sum each seven-run list and confirm totals of 1,006 and 820.",
+      "Confirm the percent change uses the previous period as its denominator and rounds to +22.7%."
+    ],
+    "guidelines": [
+      "Compare equal-length periods and name the unit and window in the label or context.",
+      "Keep the source values available so a displayed total and change can be checked."
+    ]
+  },
+  "sparkline": {
+    "file": "src/variants/demos/original-motion-print-metrics.tsx",
+    "exportName": "SparklineDemo",
+    "previewTitle": "Spoiled sheets · edition 08",
+    "summary": "Scrub seven labelled Córdoba proof runs to inspect the spoiled-sheet count.",
+    "demonstrates": [
+      "The sequence is 8, 7, 9, 6, 6, 4, and 3 spoiled sheets across Runs 08–14.",
+      "The latest value is 3 sheets; the first-to-last change is −62.5%.",
+      "Pointer and keyboard scrubbing expose the selected run label and value.",
+      "The plot uses the default accent tone; a labelled change states the decrease without assigning a status colour to the series."
+    ],
+    "limits": [
+      "Runs have equal spacing; the plot represents their sequence rather than elapsed calendar time."
+    ],
+    "checks": [
+      "Scrub every point and verify the run label and spoiled-sheet value.",
+      "Confirm the displayed change is calculated from 8 to 3 sheets."
+    ],
+    "guidelines": [
+      "Label each point when users need to relate a value to a specific run or date.",
+      "Keep the current value, unit, and direction of change available in text as well as the line."
+    ]
+  },
+  "gauge": {
+    "file": "src/variants/demos/original-motion-print-metrics.tsx",
+    "exportName": "GaugeDemo",
+    "previewTitle": "Plate registration drift · edition 12",
+    "summary": "Shows a Mendoza proof measurement against three explicit registration thresholds.",
+    "demonstrates": [
+      "The sample measurement is 0.18 mm on a 0–0.50 mm scale.",
+      "Below 0.25 mm the state is within tolerance; 0.25–0.39 mm calls for adjustment; 0.40 mm or more means stop and realign.",
+      "Threshold meanings are written beside the gauge and are not conveyed by color alone.",
+      "The physical value 0.18 mm occupies 36% of the 0–0.50 mm range; the gauge displays that normalized percentage."
+    ],
+    "limits": [
+      "The thresholds apply to the displayed 0–0.50 mm reference range."
+    ],
+    "checks": [
+      "Confirm 0.18 mm maps to 36% of the 0–0.50 mm range and the Within tolerance threshold.",
+      "Check that each threshold boundary and action is readable without relying on color."
+    ],
+    "guidelines": [
+      "Choose thresholds from the domain rule and state the unit and boundary values.",
+      "Pair each tone with a named state and keep the threshold meaning available in text."
+    ]
+  },
+  "tree-view": {
+    "exportName": "MotionPlateCabinetTreeDemo",
+    "file": "src/variants/demos/original-motion-print-organization.tsx",
+    "previewTitle": "Print plate cabinet",
+    "summary": "Browse original Rosario, Córdoba and Mendoza plates in a tree that changes a contact sheet and its reference-sheet inventory.",
+    "demonstrates": [
+      "Three place folders contain two plates each; the initial overview displays all six original line studies and 240 reference sheets.",
+      "Selecting a folder shows its two drawings and inventory; selecting a plate shows its drawing, process, paper and sheet count.",
+      "Arrow navigation moves focus independently of selection; activating a folder selects it and toggles its children."
+    ],
+    "limits": [
+      "Six fixed plate records are arranged in three place folders. Expansion changes the tree; it does not clear the selected contact sheet."
+    ],
+    "checks": [
+      "Initially Rosario is expanded, no treeitem is selected, and Cabinet overview shows six plates and 240 reference sheets.",
+      "Activate Rosario: its two plates remain in the contact sheet with 72 sheets, while the folder collapses.",
+      "Expand Rosario with Arrow Right, focus Landing without activating it, and verify that the contact sheet still shows the selected folder.",
+      "Activate Landing: only its line study and RQ-01 Relief/Cotton inventory remain, totaling 48 sheets.",
+      "Select Córdoba and Mendoza in turn: their two-plate inventories total 96 and 72 sheets respectively.",
+      "Exercise Arrow Up/Down, Left/Right, Home/End, Enter and Space; verify focus, expansion and aria-selected match their separate operations.",
+      "Inspect labels, selected drawings, complete inventory text and focus at 320px with enlarged text and live reduced motion."
+    ],
+    "guidelines": [
+      "Give every tree node a stable identifier independent of its displayed label.",
+      "Keep focus movement separate from selection and retain selected content when its branch collapses.",
+      "Repeat complete plate details in the content area so the inventory remains readable."
+    ]
+  },
+  "filter-toolbar": {
+    "exportName": "MotionPlateIndexFiltersDemo",
+    "file": "src/variants/demos/original-motion-print-organization.tsx",
+    "previewTitle": "Reference-sheet search",
+    "summary": "Combine Place, Process and Paper filters to find actual plates and recalculate their reference-sheet quantities.",
+    "demonstrates": [
+      "The initial Rosario filter returns Landing and Tide stair, totaling 72 reference sheets.",
+      "Filters use AND matching; a new value replaces the prior value for that field.",
+      "Removing chips and clearing all filters update the visible inventory and can recover an empty result."
+    ],
+    "limits": [
+      "The local index has six records, three places, three processes and two paper stocks. Each field has at most one active value."
+    ],
+    "checks": [
+      "Initially verify two of six plates and 72 reference sheets, with the Place: Rosario chip.",
+      "Replace Place with Mendoza: Canal turn and Vine grid remain, totaling 72 sheets and one Place chip.",
+      "Add Process: Relief: only Vine grid remains, with 42 sheets.",
+      "Add Paper: Rag: verify zero plates, zero sheets and the recovery instruction.",
+      "Remove Paper: recover Vine grid; clear all filters to show all six plates and 240 sheets.",
+      "Choose a field and value by keyboard, navigate back to fields, dismiss with Escape and remove a chip; verify focus and active value indications.",
+      "Inspect the menu, wrapping chips, inventory and empty result at narrow widths, enlarged text and live reduced motion."
+    ],
+    "guidelines": [
+      "State that active filters combine with AND.",
+      "Replace a field value rather than accumulating contradictory values for the same field.",
+      "Calculate totals from the same records that appear in the results and keep empty results recoverable."
+    ]
+  },
+  "sortable-data-table": {
+    "exportName": "MotionReferencePackingTableDemo",
+    "file": "src/variants/demos/original-motion-print-organization.tsx",
+    "previewTitle": "Reference packing slip",
+    "summary": "Sort plate quantities and select records to assemble a live packing slip with actual paper stocks and sheet totals.",
+    "demonstrates": [
+      "The numeric Sheets column initially orders quantities 24, 30, 36, 42, 48 and 60.",
+      "Column sorting changes table order while stable identifiers retain selected plates.",
+      "Selected rows populate a packing slip with complete plate details and a derived total; no selection produces an empty slip."
+    ],
+    "limits": [
+      "All six records remain in the table. Selection changes the local slip; sorting does not determine its inventory order."
+    ],
+    "checks": [
+      "Initially verify Tide stair first, Arch seam last, Sheets aria-sort ascending and an empty packing slip with zero sheets.",
+      "Activate Sheets sorting again: verify descending order from 60 to 24 and aria-sort descending.",
+      "Select Landing and Tide stair: the slip shows their two records, Cotton and Rag stocks, and 72 sheets.",
+      "Sort by Plate or Place: the same two records stay selected and the slip total stays 72.",
+      "Select all rows: verify six selected records, a checked select-all control and 240 sheets; clear selection to recover the empty slip.",
+      "Check the mixed select-all state with a subset, Shift selection across sorted rows, row checkbox Space, supported arrow navigation and Escape clearing.",
+      "Inspect table/card layout, accessible column and checkbox names, slip text, focus and live reduced motion at narrow widths and enlarged text."
+    ],
+    "guidelines": [
+      "Sort numeric quantities as numbers while retaining stable row keys.",
+      "Keep selection independent of the current sort order.",
+      "Show quantities and paper stock for every selected record rather than reporting only a selected count."
+    ]
+  },
+  "reorderable-list": {
+    "exportName": "MotionBookletSequenceDemo",
+    "file": "src/variants/demos/original-motion-print-organization.tsx",
+    "previewTitle": "Booklet reading sequence",
+    "summary": "Reorder four original city studies to recalculate the page ranges and block diagram of a 24-page walking booklet.",
+    "demonstrates": [
+      "Four sections contain 4, 8, 4 and 8 pages, and retain their own lengths while their order changes.",
+      "Dragging a handle or using Arrow Up/Down changes the actual reading sequence, numbered index and proportional page blocks.",
+      "Reset order resets the section order and page ranges."
+    ],
+    "limits": [
+      "The booklet has four fixed-length sections and 24 pages. This model assigns consecutive reading pages; it does not calculate press imposition or binding signatures."
+    ],
+    "checks": [
+      "Initially verify Quay fold 1–4, Stone steps 5–12, Canal ledger 13–16 and Vine screen 17–24, with Reset order disabled.",
+      "Focus the Stone steps handle and press Arrow Up: verify Stone steps 1–8, Quay fold 9–12, Canal ledger 13–16 and Vine screen 17–24.",
+      "Verify the moved handle retains focus, its position label updates and the opening-section output becomes Stone steps.",
+      "Move the first section upward and the last section downward: neither operation crosses the list boundary.",
+      "Drag Vine screen to the beginning: verify it occupies pages 1–8 and the page blocks and index follow the same new order.",
+      "Restore the original sequence: verify all four initial ranges return and the reset control becomes disabled.",
+      "Inspect handle accessibility, drag/keyboard distinctions, complete page index, narrow enlarged text and live reduced motion while moving a section."
+    ],
+    "guidelines": [
+      "Preserve section identity and page length when reordering.",
+      "Derive the page index and diagram from the same ordered list.",
+      "Offer the existing keyboard handle operation alongside pointer dragging and a direct reset."
+    ]
+  },
+  "bar-chart": {
+    "file": "src/variants/demos/original-motion-print-charts.tsx",
+    "exportName": "PrintTrimWasteChartDemo",
+    "previewTitle": "Trim waste · edition 12",
+    "summary": "Shows sheets discarded across seven Rosario proof runs, with the chart's average line as a reference.",
+    "demonstrates": [
+      "The sample run counts are 12, 9, 15, 8, 6, 10, and 5 sheets.",
+      "The seven runs total 65 sheets; their arithmetic mean is 65/7, about 9.3 sheets per run."
+    ],
+    "limits": [
+      "These are sample press-worksheet values, not a published production record.",
+      "The average is a reference across the seven displayed runs and does not describe a target or acceptable limit."
+    ],
+    "checks": [
+      "Confirm the seven values sum to 65 sheets and the average is 65/7.",
+      "Scrub each bar and verify its proof-run label and sheet count."
+    ],
+    "guidelines": [
+      "Use a bar chart for period-by-period comparisons of one measure.",
+      "Name the period and unit, and distinguish an observed average from a target."
+    ]
+  },
+  "activity-heatmap": {
+    "file": "src/variants/demos/original-motion-print-charts.tsx",
+    "exportName": "PrintProofHeatmapDemo",
+    "previewTitle": "Registration checks · eight weeks",
+    "summary": "Browse a Mendoza proof log from January 5 through March 1, 2026; select a day to read its recorded checks.",
+    "demonstrates": [
+      "The eight-week log contains 56 dates and 126 registration checks in total.",
+      "February 16, 2026 starts week seven in this Monday-first view and has 2 recorded checks.",
+      "Threshold upper bounds are 1, 2, and 4 checks; counts above 4 use the highest level."
+    ],
+    "limits": [
+      "The worksheet is sample data, not a live press log.",
+      "Zero-count days mean no checks were recorded for that sample date; they do not establish that a press was idle."
+    ],
+    "checks": [
+      "Confirm the date range is 56 days, January 5 through March 1 inclusive, and the counts sum to 126.",
+      "Select February 16, 2026 and verify the adjacent readout says 2 registration checks.",
+      "Check the written unit and threshold ranges alongside the heatmap; intensity alone does not define their meaning."
+    ],
+    "guidelines": [
+      "Use a heatmap to reveal activity rhythm across dates, not to compare exact values more precisely than its legend allows.",
+      "State the time range, unit, threshold boundaries, and meaning of zero-count dates."
+    ]
+  },
+  "line-chart": {
+    "file": "src/variants/demos/original-motion-print-charts.tsx",
+    "exportName": "PrintRegistrationTrendDemo",
+    "previewTitle": "Plate registration · seven proofs",
+    "summary": "Compares misregistered-sheet counts for two plates across seven Córdoba proof pulls.",
+    "demonstrates": [
+      "Each point counts sheets outside the registration marks in a 20-sheet proof pull.",
+      "Plate A changes from 8 sheets in proof 01 to 3 in proof 07; Plate B changes from 11 to 4.",
+      "The plotted values are separate plate counts; they are not a combined total or a percentage."
+    ],
+    "limits": [
+      "The proof pulls are sample worksheet data, not a production quality report.",
+      "The series show association over proof order only; they do not explain why counts changed."
+    ],
+    "checks": [
+      "Inspect all seven proof labels and verify the two plotted sequences against the source rows.",
+      "Toggle each legend series and confirm the remaining line retains its own values and label."
+    ],
+    "guidelines": [
+      "Use a line chart when the sequence and direction across ordered observations matter.",
+      "Define each series and denominator clearly; do not imply a cause from a trend alone."
+    ]
+  },
+  "donut-chart": {
+    "file": "src/variants/demos/original-motion-print-charts.tsx",
+    "exportName": "PrintStockAllocationDemo",
+    "previewTitle": "Paper allocation · edition 12",
+    "summary": "Shows how a sample Buenos Aires print plan allocates 1,200 sheets among four paper uses.",
+    "demonstrates": [
+      "Cover stock is 640 sheets, text stock 360, proof reserve 120, and make-ready 80.",
+      "The four parts sum to 1,200 sheets and represent one whole allocation."
+    ],
+    "limits": [
+      "These are sample planning values, not a procurement record or production commitment.",
+      "The chart compares shares of this allocation; it does not show paper weight or stock specifications."
+    ],
+    "checks": [
+      "Confirm the legend values sum to 1,200 sheets and the chart center reports the same total.",
+      "Inspect each legend entry and verify its category and quantity remain available without relying on segment color."
+    ],
+    "guidelines": [
+      "Use a donut chart only when categories are parts of the same whole.",
+      "Name the whole and unit, and keep exact category values available beside the segments."
+    ]
+  },
+  "streamgraph": {
+    "file": "src/variants/demos/original-motion-print-advanced-charts.tsx",
+    "exportName": "PrintInkStreamgraphDemo",
+    "previewTitle": "Ink use by plate · eight press weeks",
+    "summary": "Compares the changing mix of four separation inks in a Rosario sample worksheet across eight weeks.",
+    "demonstrates": [
+      "Weekly values are in litres for black, cyan, magenta, and yellow plates; the four values form each week's total.",
+      "The eight-week totals are 333 L black, 105 L cyan, 94 L magenta, and 86 L yellow, for 618 L overall.",
+      "The streamgraph shows relative mix and total volume; its layers can be toggled with the native legend."
+    ],
+    "limits": [
+      "These are sample press-worksheet quantities, not metered or published production records.",
+      "The curve between weekly observations does not represent additional measurements."
+    ],
+    "checks": [
+      "Confirm there are eight ordered weeks from April 6 through May 25, 2026.",
+      "Sum the weekly plate values and verify the four totals sum to 618 L.",
+      "Toggle each legend entry and verify the other layers remain visible and identified."
+    ],
+    "guidelines": [
+      "Use a streamgraph to compare how parts of a total change together when exact point comparison is secondary.",
+      "Name each layer and unit, and state whether the total changes over time."
+    ]
+  },
+  "brush-chart": {
+    "file": "src/variants/demos/original-motion-print-advanced-charts.tsx",
+    "exportName": "PrintOffcutBrushChartDemo",
+    "previewTitle": "Paper offcuts recovered · eight weeks",
+    "summary": "Browse 56 daily sample weights in a Córdoba recovery log, with two dated ledger annotations.",
+    "demonstrates": [
+      "The series has one daily value in kilograms from June 1 through July 26, 2026; the values range from 0 to 44 kg.",
+      "The June 1–July 26 period contains 56 consecutive observations.",
+      "The overview brush selects a date window; the chart's reset control restores the full range. Its default minimum window is seven days."
+    ],
+    "limits": [
+      "These are sample recovery-log values, not a live scale reading or verified recycling record.",
+      "The Edition 12 and Collection markers are sample ledger annotations, not claims of a real event."
+    ],
+    "checks": [
+      "Confirm dates are ascending, consecutive, and cover June 1–July 26, 2026.",
+      "Inspect the Edition 12 marker on July 2 and the Collection marker on July 15.",
+      "Move and resize the brush, verify its window stays within the data range, and reset to the full 56 days."
+    ],
+    "guidelines": [
+      "Use a brush chart for a dense time series where the overview and a selectable close range are both useful.",
+      "Label the unit, date window, and meaning of annotations; keep daily values ordered."
+    ]
+  },
+  "ridgeline": {
+    "file": "src/variants/demos/original-motion-print-advanced-charts.tsx",
+    "exportName": "PrintTrimRidgelineDemo",
+    "previewTitle": "Trim offset by stock lot",
+    "summary": "Compares the distribution of signed trim-mark offsets for three sample stock lots measured in Mendoza.",
+    "demonstrates": [
+      "Each stock lot has 16 observations in millimetres, with a shared displayed domain from −0.50 to +0.50 mm.",
+      "Negative measurements are before the trim mark and positive measurements are beyond it; zero is the mark.",
+      "The ridges summarize distributions rather than plotting every sample as a separate point."
+    ],
+    "limits": [
+      "The measurements are sample worksheet observations, not a calibration certificate or tolerance claim.",
+      "The displayed domain bounds the comparison; it does not define an acceptable production range."
+    ],
+    "checks": [
+      "Confirm three stock lots are listed and each has 16 source measurements.",
+      "Check the horizontal domain and signed millimetre labels include values on both sides of zero.",
+      "Focus or hover each ridge and confirm its summary names the matching stock lot."
+    ],
+    "guidelines": [
+      "Use ridgelines to compare the shapes and spread of multiple distributions measured on the same scale.",
+      "State the sample size, unit, reference point, and any domain bounds."
+    ]
+  },
+  "treemap": {
+    "file": "src/variants/demos/original-motion-print-advanced-charts.tsx",
+    "exportName": "PrintRecoveryTreemapDemo",
+    "previewTitle": "Recovered paper by stock and use",
+    "summary": "Breaks a sample Buenos Aires edition reconciliation into paper stocks and specific uses; tile area is recovered mass.",
+    "demonstrates": [
+      "The six use-level quantities are 42, 28, 36, 18, 24, and 12 kg, totaling 160 kg.",
+      "Branch totals are 70 kg coated paper, 54 kg uncoated paper, and 36 kg cover board.",
+      "The second measure is the recorded recovery share: 70–94% across use-level entries."
+    ],
+    "limits": [
+      "The reconciliation is sample data, not a measured environmental impact or verified recycling claim.",
+      "Tile area encodes kilograms; shading encodes the separate recovery-share measure and is not a second size."
+    ],
+    "checks": [
+      "Confirm the six use values sum to 160 kg and each stock branch equals its child total.",
+      "Inspect the recovery-share scale from 70% to 94% and distinguish it from tile area.",
+      "Zoom into a stock branch, then use the breadcrumb to return to the edition total."
+    ],
+    "guidelines": [
+      "Use a treemap for hierarchical parts when relative size is the primary comparison.",
+      "Label any color measure separately from the area measure and ensure branch totals equal their children."
+    ]
+  },
+  "waffle-chart": {
+    "file": "src/variants/demos/original-motion-print-advanced-charts.tsx",
+    "exportName": "PrintCopyWaffleDemo",
+    "previewTitle": "Edition 18 · copy allocation",
+    "summary": "Shows how a sample La Plata edition allocates a 1,000-copy print run across five destinations.",
+    "demonstrates": [
+      "The allocation is 420 bookshop, 260 subscriber, 180 library, 90 print-fair, and 50 archive copies.",
+      "The values sum to 1,000 copies; a 10 × 10 grid assigns one cell to each 1% of the total, or 10 copies.",
+      "The native legend and cell focus expose a category's count and share."
+    ],
+    "limits": [
+      "These are sample allocation values, not sales, shipments, or confirmed reservations.",
+      "Each cell represents a share of the whole, not an individually tracked copy."
+    ],
+    "checks": [
+      "Confirm the five values total 1,000 and their shares are 42%, 26%, 18%, 9%, and 5%.",
+      "Inspect all legend entries and focus categories to read their counts and shares."
+    ],
+    "guidelines": [
+      "Use a waffle chart when a whole can be divided into countable equal shares.",
+      "Choose the grid resolution to match the precision of the source and state the whole and unit."
+    ]
+  },
+  "slope-chart": {
+    "file": "src/variants/demos/original-motion-print-advanced-charts.tsx",
+    "exportName": "PrintFinishingSlopeDemo",
+    "previewTitle": "Make-ready time by station",
+    "summary": "Compares sample minutes for five print-finishing stations between editions 11 and 12.",
+    "demonstrates": [
+      "Station values in minutes are: prepress 18→15, plate setup 32→27, press registration 46→38, binding setup 25→29, and packing setup 14→12.",
+      "Four station times decrease; binding setup increases by 4 minutes. The sum across these five stations changes from 135 to 121 minutes.",
+      "The native chart displays both period values and rank changes."
+    ],
+    "limits": [
+      "These are sample worksheet timings, not a measured productivity study.",
+      "The comparison covers only two editions and does not establish why any station time changed."
+    ],
+    "checks": [
+      "Verify each station's Edition 11 and Edition 12 value and its signed change.",
+      "Confirm binding setup rises by 4 minutes and the five-station sums are 135 and 121 minutes.",
+      "Focus each station and confirm the highlighted values and rank labels identify the same row."
+    ],
+    "guidelines": [
+      "Use a slope chart to compare the same items at exactly two ordered moments.",
+      "Name both periods, units, and item identities; report rank movement separately from value change."
+    ]
+  },
+  "calendar": {
+    "file": "src/variants/demos/original-motion-print-date-time.tsx",
+    "exportName": "PrintProofCalendarDemo",
+    "previewTitle": "Weekday calendar with bounds",
+    "summary": "Select a weekday sign-off date in a Rosario sample proof schedule for November 2026.",
+    "demonstrates": [
+      "The calendar opens in November 2026 with November 12 selected.",
+      "The selectable window is November 2–December 4 inclusive; Saturdays and Sundays are disabled.",
+      "The sample month view is controlled, so its previous and next month controls update the displayed month."
+    ],
+    "limits": [
+      "The dates are a sample production schedule, not a real booking calendar.",
+      "No event availability or external calendar service is queried."
+    ],
+    "checks": [
+      "Verify November 12, 2026 is initially selected and the adjacent status names that date.",
+      "Confirm dates before November 2, after December 4, and weekend dates cannot be selected.",
+      "Navigate from November to December and back; confirm navigation changes the month without changing the selected date."
+    ],
+    "guidelines": [
+      "Use Calendar when users need a persistent month grid and direct date selection.",
+      "Explain disabled dates and constrain selection to the actual scheduling window."
+    ]
+  },
+  "date-picker": {
+    "file": "src/variants/demos/original-motion-print-date-time.tsx",
+    "exportName": "PrintStockDatePickerDemo",
+    "previewTitle": "Date picker with blocked dates",
+    "summary": "Choose a weekday delivery date in a bounded Córdoba receiving window, with one reserved calibration day.",
+    "demonstrates": [
+      "The selected date starts at November 10, 2026; the allowed window is November 9–20 inclusive.",
+      "Weekend dates and November 12 are disabled; the description identifies the press-calibration reservation.",
+      "The picker is controlled and the nearby live status follows a selected date or a cleared value."
+    ],
+    "limits": [
+      "The receiving window and calibration reservation are sample schedule data.",
+      "The picker does not create a delivery order or contact a supplier."
+    ],
+    "checks": [
+      "Verify November 10, 2026 is initially displayed and the local status agrees.",
+      "Confirm dates outside November 9–20, weekends, and November 12 cannot be chosen.",
+      "Choose an available weekday and verify the field and adjacent status update to the same date; clear and check the empty status.",
+      "When the picker shows “Scroll for more dates,” scroll horizontally or move through dates with the arrow keys."
+    ],
+    "guidelines": [
+      "Use min/max bounds for the real booking window and disabledDates for unavailable dates within it.",
+      "Keep the reason for a special blocked date available in the field description."
+    ]
+  },
+  "time-picker": {
+    "file": "src/variants/demos/original-motion-print-date-time.tsx",
+    "exportName": "PrintHandoffTimePickerDemo",
+    "previewTitle": "Time in half-hour steps",
+    "summary": "Select and display a local workshop handoff time in 24-hour format at 30-minute intervals.",
+    "demonstrates": [
+      "The initial time is 14:30; the component offers all 48 half-hour points in a day.",
+      "The selected value is controlled and updates the adjacent status after a choice.",
+      "The time and supporting copy specify local workshop time; no timezone conversion is applied."
+    ],
+    "limits": [
+      "The time is a sample local schedule value, not an appointment or calendar event.",
+      "The picker accepts the full day and does not enforce a shift-length or business-hours rule."
+    ],
+    "checks": [
+      "Verify 14:30 is the initial value and the status matches it.",
+      "Choose an earlier and later option using the list and arrow keys; confirm the field and status match each selected HH:mm value.",
+      "Confirm the interval is 30 minutes and the format is 24-hour."
+    ],
+    "guidelines": [
+      "Choose minuteStep to match the scheduling precision the workflow can honor.",
+      "State whether a displayed time is local and apply timezone handling at the integration boundary when needed."
+    ]
+  },
+  "date-range-picker": {
+    "file": "src/variants/demos/original-motion-print-date-time.tsx",
+    "exportName": "PrintEditionDateRangeDemo",
+    "previewTitle": "Preset and custom date ranges",
+    "summary": "Apply one of two sample La Plata production windows in a single-month date-range picker.",
+    "demonstrates": [
+      "The initial applied range is November 9–13, 2026, inclusive.",
+      "The Proof week preset selects November 9–13; Press week selects November 16–20.",
+      "Selection is controlled by the applied onChange result; the nearby status reports the committed range."
+    ],
+    "limits": [
+      "Both ranges are fixed sample presets, not live production availability.",
+      "The picker has November 2–27 bounds and displays one month; no external schedule is read or changed."
+    ],
+    "checks": [
+      "Verify the initial trigger and status show November 9–13, 2026.",
+      "Choose Press week and apply; confirm the applied status changes to November 16–20.",
+      "Choose Proof week and apply; confirm the status returns to November 9–13. Canceling an edit must leave the applied status unchanged.",
+      "Confirm dates outside the configured bounds cannot be applied."
+    ],
+    "guidelines": [
+      "Use a range picker for workflows that need a start and end date selected together.",
+      "Name preset ranges, constrain them to the valid window, and distinguish a draft selection from an applied range."
+    ]
+  },
+  "toast-stack": {
+    "file": "src/variants/demos/original-motion-print-feedback.tsx",
+    "exportName": "PrintProofToastStackDemo",
+    "previewTitle": "Proof-check notices",
+    "summary": "Records a local sample proof check, offers Undo in the stacked notice, and keeps the result under the visitor's control.",
+    "demonstrates": [
+      "Record sample proof check increments the local counter and adds an informational toast with an Undo action.",
+      "Undo decrements the local counter and updates that same toast to a notice without an action.",
+      "The four newest notices are retained; adding a fifth evicts the oldest. Each original notice has infinite duration until Undo or dismissal; its updated notice uses 4,500 ms."
+    ],
+    "limits": [
+      "The counter and notices live only in component state; no workshop record is transmitted or saved.",
+      "The updated notice closes on the component's real duration unless dismissed sooner."
+    ],
+    "checks": [
+      "Record one check and confirm the local counter and open-notice count each increase by one.",
+      "Choose Undo and confirm the counter decreases by one and the same toast changes to 'Sample check removed'.",
+      "Record two notices, dismiss all, and verify the stack count returns to zero without changing the check counter."
+    ],
+    "guidelines": [
+      "Use a toast stack for brief results of local or completed actions, and describe the action outcome plainly.",
+      "Offer Undo only when it reverses a real local change; keep the underlying state and toast copy in sync."
+    ]
+  },
+  "toast": {
+    "file": "src/variants/demos/original-motion-print-feedback.tsx",
+    "exportName": "PrintReminderToastDemo",
+    "previewTitle": "Trim-mark reminder",
+    "summary": "Open a standalone, dismissible local reminder about checking crop marks on a sample proof sheet.",
+    "demonstrates": [
+      "The button opens the controlled toast; dismissing it or letting its built-in 4,500 ms duration elapse closes it.",
+      "The reminder contains no saved proof state and makes no claim that a check has already been completed."
+    ],
+    "limits": [
+      "The reminder is local to the preview and does not check a proof file.",
+      "The standalone Toast accepts title, description and duration; it does not expose a result type or action slot."
+    ],
+    "checks": [
+      "Activate Show local proof reminder and verify the reminder title and instruction appear.",
+      "Dismiss the toast and confirm the trigger can open it again; leave it open to confirm the component's timed close behavior."
+    ],
+    "guidelines": [
+      "Use a standalone toast for a short, non-blocking message that does not require a choice.",
+      "Avoid success language when the message is only a reminder and no work has been completed."
+    ]
+  },
+  "notification-center": {
+    "file": "src/variants/demos/original-motion-print-feedback.tsx",
+    "exportName": "PrintWorkshopNotificationCenterDemo",
+    "previewTitle": "Workshop update desk",
+    "summary": "Filter, read, and dismiss three local sample print-workshop updates without person records or remote delivery.",
+    "demonstrates": [
+      "The list starts with two unread and one read sample update, each with a title, description, time, and tone.",
+      "The native All and Unread views, individual read state, bulk Mark all read, and dismissal update the component's local list.",
+      "The adjacent status reports individual read and dismissal callbacks."
+    ],
+    "limits": [
+      "Times and events are static sample entries, not live workshop activity.",
+      "Read and dismiss changes remain inside the component instance; they are not persisted or sent to a service."
+    ],
+    "checks": [
+      "Open the notification center and confirm its unread count begins at two.",
+      "Switch to Unread and confirm only the two unread entries remain; mark one read and confirm the view/count updates.",
+      "Use Mark all read and verify the unread view is empty and the status reflects the latest callback.",
+      "Dismiss an item in All and verify it disappears from the panel and the local status names it."
+    ],
+    "guidelines": [
+      "Use a notification center for updates that remain available for later review, with explicit read and dismissal states.",
+      "Keep times, statuses, and any actor information tied to real sources when integrating beyond sample data."
+    ]
+  },
+  "announcement-bar": {
+    "file": "src/variants/demos/original-motion-print-feedback.tsx",
+    "exportName": "PrintScheduleAnnouncementDemo",
+    "previewTitle": "Edition 18 schedule notices",
+    "summary": "Manually browse two sample production-window notices, reveal their local notes, and dismiss or restore the bar.",
+    "demonstrates": [
+      "Previous and next controls move between the November 9–13 proof-review message and November 16–20 press-window message.",
+      "Automatic rotation is disabled; the action button opens local notes with both windows.",
+      "Dismissal hides the controlled bar and Show schedule notices restores it. No persistence id is set."
+    ],
+    "limits": [
+      "Both windows and notes are sample schedule copy, not confirmed production bookings.",
+      "The preview does not navigate to a schedule service and dismissal is not remembered between visits."
+    ],
+    "checks": [
+      "Confirm the bar starts on the proof-review message and next/previous controls select the other message and return.",
+      "Activate Show proof notes or Show press notes and verify the local schedule notes appear; close them with Hide schedule notes.",
+      "Dismiss the bar and use Show schedule notices to restore it."
+    ],
+    "guidelines": [
+      "Use an announcement bar for a short, relevant notice with a direct action when one exists.",
+      "Keep rotation controllable and make dismissal persistence an explicit product choice."
+    ]
+  },
+  "cookie-consent": {
+    "file": "src/variants/demos/original-motion-print-feedback.tsx",
+    "exportName": "PrintWorkshopCookieConsentDemo",
+    "previewTitle": "Workshop site preferences",
+    "summary": "Compare accept, reject, and save choices for one required and two optional sample categories; reopen or reset the local choice.",
+    "demonstrates": [
+      "Essential settings are required; proof-display preferences and aggregate guide counts are optional and begin off.",
+      "Accept all, Essential only, or a saved custom selection produces a controlled choice and an adjacent status.",
+      "The component's reopen button returns to preferences; Reset sample choice clears the controlled value and restores the initial bar."
+    ],
+    "limits": [
+      "No storageKey is supplied, so choices are not written to localStorage; the preview has no cookie or tracking scripts connected.",
+      "Optional category descriptions describe hypothetical site behavior, not active collection."
+    ],
+    "checks": [
+      "Confirm the initial bar offers review, allow-optional, and essential-only choices.",
+      "Accept optional categories and verify the selected count is two; reopen preferences and save with both optional switches off, then verify the count is zero.",
+      "Choose Essential only and verify required remains enabled while optional categories are off.",
+      "Use Reset sample choice and verify the panel returns to its undecided state."
+    ],
+    "guidelines": [
+      "Keep required categories on, make refusal as accessible as acceptance, and explain each optional category plainly.",
+      "Connect consent state to actual storage or scripts only when those integrations exist; do not imply persistence without it."
+    ]
+  },
+  "empty-states": {
+    "file": "src/variants/demos/original-motion-print-feedback.tsx",
+    "exportName": "PrintRecoveryEmptyStatesDemo",
+    "previewTitle": "Print-workflow empty states",
+    "summary": "Four original print-workflow examples recover from empty filters, notes, a proof tray and a closed folio through real local state changes.",
+    "demonstrates": [
+      "Index starts with Stencil and Rag filters matching no plate; clearing them reveals three stored records with 26 reference sheets. Restoring filters returns to zero.",
+      "Notes adds or removes a La Plata LP-02 registration note with a 0.2 mm offset toward the gripper.",
+      "Tray adds or removes the six-sheet Rosario Quay sequence packet and lists its reference, location and actual sheet count.",
+      "Folio opens or closes two stored Mendoza plate records totaling 16 sheets.",
+      "The four composite tabs support Left/Right, Home and End; each tab retains its local changes. RAMS icons identify each empty state; a brief transition preserves feedback without decorative illustrations."
+    ],
+    "limits": [
+      "All records, filters and notes are local sample data; no remote request or storage occurs.",
+      "The complete block takes no props. Its actions change local models immediately; they do not simulate reconnection, delivery, mail or an external search."
+    ],
+    "checks": [
+      "Clear and restore Index filters; compare visible record IDs and the 26-sheet total.",
+      "Add the LP-02 note, switch tabs and return, then remove it; check the 0.2 mm value and focus.",
+      "Add and remove the Quay sequence packet; verify its record and six-sheet total.",
+      "Open and close Canal folio; verify both record IDs and their 6 + 10 = 16 sheet total.",
+      "Use arrow keys, Home and End to move between tabs; verify selected tab, panel name and preserved state."
+    ],
+    "guidelines": [
+      "Explain the actual empty state and provide an action that changes the relevant local model.",
+      "Show the records behind a recovery result, and preserve independent state when moving between views."
+    ]
+  },
+  "mention-input": {
+    "file": "src/variants/demos/original-motion-print-authoring.tsx",
+    "exportName": "PrintProofMentionInputDemo",
+    "previewTitle": "Edition 18 · proof note",
+    "summary": "Compose a local proof note with role-only sample @ handles and print-workshop # channels, then inspect its structured mention serialization.",
+    "demonstrates": [
+      "The input offers two role-only sample handles and three channels; no person portraits are supplied.",
+      "Selecting an @ handle or # channel creates a structured MentionValue entry with its text range.",
+      "Post note and Enter submit the current text, clear the editor, and show the submitted note plus its default serialized IDs.",
+      "Clear note removes only the local preview entry."
+    ],
+    "limits": [
+      "Handles and channels are sample labels, not real accounts or destinations.",
+      "Posting does not notify a person, publish a message, or write data to a service."
+    ],
+    "checks": [
+      "Type @ and choose a role handle; verify the inserted mention is present in the structured value.",
+      "Type # and choose a channel; verify the local note displays the selected channel and serialized <#id> token.",
+      "Submit non-empty text using Enter and the button; verify both paths show the note and clear the input.",
+      "Submit blank text and verify no posted note is created; clear a posted note and verify it disappears."
+    ],
+    "guidelines": [
+      "Use structured mention values when text references selectable people or channels and preserve offsets as text changes.",
+      "Keep mention suggestions limited to the accounts and destinations the consuming product can actually resolve."
+    ]
+  },
+  "rich-text-editor": {
+    "file": "src/variants/demos/original-motion-print-authoring.tsx",
+    "exportName": "PrintProofRichTextEditorDemo",
+    "previewTitle": "Edition 18 · working proof notes",
+    "summary": "Edit an original proof-note draft and inspect the editor's live text, Markdown, and undo/redo availability.",
+    "demonstrates": [
+      "The initial note uses supported defaultMarkdown with a heading, paragraph, and bulleted checks.",
+      "The component retains its built-in selection formatting and link toolbar, slash block menu, Markdown shortcuts, and keyboard undo/redo.",
+      "onChange supplies HTML, Markdown, plain text, and empty state; the scene displays current text length and Markdown after edits.",
+      "onHistoryChange reports whether undo and redo are available."
+    ],
+    "limits": [
+      "The note exists only in the editor instance; no save, export, or server integration is present.",
+      "The displayed character count is plain text length, not a word count or publishing limit."
+    ],
+    "checks": [
+      "Confirm the initial Edition 18 heading, trim instruction, and two checklist items appear.",
+      "Edit text and use a formatting control; verify the local character count and Markdown output follow the edit.",
+      "Use the slash menu to add a supported block, then undo and redo; verify history availability updates.",
+      "Create a link using the selection toolbar and inspect the resulting Markdown without navigating away."
+    ],
+    "guidelines": [
+      "Keep the editor editable and preserve its native formatting, block, link, and history controls.",
+      "Treat editor output as local draft content until a real persistence action is provided."
+    ]
+  },
+  "billing-toggle": {
+    "file": "src/variants/demos/original-motion-print-authoring.tsx",
+    "exportName": "PrintWorkshopBillingToggleDemo",
+    "previewTitle": "Workshop reference plan",
+    "summary": "Switch between monthly and annual sample prices for a print-workshop reference plan and update the local quote.",
+    "demonstrates": [
+      "Monthly sample price is ARS 36,000 per month; annual sample price is ARS 360,000 per year.",
+      "Twelve monthly payments total ARS 432,000; the annual sample saves ARS 72,000, or 16.7%, and averages ARS 30,000 per month.",
+      "The quote follows the selected period and shows the exact annual savings and percentage with the annual price."
+    ],
+    "limits": [
+      "All prices are fictional sample values, not a real offer or current price list.",
+      "The toggle changes local display state only; it does not charge, subscribe, or save a billing choice."
+    ],
+    "checks": [
+      "Confirm Annual is selected initially and the displayed amount is ARS 360,000 per year with ARS 30,000 monthly equivalent.",
+      "Select Monthly and verify ARS 36,000 per month appears and the annual savings line is absent.",
+      "Select Annual and verify the result shows ARS 72,000 yearly savings and 16.7%."
+    ],
+    "guidelines": [
+      "Keep billing-period labels, price cadence, and savings denominator explicit.",
+      "Treat a period toggle as a display choice unless a separate, confirmed subscription action exists.",
+      "Import `BillingPrice` from `./rams/components/motion-billing-toggle` to animate a displayed price. Pass `amount` and optional `was` in major currency units, so 360000 means ARS 360,000. For example, `<BillingPrice amount={360000} currency=\"ARS \" period=\"per year\" was={432000} />`. The optional `decimals` prop controls fractional display and `className` supports styling."
+    ]
+  },
+  "radio-cards": {
+    "file": "src/variants/demos/original-motion-print-authoring.tsx",
+    "exportName": "PrintStockRadioCardsDemo",
+    "previewTitle": "Edition 18 · cover stock",
+    "summary": "Choose a sample cover-paper stock from radio cards and read the selected stock in a local docket status.",
+    "demonstrates": [
+      "The initial selection is Matte coated, 170 gsm; Uncoated offset, 120 gsm is another selectable option.",
+      "Recycled blend test is disabled with a reason specific to the sample docket.",
+      "The list-layout ARIA radio group updates its selected value and the adjacent status; a hidden form field uses edition18-cover-stock as its name."
+    ],
+    "limits": [
+      "Stock names, weights, and availability are sample editorial choices, not a supplier specification or live inventory.",
+      "Selecting a card changes local state only and does not place a materials order.",
+      "Required is announced by the ARIA group; the hidden field is not a native required-radio constraint-validation control."
+    ],
+    "checks": [
+      "Confirm Matte coated is initially selected and its 170 gsm value appears in the local status.",
+      "Select Uncoated offset and verify the status updates to 120 gsm and the radio selection follows.",
+      "Confirm Recycled blend test is disabled, its reason is shown, and it cannot become selected.",
+      "Use arrow keys to move between enabled cards and inspect the hidden form value after selection."
+    ],
+    "guidelines": [
+      "Use radio cards when choices need a short description or metadata in addition to a label.",
+      "State why an option is unavailable and keep the selected summary tied to the same value submitted by the form."
+    ]
+  },
+  "phone-input": {
+    "file": "src/variants/demos/original-motion-print-numeric.tsx",
+    "exportName": "PrintWorkshopPhoneInputDemo",
+    "previewTitle": "Workshop number formatting",
+    "summary": "Shows the native country-aware phone entry with Argentina selected by default and an explicitly empty initial value.",
+    "demonstrates": [
+      "The field begins empty and offers Argentina, Chile, and Brazil as suggested countries.",
+      "The helper text and local status describe formatting preview only; the scene does not place a call or claim that a number is verified.",
+      "The component provides country-aware entry and formatting while built-in validation messaging is disabled for this example."
+    ],
+    "limits": [
+      "No phone number, person, workshop contact, or real contact route is represented.",
+      "Formatting does not establish that a number is assigned, reachable, or valid for service."
+    ],
+    "checks": [
+      "Confirm the initial field is empty, Argentina is selected, and no example number is prefilled.",
+      "Type and clear a sample value; verify the local status switches between formatting preview and no number entered.",
+      "Confirm the explanation makes no verification or call claim."
+    ],
+    "guidelines": [
+      "Use a phone input when country-aware number entry and formatting are part of the task.",
+      "Describe formatting separately from verification, assignment, reachability, or delivery."
+    ]
+  },
+  "money-input": {
+    "file": "src/variants/demos/original-motion-print-numeric.tsx",
+    "exportName": "PrintStockCostMoneyInputDemo",
+    "previewTitle": "Stock-cost worksheet",
+    "summary": "Edits a fictional Argentine-peso paper-and-ink allocation and locally calculates the remaining amount from a sample worksheet budget.",
+    "demonstrates": [
+      "The sample worksheet budget is ARS 500,000; the initial allocation is ARS 125,000, leaving ARS 375,000.",
+      "The native money input is restricted to ARS, and its minor-unit scale follows the currency fraction digits reported by Intl.NumberFormat.",
+      "The remaining amount is calculated locally from the entered allocation and sample budget."
+    ],
+    "limits": [
+      "All amounts are fictional planning figures, not an offer, quote, invoice, or current market price.",
+      "The arithmetic does not save, submit, or reconcile values with an external service."
+    ],
+    "checks": [
+      "Confirm the initial allocation plus remaining amount equals the ARS 500,000 worksheet budget.",
+      "Edit the amount and use a quick-add chip; verify the remaining amount changes by the same amount.",
+      "Confirm ARS formatting matches the worksheet locale and the single-currency setting hides the currency chooser."
+    ],
+    "guidelines": [
+      "Use a money input for amounts whose currency and locale-aware formatting matter.",
+      "State the currency and calculation context, and keep sample planning figures distinct from commercial offers."
+    ]
+  },
+  "color-picker": {
+    "file": "src/variants/demos/original-motion-print-numeric.tsx",
+    "exportName": "PrintInkColorPickerDemo",
+    "previewTitle": "Ink proof swatches",
+    "summary": "Edit a sample ink color against warm paper and compare three original ink swatches with the selected hexadecimal readout.",
+    "demonstrates": [
+      "The original sample inks are deep ink #202020, river blue #176B87, and poster vermilion #B8472D.",
+      "The selected color is reported as hex; the picker calculates a digital text-contrast ratio and threshold grade against #F4EBDD paper.",
+      "The picker supports editing the color and managing its swatches locally."
+    ],
+    "limits": [
+      "These sample colors are not a product palette, ink specification, or proof of printed appearance.",
+      "The displayed grade assesses this digital text/background pair, not full interface accessibility or printed output."
+    ],
+    "checks": [
+      "Confirm the three sample swatches and their hex values match the visible swatch labels.",
+      "Change the color and verify the selected hexadecimal readout follows the picker value.",
+      "Confirm the picker receives the warm paper background for its contrast readout."
+    ],
+    "guidelines": [
+      "Use a color picker when users need to edit a color and inspect its value directly.",
+      "Name the comparison background and distinguish digital contrast readings from print behavior or compliance claims."
+    ]
+  },
+  "range-histogram-slider": {
+    "file": "src/variants/demos/original-motion-print-numeric.tsx",
+    "exportName": "PrintTrimRangeHistogramDemo",
+    "previewTitle": "Trim-edge sample range",
+    "summary": "Filters a Córdoba sample worksheet of absolute trim-mark deviations and reports the number of observations in the selected interval.",
+    "demonstrates": [
+      "The 20 original sample values are in millimetres and range from 0.05 to 0.62 mm.",
+      "The initial interval is 0.10–0.40 mm and contains 13 of the 20 observations, including both interval endpoints.",
+      "The two ARIA slider thumbs update the local count as their bounds move; the histogram bins summarize the sample distribution."
+    ],
+    "limits": [
+      "These are illustrative worksheet observations, not calibration records or production measurements.",
+      "The selected interval is a descriptive filter and does not define a tolerance or acceptable production range."
+    ],
+    "checks": [
+      "Confirm there are 20 nonnegative values and that 13 lie inclusively between 0.10 and 0.40 mm.",
+      "Move both thumbs and verify the displayed count matches the values within the selected interval.",
+      "Confirm the visible and spoken range values include the mm unit."
+    ],
+    "guidelines": [
+      "Use a range histogram to select an interval from a one-dimensional sample and show the resulting count.",
+      "Name the measured quantity and unit, and distinguish a sample filter from an acceptance rule."
+    ]
+  },
+  "scrub-input": {
+    "file": "src/variants/demos/original-motion-print-numeric.tsx",
+    "exportName": "PrintTrimAllowanceScrubDemo",
+    "previewTitle": "Sheet trim allowance",
+    "summary": "Adjusts a sample per-edge trim allowance and calculates the resulting usable width of a 320 mm sheet.",
+    "demonstrates": [
+      "The allowance starts at 3 mm per edge, so the displayed usable width is 314 mm.",
+      "The calculation is 320 mm minus twice the selected per-edge allowance; the control supports 0–12 mm with 0.5 mm steps and finer or coarser adjustments.",
+      "The native scrub field supports direct entry and expression input as well as label scrubbing."
+    ],
+    "limits": [
+      "The dimensions are a sample planning calculation, not a machine setup or production specification.",
+      "The example assumes the same allowance on both edges and does not account for other sheet constraints."
+    ],
+    "checks": [
+      "Confirm the initial arithmetic gives 320 − 2 × 3 = 314 mm.",
+      "Change the value and verify the result updates to 320 − 2 × allowance, retaining one decimal place.",
+      "Use the control reset and verify it returns to 3 mm."
+    ],
+    "guidelines": [
+      "Use a scrub number field for a bounded numeric parameter that benefits from both direct typing and fine adjustment.",
+      "State the unit, bounds, and calculation affected by the parameter."
+    ]
+  },
+  "usage-meter": {
+    "file": "src/variants/demos/original-motion-print-workflow.tsx",
+    "exportName": "PrintWeekUsageMeterDemo",
+    "previewTitle": "Paper used in the sample print week",
+    "summary": "Breaks a fictional 16 kg paper allocation into three sample print-week categories and shows their total against the limit.",
+    "demonstrates": [
+      "Text stock is 6.4 kg, cover stock is 3.2 kg, and proof sheets are 2.1 kg; together they use 11.7 kg of the 16 kg allocation.",
+      "The remaining unassigned amount is 4.3 kg, and the meter displays the separate segment amounts against the shared limit.",
+      "The values are fixed sample data; this scene does not imply inventory synchronization."
+    ],
+    "limits": [
+      "The quantities are illustrative worksheet values, not a live scale reading or verified inventory.",
+      "The 16 kg limit is a sample allocation, not a safety or production threshold."
+    ],
+    "checks": [
+      "Confirm the segment values sum to 11.7 kg and the unassigned amount is 4.3 kg.",
+      "Confirm the meter uses the same kilogram unit and 16 kg limit for all segments.",
+      "Inspect the segment labels and identify each portion without relying on color alone."
+    ],
+    "guidelines": [
+      "Use a usage meter to show parts of a measured allowance and how they compare with a fixed limit.",
+      "Keep segment units consistent and label each component of the total."
+    ]
+  },
+  "onboarding-checklist": {
+    "file": "src/variants/demos/original-motion-print-workflow.tsx",
+    "exportName": "BookletSetupChecklistDemo",
+    "previewTitle": "Booklet setup checklist",
+    "summary": "Tracks four manually checked preparation steps for a fictional 16-page booklet, with paper stock already marked complete.",
+    "demonstrates": [
+      "The checklist starts with paper stock complete and three remaining tasks: plate separations, proof review, and folding/counting.",
+      "Steps have no action callbacks, so checking them updates only the checklist's local state.",
+      "The completed title appears when all four sample steps are checked."
+    ],
+    "limits": [
+      "The booklet and setup are illustrative; no production task or external workflow is started.",
+      "A checked item records a local example state and does not verify that work was performed."
+    ],
+    "checks": [
+      "Confirm exactly four steps appear and the paper-stock step is initially complete.",
+      "Check and uncheck steps; verify the checklist progress changes and state remains local.",
+      "Complete all four steps and inspect the done title, then reopen a completed step if the component allows it."
+    ],
+    "guidelines": [
+      "Use a checklist for a short set of tasks that people can complete in any order.",
+      "Describe local completion as a record of interaction unless an external task system confirms the work."
+    ]
+  },
+  "timeline": {
+    "file": "src/variants/demos/original-motion-print-workflow.tsx",
+    "exportName": "BookletWorkflowTimelineDemo",
+    "previewTitle": "Sample booklet workflow",
+    "summary": "Presents four fixed, fictional worksheet entries from a booklet exercise in reverse chronological order using Argentina time.",
+    "demonstrates": [
+      "The sample entries on September 18, 2026 record paper stock, two plate separations, a trim mark, and a folded sample count of 24 copies.",
+      "The feed receives explicit event timestamps, a fixed reference time, and the America/Argentina/Buenos_Aires time zone.",
+      "The paper-stock entry is expanded by default; entries with detail can be expanded in place with the native timeline interaction."
+    ],
+    "limits": [
+      "The timeline is static sample worksheet content, not a live or audited activity feed.",
+      "Its dates and details do not document a real person, workshop, or production run."
+    ],
+    "checks": [
+      "Confirm four events appear newest first on September 18, 2026 and the fixed reference time follows them.",
+      "Expand and collapse event details and verify the details match their corresponding worksheet entry.",
+      "Confirm the time zone is America/Argentina/Buenos_Aires and no event uses an actor or portrait."
+    ],
+    "guidelines": [
+      "Use a timeline when order and recency matter more than sorting or comparing values.",
+      "Supply stable event identities, explicit timestamps, a reference time, and the intended time zone."
+    ]
+  },
+  "stepper": {
+    "file": "src/variants/demos/original-motion-print-workflow.tsx",
+    "exportName": "BookletProductionStepperDemo",
+    "previewTitle": "Sample booklet sequence",
+    "summary": "Navigates four local stages of a fictional booklet workflow with the step indicator and owned Back/Continue buttons.",
+    "demonstrates": [
+      "The four stages are cut stock, print plates, fold sheets, and count the bundle; the initial current stage is Print plates.",
+      "Back and Continue move the controlled current index within the four stages; the stepper can also select an already completed stage.",
+      "At index four the stepper announces the sample sequence completion and the Continue control is disabled."
+    ],
+    "limits": [
+      "Changing stages is local navigation and does not execute or record any production work.",
+      "The sequence demonstrates a sample ordering and is not a required real-world process."
+    ],
+    "checks": [
+      "Confirm the initial current stage is Print plates and Back is enabled while Continue advances one stage.",
+      "Move backward and forward through all four stages and verify the current label follows the selected index.",
+      "Advance to completion and confirm the final count is four and Continue is disabled."
+    ],
+    "guidelines": [
+      "Use a stepper to show position in a known ordered process and provide navigation when returning to earlier steps is useful.",
+      "Drive the current index from the surrounding flow and distinguish step navigation from task execution."
+    ]
+  },
+  "countdown": {
+    "file": "src/variants/demos/original-motion-print-workflow.tsx",
+    "exportName": "SampleHandoffCountdownDemo",
+    "previewTitle": "Sample handoff window",
+    "summary": "Counts down to a fixed illustrative handoff time of November 20, 2026 at 09:00 in Buenos Aires.",
+    "demonstrates": [
+      "The target is November 20, 2026 at 09:00 in America/Argentina/Buenos_Aires.",
+      "The native countdown updates the displayed time units against the fixed target and replaces them with the specified completion label after the target passes.",
+      "The target date and local time zone are explicit rather than dependent on the viewer's device zone."
+    ],
+    "limits": [
+      "The date is an illustrative example, not a real booking, event, shipment, or deadline.",
+      "The countdown uses the viewer's device clock; it does not synchronize with an authoritative time source."
+    ],
+    "checks": [
+      "Confirm the target resolves to November 20, 2026 at 09:00 in America/Argentina/Buenos_Aires.",
+      "Inspect the displayed units as time passes and verify the completion label is configured for after the target.",
+      "Confirm the adjacent note identifies the target as illustrative."
+    ],
+    "guidelines": [
+      "Use a countdown for a fixed moment people need to wait for, and provide an explicit zone for local wall time.",
+      "Identify whether the target is a sample or authoritative event and state any clock-source limitation."
+    ]
+  },
+  "password-strength": {
+    "file": "src/variants/demos/original-motion-print-workflow.tsx",
+    "exportName": "SamplePassphraseStrengthDemo",
+    "previewTitle": "Passphrase strength estimate",
+    "summary": "Shows the native local password-strength estimate with its built-in length, letter-case, number, and symbol rules.",
+    "demonstrates": [
+      "The controlled field starts empty and estimates strength as text is entered using the component's default rules.",
+      "The field uses autocomplete off and is labeled for a sample proof-station passphrase.",
+      "The adjacent note states that the estimate runs locally and is not a server policy check."
+    ],
+    "limits": [
+      "A client-side strength estimate does not verify compliance with a server's policy, blocklist, or account requirements.",
+      "The sample is not an account creation flow; users are told not to enter a real account password."
+    ],
+    "checks": [
+      "Confirm the field starts empty and the built-in strength meter and rule list appear as text is entered.",
+      "Try a short sample and a longer varied sample; verify the displayed estimate changes according to the built-in rules.",
+      "Confirm the explanation distinguishes the local estimate from server policy and discourages real credentials."
+    ],
+    "guidelines": [
+      "Use a password-strength meter as immediate client-side guidance while someone creates a password.",
+      "State the rules and limits of the estimate, and do not present it as authoritative server validation."
+    ]
+  },
+  "hold-to-confirm": {
+    "file": "src/variants/demos/original-motion-print-actions.tsx",
+    "exportName": "PrintProofHoldConfirmationDemo",
+    "previewTitle": "Mark the sample proof",
+    "summary": "Fills a local proof-confirmation control over 900 ms from rest, with release rewind and an explicit reset.",
+    "demonstrates": [
+      "Starting from rest, a 900 ms hold marks the local sample approved. Releasing early rewinds the fill; repressing during rewind resumes its current progress.",
+      "The reset button returns the state to unmarked and is disabled until the hold completes.",
+      "The adjacent status states that the marked state belongs to this local example."
+    ],
+    "limits": [
+      "The interaction does not approve or record a real production proof.",
+      "The hold confirms only the local state change; it does not contact another person or system."
+    ],
+    "checks": [
+      "Press and release before 900 ms; verify the sample state remains unmarked.",
+      "After the fill returns to rest, hold for 900 ms; verify the controlled state changes and Reset becomes available.",
+      "Reset the sample and verify the control returns to its initial state."
+    ],
+    "guidelines": [
+      "Use hold-to-confirm for a consequential action whose instruction and consequence are already clear on screen.",
+      "Keep the confirmed state owned by the surrounding flow when it needs to be reset or reflected elsewhere."
+    ]
+  },
+  "confirm-morph": {
+    "file": "src/variants/demos/original-motion-print-actions.tsx",
+    "exportName": "PrintProofNoteConfirmMorphDemo",
+    "previewTitle": "Remove a proof note",
+    "summary": "Confirms removal of one visible sample proof note and uses the component's Undo action to restore the exact note text.",
+    "demonstrates": [
+      "The confirmation prompt names the exact note: “Vermilion registration mark sits 0.2 mm right of the sample guide.”",
+      "Confirm synchronously removes the note from local state; Undo synchronously restores the same note.",
+      "Both confirmation and result timeouts are disabled so the result remains until the user acts."
+    ],
+    "limits": [
+      "The note is an illustrative sample and no production record is changed.",
+      "Confirm and Undo update only the scene's local list; there is no pending network or persistence state."
+    ],
+    "checks": [
+      "Open the confirmation and verify the full note detail is visible before confirming.",
+      "Confirm removal and verify the empty-list message and persistent done face appear.",
+      "Choose Undo and verify the original note text returns to the list."
+    ],
+    "guidelines": [
+      "Use an in-place confirmation for a consequential but reversible action when the affected item can be named clearly.",
+      "Make Undo restore the actual prior state and avoid implying persistence when the change is local."
+    ]
+  },
+  "shortcut-recorder": {
+    "file": "src/variants/demos/original-motion-print-actions.tsx",
+    "exportName": "PrintNoteShortcutRecorderDemo",
+    "previewTitle": "Record a note-review chord",
+    "summary": "Records and displays an optional keyboard chord in local scene state, initially empty.",
+    "demonstrates": [
+      "The shortcut value starts as null and the recorder's reset value is also null.",
+      "The component reports a normalized chord through onValueChange, and the scene displays the current stored value or “none.”",
+      "The helper text says the chord is stored only in this example and does not bind a system shortcut or trigger an action."
+    ],
+    "limits": [
+      "The chord is not persisted and is not registered with the operating system or another application.",
+      "The example does not demonstrate whether the recorded chord can be intercepted by the browser or system elsewhere."
+    ],
+    "checks": [
+      "Confirm the initial value is none and reset restores none after recording a chord.",
+      "Record a chord and verify the displayed value matches the recorder's normalized value.",
+      "Confirm the helper text makes no OS binding or action-trigger claim."
+    ],
+    "guidelines": [
+      "Use a shortcut recorder when users need to enter a chord and inspect the normalized combination.",
+      "State whether a chord is merely stored or actually registered and invoked by an application."
+    ]
+  },
+  "expanding-search": {
+    "file": "src/variants/demos/original-motion-print-actions.tsx",
+    "exportName": "PrintManifestExpandingSearchDemo",
+    "previewTitle": "Search the sample print manifest",
+    "summary": "Filters four original local booklet-manifest entries and displays the title and metadata of the selected result.",
+    "demonstrates": [
+      "The manifest contains Edition 08 colophon, Black plate notes, Proof sheet 08-B, and Cover trim guide entries.",
+      "The native search uses item titles, groups, metadata, and keywords; selecting an item updates the visible selected-entry line.",
+      "The search offers the first two entries as initial suggestions and includes the component's built-in clear behavior."
+    ],
+    "limits": [
+      "Search is limited to four hard-coded sample entries and does not query a catalog or service.",
+      "Selecting a result reports its details locally and does not navigate to a document."
+    ],
+    "checks": [
+      "Search title, metadata and keyword terms; verify matching entries. Group headings organize results but are not searched.",
+      "Select a result and verify its actual title and metadata appear in the selected-entry line.",
+      "Use the built-in clear control; verify the query clears, the suggestions return, and the selected result remains unchanged."
+    ],
+    "guidelines": [
+      "Use an expanding search in a compact region where a full-time field would take space.",
+      "Make clear whether result selection opens content, navigates, or only reports a selection."
+    ]
+  },
+  "file-dropzone": {
+    "file": "src/variants/demos/original-motion-print-actions.tsx",
+    "exportName": "PrintProofFileDropzoneDemo",
+    "previewTitle": "Select sample proof artwork",
+    "summary": "Checks up to two locally selected SVG or PNG files, flags sizes over 64 KB, and reports their actual names without uploading.",
+    "demonstrates": [
+      "The dropzone accepts image/svg+xml and image/png and permits two rows. Matching files over 64 KB remain as failed rows and consume a slot.",
+      "onFilesChange updates a local readout with the actual selected file count and names; no default files are preloaded.",
+      "No onUpload is provided: valid files are local selections; oversize files show size errors and remain in the file readout until removed."
+    ],
+    "limits": [
+      "The example does not upload files, send them to a server, or save them beyond the current browser session.",
+      "Selection and file type/size checks do not validate the artwork's content or production readiness."
+    ],
+    "checks": [
+      "Confirm the initial count is zero and no file rows are preloaded.",
+      "Select one or two accepted files within the size limit and verify the count and names update.",
+      "Try an unsupported MIME type and verify rejection; select an oversize supported file and verify its failed row and count, remove it, then verify a third-file limit."
+    ],
+    "guidelines": [
+      "Use a dropzone when local drag-and-drop or file selection is useful, and state accepted types, count, and size limits.",
+      "Distinguish selecting files from uploading, processing, or validating their contents."
+    ]
+  },
+  "reactions": {
+    "file": "src/variants/demos/original-motion-print-actions.tsx",
+    "exportName": "PrintProofReactionsDemo",
+    "previewTitle": "Sample proof acknowledgments",
+    "summary": "Shows three fictional acknowledgment tallies and toggles the viewer's own local reaction with the native reaction control.",
+    "demonstrates": [
+      "The original options are Registration clear, Proof readable, and Fold sequence ready, with initial sample counts of 3, 2, and 1.",
+      "The controlled value receives each actual reaction change, including the selected reaction's count and reacted state.",
+      "The reset button restores the three original counts and clears the local reacted state."
+    ],
+    "limits": [
+      "Initial counts are fictional sample tallies and are not attributed to people or a shared service.",
+      "Reaction changes exist only in local component state and are not saved or broadcast."
+    ],
+    "checks": [
+      "Confirm the three initial sample counts are 3, 2, and 1 and all begin unreacted.",
+      "Toggle each existing reaction and add one through the native picker; verify counts and reacted state update.",
+      "Use Reset counts and verify the original options, counts, and unreacted states return."
+    ],
+    "guidelines": [
+      "Use reactions for quick acknowledgments with a small fixed set of meanings.",
+      "Label what each reaction means and state whether displayed counts are shared, sourced, or sample values."
+    ]
+  },
+  "theme-switch": {
+    "file": "src/variants/demos/original-motion-print-theme.tsx",
+    "exportName": "PrintProofThemeRevealDemo",
+    "previewTitle": "Circular theme reveal",
+    "summary": "Reveals the new page theme from the button center.",
+    "demonstrates": [
+      "Reveals the new page theme from the button center.",
+      "The actual host theme changes in both directions; the same original Rosario booklet proof and its data remain unchanged.",
+      "The button state and current-mode readout follow the host theme provider. The variants differ only in whole-page transition geometry."
+    ],
+    "limits": [
+      "A host theme provider owns persistence and system preference. The example uses next-themes; the component callback can use another host.",
+      "Whole-page movement requires the theme-transition bridge and its CSS. Unsupported browsers and reduced motion apply the theme immediately."
+    ],
+    "checks": [
+      "Use Enter and Space to change the theme both ways; verify the proof content, focus and current-mode readout.",
+      "With native View Transitions available, inspect this variant’s distinct whole-page geometry.",
+      "Enable reduced motion or remove View Transition support; verify immediate theme changes with no replacement movement."
+    ],
+    "guidelines": [
+      "Choose one transition style for the same action throughout the application.",
+      "Keep page data unchanged when switching viewing mode; use the host theme state rather than independent state per preview."
+    ]
+  },
+  "theme-switch-eclipse": {
+    "file": "src/variants/demos/original-motion-print-theme.tsx",
+    "exportName": "PrintProofThemeEclipseDemo",
+    "previewTitle": "Offscreen theme eclipse",
+    "summary": "Reveals the new page theme from a circle starting beyond the left edge.",
+    "demonstrates": [
+      "Reveals the new page theme from a circle starting beyond the left edge.",
+      "The actual host theme changes in both directions; the same original Rosario booklet proof and its data remain unchanged.",
+      "The button state and current-mode readout follow the host theme provider. The variants differ only in whole-page transition geometry."
+    ],
+    "limits": [
+      "A host theme provider owns persistence and system preference. The example uses next-themes; the component callback can use another host.",
+      "Whole-page movement requires the theme-transition bridge and its CSS. Unsupported browsers and reduced motion apply the theme immediately."
+    ],
+    "checks": [
+      "Use Enter and Space to change the theme both ways; verify the proof content, focus and current-mode readout.",
+      "With native View Transitions available, inspect this variant’s distinct whole-page geometry.",
+      "Enable reduced motion or remove View Transition support; verify immediate theme changes with no replacement movement."
+    ],
+    "guidelines": [
+      "Choose one transition style for the same action throughout the application.",
+      "Keep page data unchanged when switching viewing mode; use the host theme state rather than independent state per preview."
+    ]
+  },
+  "theme-switch-split": {
+    "file": "src/variants/demos/original-motion-print-theme.tsx",
+    "exportName": "PrintProofThemeSplitDemo",
+    "previewTitle": "Center-seam theme transition",
+    "summary": "Opens the new page theme outward from a central vertical seam.",
+    "demonstrates": [
+      "Opens the new page theme outward from a central vertical seam.",
+      "The actual host theme changes in both directions; the same original Rosario booklet proof and its data remain unchanged.",
+      "The button state and current-mode readout follow the host theme provider. The variants differ only in whole-page transition geometry."
+    ],
+    "limits": [
+      "A host theme provider owns persistence and system preference. The example uses next-themes; the component callback can use another host.",
+      "Whole-page movement requires the theme-transition bridge and its CSS. Unsupported browsers and reduced motion apply the theme immediately."
+    ],
+    "checks": [
+      "Use Enter and Space to change the theme both ways; verify the proof content, focus and current-mode readout.",
+      "With native View Transitions available, inspect this variant’s distinct whole-page geometry.",
+      "Enable reduced motion or remove View Transition support; verify immediate theme changes with no replacement movement."
+    ],
+    "guidelines": [
+      "Choose one transition style for the same action throughout the application.",
+      "Keep page data unchanged when switching viewing mode; use the host theme state rather than independent state per preview."
+    ]
+  },
+  "theme-switch-rise": {
+    "file": "src/variants/demos/original-motion-print-theme.tsx",
+    "exportName": "PrintProofThemeRiseDemo",
+    "previewTitle": "Bottom-up theme transition",
+    "summary": "Reveals the new page theme upward from the bottom edge.",
+    "demonstrates": [
+      "Reveals the new page theme upward from the bottom edge.",
+      "The actual host theme changes in both directions; the same original Rosario booklet proof and its data remain unchanged.",
+      "The button state and current-mode readout follow the host theme provider. The variants differ only in whole-page transition geometry."
+    ],
+    "limits": [
+      "A host theme provider owns persistence and system preference. The example uses next-themes; the component callback can use another host.",
+      "Whole-page movement requires the theme-transition bridge and its CSS. Unsupported browsers and reduced motion apply the theme immediately."
+    ],
+    "checks": [
+      "Use Enter and Space to change the theme both ways; verify the proof content, focus and current-mode readout.",
+      "With native View Transitions available, inspect this variant’s distinct whole-page geometry.",
+      "Enable reduced motion or remove View Transition support; verify immediate theme changes with no replacement movement."
+    ],
+    "guidelines": [
+      "Choose one transition style for the same action throughout the application.",
+      "Keep page data unchanged when switching viewing mode; use the host theme state rather than independent state per preview."
+    ]
+  },
+  "stats-band": {
+    "file": "src/variants/demos/original-motion-print-blocks.tsx",
+    "exportName": "CordobaBookletStatsBandDemo",
+    "previewTitle": "Edition 08 production figures",
+    "summary": "Shows three finite figures from a fictional 16-page print worksheet, with a copy-count trend and a trim-offset distribution.",
+    "demonstrates": [
+      "The six sample edition counts are 120, 144, 168, 192, 216, and 240 copies; the trend ends at 240 for Edition 08.",
+      "The worksheet plans 960 sheets as 240 copies × 4 imposed sheets per copy.",
+      "Ten trim-offset samples in millimetres have a median of 0.215 mm and a range of 0.08–0.38 mm; the distribution visual bins those same ten values across 0–0.50 mm."
+    ],
+    "limits": [
+      "All values are illustrative worksheet data, not audited production records or live measurements.",
+      "The trim-offset summary is descriptive and does not define a tolerance or acceptable print range.",
+      "The small visuals summarize only the supplied values and are not an external feed."
+    ],
+    "checks": [
+      "Confirm the trend contains six ascending sample-run values and ends at the displayed 240-copy total.",
+      "Verify 240 × 4 = 960 planned sheets and that the stated unit is sheets.",
+      "Recompute the median of the ten trim samples as (0.20 + 0.23) / 2 = 0.215 mm; confirm the histogram bins sum to ten and span a 0–0.50 mm domain.",
+      "Switch between Divided and Plain layouts and confirm the figures and context values remain the same."
+    ],
+    "guidelines": [
+      "Use a stats band for a small set of headline measures with short context and, when useful, a compact visual summary.",
+      "Keep visual data tied to the displayed quantity, label its unit and domain, and distinguish sample summaries from thresholds or verified records."
+    ]
+  },
+  "animated-counter": {
+    "file": "src/variants/demos/original-motion-print-counter.tsx",
+    "exportName": "CordobaBookletCopyCounterDemo",
+    "previewTitle": "Copy count for the selected sample edition",
+    "summary": "Formats and animates a sample booklet copy count while edition selection and a bounded local adjustment update the displayed total.",
+    "demonstrates": [
+      "The edition selector starts at Edition 08 and offers Edition 03–08 baseline counts of 480, 600, 720, 840, 960, and 1,080 copies.",
+      "The counter uses an edition label naming copies, English number formatting, zero decimal places, and animate-on-view behavior.",
+      "Add 24 increases the local worksheet display by 24, up to a 120-copy adjustment; changing edition resets the adjustment and Reset total restores the selected baseline."
+    ],
+    "limits": [
+      "Counts and adjustments are illustrative sample worksheet values, not recorded or produced copy quantities.",
+      "The controls update local state only; they do not submit a print job or persist the count."
+    ],
+    "checks": [
+      "Confirm Edition 08 initially shows 1,080 with grouped English digits and no fractional digits. The edition label and worksheet baseline name copies.",
+      "Select each edition and verify the displayed baseline matches its listed count.",
+      "Add 24 repeatedly; verify the value rises by 24 each time and stops at a 120-copy adjustment.",
+      "Reset after an adjustment and verify the selected edition's baseline returns; choose another edition and confirm its adjustment starts at zero."
+    ],
+    "guidelines": [
+      "Use an animated counter when the changing numeric value is the focus and the displayed unit is explicit.",
+      "Keep number formatting and labels stable while values change, and distinguish local sample adjustments from recorded totals."
+    ]
+  },
+  "otp-input": {
+    "exportName": "RosarioWorksheetOtpDemo",
+    "previewTitle": "Sample worksheet code",
+    "summary": "Enter the six-digit code for a fictional Rosario worksheet; a complete match selects that worksheet locally.",
+    "guidelines": [
+      "Type 731408 to select the worksheet; a different complete code shows an associated error.",
+      "Clear resets the controlled value; no authentication service is connected."
+    ],
+    "limits": [
+      "No authentication service or actual one-time-code delivery.",
+      "Paste and browser autofill depend on the browser and the input integration."
+    ],
+    "checks": [
+      "Type matching and nonmatching codes; inspect the result, help and error associations.",
+      "Move with arrow keys and Backspace; clear and resize."
+    ],
+    "file": "src/variants/demos/original-motion-print-triage.tsx"
+  },
+  "swipe-actions": {
+    "exportName": "PrintProofSwipeActionsDemo",
+    "previewTitle": "Proof-sheet triage",
+    "summary": "Mark three fictional print proofs checked without removing them, or archive them through each row’s actions.",
+    "guidelines": [
+      "Use the More actions menu as the keyboard alternative to the swipe gesture.",
+      "Mark checked retains the row; Archive proof removes it and records its title. Restore returns all three."
+    ],
+    "limits": [
+      "Archive updates local preview state. Connect a service in the consuming app and test touch gestures on target devices."
+    ],
+    "checks": [
+      "Mark and unmark a proof; archive the first, middle and last row using keyboard menus.",
+      "Inspect focus and the empty state, then restore all proofs."
+    ],
+    "file": "src/variants/demos/original-motion-print-triage.tsx"
+  },
+  "card-stack": {
+    "exportName": "CordobaCoverCardStackDemo",
+    "previewTitle": "Booklet cover studies",
+    "summary": "Review three original geometric cover studies for a fictional Córdoba booklet, with Keep, Pass, Undo and Start over.",
+    "guidelines": [
+      "Use the decision buttons or focus the stack and press Left/Right.",
+      "Undo reverses the last decision; Start over resets the deck and kept-study list."
+    ],
+    "limits": [
+      "The shortlist remains local; no publication or purchase occurs. Test dragging and keyboard navigation in the consuming layout."
+    ],
+    "checks": [
+      "Keep and pass all three studies, undo and reset; inspect the visible result after each action.",
+      "Inspect narrow/enlarged layouts and a live change to reduced motion."
+    ],
+    "file": "src/variants/demos/original-motion-print-triage.tsx"
+  },
+  "expandable-card": {
+    "file": "src/variants/demos/original-motion-print-surfaces.tsx",
+    "exportName": "LaPlataBroadsideExpandableCardDemo",
+    "previewTitle": "Folded broadside worksheet",
+    "summary": "Expands a sample Edition 12 trim-and-fold card to show its paper plan and a reversible local review mark.",
+    "demonstrates": [
+      "The card starts collapsed with an 8-page, 360-copy sample broadside summary and expands from a 340 px cap toward 560 px, bounded by its container.",
+      "The expanded content describes two imposed sheets per copy, a 4 mm outer margin, 120 gsm uncoated paper, and black and river-blue plates.",
+      "The nested action toggles a local worksheet review mark; the card's own trigger and Escape key provide expand/collapse behavior."
+    ],
+    "limits": [
+      "The worksheet and review mark are sample content and are not saved or certified as a production print sheet."
+    ],
+    "checks": [
+      "Open and close the card with its trigger and confirm the same details are revealed and hidden.",
+      "Expand the card and verify its width grows only within the preview container; press Escape and confirm focus returns to its trigger.",
+      "Toggle the local review mark and confirm its status changes independently of card expansion."
+    ],
+    "guidelines": [
+      "Use an expandable card when a short summary needs more detail without navigating away.",
+      "Keep the collapsed title and description useful, and give nested actions their own distinct outcome."
+    ]
+  },
+  "bottom-sheet": {
+    "file": "src/variants/demos/original-motion-print-surfaces.tsx",
+    "exportName": "RosarioPlateNotesBottomSheetDemo",
+    "previewTitle": "Review a plate note",
+    "summary": "Opens a two-detent sheet for selecting one sample ink plate and adding or removing it from a local review note.",
+    "demonstrates": [
+      "The trigger opens the sheet at the 46% viewport detent; the grabber and native sheet interaction can move it to the 90% detent or close it.",
+      "The owned Select chooses Black or River blue and updates the visible plate description.",
+      "The action toggles the selected plate in local review-note state, while the parent line reflects open, peek, expanded, or closed state."
+    ],
+    "limits": [
+      "Plate names and note are illustrative local state; no production worksheet is updated or saved."
+    ],
+    "checks": [
+      "Open the sheet and verify it starts at the lower detent; expand and collapse it with the grabber, then close it.",
+      "Select each plate and verify its description changes; add and remove it from the local note and verify the status follows.",
+      "Close and reopen the sheet; confirm the sheet starts at the lower detent and the local plate selection remains explicit."
+    ],
+    "guidelines": [
+      "Use a bottom sheet for a secondary task that benefits from a peek state and can expand into more content.",
+      "Set detents to meaningful heights and identify local selection separately from submitted or persisted work."
+    ]
+  },
+  "user-menu": {
+    "file": "src/variants/demos/original-motion-print-surfaces.tsx",
+    "exportName": "SamplePrintRoomUserMenuDemo",
+    "previewTitle": "Print-room preferences",
+    "summary": "Shows the native account menu with a generic local identity, controlled presence and theme preferences, three local destinations, and a local close/reopen outcome.",
+    "demonstrates": [
+      "The menu has no portrait and uses the reserved example address editor@example.invalid.",
+      "Presence and theme choices update controlled local state. The selected theme also changes the contained paper specimen; System follows the operating-system color preference.",
+      "Paper ledger, Plate notes, and Edition colophon open distinct sample content panels. Sign out closes the local preview and exposes a Reopen print-room menu button."
+    ],
+    "limits": [
+      "The identity and menu content are fictional sample values, not a person, organization, or external account.",
+      "No account service is connected: sign out closes only the local menu preview. Theme selection affects only its paper specimen, not the host page."
+    ],
+    "checks": [
+      "Open the menu and select each destination; verify the ledger, plate notes, and colophon panels show their corresponding sample details.",
+      "Change presence and theme preferences; verify the paper specimen changes between light and dark, and System follows the operating-system preference without changing the host page.",
+      "Choose Sign out and verify focus moves to Reopen print-room menu after the original trigger is removed; reopen the menu and confirm the local preview returns."
+    ],
+    "guidelines": [
+      "Use an account menu for a small group of account destinations and inline preferences, with a clear local outcome for each item.",
+      "Treat status, theme, destinations, and sign out as local preview state unless an account service is connected."
+    ]
+  },
+  "chat-thread": {
+    "file": "src/variants/demos/original-motion-print-conversations.tsx",
+    "exportName": "Edition08PrintRoomChatDemo",
+    "previewTitle": "Cover proof notes",
+    "summary": "Shows a local print-room exchange about Edition 08 stock, ink plates, and cover trim, with the native message composer and reactions.",
+    "demonstrates": [
+      "Three desk labels exchange specific notes for a 32-page, 180-copy sample edition printed on 120 gsm uncoated stock.",
+      "The built-in composer appends a new local message; the reaction picker toggles the selected emoji and count.",
+      "The thread uses its native scroll area and sent/read message states; attachments are disabled for this text-only sample."
+    ],
+    "limits": [
+      "Desk labels and messages are fictional sample content, not people or an actual print-room conversation.",
+      "Messages and reactions are held by the component for this preview only; no network, attachment, or delivery service is connected."
+    ],
+    "checks": [
+      "Send a short proof note and confirm it appears as a new local message with the current editor as author.",
+      "Toggle the existing check reaction and confirm its count and pressed state update; toggle again to remove the local reaction."
+    ],
+    "guidelines": [
+      "Use a chat thread for short sequential updates that benefit from a composer and message-level reactions.",
+      "Keep participant identities and delivery states tied to actual data when connecting a service; this scene uses desk labels and local state."
+    ]
+  },
+  "comment-thread": {
+    "file": "src/variants/demos/original-motion-print-conversations.tsx",
+    "exportName": "Edition08PrintProofCommentsDemo",
+    "previewTitle": "Signature and plate review",
+    "summary": "Shows threaded annotations for an Edition 08 booklet proof, including a nested margin note and native comment actions.",
+    "demonstrates": [
+      "The sample data records four 8-page signatures, 120 gsm uncoated stock, a 4 mm fold and trim margin, and two named ink plates.",
+      "The native composer adds top-level comments or replies; reactions toggle, and the local editor can edit or delete their own comment.",
+      "Resolve folds the thread into its summary chip; reopen restores the comments. Mention suggestions use the three supplied desk labels."
+    ],
+    "limits": [
+      "Desk labels and proof notes are fictional sample content, not people or an actual production approval.",
+      "Comments, reactions, edits, and resolution remain in component-local state and are not saved to a service."
+    ],
+    "checks": [
+      "Reply to a note and confirm the reply nests beneath the selected comment; add a top-level comment and confirm the count updates.",
+      "Toggle a reaction, edit the local editor's own note, and delete it with the confirmation action.",
+      "Resolve and reopen the thread; confirm the sample comments remain available after reopening."
+    ],
+    "guidelines": [
+      "Use a comment thread for review notes that need replies, ownership, and a resolved state.",
+      "Keep author permissions and persistence in the host application when connecting real review data."
+    ]
+  },
+  "hero-section": {
+    "file": "src/variants/demos/original-motion-print-editorial.tsx",
+    "exportName": "LaPlataFolio21EditorialHeroDemo",
+    "previewTitle": "A folio planned from the fold",
+    "summary": "Introduces the Folio 21 booklet in the component's content-height editorial layout.",
+    "demonstrates": [
+      "The scene uses the minimal editorial layout and an original SVG signature diagram.",
+      "The original brief gives the Folio 21 sample's 24-page extent, three 8-page signatures, 140-copy quantity, and 100 gsm text stock.",
+      "Sheet plan reveals the corresponding three-signature and two-plate cover details in local page content."
+    ],
+    "limits": [
+      "Folio 21 is fictional sample print data; the hero action reveals a local note and does not create a production order.",
+      "The hero content uses no supplied portraits, external image, or external destination."
+    ],
+    "checks": [
+      "Verify the editorial heading and folio brief; reveal the sheet plan and inspect its signature diagram.",
+      "Activate Sheet plan and verify the three-signature count, plate colors, and 5 mm trim note appear; activate it again to hide the note."
+    ],
+    "guidelines": [
+      "Use the minimal layout for a content-height editorial opening that follows its copy and visual.",
+      "Give preview actions a local content result or a meaningful destination."
+    ]
+  },
+  "faq-section": {
+    "file": "src/variants/demos/original-motion-print-editorial.tsx",
+    "exportName": "LaPlataFolio21ProofFaqDemo",
+    "previewTitle": "Folio 21 · proof questions",
+    "summary": "Answers practical questions about signatures, stock, plate colors, trim, and the sample edition quantity, with three selectable FAQ layouts.",
+    "demonstrates": [
+      "The owned Select switches the component among accordion, topic-column, and searchable layouts using the same five original questions.",
+      "The answers preserve the sample data: three 8-page signatures, 100 gsm text stock, 220 gsm cover stock, two cover plates, a 5 mm inner rule, and 140 sample copies.",
+      "The native accordion/search/category controls operate on the supplied question data; the contact path is hidden."
+    ],
+    "limits": [
+      "The specifications describe a fictional print sample and are not a production instruction or order."
+    ],
+    "checks": [
+      "Switch between all three layouts and verify the same five questions remain available.",
+      "Open multiple answers in accordion mode; switch to topic columns and confirm the categories filter their questions; search for 5 mm in search mode and confirm the trim answer appears."
+    ],
+    "guidelines": [
+      "Choose accordion for one sequence of questions, columns for category-led browsing, and search when readers need to locate a term.",
+      "Keep answers aligned with the edition's source worksheet and do not turn sample values into production promises."
+    ]
+  },
+  "blog-grid": {
+    "file": "src/variants/demos/original-motion-print-editorial.tsx",
+    "exportName": "ArgentinePrintJournalGridDemo",
+    "previewTitle": "From the print ledger",
+    "summary": "Presents a fictional Argentine print journal with original text articles on imposition, paper, ink, proofing, and edition quantities.",
+    "demonstrates": [
+      "Seven text-only articles provide a featured entry, five category filters, multi-page results, dates, reading times, and complete in-place article bodies.",
+      "The authored notes share consistent Folio 21 values: 24 pages, three 8-page signatures, 100 gsm text stock, 220 gsm cover stock, two named plates, a 5 mm margin, and 140 sample copies.",
+      "The component's category filter, pagination, article reader, and return-to-grid behavior operate on the supplied original records."
+    ],
+    "limits": [
+      "The journal, archive labels, and print worksheet are fictional sample content; no author portraits or external image assets are used.",
+      "The article reader is local preview state and does not navigate to or save a remote article."
+    ],
+    "checks": [
+      "Filter by Paper and Ink and verify only matching article cards remain; choose All to restore the full collection.",
+      "Advance through the pages, open a card in the reader, then close it and confirm the list context returns."
+    ],
+    "guidelines": [
+      "Use featured content for the lead article and keep category labels consistent with each record.",
+      "Supply stable IDs, ISO dates, useful excerpts, and body paragraphs when the in-place reader is enabled."
+    ]
+  },
+  "comparison-table": {
+    "file": "src/variants/demos/original-motion-print-editorial.tsx",
+    "exportName": "LaPlataFolio21PrintSpecificationComparisonDemo",
+    "previewTitle": "Folio 21 · sample specifications",
+    "summary": "Compares a two-plate booklet specification, a black-only proof, and a folded dummy using one consistent sample worksheet.",
+    "demonstrates": [
+      "All columns preserve 24 pages and three 8-page signatures; text and cover stock values distinguish the printed editions from the lighter dummy.",
+      "The two-plate version includes black text and an oxide-red cover rule 5 mm inside trim; the black-only proof and folded dummy omit the oxide-red plate.",
+      "The native difference switch filters identical rows, the narrow layout lets readers select a comparison column, and the highlighted-column action records a visible local worksheet selection."
+    ],
+    "limits": [
+      "These are fictional sample specifications, not a comparison of commercial printers or a quote. The 5 mm oxide-red-rule margin applies only to the two-plate cover.",
+      "The selection action changes only local page state; it does not submit or order a print run."
+    ],
+    "checks": [
+      "Turn on Only differences and verify the equal page-count and signature rows disappear while differing stock, plate, and quantity rows remain.",
+      "At a narrow width, choose each comparison column and verify it appears beside the highlighted two-plate specification.",
+      "Activate Use the two-plate spec and verify the worksheet selection names the two-plate version and its 140-copy sample quantity."
+    ],
+    "guidelines": [
+      "Keep every row keyed to the same column IDs and use explicit notes where a value needs qualification.",
+      "Use a highlighted column for the intended reference spec and describe example values as samples rather than market claims."
+    ]
+  },
+  "file-upload": {
+    "file": "src/variants/demos/original-motion-print-file-upload.tsx",
+    "exportName": "PrintProofFileUploadDemo",
+    "previewTitle": "Local proof-file selection",
+    "summary": "Select, validate, and remove local proof files for a fictional Folio 21 print review without presenting a transfer or saved upload.",
+    "demonstrates": [
+      "Choose or drop SVG and plain-text files; the FileUpload component validates accepted extensions and the 32 KB maximum, and exposes its built-in per-file removal control.",
+      "Create local SVG plate and trim-checklist File objects with valid SVG or plain-text content, then see their names and sizes in the selected-file list.",
+      "Clear the controlled selection and confirm the selected-file count returns to zero."
+    ],
+    "limits": [
+      "No onUpload callback is supplied: the component reports selected files only and does not transmit, persist, or complete a server upload.",
+      "The sample assets are generated in browser memory and are illustrative print-review files, not production proofs or verified press specifications."
+    ],
+    "checks": [
+      "Create one plate SVG and one trim checklist; verify each appears in the selected list and the live count reports two files.",
+      "Remove either file with its built-in remove control and verify the remaining file and count update; clear the selection and confirm the empty state.",
+      "Select a file with an unsupported extension or larger than 32 KB and verify the component marks it for attention while leaving it removable."
+    ],
+    "guidelines": [
+      "Use file selection for local review when no transfer service is connected, and describe selection separately from upload completion.",
+      "State accepted formats and size limits near the control, and keep rejected files removable so people can recover without restarting the selection."
+    ]
+  },
+  "contact-section": {
+    "file": "src/variants/demos/original-motion-print-forms.tsx",
+    "exportName": "PrintDeskContactFormDemo",
+    "previewTitle": "Print-desk notes and reference desks",
+    "summary": "Capture a local print-review note, browse paper/proof/fold references, or compare three fictional desks with actual local clocks.",
+    "demonstrates": [
+      "Validate name, email, and a message of at least 20 characters; capture the trimmed payload in the local review list.",
+      "Switch form, reference-desk, and office-clock layouts with a Select while keeping the form draft.",
+      "Move between reference desks with arrow/Home/End keys and copy actual reference strings."
+    ],
+    "limits": [
+      "The preview records notes in component state only. It does not send messages or promise a response.",
+      "The desks and opening hours are fictional; the named cities use real IANA time zones."
+    ],
+    "checks": [
+      "Try an empty form and a short message; verify errors name the affected fields and focus the first invalid input.",
+      "Write a valid note, change layouts and return, then capture it and write another note.",
+      "Change reference tabs by keyboard, inspect each detail, and compare the live office clocks."
+    ],
+    "guidelines": [
+      "Keep processing in onSubmit; reject to preserve entries and expose a retryable error.",
+      "Use channel details for real contact actions or references, and distinguish illustrative offices from actual service availability."
+    ]
+  },
+  "newsletter-signup": {
+    "file": "src/variants/demos/original-motion-print-forms.tsx",
+    "exportName": "Folio21NewsletterSignupDemo",
+    "previewTitle": "Print-letter address capture",
+    "summary": "Validate and keep a local reader address while previewing an original Folio 21 issue stack in inline and card layouts.",
+    "demonstrates": [
+      "Choose inline or card layout with the same Select used elsewhere.",
+      "Capture a valid trimmed email in a visible local list; the next sample issue is addressed to that email.",
+      "Use a different email to reset the form and return focus to its input."
+    ],
+    "limits": [
+      "The preview has no mailing service, tracking, or subscription persistence. It does not claim delivery.",
+      "Sample issue dates, subjects, and geometric thumbnails are original illustrative content."
+    ],
+    "checks": [
+      "Submit an empty or malformed address, then a valid address; verify the list and addressed issue agree.",
+      "Switch layouts, confirm the captured state is retained, and reset to enter another address."
+    ],
+    "guidelines": [
+      "Provide onSubscribe to connect a processor and reject to keep the entered email on failure.",
+      "Keep issue data and privacy text specific to the actual publication and service."
+    ]
+  },
+  "cta-section": {
+    "file": "src/variants/demos/original-motion-print-forms.tsx",
+    "exportName": "Folio21CallToActionDemo",
+    "previewTitle": "Proof-note callouts",
+    "summary": "Compare centered, split, and dismissible-banner callouts whose actions add actual local proof and paper notes.",
+    "demonstrates": [
+      "Use a Select to choose centered, split, or banner layout.",
+      "Add proof or paper notes to the visible local worksheet with distinct primary and secondary actions.",
+      "Dismiss the banner and restore it with keyboard focus transferred only from the removed control."
+    ],
+    "limits": [
+      "Actions update local component state; no remote booking, account, or proof request is created.",
+      "The split illustration is a static original print worksheet, not a simulated provisioning workflow."
+    ],
+    "checks": [
+      "Activate both note actions and verify each note is added to the worksheet.",
+      "Choose Banner, dismiss it with the keyboard, restore it, and verify focus remains usable.",
+      "Resize the callout and enlarge text; keep labels and the Dismiss action complete."
+    ],
+    "guidelines": [
+      "Use href for real navigation, onClick for real actions, or an explicit confirmedLabel for a local toggle.",
+      "The host owns focus after removal; the supplied preview block handles dismissal and restore as one owner."
+    ]
+  },
+  "site-header": {
+    "file": "src/variants/demos/original-motion-print-navigation.tsx",
+    "exportName": "PrintArchiveSiteHeaderDemo",
+    "previewTitle": "Print archive navigation",
+    "summary": "Browse a bounded Folio21 archive page with mega, simple, or centered navigation.",
+    "demonstrates": [
+      "Select three distinct header layouts; open grouped destinations in the mega menu.",
+      "Choose a destination to show its actual print note and current section.",
+      "Scroll the framed page and use the narrow menu without losing its actions."
+    ],
+    "limits": [
+      "Destinations select local sample content; no external site is opened.",
+      "The menu is a navigation disclosure, not a modal dialog."
+    ],
+    "checks": [
+      "Open a mega panel with Arrow Down, select a link, and close with Escape.",
+      "Use the narrow menu and its grouped links; resize to the desktop layout.",
+      "Scroll the bounded page and inspect the solid header background."
+    ],
+    "guidelines": [
+      "Use href for real links and onNavigate for locally handled destinations.",
+      "Supply scrollContainer when the header belongs to a nested scroller."
+    ]
+  },
+  "public-header": {
+    "file": "src/variants/demos/original-motion-print-navigation.tsx",
+    "exportName": "Folio21PublicHeaderDemo",
+    "previewTitle": "Print archive glass header",
+    "summary": "Use document-fixed navigation with theme-aware glass activated by scroll or the mobile menu.",
+    "demonstrates": [
+      "Scroll past eight pixels to activate the glass material in the current theme.",
+      "Open mobile navigation, choose a local page, and return to its toggle with Escape."
+    ],
+    "limits": [
+      "The fixed header is isolated in a catalog viewport; the installable example occupies its own document.",
+      "Navigation changes local sample content; it does not contact the source website."
+    ],
+    "checks": [
+      "Switch light and dark themes with the header scrolled and check navigation legibility.",
+      "Open the mobile menu by keyboard, choose a page, and verify the current link.",
+      "Close with Escape and resize to desktop while the menu is open."
+    ],
+    "guidelines": [
+      "Use this header at document level, with enough top space for its four-rem bar.",
+      "Reuse GlassHeaderLayer inside a positioned rams-public-glass-scope.",
+      "Apply the RAMS dark class to the theme ancestor so the tint and foreground follow the current theme."
+    ],
+    "requiresFrame": true
+  },
+  "site-footer": {
+    "file": "src/variants/demos/original-motion-print-navigation.tsx",
+    "exportName": "PrintArchiveSiteFooterDemo",
+    "previewTitle": "Print archive footer",
+    "summary": "Compare link columns, a minimal footer row, and a closing wordmark with original Folio21 reference notes.",
+    "demonstrates": [
+      "Use a Select to change among three footer layouts.",
+      "Select a print reference to read its actual note.",
+      "Validate an email and keep it in the visible local list."
+    ],
+    "limits": [
+      "The newsletter captures local state only; no mailing service or delivery is claimed.",
+      "The closing wordmark is a decorative repeated brand name with an intentional lower-edge fade."
+    ],
+    "checks": [
+      "Select each layout and activate a reference link.",
+      "Submit an empty or malformed email, then a valid email; verify the address in the list.",
+      "Enlarge text and inspect the newsletter controls and link columns."
+    ],
+    "guidelines": [
+      "Provide onSubscribe for actual processing; rejection keeps the address available for retry.",
+      "Supply meaningful href values or onNavigate; destinations without either remain passive text."
+    ]
+  },
+  "plan-comparison": {
+    "file": "src/variants/demos/print-plan-comparison-recipe.tsx",
+    "exportName": "PrintPlanComparisonRecipe",
+    "previewTitle": "Print-run comparison",
+    "summary": "Compare two A3 print methods, their actual sample ARS totals, and the input sheets needed for 100 or 500 finished sheets.",
+    "demonstrates": [
+      "Select 100 or 500 finished sheets and compare the changed figures.",
+      "Filter eight production specifications to their five differences.",
+      "Choose or clear one method and read the actual spare/input-sheet allocation."
+    ],
+    "limits": [
+      "Figures are illustrative worksheet data, not a supplier quote, purchase or payment."
+    ],
+    "checks": [
+      "Switch allocations, verify both totals and select/clear each method.",
+      "Enable differences only and verify five of eight specifications.",
+      "Keep numeric values, method labels and selection controls readable at narrow widths and enlarged text."
+    ],
+    "guidelines": [
+      "Compare the same finished quantity and currency for every method.",
+      "Keep each specification associated with its method after narrow reflow."
+    ]
+  },
+  "changelog-feed": {
+    "file": "src/variants/demos/original-motion-print-data.tsx",
+    "exportName": "MotionPrintProductionNotesDemo",
+    "previewTitle": "Production revision notes",
+    "summary": "Browse fourteen original print-production notes by kind and month, inspect their real code payloads, and export the visible record.",
+    "demonstrates": [
+      "Filter New, Improved and Fixed entries, alone or in combination.",
+      "Jump to a month and expand actual trim, fold and sheet-count details.",
+      "Copy a code payload or download the filtered record as Markdown."
+    ],
+    "limits": [
+      "Dates, versions and revisions belong to the illustrative Folio21 print record.",
+      "Export dispatch does not prove a file was saved; image binaries are not embedded in Markdown."
+    ],
+    "checks": [
+      "Check kind counts, combine and clear filters, then jump among visible months.",
+      "Expand the five code entries and inspect their copied payloads.",
+      "Download a filtered record and inspect its exact entries and line breaks."
+    ],
+    "guidelines": [
+      "Keep entries keyed to the supplied months and supply useful details.",
+      "Keep literal code scrollable locally and preserve the full copy/export payload."
+    ]
+  },
+  "page-header": {
+    "file": "src/variants/demos/original-motion-print-data.tsx",
+    "exportName": "MotionPrintWorksheetHeaderDemo",
+    "previewTitle": "Production worksheet header",
+    "summary": "Manage local print checks, count snapshots, notes and downloadable job files in a header that condenses as its body scrolls.",
+    "demonstrates": [
+      "Complete, add and reset actual local checks with matching progress and counts.",
+      "Record a snapshot of current counts, switch tabs and inspect actual notes.",
+      "Download original job files and copy the current page address."
+    ],
+    "limits": [
+      "Changes stay in the mounted worksheet; no remote project or service is updated.",
+      "Production benches use abstract initials rather than invented people or portraits."
+    ],
+    "checks": [
+      "Scroll the body, inspect condensed and expanded headers, then switch all tabs.",
+      "Complete the first, middle and final open checks and keep focus usable; reset.",
+      "Download the four files and inspect their bytes; record a snapshot and copy the actual page link."
+    ],
+    "guidelines": [
+      "Keep counts and local business changes immediate, independent of animation.",
+      "Retire outgoing panels and controls before their exit paint finishes."
+    ]
+  },
+  "signup-form": {
+    "file": "src/variants/demos/original-motion-print-access.tsx",
+    "exportName": "PrintReaderSignupDemo",
+    "previewTitle": "Edition reader register",
+    "summary": "Validate reader details and keep the submitted name, address and edition-notes choice in the local Folio21 register.",
+    "demonstrates": [
+      "Validate required name, email and password fields and inspect password feedback.",
+      "Submit valid details through the actual callback and read the non-secret local record.",
+      "Reset and recover from a duplicate-address callback error without losing entries."
+    ],
+    "limits": [
+      "The callback receives the password, but the example list stores only name, email and edition-notes choice.",
+      "No account, provider identity or mailing subscription is created by this local record."
+    ],
+    "checks": [
+      "Submit empty/malformed fields, then valid details and verify the list.",
+      "Reset, enter the same address and verify the real callback error preserves fields.",
+      "Exercise a deferred caller and connected provider handler without claiming authentication."
+    ],
+    "guidelines": [
+      "Connect real processing through onSubmit and reject to expose a recoverable error.",
+      "Provider choices appear only when onProvider is supplied; that handler owns any actual navigation."
+    ]
+  },
+  "sign-in": {
+    "file": "src/variants/demos/original-motion-print-access.tsx",
+    "exportName": "PrintReaderSignInDemo",
+    "previewTitle": "Reading-table method records",
+    "summary": "Compare a local reader code or record a method choice for the entered address at the Rosario reading table.",
+    "demonstrates": [
+      "Validate the address and apply a real typo-domain suggestion when available.",
+      "Compare six local digits, recover from a mismatch and restart immediately.",
+      "Keep the entered address and chosen method in a visible local visit list."
+    ],
+    "limits": [
+      "This is a UI state machine with local code comparison, not authentication or identity verification.",
+      "Provider and passkey choices record a selected method; no provider or device service is contacted."
+    ],
+    "checks": [
+      "Use invalid/valid addresses, compare wrong/correct codes and restart.",
+      "Record code, passkey and provider choices and verify actual callback payloads.",
+      "Reset and verify focus and address editing remain usable."
+    ],
+    "guidelines": [
+      "Treat onSignIn as a local notification, not proof of identity.",
+      "Enforce any real access control in the consuming application and its services."
+    ]
+  },
+  "login-centered": {
+    "file": "src/variants/demos/original-motion-print-access.tsx",
+    "exportName": "PrintReadingRoomLoginDemo",
+    "previewTitle": "Reading-room visit records",
+    "summary": "Switch between new and returning readers, compare a local code, and record the address, method and visit mode for the Córdoba reading room.",
+    "demonstrates": [
+      "Record the explicit illustrative address and selected method, or compare a code for an entered address.",
+      "Switch new/returning reader modes and preserve the chosen mode in callback data.",
+      "Open native disclosures for local reader terms and privacy information."
+    ],
+    "limits": [
+      "Fixed local comparison codes and method choices do not authenticate a person or verify a passkey.",
+      "Records live only in this mounted page; no remote account or email delivery exists."
+    ],
+    "checks": [
+      "Switch modes, compare wrong/correct codes, restart and recover.",
+      "Record passkey/provider choices and verify address, method and mode.",
+      "Open and close both legal disclosures with keyboard and inspect focus and enlarged layout."
+    ],
+    "guidelines": [
+      "Supply a real demoEmail only for a clearly illustrative record; never infer an authenticated identity.",
+      "Use real terms/privacy destinations in a consuming app and keep security enforcement outside this example."
+    ]
+  },
+  "morph-select": {
+    "file": "src/variants/demos/print-morph-select-scene.tsx",
+    "exportName": "PrintMorphSelectScene",
+    "previewTitle": "Paper stock selection",
+    "summary": "Choose a sample La Plata, Rosario or Córdoba stock to calculate the mass of one hundred A3 sheets.",
+    "demonstrates": [
+      "The controlled selection contains ten stocks in three groups, with grammage metadata and one unavailable choice.",
+      "The selected grammage calculates the estimated paper mass from the fixed 297 × 420 mm sheet dimensions.",
+      "Automatic search filters stock labels and location keywords; Clear stock restores the empty allocation."
+    ],
+    "limits": [
+      "Stocks and locations are fictional worksheet data, not supplier inventory or a quotation.",
+      "The calculation includes paper only; ink, packing and production waste are excluded."
+    ],
+    "checks": [
+      "Search Rosario, choose Neutral white and verify 160 gsm and 1.996 kg for 100 sheets.",
+      "Use arrow keys and Enter, then reopen and press Escape; inspect selection and focus return.",
+      "Confirm Heavy ivory is unavailable and cannot become selected.",
+      "Clear the stock and choose again; inspect grouped labels, metadata and natural wrapping at enlarged text."
+    ],
+    "guidelines": [
+      "Keep supplementary choice metadata beside the option it describes.",
+      "Show the downstream allocation calculated from the selected stock."
+    ]
+  }
+}

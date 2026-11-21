@@ -1,0 +1,108 @@
+/* Levels are tints of the accent over a neutral empty square, so the grid follows the selected accent and both themes. */
+.root { --rams-detail-level-0: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-activity-heatmap-empty-fill-share), var(--rams-detail-surface)); --rams-detail-level-1: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-activity-heatmap-level-1-share), var(--rams-detail-level-0)); --rams-detail-level-2: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-activity-heatmap-level-2-share), var(--rams-detail-level-0)); --rams-detail-level-3: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-activity-heatmap-level-3-share), var(--rams-detail-level-0)); --rams-detail-level-4: var(--rams-detail-accent); container-type: inline-size; position: relative; display: grid; min-width: 0; gap: var(--rams-detail-space-4); color: var(--rams-detail-foreground); }
+.header { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3) var(--rams-detail-space-4); }
+.summary { display: flex; min-width: 0; flex-wrap: wrap; align-items: baseline; column-gap: var(--rams-detail-activity-heatmap-summary-gap); margin: 0; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); font-variant-numeric: var(--type-data-variant); }
+.total { color: var(--rams-detail-foreground); font-weight: var(--rams-detail-chart-value-weight); white-space: nowrap; }
+.period { white-space: nowrap; }
+.actions { display: flex; flex: none; align-items: center; }
+.rollingFrame { display: inline-flex; justify-content: flex-end; overflow: clip; overflow-clip-margin: var(--rams-detail-activity-heatmap-summary-ink-bleed); }
+.rolling { display: inline-flex; flex: none; }
+/* Each place is its own window, so a turning digit clips at the line instead of brushing the next line of text. */
+.place { position: relative; display: inline-flex; overflow: clip; overflow-clip-margin: var(--rams-detail-activity-heatmap-digit-ink-bleed); }
+.placeChar, .riseLine { display: inline-block; }
+.rise { position: relative; display: inline-flex; }
+
+/* The scroller starts at its right edge on narrow screens (the most recent weeks) without script, through its writing direction. */
+.scroller { direction: rtl; overflow-x: auto; overflow-y: hidden; padding: var(--rams-detail-activity-heatmap-scroller-gutter); overscroll-behavior-x: contain; scrollbar-color: var(--rams-detail-border-strong) transparent; scrollbar-width: thin; }
+.canvas { --rams-detail-gap: var(--rams-detail-activity-heatmap-grid-gap); --rams-detail-step: calc(var(--rams-detail-cell) + var(--rams-detail-gap)); direction: ltr; display: grid; width: max-content; grid-template-columns: var(--rams-detail-label) auto; grid-template-rows: var(--rams-detail-layout-grid-two-intrinsic-rows); column-gap: var(--rams-detail-gap); row-gap: var(--rams-detail-space-2); }
+.months { position: relative; grid-row: 1; grid-column: 2; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+/* Month labels glide to their new week when a range starts on a different weekday. */
+.month { position: absolute; top: 0; left: 0; white-space: nowrap; transform: translateX(calc(var(--rams-detail-col) * var(--rams-detail-step))); transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+/* Weekday labels stay pinned while a narrow grid scrolls under them. Set --rams-detail-heatmap-surface when the heatmap sits on another surface. */
+.weekdays { position: sticky; z-index: var(--rams-detail-local-overlay-layer); left: calc(-1 * var(--rams-detail-activity-heatmap-scroller-gutter)); display: grid; grid-row: 1 / 3; grid-column: 1; grid-template-rows: repeat(var(--rams-detail-week-day-count), var(--rams-detail-cell)); align-content: end; row-gap: var(--rams-detail-gap); margin: 0 calc(var(--rams-detail-gap) * -1) 0 calc(-1 * var(--rams-detail-activity-heatmap-scroller-gutter)); padding: 0 var(--rams-detail-gap) 0 var(--rams-detail-activity-heatmap-scroller-gutter); background: var(--rams-detail-heatmap-surface, var(--rams-detail-surface)); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.weekday { display: flex; height: var(--rams-detail-cell); align-items: center; white-space: nowrap; line-height: var(--rams-detail-activity-heatmap-label-line-height); }
+.plot { position: relative; grid-row: 2; grid-column: 2; }
+.grid { display: grid; gap: var(--rams-detail-gap); outline: none; }
+.row { display: flex; gap: var(--rams-detail-gap); }
+
+/* One square per day. The wave delay rides a custom property so a reveal and a recolor sweep the same diagonal. */
+.cell { --rams-detail-delay: var(--rams-detail-wave); display: block; width: var(--rams-detail-cell); height: var(--rams-detail-cell); flex: none; border-radius: calc(var(--rams-detail-cell) * var(--rams-detail-activity-heatmap-cell-radius-ratio)); background: var(--rams-detail-level-0); outline: var(--rams-detail-activity-heatmap-cell-outline-width) solid transparent; outline-offset: var(--rams-detail-activity-heatmap-cell-outline-offset); cursor: default; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard) var(--rams-detail-delay), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring) var(--rams-detail-delay), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.grid[data-direction="back"] .cell { --rams-detail-delay: var(--rams-detail-wave-back); }
+.cell[data-level="1"] { background: var(--rams-detail-level-1); }
+.cell[data-level="2"] { background: var(--rams-detail-level-2); }
+.cell[data-level="3"] { background: var(--rams-detail-level-3); }
+.cell[data-level="4"] { background: var(--rams-detail-level-4); }
+/* Days outside the range shrink away in the sweep and grow back when a range needs them. */
+.cell[data-empty] { transform: var(--rams-detail-zoom-collapsed-transform); background: var(--rams-detail-level-0); }
+.grid[data-reveal="hidden"] .cell { opacity: 0; transform: scale(var(--rams-motion-activity-heatmap-cell-initial-scale)); transition: none; }
+.grid[data-reveal="hidden"] .cell[data-empty] { transform: var(--rams-detail-zoom-collapsed-transform); }
+.grid[data-reveal="revealing"] .cell { transition: background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard) var(--rams-detail-delay), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring) var(--rams-detail-delay), opacity var(--rams-detail-duration-considered) var(--rams-detail-ease-enter) var(--rams-detail-delay); }
+.grid[data-highlight] .cell:not([data-empty]) { opacity: var(--rams-detail-activity-heatmap-dim-opacity); }
+.grid[data-highlight="0"] .cell[data-level="0"], .grid[data-highlight="1"] .cell[data-level="1"], .grid[data-highlight="2"] .cell[data-level="2"], .grid[data-highlight="3"] .cell[data-level="3"], .grid[data-highlight="4"] .cell[data-level="4"] { opacity: 1; }
+@media (hover: hover) and (pointer: fine) { .cell:not([data-empty]):hover { outline-color: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-activity-heatmap-hover-outline-share), transparent); } }
+
+/* The selection ring glides between days, and follows its day when the range changes. */
+.ring { position: absolute; top: calc(-1 * var(--rams-detail-activity-heatmap-ring-inset)); left: calc(-1 * var(--rams-detail-activity-heatmap-ring-inset)); width: calc(var(--rams-detail-cell) + 2 * var(--rams-detail-activity-heatmap-ring-inset)); height: calc(var(--rams-detail-cell) + 2 * var(--rams-detail-activity-heatmap-ring-inset)); border: var(--rams-detail-activity-heatmap-ring-stroke) solid var(--rams-detail-foreground); border-radius: calc(var(--rams-detail-cell) * var(--rams-detail-activity-heatmap-cell-radius-ratio) + var(--rams-detail-activity-heatmap-ring-inset)); opacity: 0; pointer-events: none; transform: translate(calc(var(--rams-detail-col) * var(--rams-detail-step)), calc(var(--rams-detail-row) * var(--rams-detail-step))); transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.ring[data-shown] { opacity: 1; }
+
+.legend { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+/* The caption names the previewed level; it sits apart from the scale so its changing width never nudges the swatches. */
+.caption { position: relative; min-width: 0; overflow: hidden; color: var(--rams-detail-text-secondary); font-variant-numeric: var(--type-data-variant); white-space: nowrap; text-overflow: ellipsis; }
+.scale { display: flex; flex: none; align-items: center; gap: var(--rams-detail-space-2); }
+.captionShort { display: none; }
+/* Narrow cards keep the day count and let the highlighted squares say which level it is. */
+@container (max-width: 440px) { .captionLong { display: none; } .captionShort { display: inline; } }
+.legendText { line-height: var(--rams-detail-activity-heatmap-label-line-height); }
+.swatches { display: flex; }
+/* The visible square stays the size of a day while the button keeps a comfortable target around it. */
+.swatch { position: relative; display: grid; width: var(--rams-detail-activity-heatmap-swatch-inline); height: var(--rams-detail-activity-heatmap-swatch-block); place-items: center; padding: 0; border: 0; border-radius: var(--rams-detail-activity-heatmap-swatch-radius); background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.swatch::before { content: ""; width: var(--rams-detail-activity-heatmap-swatch-mark-size); height: var(--rams-detail-activity-heatmap-swatch-mark-size); border-radius: var(--rams-detail-activity-heatmap-swatch-mark-radius); background: var(--rams-detail-level-0); }
+.swatch[data-level="1"]::before { background: var(--rams-detail-level-1); }
+.swatch[data-level="2"]::before { background: var(--rams-detail-level-2); }
+.swatch[data-level="3"]::before { background: var(--rams-detail-level-3); }
+.swatch[data-level="4"]::before { background: var(--rams-detail-level-4); }
+.swatch[aria-pressed="true"] { box-shadow: inset 0 0 0 var(--rams-detail-activity-heatmap-swatch-selected-stroke) var(--rams-detail-foreground); }
+
+/* One bubble for the whole grid. The outer layer glides between cells; the bubble fades and scales from its tail. */
+.tip { position: absolute; z-index: var(--rams-detail-activity-heatmap-tooltip-layer); top: 0; left: 0; width: 0; height: 0; pointer-events: none; }
+.bubble { position: absolute; bottom: var(--rams-detail-activity-heatmap-tooltip-anchor-gap); left: 0; display: block; padding: var(--rams-detail-activity-heatmap-tooltip-block-start) var(--rams-detail-activity-heatmap-tooltip-inline-padding) var(--rams-detail-activity-heatmap-tooltip-block-end); border: var(--rams-detail-activity-heatmap-tooltip-border) solid color-mix(in oklab, var(--rams-detail-background) var(--rams-detail-activity-heatmap-tooltip-border-share), var(--rams-detail-foreground)); border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-foreground); color: var(--rams-detail-background); box-shadow: var(--rams-detail-shadow-raised); transform-origin: 50% 100%; will-change: transform, opacity; }
+.tipBody { position: relative; display: block; overflow: clip; overflow-clip-margin: var(--rams-detail-activity-heatmap-tooltip-ink-bleed); }
+.tipMeasure { position: absolute; top: 0; left: 0; display: grid; width: max-content; visibility: hidden; }
+.tipLines { display: grid; width: max-content; }
+.tipMeasure > span, .tipLines > span { white-space: nowrap; }
+.tipPrimary { font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-chart-value-weight); line-height: var(--rams-detail-activity-heatmap-tooltip-primary-leading); font-variant-numeric: var(--type-data-variant); }
+.tipSecondary { color: color-mix(in oklab, var(--rams-detail-background) var(--rams-detail-activity-heatmap-tooltip-secondary-share), var(--rams-detail-foreground)); font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-activity-heatmap-tooltip-secondary-leading); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cell, .grid[data-reveal="revealing"] .cell { transition: none; }
+  .grid[data-reveal="hidden"] .cell { transform: none; }
+  .cell[data-empty], .grid[data-reveal="hidden"] .cell[data-empty] { opacity: 0; transform: none; }
+  .month, .ring { transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+}
+
+:where(.root,.header,.summary,.total,.period,.actions,.rollingFrame,.rolling,.place,.placeChar,.riseLine,.rise,.scroller,.canvas,.months,.month,.weekdays,.weekday,.plot,.grid,.row,.cell,.ring,.legend,.caption,.scale,.captionShort,.captionLong,.legendText,.swatches,.swatch,.tip,.bubble,.tipBody,.tipMeasure,.tipLines,.tipPrimary,.tipSecondary,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.rolling { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* Preserve composite geometry while consuming the shared native action. */
+.root .swatch { min-inline-size: 0; min-block-size: 0; }
+
+/* Keep labels and focus inside the local calendar scroller as text grows. */
+.scroller { min-width: 0; margin: 0; font-size: var(--rams-detail-text-xs); scroll-padding-left: calc(var(--rams-detail-activity-heatmap-weekday-rail) + var(--rams-detail-activity-heatmap-scroller-gutter)); scroll-padding-right: var(--rams-detail-activity-heatmap-scroller-gutter); }
+.canvas { --rams-detail-label: var(--rams-detail-activity-heatmap-weekday-rail); --rams-detail-cell: clamp(var(--rams-detail-activity-heatmap-cell-min-size), calc((100cqi - 2 * var(--rams-detail-label) - var(--rams-detail-gap) * var(--rams-detail-weeks)) / var(--rams-detail-weeks)), var(--rams-detail-activity-heatmap-cell-max-size)); padding-inline-end: var(--rams-detail-label); font-size: var(--rams-detail-text-xs); }
+.months { height: var(--rams-detail-activity-heatmap-day-label-height); line-height: var(--rams-detail-activity-heatmap-label-line-height); }
+.cell { scroll-margin: var(--rams-detail-activity-heatmap-cell-scroll-margin); }
+.period { white-space: normal; }
+.legend, .scale { flex-wrap: wrap; }
+.scale { max-inline-size: 100%; }
+
+/* Unit and tooltip copy remain readable at increased text sizes. */
+.total { min-width: 0; max-width: 100%; white-space: normal; }
+.tipMeasure, .tipBody { max-inline-size: max(var(--rams-detail-activity-heatmap-tooltip-min-width), calc(100cqi - 2 * (var(--rams-detail-activity-heatmap-tooltip-inline-padding) + var(--rams-detail-activity-heatmap-tooltip-border) + var(--rams-detail-activity-heatmap-tooltip-edge-clearance)))); }
+.tipLines { width: 100%; }
+.tipMeasure > span, .tipLines > span { white-space: normal; overflow-wrap: anywhere; }
+
+/* Short date windows stay centered; long histories retain their local scroller. */
+.canvas { margin-inline: auto; }

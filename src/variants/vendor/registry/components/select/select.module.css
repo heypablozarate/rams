@@ -1,0 +1,12 @@
+.field { display: grid; gap: var(--rams-detail-space-2); min-width: 0; }
+/* RAMS Select owns track, menu, rows, icons, focus, shape, spacing and typography. */
+.trigger { position: relative; }
+.trigger :global(.rams-select__arrow) { transition: transform var(--rams-motion-selection-duration) var(--rams-motion-selection-ease); }
+.trigger[data-state="open"] :global(.rams-select__arrow) { transform: var(--rams-detail-disclosure-expanded-glyph-transform); }
+.valueText { display: grid; flex: var(--rams-detail-layout-flex-fill); min-width: 0; grid-template-columns: minmax(0, 1fr); text-align: start; }
+.valueText > span { grid-area: 1 / 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.valueText > [data-placeholder] { color: var(--rams-detail-text-muted); }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: var(--rams-detail-accessible-hidden-margin); padding: var(--rams-detail-accessible-hidden-padding); overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: var(--rams-detail-accessible-hidden-border); }
+.hint { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.content { max-width: min(var(--rams-detail-select-motion-panel-inline-max), calc(100vw - var(--rams-detail-select-motion-viewport-inline-reserve))); max-height: min(var(--rams-detail-select-motion-panel-block-max), var(--radix-select-content-available-height)); }
+@media (prefers-reduced-motion: reduce) { .trigger :global(.rams-select__arrow) { transition: none; } }

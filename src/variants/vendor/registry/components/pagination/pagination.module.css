@@ -1,0 +1,35 @@
+.nav { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: var(--rams-detail-space-1); }
+.nav button { position: relative; display: grid; width: var(--rams-detail-control-height-sm); height: var(--rams-detail-control-height-sm); place-items: center; border: var(--rams-detail-primitive-border-width) solid transparent; border-radius: var(--rams-detail-radius-control); background: transparent; color: var(--rams-detail-text-secondary); font: inherit; font-size: var(--type-control-size); cursor: pointer; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.nav button[aria-current="page"] { color: var(--rams-detail-foreground); }
+/* One shared mark travels between pages. Before it has measured (server render), the button draws its own. */
+.mark { position: absolute; top: 0; left: 0; width: var(--rams-detail-control-height-sm); height: var(--rams-detail-control-height-sm); box-sizing: border-box; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-surface); box-shadow: var(--rams-detail-shadow-resting); opacity: 0; pointer-events: none; }
+.nav[data-mark-ready] .mark { opacity: 1; }
+.nav:not([data-mark-ready]) button[aria-current="page"] { border-color: var(--rams-detail-border); background: var(--rams-detail-surface); box-shadow: var(--rams-detail-shadow-resting); }
+/* Only the arrows press in. Page numbers move with Motion, so they keep CSS off transform and opacity. */
+.nav .step { transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.nav .step:active:not(:disabled) { transform: scale(var(--rams-motion-pagination-step-press-scale)); transition-duration: var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard), var(--rams-detail-ease-standard), var(--rams-detail-ease-standard), var(--rams-motion-pagination-step-press-ease); }
+.nav button:disabled { opacity: var(--rams-detail-pagination-motion-step-disabled-opacity); cursor: not-allowed; }
+@media (hover: hover) and (pointer: fine) {
+  .nav button:hover:not(:disabled) { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+  .nav[data-mark-ready] button[aria-current="page"]:hover { background: transparent; }
+}
+@media (prefers-reduced-motion: reduce) { .nav button, .nav .step { transition: none; } .nav .step:active:not(:disabled) { transform: none; } .pages > button { transform: none !important; } .pages > button[inert] { opacity: 0 !important; } .pages > button:not([inert]) { opacity: 1 !important; } }
+:where(.nav,.mark,.step):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Page indices are interface actions, not quantitative data. */
+.nav button { font-family: var(--type-action-family); font-weight: var(--type-action-weight); line-height: var(--type-action-leading); letter-spacing: var(--type-action-tracking); font-variant-numeric: normal; }
+
+/* The composite owns its fixed optical page slots and numeric type. */
+.nav button { min-inline-size:0; min-block-size:0; padding:0; box-shadow:none; gap:0; }
+.nav button > svg { inline-size:var(--rams-detail-pagination-motion-step-glyph-size); block-size:var(--rams-detail-pagination-motion-step-glyph-size); }
+
+/* Preserve complete numeric slots; at a narrow measure both steps share a row. */
+.container { container: pagination-measure / inline-size; inline-size: 100%; min-inline-size: 0; }
+.nav { inline-size: fit-content; max-inline-size: 100%; flex-wrap: nowrap; }
+.pages { display: flex; flex-wrap: nowrap; align-items: center; gap: var(--rams-detail-space-1); min-inline-size: 0; }
+.pages > button, .nav > .step { flex: none; }
+@container pagination-measure (max-width: 20rem) {
+  .nav { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; inline-size: 100%; row-gap: var(--rams-detail-space-2); }
+  .pages { grid-column: 1 / -1; grid-row: 1; flex-wrap: wrap; justify-content: center; }
+  .nav > .step:first-child { grid-column: 1; grid-row: 2; }
+  .nav > .step:last-child { grid-column: 3; grid-row: 2; }
+}

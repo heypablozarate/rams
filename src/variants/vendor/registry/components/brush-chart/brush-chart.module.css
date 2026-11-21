@@ -1,0 +1,78 @@
+.figure { display: grid; min-width: 0; margin: 0; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+/* Series colors (--rams-detail-series-1 to --rams-detail-series-4) come from registry/foundation.css. */
+
+/* Plot with a right-hand value axis, the date axis beneath, and the overview strip under both. */
+.chart { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) var(--rams-detail-brush-value-axis-inline); grid-template-rows: auto var(--rams-detail-brush-date-axis-block) auto; row-gap: 0; min-width: 0; }
+.plot { position: relative; grid-area: 1 / 1; min-width: 0; outline: none; touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; cursor: crosshair; }
+.svg { display: block; overflow: visible; }
+.grid { stroke: var(--rams-detail-border); stroke-width: var(--rams-detail-brush-grid-stroke); shape-rendering: crispEdges; }
+.baseline { stroke: var(--rams-detail-border-strong); stroke-width: var(--rams-detail-brush-baseline-stroke); shape-rendering: crispEdges; }
+.line { fill: none; stroke: var(--rams-detail-series-1); stroke-width: var(--rams-detail-brush-line-stroke); stroke-linecap: var(--rams-detail-chart-series-linecap); stroke-linejoin: var(--rams-detail-chart-series-linejoin); }
+.area { fill: color-mix(in oklab, var(--rams-detail-series-1) var(--rams-detail-brush-area-share), transparent); stroke: none; }
+.trend { fill: none; stroke: var(--rams-detail-series-1); stroke-width: var(--rams-detail-brush-line-stroke); stroke-linecap: var(--rams-detail-chart-series-linecap); stroke-linejoin: var(--rams-detail-chart-series-linejoin); }
+.band { fill: color-mix(in oklab, var(--rams-detail-series-1) var(--rams-detail-brush-band-share), transparent); stroke: none; }
+.crosshair { stroke: var(--rams-detail-foreground); stroke-opacity: var(--rams-detail-brush-crosshair-opacity); stroke-width: var(--rams-detail-brush-crosshair-stroke); shape-rendering: crispEdges; opacity: 0; transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); pointer-events: none; }
+.dot { fill: var(--rams-detail-series-1); stroke: var(--rams-detail-surface); stroke-width: var(--rams-detail-brush-dot-outline-stroke); opacity: 0; transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); pointer-events: none; }
+.chart[data-active] .crosshair, .chart[data-active] .dot { opacity: 1; }
+
+/* Events: a hairline through the plot, a dot in the second chart series on top, and a label when there is room for it. */
+.eventRule { stroke: var(--rams-detail-border-strong); stroke-width: var(--rams-detail-brush-event-rule-stroke); shape-rendering: crispEdges; transition: stroke var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.eventRule[data-active] { stroke: var(--rams-detail-series-2); }
+.event { position: absolute; top: var(--rams-detail-brush-event-top); display: flex; box-sizing: border-box; min-height: calc(2 * var(--rams-detail-brush-event-half-width)); align-items: center; gap: var(--rams-detail-brush-event-gap); padding: 0 var(--rams-detail-brush-event-inline-padding) 0 0; margin-left: calc(-1 * var(--rams-detail-brush-event-half-width)); border: 0; background: transparent; color: var(--rams-detail-text-secondary); cursor: default; font: inherit; font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-brush-axis-label-leading); white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+.event[data-flip] { flex-direction: row-reverse; padding: 0 0 0 var(--rams-detail-brush-event-inline-padding); margin-left: 0; translate: calc(-100% + var(--rams-detail-brush-event-half-width)) 0; }
+.eventDot { display: grid; width: calc(2 * var(--rams-detail-brush-event-half-width)); height: calc(2 * var(--rams-detail-brush-event-half-width)); flex: none; place-items: center; }
+.eventDot::before { width: var(--rams-detail-brush-event-mark-size); height: var(--rams-detail-brush-event-mark-size); border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-series-2); box-shadow: 0 0 0 var(--rams-detail-brush-event-mark-halo) var(--rams-detail-surface); content: ""; transition: transform var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.event[data-active] .eventDot::before { transform: scale(var(--rams-motion-brush-event-active-scale)); }
+.eventLabel { flex: none; max-width: 0; overflow: hidden; opacity: 0; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.event[data-labelled] .eventLabel { max-width: none; opacity: 1; }
+.event[data-active] .eventLabel { color: var(--rams-detail-foreground); }
+
+.tooltip { position: absolute; top: 0; left: 0; z-index: var(--rams-detail-brush-tooltip-layer); display: grid; grid-template-columns: minmax(0, 1fr); box-sizing: border-box; min-width: min(var(--rams-detail-brush-tooltip-min-inline), 100%); max-width: min(var(--rams-detail-brush-tooltip-max-inline), 100%); gap: var(--rams-detail-brush-tooltip-gap); padding: var(--rams-detail-chart-tooltip-fixed-padding); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-panel); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); opacity: 0; pointer-events: none; scale: var(--rams-motion-brush-tooltip-hidden-scale); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), scale var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.chart[data-active] .tooltip { opacity: 1; scale: var(--rams-detail-transform-rest-scale); }
+.tipTitle { margin: 0 0 var(--rams-detail-brush-tooltip-title-gap); color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); white-space: nowrap; font-variant-numeric: var(--type-data-variant); }
+.tipValue { margin: 0; color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-base); font-weight: var(--rams-detail-chart-value-weight); line-height: var(--rams-detail-leading-body); font-variant-numeric: var(--type-data-variant); }
+.tipNote { margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); font-variant-numeric: var(--type-data-variant); }
+.tipEvent { display: flex; align-items: center; gap: var(--rams-detail-brush-tooltip-event-gap); margin: var(--rams-detail-brush-tooltip-event-top-gap) 0 0; color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.tipEventDot { width: var(--rams-detail-brush-event-mark-size); height: var(--rams-detail-brush-event-mark-size); flex: none; border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-series-2); }
+
+.message { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); pointer-events: none; }
+
+.gutter { position: relative; grid-area: 1 / 2; min-width: 0; }
+.tick { position: absolute; left: var(--rams-detail-brush-value-axis-label-inset); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-brush-axis-label-leading); white-space: nowrap; font-variant-numeric: var(--type-data-variant); translate: 0 -50%; pointer-events: none; }
+.axis { position: relative; grid-area: 2 / 1; min-width: 0; }
+.axisLabel { position: absolute; top: var(--rams-detail-brush-date-axis-label-inset); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-brush-axis-label-leading); white-space: nowrap; font-variant-numeric: var(--type-data-variant); }
+
+/* Overview: the whole history, with everything outside the window stepped back. */
+.strip { --rams-detail-strip-radius: var(--rams-detail-brush-overview-radius); position: relative; grid-area: 3 / 1; min-width: 0; margin-top: var(--rams-detail-brush-overview-gap); border-radius: var(--rams-detail-strip-radius); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-brush-overview-fill-share), transparent); cursor: crosshair; touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+/* The overview drawing is clipped to the strip's corners; the handles stay outside the clip so they can overhang the ends. */
+.strip > .svg { clip-path: inset(0 round var(--rams-detail-strip-radius)); }
+.overviewLine { fill: none; stroke: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-brush-overview-line-share), var(--rams-detail-surface)); stroke-width: var(--rams-detail-brush-overview-line-stroke); stroke-linejoin: var(--rams-detail-chart-series-linejoin); }
+.overviewArea { fill: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-brush-overview-area-share), transparent); }
+.overviewLineIn { fill: none; stroke: var(--rams-detail-series-1); stroke-width: var(--rams-detail-brush-overview-line-stroke); stroke-linejoin: var(--rams-detail-chart-series-linejoin); }
+.overviewAreaIn { fill: color-mix(in oklab, var(--rams-detail-series-1) var(--rams-detail-brush-overview-selected-area-share), transparent); }
+.overviewEvent { fill: var(--rams-detail-series-2); stroke: var(--rams-detail-surface); stroke-width: var(--rams-detail-brush-overview-event-stroke); }
+.shade { position: absolute; top: 0; bottom: 0; background: color-mix(in oklab, var(--rams-detail-surface) var(--rams-detail-brush-overview-outside-shade-share), transparent); pointer-events: none; }
+.shade[data-edge="start"] { border-radius: var(--rams-detail-strip-radius) 0 0 var(--rams-detail-strip-radius); }
+.shade[data-edge="end"] { border-radius: 0 var(--rams-detail-strip-radius) var(--rams-detail-strip-radius) 0; }
+.window { position: absolute; top: 0; bottom: 0; border-radius: var(--rams-detail-strip-radius); box-shadow: inset 0 0 0 var(--rams-detail-primitive-border-width) color-mix(in oklab, var(--rams-detail-series-1) var(--rams-detail-brush-window-outline-share), transparent); cursor: grab; outline: none; transition: box-shadow var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.window:active { cursor: grabbing; }
+.handle { position: absolute; top: 50%; display: grid; width: calc(2 * var(--rams-detail-brush-handle-half-width)); height: var(--rams-detail-brush-handle-block); place-items: center; margin-left: calc(-1 * var(--rams-detail-brush-handle-half-width)); translate: 0 -50%; cursor: ew-resize; outline: none; touch-action: none; }
+.grip { width: var(--rams-detail-brush-grip-inline); height: var(--rams-detail-brush-grip-block); border-radius: var(--rams-detail-brush-grip-radius); background: var(--rams-detail-surface-raised); box-shadow: 0 0 0 var(--rams-detail-primitive-border-width) color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-brush-grip-outline-share), transparent), var(--rams-detail-shadow-resting); transition: transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.handle:active .grip { transform: scaleY(var(--rams-motion-brush-grip-active-scale-y)); }
+@media (hover: hover) and (pointer: fine) { .handle:hover .grip { transform: scaleY(var(--rams-motion-brush-grip-active-scale-y)); } }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .crosshair, .dot, .tooltip, .eventRule, .eventLabel, .eventDot::before, .grip, .window { transition: none; }
+  .handle:active .grip, .handle:hover .grip { transform: none; }
+  .event[data-active] .eventDot::before { transform: none; }
+}
+
+:where(.figure,.chart,.plot,.svg,.grid,.baseline,.line,.area,.trend,.band,.crosshair,.dot,.eventRule,.event,.eventDot,.eventLabel,.tooltip,.tipTitle,.tipValue,.tipNote,.tipEvent,.tipEventDot,.message,.gutter,.tick,.axis,.axisLabel,.strip,.overviewLine,.overviewArea,.overviewLineIn,.overviewAreaIn,.overviewEvent,.shade,.window,.handle,.grip,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.tipValue[data-quantity], .tipNote [data-quantity], .tick { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* Wrap detail text within the available plot width. */
+.tipTitle, .tipValue, .tipNote, .tipEvent, .tipEvent > span { min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }

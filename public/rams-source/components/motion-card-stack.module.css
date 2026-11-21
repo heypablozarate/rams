@@ -1,0 +1,79 @@
+.root { container: card-stack / inline-size; --rams-detail-card-height: var(--rams-detail-card-stack-card-block-size); --rams-detail-stack-peek: var(--rams-detail-card-stack-peek-reserve); display: grid; width: 100%; justify-items: center; gap: var(--rams-detail-space-5); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+/* The stage reserves the top card plus the edges peeking out below it, so nothing reflows as cards come and go. */
+.stage { position: relative; isolation: isolate; width: min(100%, var(--rams-detail-card-stack-stage-max-inline-size)); height: calc(var(--rams-detail-card-height) + var(--rams-detail-stack-peek)); outline: none; }
+/* Each slot scales from its bottom edge, so the cards behind show a thin, even edge below the one in front. */
+.slot { position: absolute; top: 0; right: 0; left: 0; height: var(--rams-detail-card-height); pointer-events: none; transform-origin: 50% 100%; }
+.card { position: absolute; inset: 0; border-radius: var(--rams-detail-radius-surface); pointer-events: auto; touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+.card[data-top] { cursor: grab; }
+.card[data-dragging] { cursor: grabbing; }
+.card:not([data-top]) { pointer-events: none; }
+/* Resting cards sit flat on their borders; a card in the hand or in flight floats and casts a shadow. */
+.card::before { position: absolute; inset: 0; border-radius: inherit; box-shadow: var(--rams-detail-shadow-floating); content: ""; opacity: 0; pointer-events: none; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.card[data-dragging]::before, .card[data-flying]::before { opacity: 1; }
+.face { position: relative; height: 100%; overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: inherit; background: var(--rams-detail-surface); color: var(--rams-detail-foreground); }
+.shade { position: absolute; inset: 0; background: var(--rams-detail-detail-card-stack-background-fcb7b3fb); pointer-events: none; }
+:global(:root.dark) .shade { background: var(--rams-detail-detail-card-stack-background-59a84ddf); }
+
+.stamp { position: absolute; top: var(--rams-detail-space-4); display: inline-flex; height: var(--rams-detail-card-stack-stamp-block-size); align-items: center; gap: var(--rams-detail-card-stack-stamp-gap); padding: 0 var(--rams-detail-space-3) 0 var(--rams-detail-card-stack-stamp-padding-inline-start); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface-raised); color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); white-space: nowrap; pointer-events: none; }
+.stamp[data-side="right"] { left: var(--rams-detail-space-4); border-color: color-mix(in oklab, var(--rams-detail-success) var(--rams-detail-card-stack-keep-stamp-border-mix), var(--rams-detail-border)); background: color-mix(in oklab, var(--rams-detail-success) var(--rams-detail-card-stack-keep-stamp-wash-mix), var(--rams-detail-surface-raised)); }
+.stamp[data-side="right"] svg { color: var(--rams-detail-success); }
+.stamp[data-side="left"] { right: var(--rams-detail-space-4); }
+.stamp[data-side="left"] svg { color: var(--rams-detail-text-secondary); }
+/* Cards returning to the back of the stack carry no verdict. */
+.card:not([data-top]):not([data-flying]) .stamp { visibility: hidden; }
+
+/* Keyboard focus on the stage outlines the top card instead of the whole stage. */
+.stage:focus-visible { --rams-detail-focus-outline-width: var(--rams-detail-card-stack-passive-outline-width); }
+.stage:focus-visible .card[data-top], .stage:focus-visible .empty { outline: var(--rams-detail-card-stack-focus-ring-width) solid var(--rams-detail-focus-outline); outline-offset: var(--rams-detail-card-stack-focus-ring-offset); }
+
+.empty { position: absolute; top: 0; right: 0; left: 0; display: grid; height: var(--rams-detail-card-height); place-content: center; justify-items: center; gap: var(--rams-detail-space-3); padding: var(--rams-detail-space-6); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-surface); background: var(--rams-detail-surface); text-align: center; }
+.emptyTitle { margin: 0; font-size: var(--rams-detail-text-base); font-weight: var(--rams-detail-card-stack-empty-title-weight); }
+
+.controls { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--rams-detail-space-2); }
+.control { display: inline-flex; min-height: var(--rams-detail-control-height-md); align-items: center; justify-content: center; gap: var(--rams-detail-space-2); padding: 0 var(--rams-detail-space-4); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-surface); color: var(--rams-detail-foreground); font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.control svg { flex: none; }
+/* The approving action uses the primary action pair; card/data accents stay independent. */
+.control[data-tone="primary"] { border-color: var(--rams-detail-primary); background: var(--rams-detail-primary); color: var(--rams-detail-on-primary); font-weight: var(--type-primary-action-weight, var(--rams-detail-native-primary-action-weight-fallback)); font-synthesis: none; }
+.control[data-tone="quiet"] { border-color: transparent; background: transparent; color: var(--rams-detail-text-secondary); }
+@media (hover: hover) and (pointer: fine) {
+  .control:not([aria-disabled]):hover { background: var(--rams-detail-surface-muted); }
+  .control[data-tone="primary"]:not([aria-disabled]):hover { border-color: var(--rams-detail-primary-hover); background: var(--rams-detail-primary-hover); }
+  .control[data-tone="quiet"]:not([aria-disabled]):hover { color: var(--rams-detail-foreground); }
+}
+.control:not([aria-disabled]):active { background: var(--rams-detail-surface-muted); }
+.control[data-tone="primary"]:not([aria-disabled]):active { border-color: var(--rams-detail-primary-pressed); background: var(--rams-detail-primary-pressed); }
+.control[aria-disabled] { cursor: default; opacity: var(--rams-detail-card-stack-control-disabled-opacity); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (max-width: 26rem) {
+  .root { container: card-stack / inline-size; --rams-detail-card-height: var(--rams-detail-card-stack-card-block-size-compact); gap: var(--rams-detail-space-4); }
+  .controls { flex-wrap: nowrap; }
+  .control { padding-inline: var(--rams-detail-space-3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card::before, .control { transition: none; }
+}
+
+:where(.root,.stage,.slot,.card,.face,.shade,.stamp,.empty,.emptyTitle,.controls,.control,.srOnly,.controlLabel):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The stage and action row share the available inline measure. Controls wrap rather than enlarge the grid's intrinsic track. */
+.root { min-width: 0; grid-template-columns: minmax(0, 1fr); }
+.stage { min-width: 0; max-width: 100%; }
+.controls { min-width: 0; max-width: 100%; flex-wrap: wrap; }
+.control { box-sizing: border-box; min-width: 0; max-width: 100%; flex-wrap: wrap; row-gap: var(--rams-detail-space-1); white-space: normal; overflow-wrap: normal; padding: var(--rams-detail-space-2) min(var(--rams-detail-space-4), var(--rams-detail-card-stack-inset-cap)); }
+/* Let the currently rendered faces determine their shared row height. A minimum keeps short cards stable; enlarged content can grow instead of being clipped. */
+.stage { display: grid; height: auto; min-height: calc(var(--rams-detail-card-height) + var(--rams-detail-stack-peek)); padding-bottom: var(--rams-detail-stack-peek); box-sizing: border-box; }
+.slot { position: relative; grid-area: 1 / 1; inset: auto; height: auto; min-height: var(--rams-detail-card-height); }
+.card { position: relative; inset: auto; height: 100%; }
+.empty { position: relative; grid-area: 1 / 1; inset: auto; height: auto; min-height: var(--rams-detail-card-height); }
+/* The empty face participates in that same track and must not restore its auto minimum. */
+.stage { grid-template-columns: minmax(0, 1fr); }
+.slot { min-width: 0; }
+.empty { min-width: 0; max-width: 100%; box-sizing: border-box; grid-template-columns: minmax(0, 1fr); padding-inline: min(var(--rams-detail-space-6), var(--rams-detail-card-stack-inset-cap)); }
+.emptyTitle { min-width: 0; max-width: 100%; overflow-wrap: normal; }
+/* The reset uses one adaptive inset and gives its label a complete line when the icon cannot share it. */
+.empty > .control { width: 100%; }
+.controlIcon { display: grid; flex: none; place-items: center; }
+.controlLabel { display: block; min-width: 0; max-width: 100%; flex: 0 1 auto; }

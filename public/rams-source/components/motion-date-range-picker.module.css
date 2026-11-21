@@ -1,0 +1,266 @@
+/* The root holds the trigger's place in the page. The surface floats above it and grows into the panel, so opening never pushes content. */
+.root {
+  position: relative;
+  display: inline-block;
+  height: var(--rams-detail-control-height-md);
+  vertical-align: top;
+  color: var(--rams-detail-foreground);
+  font-family: var(--rams-detail-font-body);
+  font-size: var(--rams-detail-text-sm);
+  letter-spacing: var(--rams-detail-tracking-body);
+  line-height: var(--rams-detail-leading-body);
+}
+.root { z-index: var(--rams-detail-layer-base); transition: z-index var(--rams-detail-duration-no-interpolation) var(--rams-motion-uniform-ease) var(--rams-detail-duration-considered); }
+.root[data-open] { z-index: var(--rams-detail-date-range-motion-open-z); transition-delay: var(--rams-detail-duration-no-interpolation); }
+.root:not([data-open]) .surface { z-index: var(--rams-detail-layer-base); }
+.root *, .root *::before, .root *::after { box-sizing: border-box; }
+
+/* One material from trigger to panel. Size, corners, and offset come from springs; the border is an overlay so it never changes a measurement. */
+.surface {
+  position: absolute;
+  z-index: var(--rams-detail-layer-above-overlay);
+  top: 0;
+  left: 0;
+  overflow: clip;
+  background: var(--rams-detail-surface-raised);
+  box-shadow: var(--rams-detail-shadow-resting);
+  transition: box-shadow var(--rams-detail-duration-considered) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.surface::after { content: ""; position: absolute; inset: 0; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: inherit; pointer-events: none; transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.root[data-open] .surface { box-shadow: var(--rams-detail-shadow-floating); }
+
+/* Trigger */
+/* The trigger sits in flow above the surface while closed; when open, the surface and its panel rise over it. */
+.trigger {
+  position: relative;
+  z-index: var(--rams-detail-local-overlay-layer);
+  display: inline-flex;
+  width: max-content;
+  height: var(--rams-detail-control-height-md);
+  align-items: center;
+  gap: var(--rams-detail-date-range-motion-trigger-gap);
+  padding: var(--rams-detail-date-range-motion-trigger-padding);
+  border: 0;
+  background: transparent;
+  color: var(--rams-detail-foreground);
+  cursor: pointer;
+  font: inherit;
+  font-weight: var(--rams-detail-label-weight);
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.trigger:disabled { cursor: default; }
+.trigger[inert] { pointer-events: none; }
+.triggerIcon, .chevron { display: grid; flex: none; place-items: center; color: var(--rams-detail-text-secondary); }
+.chevron { color: var(--rams-detail-text-muted); }
+.value { display: inline-flex; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.value[data-empty] { color: var(--rams-detail-text-secondary); font-weight: var(--type-body-weight); }
+
+/* Words roll in their own slots; a leaving word pops out of flow so the next one never waits for space. */
+.rolling { display: inline-flex; gap: var(--rams-detail-date-range-motion-rolling-word-gap); white-space: nowrap; }
+.word { position: relative; display: inline-block; }
+.wordInner { display: inline-block; }
+
+/* Panel */
+.panel { position: absolute; top: 0; left: 0; width: max-content; padding: var(--rams-detail-date-range-motion-panel-inset); --rams-detail-cell: max(var(--rams-detail-date-range-motion-compact-cell, var(--rams-detail-date-range-motion-wide-cell-size)), calc(var(--rams-detail-date-range-day-digits-measure) + var(--rams-detail-date-range-motion-day-label-inline-clearance) + 2 * var(--rams-detail-date-range-motion-day-disc-inset))); }
+.body { display: flex; gap: var(--rams-detail-date-range-motion-panel-inset); }
+
+.rail { position: relative; display: flex; width: var(--rams-detail-date-range-motion-preset-rail-inline-size); flex: none; flex-direction: column; gap: var(--rams-detail-date-range-motion-preset-gap); padding-right: var(--rams-detail-date-range-motion-panel-inset); border-right: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); }
+.railHighlight { position: absolute; top: 0; left: 0; border-radius: max(0px, calc(var(--radius-panel) - var(--rams-detail-date-range-motion-panel-inset) - var(--rams-detail-separator-thickness))); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-date-range-motion-preset-selected-wash), transparent); pointer-events: none; }
+.preset {
+  position: relative;
+  display: flex;
+  height: var(--rams-detail-date-range-motion-preset-min-block-size);
+  flex: none;
+  align-items: center;
+  padding: 0 var(--rams-detail-date-range-motion-preset-inline-padding);
+  border: 0;
+  border-radius: max(0px, calc(var(--radius-panel) - var(--rams-detail-date-range-motion-panel-inset) - var(--rams-detail-separator-thickness)));
+  background: transparent;
+  color: var(--rams-detail-text-secondary);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.preset[aria-pressed="true"] { color: var(--rams-detail-foreground); font-weight: var(--rams-detail-label-weight); }
+
+.calendars { position: relative; }
+.navButton {
+  position: absolute;
+  z-index: var(--rams-detail-layer-above-overlay);
+  top: 0;
+  display: grid;
+  width: var(--rams-detail-date-range-motion-month-heading-block-size);
+  height: var(--rams-detail-date-range-motion-month-heading-block-size);
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--rams-detail-radius-pill);
+  background: transparent;
+  color: var(--rams-detail-text-secondary);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard);
+}
+.navButton:active:not(:disabled) { transform: scale(var(--rams-motion-date-range-nav-press-scale)); }
+.navButton:disabled { opacity: var(--rams-detail-date-range-motion-nav-disabled-opacity); cursor: default; }
+
+/* Months slide horizontally inside a clipped window that keeps a little room for the blur. */
+.viewport { position: relative; display: grid; height: calc(var(--rams-detail-date-range-motion-month-heading-block-size) + var(--rams-detail-date-range-motion-weekdays-block-size) + var(--rams-detail-cell) * 6); overflow: clip; overflow-clip-margin: var(--rams-detail-date-range-motion-minimum-clip-clearance); }
+.viewport > * { grid-area: 1 / 1; }
+.months { display: flex; gap: var(--rams-detail-date-range-motion-month-gap); }
+.month { width: calc(var(--rams-detail-cell) * 7); }
+.monthTitle { height: var(--rams-detail-date-range-motion-month-heading-block-size); margin: 0; color: var(--rams-detail-foreground); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-date-range-motion-month-heading-block-size); text-align: center; white-space: nowrap; }
+.grid { display: grid; }
+.weekdays { display: grid; height: var(--rams-detail-date-range-motion-weekdays-block-size); align-items: center; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); grid-template-columns: repeat(var(--rams-detail-week-day-count), var(--rams-detail-cell)); text-align: center; }
+.weeks { position: relative; }
+.week { display: grid; height: var(--rams-detail-cell); grid-template-columns: repeat(var(--rams-detail-week-day-count), var(--rams-detail-cell)); }
+.cell, .blank { position: relative; display: block; }
+
+/* The highlight lives under the days: one bar per week plus a solid end at each side of the range. */
+.layer { position: absolute; inset: 0; pointer-events: none; }
+.bar { position: absolute; height: calc(var(--rams-detail-cell) - 2 * var(--rams-detail-date-range-motion-day-disc-inset)); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-control-on-subtle); }
+.thumb { position: absolute; top: 0; left: 0; width: var(--rams-detail-cell); height: var(--rams-detail-cell); }
+.thumb::before { content: ""; position: absolute; inset: var(--rams-detail-date-range-motion-day-disc-inset); border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-control-on); }
+
+.day {
+  position: relative;
+  z-index: var(--rams-detail-local-overlay-layer);
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--rams-detail-elliptical-corner-radius);
+  background: transparent;
+  color: var(--rams-detail-foreground);
+  cursor: pointer;
+  font: inherit;
+  font-variant-numeric: var(--rams-detail-numeric-column-variant);
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.day > span { position: relative; display: grid; width: calc(100% - 2 * var(--rams-detail-date-range-motion-day-disc-inset)); height: calc(100% - 2 * var(--rams-detail-date-range-motion-day-disc-inset)); place-items: center; border-radius: var(--rams-detail-elliptical-corner-radius); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.day:active:not(:disabled) > span { transform: scale(var(--rams-motion-date-range-day-press-scale)); }
+.day[data-edge] { color: var(--rams-detail-control-glyph); font-weight: var(--rams-detail-label-weight); transition-delay: var(--rams-detail-duration-instant); }
+.day[data-today]::after { content: ""; position: absolute; bottom: var(--rams-detail-date-range-motion-today-dot-block-end); left: 50%; width: var(--rams-detail-calendar-motion-today-dot-size); height: var(--rams-detail-calendar-motion-today-dot-size); margin-left: calc(-1 * var(--rams-detail-calendar-motion-today-dot-size) / 2); border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-accent); }
+.day[data-today][data-edge]::after { background: var(--rams-detail-control-glyph); }
+.day:disabled { color: var(--rams-detail-text-muted); cursor: default; opacity: var(--rams-detail-control-disabled-opacity); }
+.day:focus-visible:not([data-edge]) > span { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-date-range-motion-day-interactive-wash), transparent); }
+
+/* Footer: the formatted range and the two decisions. */
+.footer { display: flex; width: 0; min-width: 100%; align-items: center; justify-content: space-between; gap: var(--rams-detail-date-range-motion-footer-gap); margin-top: var(--rams-detail-date-range-motion-panel-inset); padding: var(--rams-detail-date-range-motion-footer-padding); border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); }
+.summary { display: grid; min-width: 0; gap: var(--rams-detail-date-range-motion-summary-gap); }
+.summaryValue { display: inline-flex; width: max-content; font-weight: var(--rams-detail-label-weight); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.summaryCount { display: inline-flex; min-height: calc(1em * var(--type-caption-leading)); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.actions { display: flex; flex: none; align-items: center; gap: var(--rams-detail-date-range-motion-action-gap); }
+.ghost, .primary {
+  display: inline-flex;
+  height: var(--rams-detail-control-height-sm);
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--rams-detail-date-range-motion-action-padding-inline);
+  border: 0;
+  border-radius: var(--rams-detail-radius-control);
+  cursor: pointer;
+  font: inherit;
+  font-weight: var(--type-action-weight);
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.ghost { background: transparent; color: var(--rams-detail-text-secondary); }
+.primary { min-width: var(--rams-detail-date-range-motion-apply-min-inline-size); background: var(--rams-detail-primary); color: var(--rams-detail-on-primary); font-weight: var(--type-primary-action-weight, var(--rams-detail-native-primary-action-weight-fallback)); font-synthesis: none; }
+.primary:active:not(:disabled) { background: var(--rams-detail-primary-pressed); }
+.ghost:active, .primary:active:not(:disabled) { transform: scale(var(--rams-motion-date-picker-footer-action-press-scale)); }
+.primary:disabled { opacity: var(--rams-detail-date-range-motion-apply-disabled-opacity); cursor: default; }
+.ghost:focus-visible { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+.preset:focus-visible, .navButton:focus-visible { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-date-range-motion-row-focus-wash), transparent); color: var(--rams-detail-foreground); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); margin: var(--rams-detail-accessible-hidden-margin); padding: var(--rams-detail-accessible-hidden-padding); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; border: var(--rams-detail-accessible-hidden-border); }
+
+/* Compact: one month under a scrolling row of presets. */
+.panel[data-compact] { padding: var(--rams-detail-date-range-motion-panel-inset-compact); }
+.panel[data-compact] .body { flex-direction: column; gap: var(--rams-detail-date-range-motion-panel-inset-compact); }
+.panel[data-compact] .rail { width: auto; flex-direction: row; gap: var(--rams-detail-date-range-motion-preset-gap); margin: 0 calc(-1 * var(--rams-detail-date-range-motion-panel-inset-compact)); padding: 0 var(--rams-detail-date-range-motion-panel-inset-compact) var(--rams-detail-date-range-motion-panel-inset-compact); overflow-x: auto; border-right: 0; border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); overscroll-behavior-x: contain; scrollbar-width: thin; }
+.panel[data-compact] .rail::-webkit-scrollbar { height: var(--rams-detail-date-range-motion-preset-scrollbar-block-size); }
+.panel[data-compact] .preset { padding: 0 var(--rams-detail-date-range-motion-preset-inline-padding-compact); }
+.panel[data-compact] .calendars { align-self: center; }
+.panel[data-compact] .footer { flex-wrap: wrap; margin-top: var(--rams-detail-date-range-motion-footer-compact-margin-top); padding-left: var(--rams-detail-date-range-motion-footer-compact-padding-left); }
+.panel[data-compact] .actions { margin-left: auto; }
+.panel[data-compact] .summary { flex: 1 1 var(--rams-detail-date-range-motion-summary-compact-basis); }
+
+@media (hover: hover) and (pointer: fine) {
+  .root:not([data-open]):has(> .trigger:hover:not(:disabled)) .surface { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-date-range-motion-trigger-hover-wash), var(--rams-detail-surface-raised)); }
+  .root:not([data-open]):has(> .trigger:hover:not(:disabled)) .surface::after { border-color: var(--rams-detail-border-strong); }
+  .preset:hover { color: var(--rams-detail-foreground); }
+  .preset:not([aria-pressed="true"]):hover { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-date-range-motion-preset-hover-wash), transparent); }
+  .navButton:hover:not(:disabled) { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-date-range-motion-nav-hover-wash), transparent); color: var(--rams-detail-foreground); }
+  .day:hover:not(:disabled):not([data-edge]) > span { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-date-range-motion-day-interactive-wash), transparent); }
+  .ghost:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+  .primary:hover:not(:disabled):not(:active) { background: var(--rams-detail-primary-hover); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .surface, .preset, .navButton, .day, .day > span, .ghost, .primary { transition-duration: var(--rams-detail-duration-reduced); }
+}
+
+@media (prefers-contrast: more) {
+  .surface::after { border-color: var(--rams-detail-border-strong); }
+}
+
+:where(.root,.surface,.trigger,.triggerIcon,.chevron,.value,.rolling,.word,.wordInner,.panel,.body,.rail,.railHighlight,.preset,.calendars,.navButton,.viewport,.months,.month,.monthTitle,.grid,.weekdays,.weeks,.week,.cell,.blank,.layer,.bar,.thumb,.day,.footer,.summary,.summaryValue,.summaryCount,.actions,.ghost,.primary,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Owned actions preserve the picker surface's existing measured anatomy. */
+.trigger, .preset, .navButton, .ghost, .primary { min-block-size: 0; }
+.preset { justify-content: flex-start; }
+.navButton > svg { inline-size: var(--rams-detail-calendar-motion-nav-glyph-size); block-size: var(--rams-detail-calendar-motion-nav-glyph-size); stroke-width: var(--rams-detail-calendar-motion-nav-glyph-stroke); }
+.triggerIcon > svg, .chevron > svg { inline-size: var(--rams-detail-date-picker-motion-trigger-glyph-size); block-size: var(--rams-detail-date-picker-motion-trigger-glyph-size); stroke-width: var(--rams-detail-date-picker-motion-trigger-glyph-stroke); }
+
+/* The measured trigger may wrap at the current text size; its existing observer owns the surface size. */
+.root { max-inline-size: 100%; height: auto; min-height: var(--rams-detail-control-height-md); }
+.trigger { max-inline-size: var(--rams-detail-range-trigger-max, calc(100vw - var(--rams-detail-date-range-motion-trigger-viewport-reserve))); height: auto; min-height: var(--rams-detail-control-height-md); padding-block: var(--rams-detail-space-2); flex-wrap: nowrap; }
+.value { min-width: 0; flex: 1 1 auto; }
+.rolling { min-width: 0; max-width: 100%; flex-wrap: wrap; white-space: normal; }
+.word { white-space: nowrap; }
+
+/* A two-digit day stays one numeric unit inside its smaller highlight inset. */
+.day > span { white-space: nowrap; }
+
+/* Text actions grow with their line box; the calendar clip also preserves the full focus halo. */
+.preset { height: auto; min-height: var(--rams-detail-date-range-motion-preset-min-block-size); padding-block: var(--rams-detail-space-1); }
+.viewport { overflow-clip-margin: max(var(--rams-detail-date-range-motion-minimum-clip-clearance), calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset))); }
+
+/* Numeric line boxes must not enlarge an implicit row beyond its measured cell. */
+.week { grid-template-rows: minmax(0, 1fr); }
+.cell, .blank { min-height: 0; }
+.day { min-height: 0; line-height: var(--rams-detail-single-line-control-leading); }
+
+/* Seven full-size columns form a local plane when enlarged type needs more room.
+   Two digit advances, half an em of breathing room and the existing 3px inset on
+   each side keep selected numerals inside their disc without shrinking type. */
+.calendars { min-inline-size: 0; max-inline-size: 100%; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; }
+.panel[data-compact] .calendars { align-self: stretch; }
+.viewport { min-inline-size: calc(var(--rams-detail-cell) * 7); }
+
+/* Resolve the shared calendar plane in the day font; only weekday glyphs use the
+   smaller role, so ch/em geometry stays identical across all seven columns. */
+.weekdays { font-size: inherit; }
+.weekdays > span { font-size: var(--rams-detail-text-xs); }
+.calendars { flex: 1 1 auto; }
+
+/* A padded inner plane, rather than overflow-clip-margin across a scrollport,
+   reserves the complete keyboard halo even at clamped first/last columns. */
+.calendars { padding: 0; }
+.calendarPlane { position: relative; inline-size: max-content; padding: calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset)); }
+.calendarPlane .navButton { top: calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset)); }
+.calendarPlane .navButton[data-side="prev"] { left: calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset)); }
+.calendarPlane .navButton[data-side="next"] { right: calc(var(--rams-detail-focus-outline-width) + var(--rams-detail-focus-outline-offset)); }
+
+/* As a grid item, the closed control must yield its automatic content minimum
+   before the parent's implicit track can grow past the available measure. */
+.root { min-inline-size: 0; }

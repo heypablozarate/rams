@@ -1,0 +1,1566 @@
+{
+  "schemaVersion": 1,
+  "format": "rams-foundations",
+  "sourceFile": "tokens.json",
+  "customizationGuide": "/foundations-guide.md",
+  "precedence": [
+    "themes",
+    "supportingCustomization.overrides",
+    "brandCustomization.overrides",
+    "foundationOverrides"
+  ],
+  "roles": [
+    {
+      "id": "brand",
+      "name": "Brand Color",
+      "description": "Brand identity. Choose Primary to emphasize interface actions.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--rams-brand-accent",
+      "themes": {
+        "light": {
+          "sourcePath": "brandCustomization.palette.light.brandAccent",
+          "editPath": "colorPrimitives.brand.light.accent",
+          "reference": "colorPrimitives.brand.light.accent",
+          "authoredValue": "{colorPrimitives.brand.light.accent}",
+          "value": "oklch(0.6262015868 0.2154394063 35.26648322 / 1)",
+          "resolvedValue": "oklch(0.6262015868 0.2154394063 35.26648322 / 1)"
+        },
+        "dark": {
+          "sourcePath": "brandCustomization.palette.dark.brandAccent",
+          "editPath": "colorPrimitives.brand.dark.accent",
+          "reference": "colorPrimitives.brand.dark.accent",
+          "authoredValue": "{colorPrimitives.brand.dark.accent}",
+          "value": "oklch(0.6262015868 0.2154394063 35.26648322 / 1)",
+          "resolvedValue": "oklch(0.6262015868 0.2154394063 35.26648322 / 1)"
+        }
+      }
+    },
+    {
+      "id": "background",
+      "name": "Background",
+      "description": "Primary page surface.",
+      "pairWith": "foreground",
+      "type": "color",
+      "cssVariable": "--background",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.background",
+          "editPath": "foundationOverrides.light.background",
+          "reference": "colorPrimitives.neutral.white",
+          "authoredValue": "{colorPrimitives.neutral.white}",
+          "value": "oklch(1 0 0)",
+          "resolvedValue": "oklch(1 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.background",
+          "editPath": "foundationOverrides.dark.background",
+          "reference": "colorPrimitives.neutral.n950",
+          "authoredValue": "{colorPrimitives.neutral.n950}",
+          "value": "oklch(0.145 0 0)",
+          "resolvedValue": "oklch(0.145 0 0)"
+        }
+      }
+    },
+    {
+      "id": "foreground",
+      "name": "Foreground",
+      "description": "Text and icons on Background.",
+      "pairWith": "background",
+      "type": "color",
+      "cssVariable": "--foreground",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.foreground",
+          "editPath": "foundationOverrides.light.foreground",
+          "reference": "colorPrimitives.neutral.n950",
+          "authoredValue": "{colorPrimitives.neutral.n950}",
+          "value": "oklch(0.145 0 0)",
+          "resolvedValue": "oklch(0.145 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.foreground",
+          "editPath": "foundationOverrides.dark.foreground",
+          "reference": "colorPrimitives.neutral.n50",
+          "authoredValue": "{colorPrimitives.neutral.n50}",
+          "value": "oklch(0.985 0 0)",
+          "resolvedValue": "oklch(0.985 0 0)"
+        }
+      }
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "description": "Surface for cards and panels.",
+      "pairWith": "card-foreground",
+      "type": "color",
+      "cssVariable": "--card",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.card",
+          "editPath": "foundationOverrides.light.card",
+          "reference": "colorPrimitives.neutral.white",
+          "authoredValue": "{colorPrimitives.neutral.white}",
+          "value": "oklch(1 0 0)",
+          "resolvedValue": "oklch(1 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.card",
+          "editPath": "foundationOverrides.dark.card",
+          "reference": "colorPrimitives.neutral.n900",
+          "authoredValue": "{colorPrimitives.neutral.n900}",
+          "value": "oklch(0.205 0 0)",
+          "resolvedValue": "oklch(0.205 0 0)"
+        }
+      }
+    },
+    {
+      "id": "card-foreground",
+      "name": "Card Foreground",
+      "description": "Text and icons on Card.",
+      "pairWith": "card",
+      "type": "color",
+      "cssVariable": "--card-foreground",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.card-foreground",
+          "editPath": "foundationOverrides.light.card-foreground",
+          "reference": "colorPrimitives.neutral.n950",
+          "authoredValue": "{colorPrimitives.neutral.n950}",
+          "value": "oklch(0.145 0 0)",
+          "resolvedValue": "oklch(0.145 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.card-foreground",
+          "editPath": "foundationOverrides.dark.card-foreground",
+          "reference": "colorPrimitives.neutral.n50",
+          "authoredValue": "{colorPrimitives.neutral.n50}",
+          "value": "oklch(0.985 0 0)",
+          "resolvedValue": "oklch(0.985 0 0)"
+        }
+      }
+    },
+    {
+      "id": "popover",
+      "name": "Popover",
+      "description": "Surface for menus and floating content.",
+      "pairWith": "popover-foreground",
+      "type": "color",
+      "cssVariable": "--popover",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.popover",
+          "editPath": "foundationOverrides.light.popover",
+          "reference": "colorPrimitives.neutral.white",
+          "authoredValue": "{colorPrimitives.neutral.white}",
+          "value": "oklch(1 0 0)",
+          "resolvedValue": "oklch(1 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.popover",
+          "editPath": "foundationOverrides.dark.popover",
+          "reference": "colorPrimitives.neutral.n900",
+          "authoredValue": "{colorPrimitives.neutral.n900}",
+          "value": "oklch(0.205 0 0)",
+          "resolvedValue": "oklch(0.205 0 0)"
+        }
+      }
+    },
+    {
+      "id": "popover-foreground",
+      "name": "Popover Foreground",
+      "description": "Text and icons on Popover.",
+      "pairWith": "popover",
+      "type": "color",
+      "cssVariable": "--popover-foreground",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.popover-foreground",
+          "editPath": "foundationOverrides.light.popover-foreground",
+          "reference": "colorPrimitives.neutral.n950",
+          "authoredValue": "{colorPrimitives.neutral.n950}",
+          "value": "oklch(0.145 0 0)",
+          "resolvedValue": "oklch(0.145 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.popover-foreground",
+          "editPath": "foundationOverrides.dark.popover-foreground",
+          "reference": "colorPrimitives.neutral.n50",
+          "authoredValue": "{colorPrimitives.neutral.n50}",
+          "value": "oklch(0.985 0 0)",
+          "resolvedValue": "oklch(0.985 0 0)"
+        }
+      }
+    },
+    {
+      "id": "primary",
+      "name": "Primary",
+      "description": "Primary action fills; pair with Primary Foreground for text and icons.",
+      "pairWith": "primary-foreground",
+      "type": "color",
+      "cssVariable": "--primary",
+      "themes": {
+        "light": {
+          "sourcePath": "brandCustomization.overrides.light.primary",
+          "editPath": "foundationOverrides.light.primary",
+          "reference": "colorPrimitives.brand.light.action",
+          "authoredValue": "{colorPrimitives.brand.light.action}",
+          "value": "oklch(0 0 0)",
+          "resolvedValue": "oklch(0 0 0)"
+        },
+        "dark": {
+          "sourcePath": "brandCustomization.overrides.dark.primary",
+          "editPath": "foundationOverrides.dark.primary",
+          "reference": "colorPrimitives.brand.dark.action",
+          "authoredValue": "{colorPrimitives.brand.dark.action}",
+          "value": "oklch(1 0 0)",
+          "resolvedValue": "oklch(1 0 0)"
+        }
+      }
+    },
+    {
+      "id": "primary-foreground",
+      "name": "Primary Foreground",
+      "description": "Text and icons on Primary.",
+      "pairWith": "primary",
+      "type": "color",
+      "cssVariable": "--primary-foreground",
+      "themes": {
+        "light": {
+          "sourcePath": "brandCustomization.overrides.light.primary-foreground",
+          "editPath": "foundationOverrides.light.primary-foreground",
+          "reference": "colorPrimitives.neutral.white",
+          "authoredValue": "{colorPrimitives.neutral.white}",
+          "value": "oklch(1 0 0)",
+          "resolvedValue": "oklch(1 0 0)"
+        },
+        "dark": {
+          "sourcePath": "brandCustomization.overrides.dark.primary-foreground",
+          "editPath": "foundationOverrides.dark.primary-foreground",
+          "reference": "colorPrimitives.neutral.black",
+          "authoredValue": "{colorPrimitives.neutral.black}",
+          "value": "oklch(0 0 0)",
+          "resolvedValue": "oklch(0 0 0)"
+        }
+      }
+    },
+    {
+      "id": "secondary",
+      "name": "Secondary",
+      "description": "Lower-emphasis actions and surfaces.",
+      "pairWith": "secondary-foreground",
+      "type": "color",
+      "cssVariable": "--secondary",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.secondary",
+          "editPath": "foundationOverrides.light.secondary",
+          "reference": "colorPrimitives.neutral.n100",
+          "authoredValue": "{colorPrimitives.neutral.n100}",
+          "value": "oklch(0.97 0 0)",
+          "resolvedValue": "oklch(0.97 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.secondary",
+          "editPath": "foundationOverrides.dark.secondary",
+          "reference": "colorPrimitives.neutral.n800",
+          "authoredValue": "{colorPrimitives.neutral.n800}",
+          "value": "oklch(0.269 0 0)",
+          "resolvedValue": "oklch(0.269 0 0)"
+        }
+      }
+    },
+    {
+      "id": "secondary-foreground",
+      "name": "Secondary Foreground",
+      "description": "Text and icons on Secondary.",
+      "pairWith": "secondary",
+      "type": "color",
+      "cssVariable": "--secondary-foreground",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.secondary-foreground",
+          "editPath": "foundationOverrides.light.secondary-foreground",
+          "reference": "colorPrimitives.neutral.n900",
+          "authoredValue": "{colorPrimitives.neutral.n900}",
+          "value": "oklch(0.205 0 0)",
+          "resolvedValue": "oklch(0.205 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.secondary-foreground",
+          "editPath": "foundationOverrides.dark.secondary-foreground",
+          "reference": "colorPrimitives.neutral.n50",
+          "authoredValue": "{colorPrimitives.neutral.n50}",
+          "value": "oklch(0.985 0 0)",
+          "resolvedValue": "oklch(0.985 0 0)"
+        }
+      }
+    },
+    {
+      "id": "muted",
+      "name": "Muted",
+      "description": "Subtle surface for supporting content.",
+      "pairWith": "muted-foreground",
+      "type": "color",
+      "cssVariable": "--muted",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.muted",
+          "editPath": "foundationOverrides.light.muted",
+          "reference": "colorPrimitives.neutral.n100",
+          "authoredValue": "{colorPrimitives.neutral.n100}",
+          "value": "oklch(0.97 0 0)",
+          "resolvedValue": "oklch(0.97 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.muted",
+          "editPath": "foundationOverrides.dark.muted",
+          "reference": "colorPrimitives.neutral.n800",
+          "authoredValue": "{colorPrimitives.neutral.n800}",
+          "value": "oklch(0.269 0 0)",
+          "resolvedValue": "oklch(0.269 0 0)"
+        }
+      }
+    },
+    {
+      "id": "muted-foreground",
+      "name": "Muted Foreground",
+      "description": "Supporting text, such as help and metadata.",
+      "pairWith": "muted",
+      "type": "color",
+      "cssVariable": "--muted-foreground",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.muted-foreground",
+          "editPath": "foundationOverrides.light.muted-foreground",
+          "reference": "colorPrimitives.neutral.n500",
+          "authoredValue": "{colorPrimitives.neutral.n500}",
+          "value": "oklch(0.556 0 0)",
+          "resolvedValue": "oklch(0.556 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.muted-foreground",
+          "editPath": "foundationOverrides.dark.muted-foreground",
+          "reference": "colorPrimitives.neutral.n400",
+          "authoredValue": "{colorPrimitives.neutral.n400}",
+          "value": "oklch(0.708 0 0)",
+          "resolvedValue": "oklch(0.708 0 0)"
+        }
+      }
+    },
+    {
+      "id": "accent",
+      "name": "Accent Color",
+      "description": "Highlights controls on hover or selection.",
+      "pairWith": "accent-foreground",
+      "type": "color",
+      "cssVariable": "--accent",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.accent",
+          "editPath": "foundationOverrides.light.accent",
+          "reference": "colorPrimitives.neutral.n100",
+          "authoredValue": "{colorPrimitives.neutral.n100}",
+          "value": "oklch(0.97 0 0)",
+          "resolvedValue": "oklch(0.97 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.accent",
+          "editPath": "foundationOverrides.dark.accent",
+          "reference": "colorPrimitives.neutral.n800",
+          "authoredValue": "{colorPrimitives.neutral.n800}",
+          "value": "oklch(0.269 0 0)",
+          "resolvedValue": "oklch(0.269 0 0)"
+        }
+      }
+    },
+    {
+      "id": "accent-foreground",
+      "name": "Accent Foreground",
+      "description": "Text and icons on Accent.",
+      "pairWith": "accent",
+      "type": "color",
+      "cssVariable": "--accent-foreground",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.accent-foreground",
+          "editPath": "foundationOverrides.light.accent-foreground",
+          "reference": "colorPrimitives.neutral.n900",
+          "authoredValue": "{colorPrimitives.neutral.n900}",
+          "value": "oklch(0.205 0 0)",
+          "resolvedValue": "oklch(0.205 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.accent-foreground",
+          "editPath": "foundationOverrides.dark.accent-foreground",
+          "reference": "colorPrimitives.neutral.n50",
+          "authoredValue": "{colorPrimitives.neutral.n50}",
+          "value": "oklch(0.985 0 0)",
+          "resolvedValue": "oklch(0.985 0 0)"
+        }
+      }
+    },
+    {
+      "id": "destructive",
+      "name": "Destructive",
+      "description": "Destructive actions and error messages.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--destructive",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.destructive",
+          "editPath": "foundationOverrides.light.destructive",
+          "reference": "colorPrimitives.status.destructiveLight",
+          "authoredValue": "{colorPrimitives.status.destructiveLight}",
+          "value": "oklch(0.577 0.245 27.325)",
+          "resolvedValue": "oklch(0.577 0.245 27.325)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.destructive",
+          "editPath": "foundationOverrides.dark.destructive",
+          "reference": "colorPrimitives.status.destructiveDark",
+          "authoredValue": "{colorPrimitives.status.destructiveDark}",
+          "value": "oklch(0.704 0.191 22.216)",
+          "resolvedValue": "oklch(0.704 0.191 22.216)"
+        }
+      }
+    },
+    {
+      "id": "border",
+      "name": "Border",
+      "description": "Borders and separators.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--border",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.border",
+          "editPath": "foundationOverrides.light.border",
+          "reference": "colorPrimitives.neutral.n200",
+          "authoredValue": "{colorPrimitives.neutral.n200}",
+          "value": "oklch(0.922 0 0)",
+          "resolvedValue": "oklch(0.922 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.border",
+          "editPath": "foundationOverrides.dark.border",
+          "reference": "colorPrimitives.opacity.white10",
+          "authoredValue": "{colorPrimitives.opacity.white10}",
+          "value": "oklch(1 0 0 / 10%)",
+          "resolvedValue": "oklch(1 0 0 / 10%)"
+        }
+      }
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "description": "Borders for form fields and controls.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--input",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.input",
+          "editPath": "foundationOverrides.light.input",
+          "reference": "colorPrimitives.neutral.n200",
+          "authoredValue": "{colorPrimitives.neutral.n200}",
+          "value": "oklch(0.922 0 0)",
+          "resolvedValue": "oklch(0.922 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.input",
+          "editPath": "foundationOverrides.dark.input",
+          "reference": "colorPrimitives.opacity.white15",
+          "authoredValue": "{colorPrimitives.opacity.white15}",
+          "value": "oklch(1 0 0 / 15%)",
+          "resolvedValue": "oklch(1 0 0 / 15%)"
+        }
+      }
+    },
+    {
+      "id": "ring",
+      "name": "Focus Ring",
+      "description": "Keyboard focus; keep it visible against the surface.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--ring",
+      "themes": {
+        "light": {
+          "sourcePath": "brandCustomization.overrides.light.ring",
+          "editPath": "foundationOverrides.light.ring",
+          "reference": "colorPrimitives.brand.light.focus",
+          "authoredValue": "{colorPrimitives.brand.light.focus}",
+          "value": "oklch(0.2936329848 0.1204931489 29.233885)",
+          "resolvedValue": "oklch(0.2936329848 0.1204931489 29.233885)"
+        },
+        "dark": {
+          "sourcePath": "brandCustomization.overrides.dark.ring",
+          "editPath": "foundationOverrides.dark.ring",
+          "reference": "colorPrimitives.brand.dark.focus",
+          "authoredValue": "{colorPrimitives.brand.dark.focus}",
+          "value": "oklch(0.8968271266 0.0589434066 47.497629)",
+          "resolvedValue": "oklch(0.8968271266 0.0589434066 47.497629)"
+        }
+      }
+    },
+    {
+      "id": "chart-1",
+      "name": "Chart 1",
+      "description": "Data series 1. Pair color with labels or a legend.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--chart-1",
+      "themes": {
+        "light": {
+          "sourcePath": "supportingCustomization.overrides.light.chart-1",
+          "editPath": "foundationOverrides.light.chart-1",
+          "reference": "colorPrimitives.supporting.light.tone1",
+          "authoredValue": "{colorPrimitives.supporting.light.tone1}",
+          "value": "oklch(0.549209332912 0.180969101292 35.26648322)",
+          "resolvedValue": "oklch(0.549209332912 0.180969101292 35.26648322)"
+        },
+        "dark": {
+          "sourcePath": "supportingCustomization.overrides.dark.chart-1",
+          "editPath": "foundationOverrides.dark.chart-1",
+          "reference": "colorPrimitives.supporting.dark.tone1",
+          "authoredValue": "{colorPrimitives.supporting.dark.tone1}",
+          "value": "oklch(0.66208142812 0.19389546567 35.26648322)",
+          "resolvedValue": "oklch(0.66208142812 0.19389546567 35.26648322)"
+        }
+      }
+    },
+    {
+      "id": "chart-2",
+      "name": "Chart 2",
+      "description": "Data series 2. Pair color with labels or a legend.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--chart-2",
+      "themes": {
+        "light": {
+          "sourcePath": "supportingCustomization.overrides.light.chart-2",
+          "editPath": "foundationOverrides.light.chart-2",
+          "reference": "colorPrimitives.supporting.light.tone2",
+          "authoredValue": "{colorPrimitives.supporting.light.tone2}",
+          "value": "oklch(0.462593047288 0.142190008158 35.26648322)",
+          "resolvedValue": "oklch(0.462593047288 0.142190008158 35.26648322)"
+        },
+        "dark": {
+          "sourcePath": "supportingCustomization.overrides.dark.chart-2",
+          "editPath": "foundationOverrides.dark.chart-2",
+          "reference": "colorPrimitives.supporting.dark.tone2",
+          "authoredValue": "{colorPrimitives.supporting.dark.tone2}",
+          "value": "oklch(0.726665142496 0.155116372536 35.26648322)",
+          "resolvedValue": "oklch(0.726665142496 0.155116372536 35.26648322)"
+        }
+      }
+    },
+    {
+      "id": "chart-3",
+      "name": "Chart 3",
+      "description": "Data series 3. Pair color with labels or a legend.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--chart-3",
+      "themes": {
+        "light": {
+          "sourcePath": "supportingCustomization.overrides.light.chart-3",
+          "editPath": "foundationOverrides.light.chart-3",
+          "reference": "colorPrimitives.supporting.light.tone3",
+          "authoredValue": "{colorPrimitives.supporting.light.tone3}",
+          "value": "oklch(0.375976761664 0.103410915024 35.26648322)",
+          "resolvedValue": "oklch(0.375976761664 0.103410915024 35.26648322)"
+        },
+        "dark": {
+          "sourcePath": "supportingCustomization.overrides.dark.chart-3",
+          "editPath": "foundationOverrides.dark.chart-3",
+          "reference": "colorPrimitives.supporting.dark.tone3",
+          "authoredValue": "{colorPrimitives.supporting.dark.tone3}",
+          "value": "oklch(0.791248856872 0.116337279402 35.26648322)",
+          "resolvedValue": "oklch(0.791248856872 0.116337279402 35.26648322)"
+        }
+      }
+    },
+    {
+      "id": "chart-4",
+      "name": "Chart 4",
+      "description": "Data series 4. Pair color with labels or a legend.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--chart-4",
+      "themes": {
+        "light": {
+          "sourcePath": "supportingCustomization.overrides.light.chart-4",
+          "editPath": "foundationOverrides.light.chart-4",
+          "reference": "colorPrimitives.supporting.light.tone4",
+          "authoredValue": "{colorPrimitives.supporting.light.tone4}",
+          "value": "oklch(0.28936047604 0.06463182189 35.26648322)",
+          "resolvedValue": "oklch(0.28936047604 0.06463182189 35.26648322)"
+        },
+        "dark": {
+          "sourcePath": "supportingCustomization.overrides.dark.chart-4",
+          "editPath": "foundationOverrides.dark.chart-4",
+          "reference": "colorPrimitives.supporting.dark.tone4",
+          "authoredValue": "{colorPrimitives.supporting.dark.tone4}",
+          "value": "oklch(0.855832571248 0.077558186268 35.26648322)",
+          "resolvedValue": "oklch(0.855832571248 0.077558186268 35.26648322)"
+        }
+      }
+    },
+    {
+      "id": "chart-5",
+      "name": "Chart 5",
+      "description": "Data series 5. Pair color with labels or a legend.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--chart-5",
+      "themes": {
+        "light": {
+          "sourcePath": "supportingCustomization.overrides.light.chart-5",
+          "editPath": "foundationOverrides.light.chart-5",
+          "reference": "colorPrimitives.supporting.light.tone5",
+          "authoredValue": "{colorPrimitives.supporting.light.tone5}",
+          "value": "oklch(0.202744190416 0.025852728756 35.26648322)",
+          "resolvedValue": "oklch(0.202744190416 0.025852728756 35.26648322)"
+        },
+        "dark": {
+          "sourcePath": "supportingCustomization.overrides.dark.chart-5",
+          "editPath": "foundationOverrides.dark.chart-5",
+          "reference": "colorPrimitives.supporting.dark.tone5",
+          "authoredValue": "{colorPrimitives.supporting.dark.tone5}",
+          "value": "oklch(0.920416285624 0.038779093134 35.26648322)",
+          "resolvedValue": "oklch(0.920416285624 0.038779093134 35.26648322)"
+        }
+      }
+    },
+    {
+      "id": "sidebar",
+      "name": "Sidebar",
+      "description": "Side navigation surface.",
+      "pairWith": "sidebar-foreground",
+      "type": "color",
+      "cssVariable": "--sidebar",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.sidebar",
+          "editPath": "foundationOverrides.light.sidebar",
+          "reference": "colorPrimitives.neutral.n50",
+          "authoredValue": "{colorPrimitives.neutral.n50}",
+          "value": "oklch(0.985 0 0)",
+          "resolvedValue": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.sidebar",
+          "editPath": "foundationOverrides.dark.sidebar",
+          "reference": "colorPrimitives.neutral.n900",
+          "authoredValue": "{colorPrimitives.neutral.n900}",
+          "value": "oklch(0.205 0 0)",
+          "resolvedValue": "oklch(0.205 0 0)"
+        }
+      }
+    },
+    {
+      "id": "sidebar-foreground",
+      "name": "Sidebar Foreground",
+      "description": "Text and icons on Sidebar.",
+      "pairWith": "sidebar",
+      "type": "color",
+      "cssVariable": "--sidebar-foreground",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.sidebar-foreground",
+          "editPath": "foundationOverrides.light.sidebar-foreground",
+          "reference": "colorPrimitives.neutral.n950",
+          "authoredValue": "{colorPrimitives.neutral.n950}",
+          "value": "oklch(0.145 0 0)",
+          "resolvedValue": "oklch(0.145 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.sidebar-foreground",
+          "editPath": "foundationOverrides.dark.sidebar-foreground",
+          "reference": "colorPrimitives.neutral.n50",
+          "authoredValue": "{colorPrimitives.neutral.n50}",
+          "value": "oklch(0.985 0 0)",
+          "resolvedValue": "oklch(0.985 0 0)"
+        }
+      }
+    },
+    {
+      "id": "sidebar-primary",
+      "name": "Sidebar Primary",
+      "description": "Primary side navigation action.",
+      "pairWith": "sidebar-primary-foreground",
+      "type": "color",
+      "cssVariable": "--sidebar-primary",
+      "themes": {
+        "light": {
+          "sourcePath": "brandCustomization.overrides.light.sidebar-primary",
+          "editPath": "foundationOverrides.light.sidebar-primary",
+          "reference": null,
+          "authoredValue": "var(--primary)",
+          "value": "var(--primary)",
+          "resolvedValue": "oklch(0 0 0)"
+        },
+        "dark": {
+          "sourcePath": "brandCustomization.overrides.dark.sidebar-primary",
+          "editPath": "foundationOverrides.dark.sidebar-primary",
+          "reference": null,
+          "authoredValue": "var(--primary)",
+          "value": "var(--primary)",
+          "resolvedValue": "oklch(1 0 0)"
+        }
+      }
+    },
+    {
+      "id": "sidebar-primary-foreground",
+      "name": "Sidebar Primary Foreground",
+      "description": "Text and icons on Sidebar Primary.",
+      "pairWith": "sidebar-primary",
+      "type": "color",
+      "cssVariable": "--sidebar-primary-foreground",
+      "themes": {
+        "light": {
+          "sourcePath": "brandCustomization.overrides.light.sidebar-primary-foreground",
+          "editPath": "foundationOverrides.light.sidebar-primary-foreground",
+          "reference": null,
+          "authoredValue": "var(--primary-foreground)",
+          "value": "var(--primary-foreground)",
+          "resolvedValue": "oklch(1 0 0)"
+        },
+        "dark": {
+          "sourcePath": "brandCustomization.overrides.dark.sidebar-primary-foreground",
+          "editPath": "foundationOverrides.dark.sidebar-primary-foreground",
+          "reference": null,
+          "authoredValue": "var(--primary-foreground)",
+          "value": "var(--primary-foreground)",
+          "resolvedValue": "oklch(0 0 0)"
+        }
+      }
+    },
+    {
+      "id": "sidebar-accent",
+      "name": "Sidebar Accent",
+      "description": "Side navigation hover and selection.",
+      "pairWith": "sidebar-accent-foreground",
+      "type": "color",
+      "cssVariable": "--sidebar-accent",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.sidebar-accent",
+          "editPath": "foundationOverrides.light.sidebar-accent",
+          "reference": "colorPrimitives.neutral.n100",
+          "authoredValue": "{colorPrimitives.neutral.n100}",
+          "value": "oklch(0.97 0 0)",
+          "resolvedValue": "oklch(0.97 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.sidebar-accent",
+          "editPath": "foundationOverrides.dark.sidebar-accent",
+          "reference": "colorPrimitives.neutral.n800",
+          "authoredValue": "{colorPrimitives.neutral.n800}",
+          "value": "oklch(0.269 0 0)",
+          "resolvedValue": "oklch(0.269 0 0)"
+        }
+      }
+    },
+    {
+      "id": "sidebar-accent-foreground",
+      "name": "Sidebar Accent Foreground",
+      "description": "Text and icons on Sidebar Accent.",
+      "pairWith": "sidebar-accent",
+      "type": "color",
+      "cssVariable": "--sidebar-accent-foreground",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.sidebar-accent-foreground",
+          "editPath": "foundationOverrides.light.sidebar-accent-foreground",
+          "reference": "colorPrimitives.neutral.n900",
+          "authoredValue": "{colorPrimitives.neutral.n900}",
+          "value": "oklch(0.205 0 0)",
+          "resolvedValue": "oklch(0.205 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.sidebar-accent-foreground",
+          "editPath": "foundationOverrides.dark.sidebar-accent-foreground",
+          "reference": "colorPrimitives.neutral.n50",
+          "authoredValue": "{colorPrimitives.neutral.n50}",
+          "value": "oklch(0.985 0 0)",
+          "resolvedValue": "oklch(0.985 0 0)"
+        }
+      }
+    },
+    {
+      "id": "sidebar-border",
+      "name": "Sidebar Border",
+      "description": "Side navigation borders and separators.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--sidebar-border",
+      "themes": {
+        "light": {
+          "sourcePath": "themes.light.sidebar-border",
+          "editPath": "foundationOverrides.light.sidebar-border",
+          "reference": "colorPrimitives.neutral.n200",
+          "authoredValue": "{colorPrimitives.neutral.n200}",
+          "value": "oklch(0.922 0 0)",
+          "resolvedValue": "oklch(0.922 0 0)"
+        },
+        "dark": {
+          "sourcePath": "themes.dark.sidebar-border",
+          "editPath": "foundationOverrides.dark.sidebar-border",
+          "reference": "colorPrimitives.opacity.white10",
+          "authoredValue": "{colorPrimitives.opacity.white10}",
+          "value": "oklch(1 0 0 / 10%)",
+          "resolvedValue": "oklch(1 0 0 / 10%)"
+        }
+      }
+    },
+    {
+      "id": "sidebar-ring",
+      "name": "Sidebar Focus Ring",
+      "description": "Side navigation focus indicator.",
+      "pairWith": null,
+      "type": "color",
+      "cssVariable": "--sidebar-ring",
+      "themes": {
+        "light": {
+          "sourcePath": "brandCustomization.overrides.light.sidebar-ring",
+          "editPath": "foundationOverrides.light.sidebar-ring",
+          "reference": null,
+          "authoredValue": "var(--ring)",
+          "value": "var(--ring)",
+          "resolvedValue": "oklch(0.2936329848 0.1204931489 29.233885)"
+        },
+        "dark": {
+          "sourcePath": "brandCustomization.overrides.dark.sidebar-ring",
+          "editPath": "foundationOverrides.dark.sidebar-ring",
+          "reference": null,
+          "authoredValue": "var(--ring)",
+          "value": "var(--ring)",
+          "resolvedValue": "oklch(0.8968271266 0.0589434066 47.497629)"
+        }
+      }
+    },
+    {
+      "id": "selection",
+      "name": "Selection",
+      "description": "Selected text background.",
+      "pairWith": "selection-foreground",
+      "type": "color",
+      "cssVariable": "--selection",
+      "themes": {
+        "light": {
+          "sourcePath": "brandCustomization.overrides.light.selection",
+          "editPath": "foundationOverrides.light.selection",
+          "reference": "colorPrimitives.neutral.n200",
+          "authoredValue": "{colorPrimitives.neutral.n200}",
+          "value": "oklch(0.922 0 0)",
+          "resolvedValue": "oklch(0.922 0 0)"
+        },
+        "dark": {
+          "sourcePath": "brandCustomization.overrides.dark.selection",
+          "editPath": "foundationOverrides.dark.selection",
+          "reference": "colorPrimitives.neutral.n800",
+          "authoredValue": "{colorPrimitives.neutral.n800}",
+          "value": "oklch(0.269 0 0)",
+          "resolvedValue": "oklch(0.269 0 0)"
+        }
+      }
+    },
+    {
+      "id": "selection-foreground",
+      "name": "Selection Foreground",
+      "description": "Selected text on Selection.",
+      "pairWith": "selection",
+      "type": "color",
+      "cssVariable": "--selection-foreground",
+      "themes": {
+        "light": {
+          "sourcePath": "brandCustomization.overrides.light.selection-foreground",
+          "editPath": "foundationOverrides.light.selection-foreground",
+          "reference": "colorPrimitives.neutral.n950",
+          "authoredValue": "{colorPrimitives.neutral.n950}",
+          "value": "oklch(0.145 0 0)",
+          "resolvedValue": "oklch(0.145 0 0)"
+        },
+        "dark": {
+          "sourcePath": "brandCustomization.overrides.dark.selection-foreground",
+          "editPath": "foundationOverrides.dark.selection-foreground",
+          "reference": "colorPrimitives.neutral.n50",
+          "authoredValue": "{colorPrimitives.neutral.n50}",
+          "value": "oklch(0.985 0 0)",
+          "resolvedValue": "oklch(0.985 0 0)"
+        }
+      }
+    }
+  ],
+  "foundations": {
+    "colors": {
+      "editPath": "foundationOverrides",
+      "description": "Semantic color roles for each theme; customize them through this layer."
+    },
+    "typographyAndSpacing": {
+      "editPath": "density.scales",
+      "description": "Spacing and geometry scales by density. Configure fluid typography in typography.fluid.scales. Preserve the browser root size."
+    },
+    "typographyRoles": {
+      "editPath": "typography.roles",
+      "description": "Shared roles for reading text, controls, helper text, titles, and code. Fluid sizes resolve by density and width, with limits in rem."
+    },
+    "defaultDensity": {
+      "editPath": "density.default",
+      "description": "Initial scale; allowed IDs are compact/default/wide. The preference reader must follow changes to the initial value."
+    },
+    "fontFamilies": {
+      "files": [
+        "src/fonts.css",
+        "public/rams-source/fonts/OFL.txt"
+      ],
+      "description": "The viewer uses the bundled Geist families under the SIL Open Font License."
+    },
+    "radius": {
+      "editPath": "shapeCustomization",
+      "guide": "/shape-guide.md",
+      "description": "Shape roles shared across components, variants, and documentation."
+    },
+    "layoutAndMotion": {
+      "motionEditPath": "componentExtensions.details.motionTS",
+      "motionFiles": [
+        "src/variants/motion-tokens.ts",
+        "src/variants/foundations.css"
+      ],
+      "description": "Motion shares durations, curves, and springs. Verify each composition’s layout and transitions per component."
+    }
+  },
+  "motion": {
+    "schema": "rams-motion",
+    "schemaVersion": 1,
+    "sourcePath": "componentExtensions.details.motionTS",
+    "contract": "/motion.json",
+    "guide": "/motion-guide.md",
+    "page": "/#/motion",
+    "css": "src/baseline/motion.css",
+    "runtime": "src/variants/motion-policy.ts"
+  },
+  "shape": {
+    "schemaVersion": 1,
+    "sourceFile": "tokens.json",
+    "editPath": "shapeCustomization",
+    "densityIndependent": true,
+    "insets": {
+      "menu": ".3125rem",
+      "border": "1px",
+      "tabs": "3px"
+    },
+    "utilities": {
+      "sm": {
+        "role": "inset"
+      },
+      "md": {
+        "role": "control"
+      },
+      "lg": {
+        "role": "select-panel"
+      },
+      "xl": {
+        "role": "panel"
+      },
+      "2xl": {
+        "role": "surface"
+      },
+      "3xl": {
+        "role": "surface",
+        "offset": ".5rem"
+      },
+      "4xl": {
+        "role": "surface",
+        "offset": "1rem"
+      }
+    },
+    "roles": [
+      {
+        "id": "control",
+        "description": "Buttons, fields, selectors, and tooltips.",
+        "cssVariable": "--radius-control",
+        "editPath": "shapeCustomization.roles.control",
+        "sourcePath": "shapeCustomization.primitives.r18",
+        "authoredValue": "r18",
+        "value": "1.125rem",
+        "resolvedValueAt16": "18px",
+        "cssValue": "var(--radius-value-r18)"
+      },
+      {
+        "id": "panel",
+        "description": "Cards and contextual panels.",
+        "cssVariable": "--radius-panel",
+        "editPath": "shapeCustomization.roles.panel",
+        "sourcePath": "shapeCustomization.primitives.r26",
+        "authoredValue": "r26",
+        "value": "1.625rem",
+        "resolvedValueAt16": "26px",
+        "cssValue": "var(--radius-value-r26)"
+      },
+      {
+        "id": "surface",
+        "description": "Dialogs and expanded surfaces.",
+        "cssVariable": "--radius-surface",
+        "editPath": "shapeCustomization.roles.surface",
+        "sourcePath": "shapeCustomization.primitives.r34",
+        "authoredValue": "r34",
+        "value": "2.125rem",
+        "resolvedValueAt16": "34px",
+        "cssValue": "var(--radius-value-r34)"
+      },
+      {
+        "id": "select-panel",
+        "description": "Selector option list; contains its options.",
+        "cssVariable": "--radius-select-panel",
+        "editPath": "shapeCustomization.roles.select-panel",
+        "sourcePath": "shapeCustomization.roles.select-panel",
+        "authoredValue": {
+          "from": "control",
+          "offset": ".125rem"
+        },
+        "value": "1.25rem",
+        "resolvedValueAt16": "20px",
+        "cssValue": "max(0px, calc(var(--radius-control) + .125rem))"
+      },
+      {
+        "id": "select-item",
+        "description": "Option within the selector list.",
+        "cssVariable": "--radius-select-item",
+        "editPath": "shapeCustomization.roles.select-item",
+        "sourcePath": "shapeCustomization.roles.select-item",
+        "authoredValue": {
+          "from": "select-panel",
+          "inset": [
+            "menu",
+            "border"
+          ]
+        },
+        "value": "max(0px, calc(0.9375rem - 1px))",
+        "resolvedValueAt16": "14px",
+        "cssValue": "max(0px, calc(var(--radius-select-panel) - var(--shape-inset-menu) - var(--shape-inset-border)))"
+      },
+      {
+        "id": "menu-item",
+        "description": "Inner row and highlight in a menu.",
+        "cssVariable": "--radius-menu-item",
+        "editPath": "shapeCustomization.roles.menu-item",
+        "sourcePath": "shapeCustomization.roles.menu-item",
+        "authoredValue": {
+          "from": "panel",
+          "inset": [
+            "menu",
+            "border"
+          ]
+        },
+        "value": "max(0px, calc(1.3125rem - 1px))",
+        "resolvedValueAt16": "20px",
+        "cssValue": "max(0px, calc(var(--radius-panel) - var(--shape-inset-menu) - var(--shape-inset-border)))"
+      },
+      {
+        "id": "tab-item",
+        "description": "Inner tab, concentric with its container.",
+        "cssVariable": "--radius-tab-item",
+        "editPath": "shapeCustomization.roles.tab-item",
+        "sourcePath": "shapeCustomization.roles.tab-item",
+        "authoredValue": {
+          "from": "control",
+          "inset": [
+            "tabs"
+          ]
+        },
+        "value": "max(0px, calc(1.125rem - 3px))",
+        "resolvedValueAt16": "15px",
+        "cssValue": "max(0px, calc(var(--radius-control) - var(--shape-inset-tabs)))"
+      },
+      {
+        "id": "indicator",
+        "description": "Small indicators, such as a checkbox mark.",
+        "cssVariable": "--radius-indicator",
+        "editPath": "shapeCustomization.roles.indicator",
+        "sourcePath": "shapeCustomization.primitives.r5",
+        "authoredValue": "r5",
+        "value": "0.3125rem",
+        "resolvedValueAt16": "5px",
+        "cssValue": "var(--radius-value-r5)"
+      },
+      {
+        "id": "inset",
+        "description": "Small details and inset surfaces.",
+        "cssVariable": "--radius-inset",
+        "editPath": "shapeCustomization.roles.inset",
+        "sourcePath": "shapeCustomization.primitives.r10",
+        "authoredValue": "r10",
+        "value": "0.625rem",
+        "resolvedValueAt16": "10px",
+        "cssValue": "var(--radius-value-r10)"
+      },
+      {
+        "id": "pill",
+        "description": "Pills; circular shapes retain their own geometry.",
+        "cssVariable": "--radius-pill",
+        "editPath": "shapeCustomization.roles.pill",
+        "sourcePath": "shapeCustomization.primitives.full",
+        "authoredValue": "full",
+        "value": "9999px",
+        "resolvedValueAt16": "9999px",
+        "cssValue": "var(--radius-value-full)"
+      }
+    ],
+    "adapters": [
+      {
+        "slots": [
+          "dialog-content",
+          "alert-dialog-content"
+        ],
+        "role": "surface"
+      },
+      {
+        "slots": [
+          "popover-content",
+          "hover-card-content",
+          "dropdown-menu-content",
+          "dropdown-menu-sub-content",
+          "context-menu-content",
+          "context-menu-sub-content",
+          "menubar-content",
+          "menubar-sub-content",
+          "combobox-content",
+          "calendar"
+        ],
+        "role": "panel"
+      },
+      {
+        "slots": [
+          "select-content"
+        ],
+        "role": "select-panel"
+      },
+      {
+        "slots": [
+          "select-item"
+        ],
+        "role": "select-item"
+      },
+      {
+        "slots": [
+          "dropdown-menu-item",
+          "dropdown-menu-sub-trigger",
+          "dropdown-menu-checkbox-item",
+          "dropdown-menu-radio-item",
+          "context-menu-item",
+          "context-menu-sub-trigger",
+          "context-menu-checkbox-item",
+          "context-menu-radio-item",
+          "menubar-item",
+          "menubar-sub-trigger",
+          "menubar-checkbox-item",
+          "menubar-radio-item"
+        ],
+        "role": "menu-item"
+      },
+      {
+        "slots": [
+          "command-item",
+          "combobox-item",
+          "navigation-menu-trigger",
+          "navigation-menu-link"
+        ],
+        "role": "control"
+      },
+      {
+        "slots": [
+          "checkbox"
+        ],
+        "role": "indicator"
+      }
+    ],
+    "constraints": [
+      "Role-based shapes are shared across implementations and the viewer.",
+      "Inner radii derive from the container; do not duplicate values.",
+      "Circles, pills, open group corners, and decorative geometry retain their function.",
+      "Motion resolves the same CSS variables to pixels before interpolating."
+    ]
+  },
+  "typography": {
+    "schemaVersion": 1,
+    "source": "tokens.json",
+    "editPath": "typography",
+    "roles": [
+      {
+        "id": "control",
+        "description": "Input text, menu options, and table labels. Actions share this size with the Action style.",
+        "cssVariable": "--type-control-size",
+        "size": "var(--text-sm)",
+        "lineHeight": 1.5,
+        "family": "interface",
+        "editPath": "typography.roles.control",
+        "densityRanges": {
+          "compact": {
+            "minRem": 0.875,
+            "maxRem": 0.9375
+          },
+          "default": {
+            "minRem": 0.9375,
+            "maxRem": 1
+          },
+          "wide": {
+            "minRem": 1,
+            "maxRem": 1.125
+          }
+        },
+        "densitySizes": {
+          "compact": "clamp(0.875rem, calc(0.8541667rem + 0.1041667vw), 0.9375rem)",
+          "default": "clamp(0.9375rem, calc(0.9166667rem + 0.1041667vw), 1rem)",
+          "wide": "clamp(1rem, calc(0.9583333rem + 0.2083333vw), 1.125rem)"
+        }
+      },
+      {
+        "id": "body",
+        "description": "Paragraphs and reading content in an interface.",
+        "cssVariable": "--type-body-size",
+        "size": "var(--text-base)",
+        "lineHeight": 1.5,
+        "family": "interface",
+        "editPath": "typography.roles.body",
+        "densityRanges": {
+          "compact": {
+            "minRem": 1,
+            "maxRem": 1.0625
+          },
+          "default": {
+            "minRem": 1,
+            "maxRem": 1.125
+          },
+          "wide": {
+            "minRem": 1.125,
+            "maxRem": 1.25
+          }
+        },
+        "densitySizes": {
+          "compact": "clamp(1rem, calc(0.9791667rem + 0.1041667vw), 1.0625rem)",
+          "default": "clamp(1rem, calc(0.9583333rem + 0.2083333vw), 1.125rem)",
+          "wide": "clamp(1.125rem, calc(1.0833333rem + 0.2083333vw), 1.25rem)"
+        }
+      },
+      {
+        "id": "caption",
+        "description": "Help text, metadata, notes, and data labels.",
+        "cssVariable": "--type-caption-size",
+        "size": "var(--text-xs)",
+        "lineHeight": 1.4,
+        "family": "interface",
+        "editPath": "typography.roles.caption",
+        "densityRanges": {
+          "compact": {
+            "minRem": 0.75,
+            "maxRem": 0.8125
+          },
+          "default": {
+            "minRem": 0.8125,
+            "maxRem": 0.875
+          },
+          "wide": {
+            "minRem": 0.875,
+            "maxRem": 1
+          }
+        },
+        "densitySizes": {
+          "compact": "clamp(0.75rem, calc(0.7291667rem + 0.1041667vw), 0.8125rem)",
+          "default": "clamp(0.8125rem, calc(0.7916667rem + 0.1041667vw), 0.875rem)",
+          "wide": "clamp(0.875rem, calc(0.8333333rem + 0.2083333vw), 1rem)"
+        }
+      },
+      {
+        "id": "title",
+        "description": "Card and content region titles.",
+        "cssVariable": "--type-title-size",
+        "size": "var(--text-lg)",
+        "lineHeight": 1.3,
+        "family": "interface",
+        "weight": 550,
+        "tracking": {
+          "small": -0.005,
+          "large": -0.01
+        },
+        "editPath": "typography.roles.title",
+        "densityRanges": {
+          "compact": {
+            "minRem": 1.125,
+            "maxRem": 1.1875
+          },
+          "default": {
+            "minRem": 1.125,
+            "maxRem": 1.25
+          },
+          "wide": {
+            "minRem": 1.25,
+            "maxRem": 1.375
+          }
+        },
+        "densitySizes": {
+          "compact": "clamp(1.125rem, calc(1.1041667rem + 0.1041667vw), 1.1875rem)",
+          "default": "clamp(1.125rem, calc(1.0833333rem + 0.2083333vw), 1.25rem)",
+          "wide": "clamp(1.25rem, calc(1.2083333rem + 0.2083333vw), 1.375rem)"
+        }
+      },
+      {
+        "id": "heading",
+        "description": "Primary headings.",
+        "cssVariable": "--type-heading-size",
+        "size": "var(--text-3xl)",
+        "lineHeight": 1.2,
+        "family": "interface",
+        "weight": 650,
+        "tracking": {
+          "small": -0.02,
+          "large": -0.035
+        },
+        "editPath": "typography.roles.heading",
+        "densityRanges": {
+          "compact": {
+            "minRem": 1.75,
+            "maxRem": 2
+          },
+          "default": {
+            "minRem": 1.875,
+            "maxRem": 2.25
+          },
+          "wide": {
+            "minRem": 2.125,
+            "maxRem": 2.5
+          }
+        },
+        "densitySizes": {
+          "compact": "clamp(1.75rem, calc(1.6666667rem + 0.4166667vw), 2rem)",
+          "default": "clamp(1.875rem, calc(1.75rem + 0.625vw), 2.25rem)",
+          "wide": "clamp(2.125rem, calc(2rem + 0.625vw), 2.5rem)"
+        }
+      },
+      {
+        "id": "display",
+        "description": "Featured figures or headlines.",
+        "cssVariable": "--type-display-size",
+        "size": "var(--text-5xl)",
+        "lineHeight": 1.1,
+        "family": "interface",
+        "weight": 700,
+        "tracking": {
+          "small": -0.03,
+          "large": -0.05
+        },
+        "editPath": "typography.roles.display",
+        "densityRanges": {
+          "compact": {
+            "minRem": 2.5,
+            "maxRem": 3
+          },
+          "default": {
+            "minRem": 2.75,
+            "maxRem": 3.5
+          },
+          "wide": {
+            "minRem": 3.25,
+            "maxRem": 4
+          }
+        },
+        "densitySizes": {
+          "compact": "clamp(2.5rem, calc(2.3333333rem + 0.8333333vw), 3rem)",
+          "default": "clamp(2.75rem, calc(2.5rem + 1.25vw), 3.5rem)",
+          "wide": "clamp(3.25rem, calc(3rem + 1.25vw), 4rem)"
+        }
+      },
+      {
+        "id": "code",
+        "description": "Code and monospace content.",
+        "cssVariable": "--type-code-size",
+        "size": "var(--text-xs)",
+        "lineHeight": 1.7,
+        "family": "code",
+        "editPath": "typography.roles.code",
+        "densityRanges": {
+          "compact": {
+            "minRem": 0.75,
+            "maxRem": 0.8125
+          },
+          "default": {
+            "minRem": 0.8125,
+            "maxRem": 0.875
+          },
+          "wide": {
+            "minRem": 0.875,
+            "maxRem": 1
+          }
+        },
+        "densitySizes": {
+          "compact": "clamp(0.75rem, calc(0.7291667rem + 0.1041667vw), 0.8125rem)",
+          "default": "clamp(0.8125rem, calc(0.7916667rem + 0.1041667vw), 0.875rem)",
+          "wide": "clamp(0.875rem, calc(0.8333333rem + 0.2083333vw), 1rem)"
+        }
+      }
+    ],
+    "styles": {
+      "action": {
+        "weight": 500,
+        "lineHeight": 1.4,
+        "tracking": 0,
+        "primaryWeight": 700
+      }
+    },
+    "numerals": {
+      "dataFamily": "interface",
+      "variant": "lining-nums tabular-nums"
+    },
+    "fluid": {
+      "viewport": {
+        "minRem": 20,
+        "maxRem": 80
+      },
+      "scales": {
+        "compact": {
+          "text-xs": {
+            "minRem": 0.75,
+            "maxRem": 0.8125
+          },
+          "text-sm": {
+            "minRem": 0.875,
+            "maxRem": 0.9375
+          },
+          "text-base": {
+            "minRem": 1,
+            "maxRem": 1.0625
+          },
+          "text-lg": {
+            "minRem": 1.125,
+            "maxRem": 1.1875
+          },
+          "text-xl": {
+            "minRem": 1.25,
+            "maxRem": 1.375
+          },
+          "text-2xl": {
+            "minRem": 1.5,
+            "maxRem": 1.625
+          },
+          "text-3xl": {
+            "minRem": 1.75,
+            "maxRem": 2
+          },
+          "text-4xl": {
+            "minRem": 2,
+            "maxRem": 2.375
+          },
+          "text-5xl": {
+            "minRem": 2.5,
+            "maxRem": 3
+          }
+        },
+        "default": {
+          "text-xs": {
+            "minRem": 0.8125,
+            "maxRem": 0.875
+          },
+          "text-sm": {
+            "minRem": 0.9375,
+            "maxRem": 1
+          },
+          "text-base": {
+            "minRem": 1,
+            "maxRem": 1.125
+          },
+          "text-lg": {
+            "minRem": 1.125,
+            "maxRem": 1.25
+          },
+          "text-xl": {
+            "minRem": 1.375,
+            "maxRem": 1.5
+          },
+          "text-2xl": {
+            "minRem": 1.625,
+            "maxRem": 1.875
+          },
+          "text-3xl": {
+            "minRem": 1.875,
+            "maxRem": 2.25
+          },
+          "text-4xl": {
+            "minRem": 2.25,
+            "maxRem": 2.625
+          },
+          "text-5xl": {
+            "minRem": 2.75,
+            "maxRem": 3.5
+          }
+        },
+        "wide": {
+          "text-xs": {
+            "minRem": 0.875,
+            "maxRem": 1
+          },
+          "text-sm": {
+            "minRem": 1,
+            "maxRem": 1.125
+          },
+          "text-base": {
+            "minRem": 1.125,
+            "maxRem": 1.25
+          },
+          "text-lg": {
+            "minRem": 1.25,
+            "maxRem": 1.375
+          },
+          "text-xl": {
+            "minRem": 1.5,
+            "maxRem": 1.625
+          },
+          "text-2xl": {
+            "minRem": 1.75,
+            "maxRem": 2
+          },
+          "text-3xl": {
+            "minRem": 2.125,
+            "maxRem": 2.5
+          },
+          "text-4xl": {
+            "minRem": 2.5,
+            "maxRem": 3
+          },
+          "text-5xl": {
+            "minRem": 3.25,
+            "maxRem": 4
+          }
+        }
+      }
+    },
+    "opticalBreakpointRem": 64,
+    "families": {
+      "interface": "var(--font-sans)",
+      "editorial": "var(--font-serif)",
+      "code": "var(--font-mono)"
+    },
+    "input": {
+      "cssVariable": "--type-input-size",
+      "role": "control",
+      "mobileMinimum": "1rem",
+      "breakpoint": "48rem"
+    }
+  },
+  "extensions": {
+    "components": {
+      "sourcePath": "componentExtensions",
+      "namespace": "--rams-detail-",
+      "guide": "/component-integration.md",
+      "description": "Shared RAMS roles and additional component details."
+    }
+  },
+  "constraints": [
+    "Brand Color, Primary, Accent, and Selection are independent roles, even when they share primitives.",
+    "Brand derivatives are explicit decisions; changing Brand Color does not recalculate them.",
+    "After customization, verify color pairs, hover, focus, both themes, and real components.",
+    "The preset’s contrast results are not inherited automatically when its foundations change."
+  ]
+}

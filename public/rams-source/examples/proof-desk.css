@@ -1,0 +1,14 @@
+.proof-desk { max-inline-size:var(--rams-detail-example-page-measure-standard); margin-inline:auto; padding:var(--rams-detail-example-page-inset); color:var(--rams-ink); font-size:var(--type-body-size); line-height:var(--type-body-leading); overflow-wrap:anywhere; }
+.proof-desk header { max-inline-size:var(--rams-detail-example-intro-measure); margin-block-end:var(--rams-detail-example-section-gap-wide); }
+.proof-desk header p { color:var(--rams-muted); font-size:var(--type-control-size); }
+.proof-desk h1 { margin-block:var(--rams-detail-example-title-margin-block); }
+.proof-desk-record { margin-block-end:var(--rams-detail-example-section-gap); }
+.proof-desk-record h2 { font-size:var(--type-title-size); font-weight:var(--rams-detail-example-subheading-weight); }
+.proof-desk-actions { display:flex; flex-wrap:wrap; align-items:center; gap:var(--rams-detail-preview-element-gap); margin-block-end:var(--rams-detail-example-section-gap); }
+.proof-desk-reference { color:inherit; text-decoration:underline; text-underline-offset:var(--rams-detail-example-reference-underline-offset); }
+.proof-desk-form { display:grid; gap:var(--rams-detail-preview-scene-gap); }
+.proof-desk-paper .rams-button { margin-block-start:var(--rams-detail-preview-scene-gap); }
+.proof-desk-sheet-body { padding-inline:var(--rams-detail-preview-field-group-gap); }
+.proof-desk-sheet-body label { margin-block-end:var(--rams-detail-docs-space-tight); }
+
+.proof-desk-error { color:var(--rams-danger); font-size:var(--type-control-size); }

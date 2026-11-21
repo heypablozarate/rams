@@ -1,0 +1,88 @@
+.figure { display: grid; min-width: 0; gap: var(--rams-detail-space-3); margin: 0; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+
+/* Series colors (--rams-detail-series-1 to --rams-detail-series-4) come from registry/foundation.css. */
+
+/* Breadcrumb on the left, the total of what fills the view on the right. */
+.bar { display: flex; flex-wrap: wrap; min-width: 0; align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3); }
+/* Pull the trail back by the crumb padding, so the first label lines up with the tiles and the title. */
+.crumbs { min-width: 0; flex: var(--rams-detail-layout-flex-max-content); max-width: 100%; margin-left: calc(-1 * var(--rams-detail-treemap-crumb-label-padding)); }
+.crumbList { position: relative; display: flex; min-width: 0; min-height: var(--rams-detail-treemap-crumb-min-height); flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; }
+.crumb { display: inline-flex; align-items: center; min-width: 0; max-width: 100%; }
+.crumbSep { padding: 0 var(--rams-detail-treemap-crumb-label-padding); color: var(--rams-detail-border-strong); font-size: var(--rams-detail-text-sm); }
+.crumbButton { min-inline-size: 0; min-block-size: var(--rams-detail-treemap-crumb-min-height); min-height: var(--rams-detail-treemap-crumb-min-height); padding: 0 var(--rams-detail-treemap-crumb-button-padding); margin: 0 calc(-1 * var(--rams-detail-treemap-crumb-button-overlap)); border: 0; border-radius: var(--radius-control); background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer; font: inherit; font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); white-space: normal; overflow-wrap: anywhere; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.crumbButton:active { transform: scale(var(--rams-motion-treemap-crumb-press-scale)); }
+.crumbCurrent { padding: 0 var(--rams-detail-treemap-crumb-label-padding); color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); white-space: normal; overflow-wrap: anywhere; }
+@media (hover: hover) and (pointer: fine) { .crumbButton:hover { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-treemap-crumb-hover-share), transparent); color: var(--rams-detail-foreground); } }
+.total { position: relative; display: inline-grid; flex: none; justify-items: end; overflow: hidden; margin: 0; color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-chart-value-weight); line-height: var(--rams-detail-leading-body); }
+.totalValue { display: block; }
+
+/* Tiles are absolutely placed and sized each frame, so text never scales while a tile grows or shrinks. */
+.stage { position: relative; min-width: 0; overflow: hidden; border-radius: var(--rams-detail-treemap-stage-radius); outline: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+.tile { box-sizing: border-box; position: absolute; top: 0; left: 0; display: flex; flex-direction: column; gap: var(--rams-detail-treemap-leaf-line-gap); overflow: hidden; padding: var(--rams-detail-treemap-leaf-block-padding) var(--rams-detail-treemap-leaf-inline-padding); border-radius: var(--rams-detail-treemap-tile-radius); background: var(--rams-detail-fill); color: var(--rams-detail-foreground); cursor: pointer; visibility: hidden; will-change: transform, width, height; transition: background-color var(--rams-detail-duration-considered) var(--rams-detail-ease-standard), color var(--rams-detail-duration-considered) var(--rams-detail-ease-standard), filter var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), box-shadow var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.tile[data-branch][data-level="1"] { padding: var(--rams-detail-treemap-branch-header-padding); border-radius: var(--rams-detail-treemap-branch-radius); background: color-mix(in oklab, var(--rams-detail-hue) var(--rams-detail-treemap-branch-fill-share), var(--rams-detail-surface)); color: var(--rams-detail-foreground); cursor: zoom-in; }
+.tileLabel, .tileValue { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--rams-detail-text-xs); line-height: var(--rams-detail-treemap-tile-leading); opacity: 0; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.tileLabel { font-weight: var(--rams-detail-treemap-label-weight); }
+.tileValue { opacity: 0; }
+.tile[data-room="name"] .tileLabel, .tile[data-room="full"] .tileLabel, .tile[data-room="full"] .tileValue { opacity: 1; }
+.tile[data-room="full"] .tileValue { opacity: var(--rams-detail-treemap-leaf-value-opacity); }
+/* A branch on the top level prints its name and total on one header line. */
+.tile[data-branch][data-level="1"] { flex-direction: row; align-items: baseline; justify-content: space-between; gap: var(--rams-detail-treemap-branch-label-value-gap); }
+.tile[data-branch][data-level="1"] .tileValue { flex: none; opacity: var(--rams-detail-treemap-branch-value-opacity); }
+.tile[data-branch][data-level="1"][data-room="none"] .tileLabel, .tile[data-branch][data-level="1"][data-room="none"] .tileValue { opacity: 0; }
+.tile[data-branch][data-level="1"][data-room="name"] .tileValue { display: none; }
+.tile[data-level="1"] { border-radius: var(--rams-detail-treemap-branch-radius); }
+.tile[data-level="2"] { padding: var(--rams-detail-treemap-leaf-level-2-block-padding) var(--rams-detail-treemap-leaf-level-2-inline-padding); border-radius: var(--rams-detail-treemap-nested-tile-radius); }
+
+.tile[data-active] { box-shadow: inset 0 0 0 var(--rams-detail-treemap-active-ring-width) var(--rams-detail-foreground); }
+.tile[data-lineage] { box-shadow: inset 0 0 0 var(--rams-detail-treemap-lineage-ring-width) color-mix(in oklab, var(--rams-detail-hue) var(--rams-detail-treemap-lineage-share), transparent); }
+.stage[data-active] .tile[data-dim] { filter: opacity(var(--rams-detail-treemap-dim-opacity)); }
+
+.message { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); pointer-events: none; }
+
+.tooltip { position: absolute; top: 0; left: 0; z-index: var(--rams-detail-treemap-tooltip-layer); display: grid; box-sizing: border-box; min-width: min(100%, var(--rams-detail-treemap-tooltip-min-inline)); max-width: min(100%, var(--rams-detail-treemap-tooltip-max-inline)); grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-treemap-tooltip-row-gap); padding: var(--rams-detail-chart-tooltip-fixed-padding); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--radius-panel); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); opacity: 0; pointer-events: none; scale: var(--rams-motion-treemap-tooltip-hidden-scale); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), scale var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.stage[data-active] .tooltip { opacity: 1; scale: var(--rams-detail-transform-rest-scale); }
+.tipTitle { margin: 0; overflow: hidden; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); text-overflow: ellipsis; white-space: nowrap; }
+.tipValue { display: flex; align-items: baseline; justify-content: space-between; gap: var(--rams-detail-treemap-tooltip-value-gap); margin: 0; font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-treemap-tooltip-leading); }
+.tipName { min-width: 0; overflow: hidden; color: var(--rams-detail-foreground); text-overflow: ellipsis; white-space: nowrap; }
+.tipAmount { flex: none; color: var(--rams-detail-foreground); font-weight: var(--rams-detail-chart-value-weight); }
+.tipNote { margin: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); font-variant-numeric: var(--type-data-variant); }
+
+/* The color scale: stepped swatches from light to dark, never a gradient. */
+.scale { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: var(--rams-detail-treemap-scale-gap); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); font-variant-numeric: var(--type-data-variant); }
+.scaleLabel { margin-right: var(--rams-detail-treemap-scale-label-gap); color: var(--rams-detail-text-secondary); }
+.steps { display: inline-flex; gap: var(--rams-detail-treemap-scale-step-gap); }
+.step { width: var(--rams-detail-treemap-scale-step-inline); height: var(--rams-detail-treemap-scale-step-block); border-radius: var(--rams-detail-treemap-scale-step-radius); background: var(--rams-detail-fill); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tile, .tileLabel, .tileValue, .tooltip, .crumbButton { transition: none; }
+}
+
+:where(.figure,.bar,.crumbs,.crumbList,.crumb,.crumbSep,.crumbButton,.crumbCurrent,.total,.totalValue,.stage,.tile,.tileLabel,.tileValue,.message,.tooltip,.tipTitle,.tipValue,.tipName,.tipAmount,.tipNote,.scale,.scaleLabel,.steps,.step,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.total, .tileValue, .tipAmount { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* A name-only leaf must not shrink its visible line to make room for an invisible value. */
+.tile:not([data-branch]) .tileLabel, .tile:not([data-branch]) .tileValue { flex-shrink: 0; }
+.tile:not([data-branch])[data-room="name"] .tileValue { display: none; }
+
+/* Branch headers reserve two type lines so their names remain visible beside totals. */
+.tile[data-branch][data-level="1"] { align-items: flex-start; }
+.tile[data-branch][data-level="1"] .tileLabel { min-width: 0; white-space: normal; text-overflow: clip; line-height: var(--rams-detail-treemap-tile-leading); max-block-size: calc(var(--rams-detail-treemap-tile-label-lines) * var(--rams-detail-treemap-tile-leading) * 1em); }
+
+/* Leaf names can use two lines instead of losing words to an ellipsis. */
+.tileLabel { white-space: normal; text-overflow: clip; line-height: var(--rams-detail-treemap-tile-leading); overflow-wrap: normal; }
+.tipName { white-space: normal; text-overflow: clip; overflow-wrap: normal; }
+.tipValue { align-items: flex-start; }
+
+@media (prefers-reduced-motion: reduce) {
+  .crumb { transform: none !important; }
+  .crumbButton:active { transform: none; }
+}
+
+/* Allow narrow details to wrap without changing the usual chart composition. */
+.total { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+.tipValue { flex-wrap: wrap; }
+.tipName { overflow-wrap: anywhere; }
+.tipAmount { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }

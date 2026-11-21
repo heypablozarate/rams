@@ -1,0 +1,96 @@
+.edition-wall {
+  max-inline-size: var(--rams-detail-example-page-measure-wide);
+  margin-inline: auto;
+  padding: var(--rams-detail-example-page-inset);
+  color: var(--rams-ink);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-leading);
+  overflow-wrap: anywhere;
+}
+.edition-wall header {
+  max-inline-size: var(--rams-detail-example-intro-measure-wall);
+  margin-block-end: var(--rams-detail-example-section-gap);
+}
+.edition-wall header p {
+  font-size: var(--type-control-size);
+  color: var(--rams-muted);
+}
+.wall-panels {
+  block-size: var(--rams-detail-example-wall-panels-height);
+}
+.wall-artwork,
+.wall-notes {
+  padding: var(--rams-detail-preview-scene-gap);
+  min-inline-size: 0;
+}
+.wall-artwork figure {
+  margin: 0;
+}
+.wall-artwork svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+.wall-artwork figcaption {
+  padding-block: var(--rams-detail-preview-element-gap);
+  font-size: var(--type-control-size);
+}
+.wall-artwork figcaption strong,
+.wall-artwork figcaption span {
+  display: block;
+}
+.wall-artwork figcaption span {
+  color: var(--rams-muted);
+}
+.wall-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rams-detail-preview-element-gap);
+}
+.wall-controls span {
+  margin-inline-start: auto;
+  font-size: var(--type-caption-size);
+}
+.wall-keep {
+  margin-block-start: var(--rams-detail-preview-scene-gap);
+}
+.wall-notes h2 {
+  font-size: var(--type-title-size);
+  margin-block-start: 0;
+}
+.wall-notes label {
+  margin-block: var(--rams-detail-preview-scene-gap) var(--rams-detail-docs-space-tight);
+}
+.wall-artwork {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  box-sizing: border-box;
+}
+.wall-artwork > .rams-carousel {
+  flex: var(--rams-detail-layout-flex-fill);
+  min-block-size: 0;
+}
+.wall-artwork .rams-carousel__track {
+  block-size: 100%;
+}
+.wall-artwork .rams-carousel__slide figure {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  min-block-size: 0;
+}
+.wall-artwork svg {
+  flex: var(--rams-detail-layout-flex-fill);
+  min-block-size: 0;
+  block-size: 100%;
+}
+.wall-artwork figcaption,
+.wall-controls,
+.wall-keep {
+  flex: none;
+}
+.wall-keep {
+  align-self: flex-start;
+}

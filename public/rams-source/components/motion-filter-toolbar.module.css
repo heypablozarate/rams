@@ -1,0 +1,106 @@
+.toolbar { position: relative; display: flex; width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; flex-wrap: wrap; min-height: var(--rams-detail-control-height-lg); align-items: flex-start; justify-content: space-between; gap: var(--rams-detail-space-4); padding: var(--rams-detail-space-3) var(--rams-detail-space-4); border: var(--rams-detail-menu-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface); }
+/* The frame springs to the chip list height, so a new line of chips opens the toolbar instead of snapping it. */
+.frame { width: 100%; min-width: 0; max-width: 100%; min-height: var(--rams-detail-filter-list-height, var(--rams-detail-filter-list-height-fallback)); flex: 1 1 var(--rams-detail-filter-lane-basis); }
+.chips { position: relative; display: flex; width: 100%; max-width: 100%; min-width: 0; min-height: var(--rams-detail-control-height-sm); flex-wrap: wrap; align-items: center; gap: var(--rams-detail-space-2); }
+/* Final slot geometry participates in wrapping from insertion; reveal never changes layout. */
+.slot { display: inline-flex; max-width: 100%; min-width: 0; flex: none; border-radius: var(--rams-detail-radius-pill); }
+.slotVisual { display: inline-flex; min-width: 0; max-width: 100%; }
+/* The measured list width bounds every chip, including a long value. */
+.chip { display: inline-flex; box-sizing: border-box; min-width: 0; max-width: var(--rams-detail-filter-available, var(--rams-detail-filter-available-fallback)); flex: none; min-height: var(--rams-detail-control-height-sm); align-items: center; gap: var(--rams-detail-space-2); padding: 0 var(--rams-detail-space-2) 0 var(--rams-detail-space-3); border: var(--rams-detail-menu-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-surface-muted); color: var(--rams-detail-text-secondary); font-size: var(--type-control-size); }
+.chipLabel { display: inline-flex; min-width: 0; align-items: baseline; overflow: hidden; white-space: nowrap; }
+.chipField { min-width: 0; flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; }
+/* Cap only against the available lane, not the chip's intrinsic text width.
+   Reserve a text-sized space for the separator and an ellipsis. */
+.value { display: inline-flex; min-width: 0; align-items: baseline; color: var(--rams-detail-foreground); font-weight: var(--rams-detail-menu-text-weight); }
+.separator { flex: none; white-space: pre; color: var(--rams-detail-text-secondary); font-weight: var(--rams-detail-menu-body-weight); }
+.morphText { position: relative; display: inline-flex; min-width: 0; max-width: 100%; overflow-x: clip; overflow-y: visible; white-space: nowrap; vertical-align: bottom; }
+.morphValue { position: absolute; top: 0; inset-inline-start: 0; display: block; width: 100%; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.measure { position: relative; display: inline-block; visibility: hidden; white-space: nowrap; pointer-events: none; }
+.chip button { display: grid; width: var(--rams-detail-menu-dismiss-size); height: var(--rams-detail-menu-dismiss-size); flex: 0 0 var(--rams-detail-menu-dismiss-size); place-items: center; border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-text-muted); cursor: pointer; transition: background var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.chip button:active { transform: scale(var(--rams-detail-menu-press-scale)); transition-duration: var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard), var(--rams-detail-ease-standard), var(--rams-detail-ease-standard); }
+.empty { position: absolute; top: 0; bottom: 0; left: 0; display: flex; max-width: 100%; align-items: center; overflow: hidden; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); white-space: nowrap; pointer-events: none; }
+.actions { display: inline-flex; min-width: 0; max-width: 100%; flex: 0 1 auto; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: var(--rams-detail-space-3); }
+.clear { min-width: 0; max-width: 100%; min-height: var(--rams-detail-control-height-sm); padding: 0 var(--rams-detail-space-3); border: 0; border-radius: var(--rams-detail-radius-control); background: transparent; color: var(--rams-detail-text-muted); font: inherit; font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); letter-spacing: var(--rams-detail-tracking-body); white-space: normal; overflow-wrap: anywhere; cursor: pointer; transition: background var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.clearText { display: block; }
+.clear:active { transform: scale(var(--rams-detail-menu-press-scale)); transition-duration: var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard), var(--rams-detail-ease-standard), var(--rams-detail-ease-standard); }
+.srOnly { position: absolute; inline-size: var(--rams-detail-accessible-hidden-inline-size); block-size: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+/* Add filter: the trigger is transparent and the surface behind it is the button's rounded rectangle.
+   Opening springs that same surface to the panel size, so the button itself becomes the menu. */
+.menu { position: relative; display: inline-flex; min-width: 0; max-width: 100%; flex: none; isolation: isolate; }
+.menu:not([data-state="closed"]) { z-index: var(--rams-detail-menu-content-z); }
+.trigger { min-width: 0; max-width: 100%; box-sizing: border-box; position: relative; z-index: var(--rams-detail-local-overlay-layer); display: inline-flex; min-height: var(--rams-detail-control-height-sm); align-items: center; padding: 0 var(--rams-detail-space-3); border: var(--rams-detail-menu-border-width) solid transparent; border-radius: var(--rams-detail-radius-control); background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-menu-text-weight); line-height: var(--rams-detail-leading-body); letter-spacing: var(--rams-detail-tracking-body); white-space: normal; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.menu[data-state="open"] .trigger { pointer-events: none; }
+/* A settled menu state wins over morph progress even when the two widths are equal. */
+.menu[data-state="closed"] .face { opacity: 1 !important; transform: none !important; filter: none !important; }
+.face { display: inline-flex; min-width: 0; max-width: 100%; align-items: center; gap: var(--rams-detail-space-2); }
+.face svg { flex: none; }
+.triggerLabel { min-width: 0; overflow-wrap: anywhere; }
+/* clip, not hidden: focus and scripts cannot scroll the panel inside the growing shape. */
+.surface { position: absolute; top: 0; z-index: var(--rams-detail-layer-base); box-sizing: border-box; overflow: clip; border: var(--rams-detail-menu-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-surface); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), border-radius var(--rams-detail-duration-spring) var(--rams-detail-ease-spring), box-shadow var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.menu[data-y="up"] .surface { top: auto; bottom: 0; }
+.menu[data-state="open"] .surface { border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-menu-elevation); }
+/* The trigger anchors the panel, so a press answers in color and never scales. */
+.menu[data-state="closed"] .trigger:active + .surface { background: var(--rams-detail-menu-highlight-fill); }
+@media (hover: hover) and (pointer: fine) {
+  .menu[data-state="closed"] .trigger:hover + .surface { background: var(--rams-detail-surface-muted); box-shadow: var(--rams-detail-shadow-resting); }
+}
+.panel { box-sizing: border-box; position: absolute; top: 0; left: 0; width: min(var(--rams-detail-filter-menu-width, var(--rams-detail-filter-menu-inline-size)), calc(min(var(--rams-detail-menu-viewport-inline-size), var(--rams-detail-filter-menu-available-inline, var(--rams-detail-menu-viewport-inline-size))) - 2 * var(--rams-detail-filter-menu-collision-inline, var(--rams-detail-menu-collision-inset)) - 2 * var(--rams-detail-menu-border-width))); padding: var(--rams-detail-menu-padding); outline: none; }
+.menu[data-y="up"] .panel { top: auto; bottom: 0; }
+.menu[data-state="closed"] .panel { visibility: hidden; }
+.head { display: flex; min-height: var(--rams-detail-menu-header-block-size); align-items: center; padding: 0 var(--rams-detail-menu-item-padding-inline); }
+.menu[data-y="up"] .head { margin-top: var(--rams-detail-menu-header-gap); }
+.back { display: grid; width: var(--rams-detail-menu-dismiss-size); height: var(--rams-detail-menu-dismiss-size); flex: none; place-items: center; margin-inline-start: calc(var(--rams-detail-menu-item-padding-inline) * -1); padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.back:active { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+.title { position: relative; display: flex; min-width: 0; color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-menu-text-weight); letter-spacing: var(--rams-detail-tracking-body); white-space: nowrap; }
+.titleText { display: block; }
+.stage { position: relative; margin-top: var(--rams-detail-menu-header-gap); }
+.step { width: 100%; }
+.list { position: relative; display: grid; max-height: var(--rams-detail-filter-list-max-block-size); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.highlight { position: absolute; top: 0; right: 0; left: 0; border-radius: var(--rams-detail-menu-inner-radius); background: var(--rams-detail-menu-highlight-fill); opacity: 0; pointer-events: none; }
+.item:focus-visible { outline: none; }
+.item { position: relative; display: flex; min-width: 0; min-height: var(--rams-detail-menu-item-min-block-size); align-items: center; gap: var(--rams-detail-menu-item-gap); padding: var(--rams-detail-menu-item-padding-block) var(--rams-detail-menu-item-padding-inline); border: 0; border-radius: var(--rams-detail-menu-inner-radius); background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--rams-detail-text-sm); letter-spacing: var(--rams-detail-tracking-body); text-align: start; cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent; }
+.itemIcon { display: inline-flex; min-width: var(--rams-detail-menu-glyph-size); flex: none; align-items: center; justify-content: center; color: var(--rams-detail-text-secondary); }
+.itemLabel { min-width: 0; flex: var(--rams-detail-layout-flex-fill); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.itemMeta { display: inline-flex; min-width: 0; flex: none; align-items: center; gap: var(--rams-detail-menu-item-gap); max-width: var(--rams-detail-menu-meta-max-inline-size); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.metaValue { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hint { min-width: var(--rams-detail-menu-hint-min-inline-size); text-align: end; }
+.check { display: inline-flex; width: var(--rams-detail-menu-glyph-size); color: var(--rams-detail-foreground); opacity: 0; }
+.check[data-on] { opacity: 1; }
+/* Long names can wrap inside the available menu lane while the controls keep their target size. */
+.titleText { min-inline-size: 0; }
+.title, .itemLabel { white-space: normal; overflow-wrap: anywhere; }
+@media (hover: hover) and (pointer: fine) {
+  .chip button:hover { background: var(--rams-detail-border); color: var(--rams-detail-foreground); }
+  .clear:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+  .back:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+}
+/* Wrapping follows the containing width; viewport breakpoints must not create an intrinsic-width column. */
+.menu:dir(rtl) :is(.back > svg, .drillIcon) { transform: var(--rams-detail-direction-inline-reflection-transform); }
+@media (prefers-reduced-motion: reduce) { .chip button, .clear, .surface, .back { transition: none; } .chip button:active, .clear:active { transform: none; } }
+:where(.toolbar,.frame,.chips,.slot,.chip,.chipLabel,.value,.separator,.morphText,.morphValue,.measure,.empty,.actions,.clear,.clearText,.srOnly,.menu,.trigger,.face,.surface,.panel,.head,.back,.title,.titleText,.stage,.step,.list,.highlight,.item,.itemIcon,.itemLabel,.itemMeta,.metaValue,.hint,.check):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Owned action controls retain the toolbar's existing hit areas and glyph sizes. */
+.back, .chip button { min-inline-size: 0; min-block-size: 0; padding: 0; box-shadow: none; }
+.back, .trigger, .clear, .chip button { filter: none; }
+.back > svg { inline-size: var(--rams-detail-menu-glyph-size); block-size: var(--rams-detail-menu-glyph-size); }
+.chip button > svg { inline-size: var(--rams-detail-menu-glyph-size); block-size: var(--rams-detail-menu-glyph-size); }
+
+/* Reserve the remove action while letting field and value occupy separate lines. */
+.toolbar { padding-inline: min(var(--rams-detail-space-4), var(--rams-detail-filter-toolbar-fluid-inset)); }
+/* Keep the whole value readable by letting the remove action reflow at the end. */
+.chip { flex-wrap: wrap; padding-inline: var(--rams-detail-space-3) var(--rams-detail-space-2); column-gap: var(--rams-detail-space-2); row-gap: 0; }
+.chipLabel { flex-wrap: wrap; overflow: visible; white-space: normal; }
+.chipLabel[data-has-value] .chipField, .value { flex: none; max-inline-size: 100%; }
+.chip button { margin-inline-start: auto; }
+
+/* Shared menu anatomy; scoped inner radius is recomputed at the surface. */
+.panel { --rams-menu-padding: var(--rams-detail-menu-padding); --rams-menu-border: var(--rams-detail-menu-border-width); --rams-menu-radius: var(--rams-detail-menu-radius); color: var(--rams-detail-menu-ink); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-menu-leading); }
+ .menu[data-state="open"] .surface { border-color: var(--rams-detail-menu-border); border-radius: var(--rams-detail-menu-radius); background: var(--rams-detail-menu-fill); }
+
+.item { color: var(--rams-detail-menu-ink); line-height: var(--rams-detail-menu-leading); }
+
+/* Roving pointer and keyboard highlight use the same semantic paint pair. */
+.item[data-highlighted] { color: var(--rams-detail-menu-highlight-ink); }
+.highlight[data-ring] { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: calc(-1 * var(--rams-detail-focus-outline-width)); }
+.item[data-highlighted] :is(.itemIcon, .itemMeta, .check) { color: inherit; }

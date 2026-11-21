@@ -1,0 +1,172 @@
+.section {
+  container: logos / inline-size;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border);
+  border-radius: var(--rams-detail-radius-surface);
+  background: var(--rams-detail-surface);
+  color: var(--rams-detail-foreground);
+  font-family: var(--rams-detail-font-body);
+  font-size: var(--rams-detail-text-sm);
+  letter-spacing: var(--rams-detail-tracking-body);
+  line-height: var(--rams-detail-leading-body);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, var(--rams-detail-logo-marquee-intro-secondary-track));
+  align-items: end;
+  gap: var(--rams-detail-logo-marquee-intro-gap);
+  padding: var(--rams-detail-logo-marquee-intro-inset) var(--rams-detail-logo-marquee-intro-inset) var(--rams-detail-logo-marquee-intro-bottom-inset);
+}
+
+.intro h2 {
+  max-width: var(--rams-detail-logo-marquee-title-max);
+  margin: 0;
+  font-family: var(--rams-detail-font-display);
+  font-size: var(--rams-detail-text-3xl);
+  font-weight: var(--rams-detail-logo-marquee-title-weight);
+  line-height: var(--rams-detail-leading-display);
+  text-wrap: balance;
+  letter-spacing: var(--rams-detail-tracking-display);
+}
+
+.intro p {
+  max-width: var(--rams-detail-logo-marquee-description-max);
+  margin: 0 0 var(--rams-detail-logo-marquee-description-offset);
+  color: var(--rams-detail-text-secondary);
+  font-size: var(--rams-detail-text-base);
+  line-height: var(--rams-detail-leading-body);
+  text-wrap: pretty;
+}
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  border-top: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-subtle);
+  border-bottom: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-subtle);
+  padding-block: var(--rams-detail-logo-marquee-row-inset);
+  mask-image: linear-gradient(to right, transparent, var(--rams-detail-detail-logo-marquee-mask-image-81ef715e) var(--rams-detail-logo-marquee-edge-fade), var(--rams-detail-detail-logo-marquee-mask-image-81ef715e) calc(100% - var(--rams-detail-logo-marquee-edge-fade)), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, var(--rams-detail-detail-logo-marquee-webkit-mask-image-81ef715e) var(--rams-detail-logo-marquee-edge-fade), var(--rams-detail-detail-logo-marquee-webkit-mask-image-81ef715e) calc(100% - var(--rams-detail-logo-marquee-edge-fade)), transparent);
+}
+
+.section:focus-visible { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: calc(-1 * var(--rams-detail-focus-outline-width)); }
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: travel var(--rams-motion-logo-marquee-cycle-duration) var(--rams-motion-activity-ease) var(--rams-motion-active-iterations);
+  will-change: transform;
+}
+
+.track.paused {
+  animation-play-state: paused;
+}
+
+/* Hovering the row holds it still, so a logo can be read. */
+@media (hover: hover) and (pointer: fine) {
+  .marquee:hover .track { animation-play-state: paused; }
+}
+
+.brandList {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--rams-detail-logo-marquee-brand-gap);
+  margin: 0;
+  padding: 0 var(--rams-detail-logo-marquee-brand-gap) 0 0;
+  list-style: none;
+}
+
+.brand {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--rams-detail-logo-marquee-brand-content-gap);
+  color: var(--rams-detail-text-secondary);
+  white-space: nowrap;
+}
+
+.brandMark {
+  display: block;
+  width: var(--rams-detail-logo-marquee-mark-size);
+  height: var(--rams-detail-logo-marquee-mark-size);
+  flex: none;
+  background: currentColor;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+img.brandMark { background: none; object-fit: contain; }
+
+/* In color tone the marks carry the brand color and the names read at full contrast; black and white marks follow the text. */
+.section[data-tone="color"] .brand { color: var(--rams-detail-foreground); }
+
+.brandName {
+  font-size: var(--rams-detail-text-lg);
+  font-weight: var(--rams-detail-logo-marquee-name-weight);
+  letter-spacing: var(--rams-detail-tracking-body);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--rams-detail-logo-marquee-footer-gap);
+  padding: var(--rams-detail-logo-marquee-footer-block-inset) var(--rams-detail-logo-marquee-footer-inline-inset);
+}
+
+.motionButton { color: var(--rams-detail-text-secondary); }
+.motionStatus {
+  position: absolute;
+  width: var(--rams-detail-accessible-hidden-inline-size);
+  height: var(--rams-detail-accessible-hidden-block-size);
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@keyframes travel {
+  to { transform: var(--rams-detail-logo-marquee-cycle-end-transform); }
+}
+
+@container logos (max-width: 639px) {
+  .intro {
+    grid-template-columns: var(--rams-detail-layout-grid-fill-track);
+    gap: var(--rams-detail-logo-marquee-compact-intro-gap);
+    padding: var(--rams-detail-logo-marquee-compact-intro-block-start) var(--rams-detail-logo-marquee-compact-intro-inline) var(--rams-detail-logo-marquee-compact-intro-block-end);
+  }
+
+  .intro h2 { font-size: var(--rams-detail-text-2xl); }
+  .intro p { font-size: var(--rams-detail-text-sm); }
+  .marquee { padding-block: var(--rams-detail-logo-marquee-compact-row-inset); }
+  .brandList { gap: var(--rams-detail-logo-marquee-compact-brand-gap); padding-right: var(--rams-detail-logo-marquee-compact-brand-gap); }
+  .brandName { font-size: var(--rams-detail-text-base); }
+  .brandMark { width: var(--rams-detail-logo-marquee-compact-mark-size); height: var(--rams-detail-logo-marquee-compact-mark-size); }
+  .footer { padding-inline: var(--rams-detail-logo-marquee-compact-footer-inline); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+    will-change: auto;
+  }
+
+  .track { width: auto; justify-content: center; }
+  .brandList { flex: var(--rams-detail-layout-flex-zero-basis); min-width: 0; flex-wrap: wrap; justify-content: center; row-gap: var(--rams-detail-logo-marquee-reduced-row-gap); padding: 0 var(--rams-detail-logo-marquee-reduced-inline-inset); }
+  .brandList[aria-hidden="true"] { display: none; }
+  .brand { max-inline-size: 100%; min-inline-size: 0; white-space: normal; }
+  .brandName { min-inline-size: 0; overflow-wrap: anywhere; }
+  .footer { display: none; }
+  .footer:focus-within { display: flex; }
+}
+
+:where(.section,.intro,.marquee,.track,.paused,.brandList,.brand,.brandMark,.brandName,.footer,.motionButton,.motionStatus):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+.motionButton > svg { stroke-width: var(--rams-detail-logo-marquee-control-glyph-stroke); }

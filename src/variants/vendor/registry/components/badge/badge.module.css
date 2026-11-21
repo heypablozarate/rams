@@ -1,0 +1,54 @@
+.badge {
+  display: inline-flex;
+  min-height: var(--rams-detail-badge-min-block-size);
+  align-items: center;
+  border: var(--rams-detail-badge-border-width) solid var(--rams-detail-badge-border, var(--rams-detail-border));
+  border-radius: var(--rams-detail-radius-pill);
+  padding: 0 var(--rams-detail-badge-padding-inline);
+  color: var(--rams-detail-badge-foreground, var(--rams-detail-foreground));
+  background: var(--rams-detail-badge-background, var(--rams-detail-surface));
+  font-size: var(--rams-detail-text-xs);
+  font-weight: var(--rams-detail-badge-weight);
+  letter-spacing: var(--rams-detail-badge-tracking);
+  line-height: var(--rams-detail-badge-leading);
+  white-space: nowrap;
+  /* Clip keeps the inline baseline while the pill morphs around swapped text. */
+  overflow: clip;
+  transition: border-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .badge:hover { border-color: color-mix(in oklab, var(--rams-detail-badge-color, var(--rams-detail-foreground)) var(--rams-detail-badge-hover-border-mix), var(--rams-detail-border)); background: color-mix(in oklab, var(--rams-detail-badge-color, var(--rams-detail-foreground)) var(--rams-detail-badge-hover-background-mix), var(--rams-detail-surface)); }
+}
+.sm { min-height: var(--rams-detail-badge-sm-min-block-size); padding: 0 var(--rams-detail-badge-sm-padding-inline); font-size: var(--type-caption-size); }
+.default { font-size: var(--rams-detail-text-xs); }
+
+.body { display: block; }
+.content { position: relative; display: inline-flex; width: max-content; align-items: center; gap: var(--rams-detail-badge-content-gap); }
+.sm .content { gap: var(--rams-detail-badge-sm-content-gap); }
+.label, .glyph { position: relative; display: inline-flex; align-items: center; }
+.text { display: block; }
+
+.icon {
+  position: relative;
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  color: var(--rams-detail-badge-color, var(--rams-detail-foreground));
+  line-height: var(--rams-detail-badge-leading);
+}
+
+.neutral { --rams-detail-badge-color: var(--rams-detail-text-secondary); --rams-detail-badge-foreground: var(--rams-detail-text-secondary); --rams-detail-badge-background: var(--rams-detail-surface-muted); --rams-detail-badge-border: var(--rams-detail-border); }
+.success { --rams-detail-badge-color: var(--rams-detail-success); --rams-detail-badge-foreground: var(--rams-detail-success); --rams-detail-badge-background: color-mix(in oklab, var(--rams-detail-success) var(--rams-detail-badge-success-background-mix), var(--rams-detail-surface)); --rams-detail-badge-border: color-mix(in oklab, var(--rams-detail-success) var(--rams-detail-badge-success-border-mix), var(--rams-detail-border)); }
+.info { --rams-detail-badge-color: var(--rams-detail-accent); --rams-detail-badge-foreground: var(--rams-detail-accent-strong); --rams-detail-badge-background: var(--rams-detail-accent-subtle); --rams-detail-badge-border: color-mix(in oklab, var(--rams-detail-accent) var(--rams-detail-badge-info-border-mix), var(--rams-detail-border)); }
+.warning { --rams-detail-badge-color: var(--rams-detail-warning); --rams-detail-badge-foreground: var(--rams-detail-warning); --rams-detail-badge-background: color-mix(in oklab, var(--rams-detail-warning) var(--rams-detail-badge-warning-background-mix), var(--rams-detail-surface)); --rams-detail-badge-border: color-mix(in oklab, var(--rams-detail-warning) var(--rams-detail-badge-warning-border-mix), var(--rams-detail-border)); }
+.danger { --rams-detail-badge-color: var(--rams-detail-danger); --rams-detail-badge-foreground: var(--rams-detail-danger); --rams-detail-badge-background: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-badge-danger-background-mix), var(--rams-detail-surface)); --rams-detail-badge-border: color-mix(in oklab, var(--rams-detail-danger) var(--rams-detail-badge-danger-border-mix), var(--rams-detail-border)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .badge { transition: none; }
+}
+
+:where(.badge,.sm,.md,.body,.content,.label,.glyph,.text,.icon,.neutral,.success,.info,.warning,.danger):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

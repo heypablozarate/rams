@@ -1,0 +1,26 @@
+.counter { position: relative; display: inline-flex; flex-direction: column; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-display); font-size: var(--rams-detail-text-3xl); font-weight: var(--rams-detail-counter-weight); letter-spacing: var(--rams-detail-tracking-display); line-height: var(--rams-detail-counter-line-height); }
+.label { margin-bottom: var(--rams-detail-space-2); color: var(--rams-detail-text-muted); font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-text-xs); font-weight: var(--type-caption-weight); letter-spacing: var(--rams-detail-tracking-body); line-height: var(--type-caption-leading); }
+/* Each digit is a clipped wheel; separators clip sideways only so a comma keeps its tail. */
+.value { display: inline-flex; align-items: flex-start; white-space: nowrap; user-select: none; }
+/* The wheel's window reaches a little past the line box and feathers out, so a turning digit fades at the edge instead of being cut. */
+.column { --rams-detail-feather: var(--rams-detail-counter-wheel-feather); position: relative; display: inline-block; overflow: hidden; margin-block: calc(var(--rams-detail-feather) * -1); padding-block: var(--rams-detail-feather); mask-image: linear-gradient(to bottom, transparent, var(--rams-detail-detail-animated-counter-mask-image-81ef715e) calc(var(--rams-detail-feather) * var(--rams-detail-counter-wheel-feather-ramp)), var(--rams-detail-detail-animated-counter-mask-image-81ef715e) calc(100% - var(--rams-detail-feather) * var(--rams-detail-counter-wheel-feather-ramp)), transparent); }
+.sizer { visibility: hidden; }
+.glyph { position: absolute; inset: var(--rams-detail-feather) 0; text-align: center; }
+.labelText { display: inline-block; }
+.labelSwap { position: relative; display: block; }
+.symbol { display: inline-block; overflow-x: clip; white-space: pre; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+:where(.counter,.label,.value,.column,.sizer,.glyph,.labelText,.labelSwap,.symbol,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.counter { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }
+
+/* Keep the numeral indivisible; units may move to their own full-size row. */
+.counter { min-width: 0; max-width: 100%; }
+.value { max-width: 100%; flex-wrap: wrap; row-gap: var(--rams-detail-counter-unit-row-gap); }
+.digitGroup { display: inline-flex; min-width: max-content; }
+.reducedLabel, .reducedValue { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .labelSwap, .motionValue { display: none; }
+  .reducedLabel { display: inline; }
+  .reducedValue { display: inline-flex; }
+}

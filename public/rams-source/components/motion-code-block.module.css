@@ -1,0 +1,58 @@
+.block { width: 100%; min-width: 0; max-width: 100%; overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface); }
+.header { display: flex; min-height: var(--rams-detail-code-block-header-min-block-size); align-items: center; justify-content: space-between; gap: var(--rams-detail-space-3); border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); padding: var(--rams-detail-space-2) var(--rams-detail-space-3) var(--rams-detail-space-2) var(--rams-detail-space-4); background: var(--rams-detail-surface-raised); }
+/* Baseline alignment keeps the smaller mono language label on the file name's baseline; the icon centres on its own. */
+.file { display: flex; min-width: 0; align-items: baseline; gap: var(--rams-detail-space-2); color: var(--rams-detail-text-secondary); font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); letter-spacing: var(--rams-detail-tracking-body); line-height: var(--rams-detail-leading-body); }
+.file > svg { inline-size: var(--rams-detail-code-block-file-glyph-size); block-size: var(--rams-detail-code-block-file-glyph-size); stroke-width: var(--rams-detail-code-block-file-glyph-stroke); flex: none; align-self: center; color: var(--rams-detail-text-muted); }
+.filename { position: relative; min-width: 0; overflow: hidden; color: var(--rams-detail-foreground); }
+/* Changing text stacks old and new words in one cell; reserve spans hold the widest label so the cell never snaps. */
+.swap { display: inline-grid; min-width: 0; white-space: nowrap; }
+.swap > span, .swapStack > span { grid-area: 1 / 1; min-width: 0; }
+.swapStack { display: grid; min-width: 0; }
+.swapText { display: block; overflow: hidden; text-overflow: ellipsis; }
+.reserve { visibility: hidden; }
+.sizer { position: absolute; top: 0; left: 0; white-space: nowrap; visibility: hidden; pointer-events: none; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.language { flex: none; color: var(--rams-detail-text-muted); font-family: var(--rams-detail-code-block-language-font); font-size: var(--rams-detail-text-xs); font-weight: var(--type-body-weight, var(--rams-detail-native-body-weight-fallback)); }
+.language::before { content: "·"; margin-right: var(--rams-detail-space-2); color: var(--rams-detail-border-strong); }
+/* The source area follows its content height on a spring. Before it measures, a collapsed block clips from CSS. */
+.viewport { --rams-detail-code-collapsed: calc(var(--rams-detail-code-lines, var(--rams-detail-code-block-initial-line-count)) * var(--rams-detail-text-sm) * var(--rams-detail-code-block-leading) + var(--rams-detail-space-5) * 2); overflow: hidden; }
+.pre { position: relative; overflow: auto; margin: 0; padding: var(--rams-detail-space-5); color: var(--rams-detail-foreground); font-family: var(--rams-detail-code-block-source-font); font-size: var(--rams-detail-text-sm); font-variant-ligatures: none; line-height: var(--rams-detail-code-block-leading); tab-size: var(--rams-detail-code-tab-columns); white-space: pre; }
+/* Block so new source can rise in with a transform; inline code ignores transforms. */
+.code { display: block; }
+.expand { display: flex; width: 100%; min-height: var(--rams-detail-code-block-expand-min-block-size); align-items: center; justify-content: center; gap: var(--rams-detail-space-2); border: 0; border-top: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle); padding: 0 var(--rams-detail-space-4); background: var(--rams-detail-surface-raised); color: var(--rams-detail-text-secondary); font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--type-action-weight); cursor: pointer; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.chevron > svg { stroke-width: var(--rams-detail-motion-button-glyph-stroke); }
+.chevron { display: grid; flex: none; place-items: center; color: var(--rams-detail-text-muted); }
+/* Each role has contrast in both themes; color supports, but never replaces, source text. */
+.comment { color: var(--rams-detail-text-muted); font-style: italic; }
+.string { color: var(--rams-detail-detail-code-block-color-3053c0a0); }
+.number { color: var(--rams-detail-detail-code-block-color-e6c15371); }
+.keyword { color: var(--rams-detail-detail-code-block-color-51e59baa); }
+.type { color: var(--rams-detail-detail-code-block-color-c2dfcd39); }
+.function { color: var(--rams-detail-detail-code-block-color-ad89f463); }
+.property { color: var(--rams-detail-detail-code-block-color-da9c531b); }
+.tag { color: var(--rams-detail-detail-code-block-color-c2dfcd39); }
+.punctuation { color: var(--rams-detail-text-secondary); }
+:global(:root.dark) .string { color: var(--rams-detail-detail-code-block-color-f675be3b); }
+:global(:root.dark) .number { color: var(--rams-detail-detail-code-block-color-7f3d0d30); }
+:global(:root.dark) .keyword { color: var(--rams-detail-detail-code-block-color-5a815090); }
+:global(:root.dark) .type { color: var(--rams-detail-detail-code-block-color-9bc8e1be); }
+:global(:root.dark) .function { color: var(--rams-detail-detail-code-block-color-2d16cb33); }
+:global(:root.dark) .property { color: var(--rams-detail-detail-code-block-color-174a308a); }
+:global(:root.dark) .tag { color: var(--rams-detail-detail-code-block-color-9bc8e1be); }
+@media (hover: hover) and (pointer: fine) { .expand:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } .expand:hover .chevron { color: var(--rams-detail-foreground); } }
+@media (max-width: 420px) { .header { padding-left: var(--rams-detail-space-3); } .header :global(button) { width: var(--rams-detail-control-height-sm); padding-inline: 0; } .header :global(button) > span:last-of-type { display: none; } .viewport { --rams-detail-code-collapsed: calc(var(--rams-detail-code-lines, var(--rams-detail-code-block-initial-line-count)) * var(--rams-detail-text-xs) * var(--rams-detail-code-block-leading) + var(--rams-detail-space-4) * 2); } .pre { padding: var(--rams-detail-space-4); font-size: var(--rams-detail-text-xs); } }
+@media (prefers-reduced-motion: reduce) { .expand { transition: none; } }
+:where(.block,.header,.file,.filename,.swap,.swapStack,.swapText,.reserve,.sizer,.srOnly,.language,.viewport,.pre,.code,.expand,.chevron,.comment,.string,.number,.keyword,.type,.function,.property,.tag,.punctuation):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Retain this adapter's existing feedback on the shared native Button. */
+.expand { filter: none; border-radius: var(--rams-detail-flush-corner-radius); }
+
+/* Filename and copy stay usable when text grows; the footer label wraps in its reserved cell. */
+.header { flex-wrap: wrap; }
+.header > button { flex: none; }
+.file { flex: 1 1 var(--rams-detail-code-block-file-flex-basis); flex-wrap: wrap; }
+.filename { max-width: 100%; }
+.expand { padding-block: var(--rams-detail-code-block-expand-padding-block); }
+.expand .swap, .expand .swapStack { grid-template-columns: minmax(0, 1fr); white-space: normal; }
+.expand .swap { flex: 1 1 auto; }
+.expand .swapText { overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }

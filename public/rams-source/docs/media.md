@@ -1,0 +1,7 @@
+# Avatars and scrolling
+
+Avatar displays an image with a fallback. Give meaningful images alt text, or use empty alt when adjacent text already identifies the edition. Badge and group/count parts compose status or collections; provide accessible text for any meaningful badge. `size` changes the geometric container, not the source image. These examples represent print editions, not real people or endorsements.
+
+ScrollArea owns a Root, focusable Viewport and the requested bars. Name the viewport through `viewportProps`, such as `{'aria-label': 'Print collection strip'}`. `viewportRef` points to the actual scrolling element. `scrollbars` is vertical by default and also accepts horizontal or both. These modes enable the corresponding scrolling axes; an unconfigured axis is clipped, so choose both when content may overflow in both directions. Set the available height/width in the consuming layout. Children are viewport content; use `scrollbars="horizontal"` rather than nesting a ScrollBar inside the content. The composed Root/Viewport/Scrollbar own their internal children and do not expose asChild for those slots.
+
+A standalone ScrollBar is available for a custom Radix ScrollArea composition. Native scrolling remains responsible for wheel, touchpad and keyboard movement. Check both ends of each axis, allow content to grow with text, and keep essential actions outside a clipped viewport.

@@ -1,0 +1,19 @@
+.root { width: 100%; }
+.icon { position: relative; display: grid; width: var(--rams-detail-space-12); height: var(--rams-detail-space-12); place-items: center; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface-muted); color: var(--rams-detail-text-secondary); animation: empty-state-icon var(--rams-detail-duration-considered) var(--rams-detail-ease-enter) both; }
+.glyph { display: grid; place-items: center; }
+.frame { width: 100%; max-width: 100%; }
+.copy { display: grid; gap: var(--rams-detail-empty-copy-gap); }
+.root h3 { position: relative; margin: 0; }
+.root p { position: relative; max-width: var(--rams-detail-empty-description-measure); margin: 0; }
+/* Centered copy wraps into even lines, so a new description never leaves a single word hanging. */
+.line { display: block; text-wrap: balance; }
+.action { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--rams-detail-space-3); }
+/* The icon settles in once when the state first appears; later changes crossfade in place. */
+@keyframes empty-state-icon { from { opacity: 0; transform: scale(var(--rams-motion-empty-state-icon-enter-scale)); } to { opacity: 1; transform: var(--rams-detail-zoom-rest-transform); } }
+@media (prefers-reduced-motion: reduce) {
+  .icon { animation: none; }
+  .frame { height: auto !important; overflow: visible !important; }
+  :is(.line, .glyph):not([aria-hidden="true"]) { opacity: 1 !important; transform: none !important; filter: none !important; }
+  :is(.line, .glyph)[aria-hidden="true"] { display: none; }
+}
+:where(.root,.icon,.glyph,.frame,.copy,.line,.action):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

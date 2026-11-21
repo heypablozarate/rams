@@ -1,0 +1,18 @@
+/* The band is the current text color; the resting base leans toward muted text. Override with --rams-detail-text-shimmer-highlight and --rams-detail-text-shimmer-base. */
+.shimmer { --rams-detail-ts-highlight: var(--rams-detail-text-shimmer-highlight, currentColor); --rams-detail-ts-base: var(--rams-detail-text-shimmer-base, color-mix(in oklab, currentColor var(--rams-detail-text-shimmer-base-highlight-share), var(--rams-detail-text-muted))); }
+.stage { position: relative; display: inline-block; max-width: 100%; }
+.label { display: inline-block; max-width: 100%; background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+/* While the line springs to a new width the label keeps its own line, so it never rewraps mid morph. */
+.stage[data-sizing] .label { max-width: none; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .stage { width: auto !important; }
+  .stage[data-sizing] .label { max-width: 100%; white-space: normal; }
+  .label[data-exiting] { display: none !important; }
+  .label { opacity: 1 !important; transform: none !important; filter: none !important; }
+  :where(.shimmer[data-state="active"]) .label { background-image: linear-gradient(var(--rams-detail-ts-base), var(--rams-detail-ts-base)) !important; }
+  :where(.shimmer[data-state="idle"]) .label { background-image: linear-gradient(var(--rams-detail-ts-highlight), var(--rams-detail-ts-highlight)) !important; }
+}
+.label::selection { -webkit-text-fill-color: currentColor; }
+@supports not (color: color-mix(in oklab, red, blue)) { .label { background: none !important; -webkit-text-fill-color: currentColor; } }
+@media (forced-colors: active) { .label { background: none !important; -webkit-text-fill-color: currentColor; } }
+:where(.shimmer,.stage,.label):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

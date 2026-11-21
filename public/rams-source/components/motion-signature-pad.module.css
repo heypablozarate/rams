@@ -1,0 +1,102 @@
+.root {
+  --rams-detail-ink-black: var(--rams-detail-foreground);
+  --rams-detail-ink-blue: var(--rams-detail-detail-signature-pad-source-ink-blue-fadb9732);
+  --rams-detail-ink-violet: var(--rams-detail-detail-signature-pad-source-ink-violet-45b27b43);
+  display: grid; gap: var(--rams-detail-signature-root-gap); width: 100%; min-width: 0; font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body);
+}
+:global(:root.dark) .root { --rams-detail-ink-blue: var(--rams-detail-detail-signature-pad-source-ink-blue-52fd6130); --rams-detail-ink-violet: var(--rams-detail-detail-signature-pad-source-ink-violet-b80347e3); }
+
+/* The pad keeps the 600 by 260 ratio of its coordinate space, so strokes scale with it at every width. */
+.pad {
+  position: relative; aspect-ratio: var(--rams-detail-signature-pad-aspect-ratio); overflow: hidden; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-panel);
+  background: var(--rams-detail-surface); cursor: crosshair; touch-action: none; user-select: none; -webkit-user-select: none; isolation: isolate;
+  transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+.pad[data-drawing] { border-color: var(--rams-detail-border-strong); }
+
+.guide { position: absolute; inset: 0; pointer-events: none; }
+.baseline { position: absolute; left: var(--rams-detail-signature-guide-inset); right: var(--rams-detail-signature-guide-inset); top: var(--rams-detail-signature-guide-position); border-top: var(--rams-detail-signature-guide-stroke) dashed var(--rams-detail-border-strong); }
+.mark { position: absolute; left: var(--rams-detail-signature-guide-inset); top: var(--rams-detail-signature-guide-position); color: var(--rams-detail-text-muted); translate: 0 calc(-100% - var(--rams-detail-signature-mark-gap)); }
+.signer { min-inline-size: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); overflow-wrap: anywhere; }
+.hint { min-inline-size: 0; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-lg); line-height: var(--rams-detail-leading-body); overflow-wrap: anywhere; }
+
+.ink { position: absolute; inset: 0; pointer-events: none; }
+.ink svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.stroke { fill: var(--rams-detail-ink-black); }
+.stroke[data-color="blue"], .nib[data-color="blue"] { fill: var(--rams-detail-ink-blue); }
+.stroke[data-color="violet"], .nib[data-color="violet"] { fill: var(--rams-detail-ink-violet); }
+.nib { fill: var(--rams-detail-ink-black); opacity: var(--rams-detail-signature-nib-opacity); }
+
+/* The squeegee edge that clears the ink as it crosses the pad. */
+.sweep { position: absolute; inset: 0; pointer-events: none; }
+.sweep::before {
+  content: ""; position: absolute; top: var(--rams-detail-signature-wipe-inset); bottom: var(--rams-detail-signature-wipe-inset); left: calc(-1 * var(--rams-detail-primitive-border-width)); width: var(--rams-detail-signature-wipe-edge-width); border-radius: var(--rams-detail-signature-wipe-edge-width);
+  background: var(--rams-detail-foreground); opacity: var(--rams-detail-signature-wipe-edge-opacity);
+}
+.sweep::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: calc(-1 * var(--rams-detail-signature-wipe-trail-width)); width: var(--rams-detail-signature-wipe-trail-width);
+  background: linear-gradient(to right, transparent, color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-signature-wipe-trail-share), transparent));
+}
+
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rams-detail-signature-toolbar-gap); }
+.group { display: flex; flex-wrap: wrap; align-items: center; gap: var(--rams-detail-signature-toolbar-gap); min-inline-size: 0; max-inline-size: 100%; }
+
+.choice { display: flex; align-items: center; gap: var(--rams-detail-signature-choice-gap); }
+.option {
+  position: relative; display: grid; place-items: center; width: var(--rams-detail-signature-action-size); height: var(--rams-detail-signature-action-size); padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill);
+  background: transparent; color: var(--rams-detail-foreground); cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.selected { position: absolute; inset: 0; border-radius: inherit; background: var(--rams-detail-surface-muted); box-shadow: inset 0 0 0 var(--rams-detail-primitive-border-width) var(--rams-detail-border); }
+.swatch { position: relative; width: var(--rams-detail-signature-swatch-size); height: var(--rams-detail-signature-swatch-size); border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-ink-black); }
+.swatch[data-color="blue"] { background: var(--rams-detail-ink-blue); }
+.swatch[data-color="violet"] { background: var(--rams-detail-ink-violet); }
+.weight {
+  --rams-detail-signature-sample-size: calc(var(--rams-detail-signature-nib-width) + var(--rams-detail-signature-sample-extra));
+  position: relative; width: var(--rams-detail-signature-sample-size); height: var(--rams-detail-signature-sample-size); border-radius: var(--rams-detail-elliptical-corner-radius); background: var(--rams-detail-foreground);
+}
+.weight[data-width="fine"] { --rams-detail-signature-nib-width: var(--rams-detail-signature-nib-fine); }
+.weight[data-width="medium"] { --rams-detail-signature-nib-width: var(--rams-detail-signature-nib-medium); }
+.weight[data-width="bold"] { --rams-detail-signature-nib-width: var(--rams-detail-signature-nib-bold); }
+
+.iconButton {
+  display: grid; place-items: center; width: var(--rams-detail-signature-action-size); height: var(--rams-detail-signature-action-size); padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill);
+  background: transparent; color: var(--rams-detail-text-secondary); cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard);
+}
+.iconButton:active:not(:disabled) { transform: scale(var(--rams-motion-signature-press-scale)); }
+.iconButton:disabled { color: var(--rams-detail-text-muted); opacity: var(--rams-detail-signature-disabled-opacity); cursor: default; }
+.iconButton[aria-pressed="true"] { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+.swap { display: grid; place-items: center; }
+
+.exports { display: flex; flex-wrap: wrap; min-inline-size: 0; align-items: center; justify-content: flex-end; gap: var(--rams-detail-signature-export-gap); }
+.exportLabel { margin-right: var(--rams-detail-signature-export-label-gap); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.export {
+  display: grid; min-width: var(--rams-detail-signature-export-min-width); height: var(--rams-detail-control-height-sm); padding: 0 var(--rams-detail-signature-export-inline-inset); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: var(--rams-detail-radius-control);
+  background: var(--rams-detail-surface); color: var(--rams-detail-foreground); font: inherit; font-size: var(--rams-detail-text-sm); cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard);
+}
+.export:active:not(:disabled) { transform: scale(var(--rams-motion-signature-export-press-scale)); }
+.export:disabled { color: var(--rams-detail-text-muted); cursor: default; }
+.exportContent { display: inline-flex; grid-area: 1 / 1; align-items: center; justify-content: center; gap: var(--rams-detail-signature-export-content-gap); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (hover: hover) and (pointer: fine) {
+  .option:hover, .iconButton:hover:not(:disabled), .export:hover:not(:disabled) { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); }
+}
+
+:where(.root,.pad,.guide,.baseline,.mark,.signer,.hint,.ink,.stroke,.nib,.sweep,.toolbar,.group,.divider,.choice,.option,.selected,.swatch,.weight,.iconButton,.swap,.exports,.exportLabel,.export,.exportContent,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Owned primitives preserve these compact composite control geometries. */
+.root .iconButton, .root .option, .root .export { min-inline-size: 0; min-block-size: 0; box-shadow: none; font-family: inherit; font-weight: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pad, .iconButton, .export { transition: none; }
+  .iconButton:active:not(:disabled), .export:active:not(:disabled) { transform: none; }
+}
+
+.mark { inline-size: var(--rams-detail-signature-mark-glyph-size); block-size: var(--rams-detail-signature-mark-glyph-size); stroke-width: var(--rams-detail-signature-glyph-stroke); }
+.iconButton > svg { inline-size: var(--rams-detail-signature-action-glyph-size); block-size: var(--rams-detail-signature-action-glyph-size); stroke-width: var(--rams-detail-signature-glyph-stroke); }
+.swap > svg { inline-size: var(--rams-detail-signature-replay-glyph-size); block-size: var(--rams-detail-signature-replay-glyph-size); stroke-width: var(--rams-detail-signature-glyph-stroke); }
+.iconButton[aria-pressed="true"] .swap > svg { inline-size: var(--rams-detail-signature-stop-glyph-size); block-size: var(--rams-detail-signature-stop-glyph-size); }
+.exportContent > svg { inline-size: var(--rams-detail-signature-export-glyph-size); block-size: var(--rams-detail-signature-export-glyph-size); stroke-width: var(--rams-detail-signature-glyph-stroke); }

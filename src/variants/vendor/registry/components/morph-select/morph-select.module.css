@@ -1,0 +1,111 @@
+/* The root lays out the label and the anchor. The anchor holds the closed trigger's place; the shape floats over it and grows past it when open. */
+.root { --rams-detail-ms-h: var(--rams-detail-control-height-md); --rams-detail-ms-trigger-w: var(--rams-detail-morph-select-unmeasured-inline-size); position: relative; display: inline-grid; justify-items: start; gap: var(--rams-detail-space-2); min-width: 0; color: var(--rams-detail-foreground); font-family: var(--rams-detail-font-body); font-size: var(--rams-detail-text-sm); letter-spacing: var(--rams-detail-tracking-body); line-height: var(--rams-detail-leading-body); }
+.root[data-align="end"] { justify-items: end; }
+.root[data-open] { z-index: var(--rams-detail-morph-select-open-layer); }
+.label { color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); }
+
+.anchor { position: relative; height: var(--rams-detail-ms-h); max-width: 100%; }
+
+/* One material for both states. The border is an overlay so it never changes a measurement. */
+.shape { position: absolute; top: 0; left: 0; overflow: clip; background: var(--rams-detail-surface); box-shadow: var(--rams-detail-shadow-resting); transition: box-shadow var(--rams-detail-duration-considered) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.shape::after { content: ""; position: absolute; inset: 0; z-index: var(--rams-detail-morph-select-border-layer); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: inherit; pointer-events: none; transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.root[data-align="end"] .shape { right: 0; left: auto; }
+.root[data-open] .shape { background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); }
+.root[data-disabled] .shape { opacity: var(--rams-detail-morph-select-disabled-surface-opacity); }
+@media (hover: hover) and (pointer: fine) {
+  .root:not([data-open], [data-disabled]) .shape:hover { background: var(--rams-detail-surface-muted); }
+  .root:not([data-open], [data-disabled]) .shape:hover::after { border-color: var(--rams-detail-border-strong); }
+}
+
+/* The lid is the trigger row. It stays at the top of the surface in both states and sits above the list, so a lifted label passes over it. */
+.lid { position: absolute; z-index: var(--rams-detail-morph-select-lid-layer); top: 0; right: 0; left: 0; height: var(--rams-detail-ms-h); }
+
+.trigger { box-sizing: border-box; display: flex; height: var(--rams-detail-ms-h); align-items: center; gap: var(--rams-detail-space-2); padding: 0 var(--rams-detail-morph-select-lid-close-size) 0 var(--rams-detail-morph-select-lid-inset-start); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); white-space: nowrap; }
+.lid .trigger { position: absolute; inset: 0; width: 100%; margin: 0; border: 0; background: transparent; color: inherit; cursor: pointer; font-family: inherit; letter-spacing: inherit; text-align: left; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.lid .trigger:disabled { cursor: not-allowed; }
+/* An invisible copy that says how wide the closed trigger wants to be. It sits in flow until the first measurement lands, so the server render already has the right size. */
+.measure { position: static; visibility: hidden; pointer-events: none; width: max-content; }
+.root[data-ready] .measure { position: absolute; top: 0; left: 0; }
+.root[data-align="end"][data-ready] .measure { right: 0; left: auto; }
+
+.slot { position: relative; display: block; min-width: 0; height: 100%; flex: var(--rams-detail-layout-flex-fill); }
+.slot[data-hidden] { opacity: 0; transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.layer { position: absolute; inset: 0; display: flex; align-items: center; gap: var(--rams-detail-space-2); min-width: 0; }
+.valueText { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.placeholder { color: var(--rams-detail-text-muted); font-weight: var(--rams-detail-native-body-weight-fallback); }
+.icon { display: grid; width: var(--rams-detail-morph-select-option-icon-size); height: var(--rams-detail-morph-select-option-icon-size); flex: none; place-items: center; color: var(--rams-detail-text-secondary); }
+.icon > svg { width: var(--rams-detail-morph-select-glyph-size); height: var(--rams-detail-morph-select-glyph-size); }
+.icon > img { width: var(--rams-detail-morph-select-option-icon-size); height: var(--rams-detail-morph-select-option-icon-size); border-radius: var(--rams-detail-elliptical-corner-radius); object-fit: cover; }
+
+.chevron { position: absolute; top: 50%; right: var(--rams-detail-morph-select-chevron-inset-end); display: grid; width: var(--rams-detail-morph-select-glyph-size); height: var(--rams-detail-morph-select-glyph-size); margin-top: calc(var(--rams-detail-morph-select-glyph-size) / -2); place-items: center; color: var(--rams-detail-text-muted); pointer-events: none; }
+
+/* Search takes the lid's place when the list is long. */
+.searchRow { position: absolute; inset: 0; display: flex; align-items: center; gap: var(--rams-detail-space-2); padding: 0 var(--rams-detail-morph-select-search-inset-end) 0 var(--rams-detail-morph-select-lid-inset-start); }
+.searchRow[inert] { pointer-events: none; }
+.searchIcon { flex: none; color: var(--rams-detail-text-muted); }
+.input { min-width: 0; height: 100%; flex: var(--rams-detail-layout-flex-fill); padding: 0; border: 0; background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--type-input-size); letter-spacing: var(--rams-detail-tracking-body); outline: none; }
+.input::placeholder { color: var(--rams-detail-text-muted); }
+.clear { display: grid; width: var(--rams-detail-morph-select-clear-hit-size); height: var(--rams-detail-morph-select-clear-hit-size); flex: none; place-items: center; padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-morph-select-action-wash), transparent); color: var(--rams-detail-text-secondary); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+/* Sits exactly over the shared chevron, so the chevron closes the list in both lid states. */
+.closeHit { width: var(--rams-detail-morph-select-lid-close-size); height: var(--rams-detail-morph-select-lid-close-size); flex: none; padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) {
+  .closeHit:hover, .clear:hover { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-morph-select-action-wash), transparent); }
+  .clear:hover { color: var(--rams-detail-foreground); }
+}
+
+/* The list hangs under the lid at its own width, so it measures the same whatever size the surface is mid spring. */
+.listFace { position: absolute; top: var(--rams-detail-ms-h); left: 0; box-sizing: border-box; padding: 0 var(--rams-detail-morph-select-panel-inset) var(--rams-detail-morph-select-panel-inset); }
+.root[data-align="end"] .listFace { right: 0; left: auto; }
+.listFace::before { content: ""; position: absolute; top: 0; right: var(--rams-detail-morph-select-lid-inset-start); left: var(--rams-detail-morph-select-lid-inset-start); height: var(--rams-detail-separator-thickness); background: var(--rams-detail-border-subtle); }
+.listFace[inert] { pointer-events: none; }
+.scroll { max-height: var(--rams-detail-ms-list-max, var(--rams-detail-morph-select-list-block-max)); overflow-y: auto; overscroll-behavior: contain; scroll-padding-block: var(--rams-detail-morph-select-scroll-clearance); padding-top: var(--rams-detail-morph-select-panel-inset); scrollbar-width: thin; }
+.options { position: relative; display: grid; gap: var(--rams-detail-morph-select-option-gap); }
+.highlight { position: absolute; top: 0; right: 0; left: 0; border-radius: max(0px, calc(var(--radius-panel) - var(--rams-detail-morph-select-panel-inset) - var(--rams-detail-primitive-border-width))); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-morph-select-highlight-wash), transparent); pointer-events: none; }
+
+.group { display: grid; gap: var(--rams-detail-morph-select-option-gap); }
+.group + .group { margin-top: var(--rams-detail-morph-select-group-gap); }
+.groupLabel { padding: var(--rams-detail-morph-select-group-label-padding); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-weight: var(--type-caption-weight); }
+
+.option { position: relative; display: flex; min-height: var(--rams-detail-action-menu-row-min-block-size); box-sizing: border-box; align-items: center; gap: var(--rams-detail-space-2); padding: var(--rams-detail-morph-select-option-padding); border-radius: max(0px, calc(var(--radius-panel) - var(--rams-detail-morph-select-panel-inset) - var(--rams-detail-primitive-border-width))); color: var(--rams-detail-text-secondary); cursor: pointer; user-select: none; -webkit-user-select: none; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.option[data-active], .option[aria-selected="true"] { color: var(--rams-detail-foreground); }
+.option[aria-disabled="true"] { color: var(--rams-detail-text-muted); cursor: not-allowed; opacity: var(--rams-detail-morph-select-disabled-option-opacity); }
+/* Lid padding minus list inset, so a lifted label starts exactly level with where it lands. */
+.optionValue { display: flex; min-width: 0; flex: var(--rams-detail-layout-flex-fill); align-items: center; gap: var(--rams-detail-space-2); font-weight: var(--rams-detail-label-weight); }
+.meta { flex: none; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.check { display: grid; width: var(--rams-detail-morph-select-glyph-size); height: var(--rams-detail-morph-select-glyph-size); flex: none; place-items: center; color: var(--rams-detail-foreground); opacity: 0; transform: scale(var(--rams-motion-morph-select-check-scale)); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.check[data-on] { opacity: 1; transform: none; }
+.empty { margin: 0; padding: var(--rams-detail-morph-select-empty-padding); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip: rect(0 0 0 0); clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .shape, .shape::after, .check, .closeHit, .option { transition: none; }
+  .slot[data-hidden] { transition: none; }
+}
+@media (prefers-contrast: more) {
+  .shape::after { border-color: var(--rams-detail-border-strong); }
+}
+:where(.root,.label,.anchor,.shape,.lid,.trigger,.measure,.slot,.layer,.valueText,.placeholder,.icon,.chevron,.searchRow,.searchIcon,.input,.clear,.closeHit,.listFace,.scroll,.options,.highlight,.group,.groupLabel,.option,.optionValue,.meta,.check,.empty,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The field owns available width; only its measured visible surface hugs the
+   value. Both the probe and the list use that same containing width. */
+.root { container: morph-select / inline-size; inline-size: 100%; max-inline-size: 100%; grid-template-columns: minmax(0, 1fr); }
+.label { min-inline-size: 0; max-inline-size: 100%; white-space: normal; }
+.anchor { height: var(--rams-detail-ms-lid-h, var(--rams-detail-ms-h)); }
+.trigger { white-space: normal; }
+.measure { box-sizing: border-box; height: auto; min-height: var(--rams-detail-ms-h); max-width: min(var(--rams-detail-morph-select-trigger-inline-max), 100cqi); padding-block: var(--rams-detail-space-2); }
+.lid { height: var(--rams-detail-ms-lid-h, var(--rams-detail-ms-h)); }
+.lid .trigger { height: 100%; padding-block: var(--rams-detail-space-2); }
+.valueText, .placeholder { min-inline-size: 0; max-inline-size: 100%; overflow: visible; white-space: normal; overflow-wrap: normal; }
+.listFace { top: var(--rams-detail-ms-lid-h, var(--rams-detail-ms-h)); width: min(100cqi, max(var(--rams-detail-ms-trigger-w), var(--rams-detail-ms-panel-w, var(--rams-detail-morph-select-panel-inline-size)))); }
+@container morph-select (max-width: 24rem) {
+  .option { display: grid; grid-template-columns: minmax(0, 1fr) var(--rams-detail-morph-select-glyph-size); gap: var(--rams-detail-space-1) var(--rams-detail-space-2); padding-block: var(--rams-detail-space-2); }
+  .optionValue { grid-column: 1; grid-row: 1; }
+  .meta { grid-column: 1; grid-row: 2; }
+  .check { grid-column: 2; grid-row: 1 / 3; }
+}
+/* The floating shape owns the composite focus stroke outside its own clip. */
+.shape:has(:focus-visible) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: var(--rams-detail-focus-outline-offset); }
+
+.glyph, .clearGlyph { width: var(--rams-detail-morph-select-glyph-size); height: var(--rams-detail-morph-select-glyph-size); stroke-width: var(--rams-detail-morph-select-glyph-stroke); }
+.clearGlyph { width: var(--rams-detail-morph-select-clear-glyph-size); height: var(--rams-detail-morph-select-clear-glyph-size); }

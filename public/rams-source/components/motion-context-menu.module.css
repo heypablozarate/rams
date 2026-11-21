@@ -1,0 +1,29 @@
+.target { display: block; outline: none; }
+/* Motion scales the menu from the pointer (transform-origin is set inline) and fades it out faster than it arrives. */
+.menu { box-sizing: border-box; position: fixed; z-index: var(--rams-detail-context-menu-content-z); --rams-context-viewport-gutter: calc(2 * var(--rams-detail-context-menu-viewport-inset)); width: max-content; min-width: min(var(--rams-detail-context-menu-inline-size), calc(var(--rams-detail-menu-viewport-inline-size) - var(--rams-context-viewport-gutter))); max-width: calc(var(--rams-detail-menu-viewport-inline-size) - var(--rams-context-viewport-gutter)); max-height: min(var(--rams-detail-context-menu-max-block-size), calc(var(--rams-detail-surface-viewport-block-size) - var(--rams-context-viewport-gutter))); overflow-y: auto; padding: var(--rams-menu-padding); border: var(--rams-menu-border) solid var(--rams-detail-menu-border); border-radius: var(--rams-menu-radius); background: var(--rams-detail-menu-fill); color: var(--rams-detail-menu-ink); box-shadow: var(--rams-detail-shadow-floating); outline: none; --rams-menu-radius: var(--rams-detail-menu-radius); --rams-menu-padding: var(--rams-detail-menu-padding); --rams-menu-border: var(--rams-detail-menu-border-width); }
+.insetProbe { position: absolute; inset: 0 auto auto 0; width: var(--rams-detail-context-menu-viewport-inset); height: 0; visibility: hidden; pointer-events: none; }
+.highlight { position: absolute; top: 0; right: var(--rams-menu-padding); left: var(--rams-menu-padding); border-radius: var(--rams-detail-menu-inner-radius); background: var(--rams-detail-menu-highlight-fill); opacity: 0; pointer-events: none; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.highlight[data-tone="danger"] { background: var(--rams-detail-menu-danger-highlight-fill); }
+.item { position: relative; display: flex; flex-wrap: nowrap; justify-content: start; width: 100%; min-height: var(--rams-detail-menu-item-min-block-size); min-block-size: var(--rams-detail-menu-item-min-block-size); align-items: center; gap: var(--rams-detail-menu-item-gap); padding: var(--rams-detail-menu-item-padding-block) var(--rams-detail-menu-item-padding-inline); border: 0; border-radius: var(--rams-detail-menu-inner-radius); background: transparent; color: inherit; font: inherit; font-size: var(--rams-detail-text-sm); letter-spacing: var(--rams-detail-tracking-body); line-height: var(--rams-detail-menu-leading); text-align: start; overflow-wrap: anywhere; cursor: pointer; outline: none; transition: background-color var(--rams-detail-duration-instant) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); animation: context-item-in var(--rams-detail-duration-standard) var(--rams-detail-ease-enter) both; animation-delay: min(calc(var(--rams-detail-i, var(--rams-detail-context-menu-i-fallback)) * var(--rams-motion-item)), var(--rams-motion-maxStagger)); white-space: normal; min-inline-size: 0; }
+/* Keyboard focus stays visible while the shared highlight supplies the fill. */
+.item:focus-visible { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: var(--rams-detail-menu-item-outline-offset); }
+/* Focus follows the existing pointer/keyboard state; no geometry or event changes. */
+.item:disabled { opacity: var(--rams-detail-menu-disabled-opacity); cursor: default; }
+.item.destructive { color: var(--rams-detail-danger); }
+.icon { display: inline-flex; flex: none; width: var(--rams-detail-menu-item-icon-size); align-items: center; justify-content: center; color: var(--rams-detail-text-secondary); }
+.item > span:last-child { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+.destructive .icon { color: currentColor; }
+@keyframes context-item-in { from { opacity: 0; transform: translateY(var(--rams-motion-context-menu-row-enter-offset)); } }
+@media (prefers-reduced-motion: reduce) {
+  .item, .highlight { animation: none; transition: none; }
+  .menu[data-rams-presence="exiting"] { display: none; }
+  .menu[data-rams-presence="present"] { opacity: 1 !important; transform: none !important; }
+}
+:where(.target,.menu,.highlight,.item,.destructive,.icon):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+.item:focus:not(:disabled):not(.destructive) { color: var(--rams-detail-menu-highlight-ink); }
+.item:focus:not(:disabled):not(.destructive) .icon { color: currentColor; }
+@media (hover: none) {
+  .item:active:not(:disabled):not(.destructive) { background: var(--rams-detail-menu-highlight-fill); color: var(--rams-detail-menu-highlight-ink); }
+  .item:active:not(:disabled):not(.destructive) .icon { color: currentColor; }
+}

@@ -1,0 +1,15 @@
+# Menus and selection
+
+Use DropdownMenu for actions beside a control, ContextMenu as an additional route to actions on an object, and Menubar for related application menus. Keep an equivalent keyboard-accessible action when the context target is not focusable. Menu checkboxes toggle a setting; menu radio items choose one setting. They do not replace form fields. Supply `onSelect`, `checked`/`onCheckedChange` or `value`/`onValueChange` to update application data.
+
+Use Select for a bounded choice and Combobox when typing helps find a choice. Label their input or trigger. Select supports `name` for native form submission, controlled/uncontrolled value, disabled items, and popper or item-aligned positioning. RAMS supplies its trigger, viewport and scroll controls. `asChild` accepts one root element and preserves it.
+
+Combobox uses Base UI filtering, selection and positioning. Its Input composes the RAMS InputGroup and registers the whole group as the popup anchor. `className` styles the input; `containerClassName` styles its frame. Use `showClear` for an explicit clear action. For multiple values, compose Chips, Chip and ChipsInput, pass `multiple` to the root and anchor Content to the chips container with `useComboboxAnchor`. Supply meaningful `removeLabel` for a chip whose children are not plain text. Empty remains mounted as a live region, including when no empty message is shown.
+
+Command filters and activates commands; it does not perform those actions itself. CommandDialog includes a named Dialog, visible title, search row and shared close control. Pass `trigger` to register its focus-return target. For a controlled opener outside the dialog, provide `contentProps.onCloseAutoFocus` when the opener should receive focus. CommandInput consumes the RAMS Input; cmdk owns filtering and keyboard selection. Set `label` on Command (or `title` on CommandDialog) for the input’s accessible name; cmdk supplies its labelled-by association. Set `label` on CommandList for the list’s accessible name.
+
+NavigationMenu groups site links. Its default viewport and `viewport={false}` position the content below the navigation's leading edge. The root needs its available layout width and an ancestor that does not clip the panel. These are in-flow navigation surfaces, not portaled poppers. Links should navigate; use application state for action menus instead.
+
+DropdownMenu, ContextMenu and Menubar portal their Content and SubContent. Radix owns focus, keyboard navigation and dismissal. `forceMount` is forwarded to both the portal and content for applications that manage presence. When chaining actions in tests or application logic, wait for the closing surface to finish restoring focus before moving it elsewhere.
+
+[Print Workshop](../examples/print-workshop.tsx) combines these components with original edition data. Paper, marks and archive state are stored separately per edition; export downloads those actual settings as JSON. Clearing the selected edition disables its actions, and Find edition provides a recovery path. The example uses local React state.

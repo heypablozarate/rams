@@ -1,0 +1,34 @@
+.press-window {
+  max-inline-size: var(--rams-detail-example-page-measure-wide);
+  margin-inline: auto;
+  padding: var(--rams-detail-example-page-inset);
+  color: var(--rams-ink);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-leading);
+  overflow-wrap: anywhere;
+}
+.press-window header {
+  max-inline-size: var(--rams-detail-example-intro-measure-press);
+  margin-block-end: var(--rams-detail-example-section-gap);
+}
+.press-window header p {
+  color: var(--rams-muted);
+  font-size: var(--type-control-size);
+}
+.press-window h2 {
+  font-size: var(--type-title-size);
+}
+.press-window-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rams-detail-preview-scene-gap);
+}
+.press-output {
+  margin-block-start: var(--rams-detail-example-section-gap-wide);
+}
+.press-chart {
+  block-size: var(--rams-detail-example-press-chart-height);
+  aspect-ratio: auto;
+}

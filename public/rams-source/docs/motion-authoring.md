@@ -1,0 +1,11 @@
+# Authoring and structured choices
+
+`motion-mention-input` renders a textarea combobox with structured text and mention ranges. Supply `people` for @ suggestions and `channels` for # suggestions. In controlled mode, keep the complete MentionValue from onValueChange rather than discarding its ranges. Enter chooses an open suggestion first; with submitOnEnter it submits nonempty text when there is no active suggestion, and Shift+Enter inserts a line. `serializeMentions` replaces selected ranges with their IDs. Role-only sample handles are not real accounts.
+
+`motion-rich-text-editor` accepts controlled HTML through value, or initial HTML/defaultMarkdown. `onValueChange(html, details)` receives the controlled HTML string first; `details` contains HTML, Markdown, text and empty state; onHistoryChange reports keyboard undo/redo availability. Select text for its formatting/link toolbar, or type / in an empty block for block choices. The toolbar preserves the browser selection while its controls are used. Changes remain a draft until a consumer supplies an actual persistence action.
+
+`motion-billing-toggle` is a controlled radio group. Its short badge is replaced by activeBadge on the selected option; those are alternate states. Keep cadence and the savings denominator explicit. The example compares fictional ARS 36,000/month with ARS 360,000/year: twelve monthly payments total 432,000; yearly savings are 72,000 or 16.7%, with a 30,000 monthly equivalent. The toggle does not create a subscription or charge.
+
+`motion-radio-cards` is an ARIA radio composite with selectable cards and an optional hidden form-value carrier. `layout="list"` shows descriptions and metadata in one column. Arrow keys, Home and End move through enabled choices; disabledReason replaces the disabled card's description. required announces the group's requirement; the hidden carrier is not native required-radio constraint validation. Consumers that submit a form must connect their validation rule to the selected value.
+
+Import installed styles once. Standalone formatting and posting actions use the owned Button; combobox options and composite radios keep their own semantics. Use the actual callbacks and submitted values as the source of adjacent summaries, not a separate mock result.

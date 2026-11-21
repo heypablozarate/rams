@@ -1,0 +1,111 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--rams-detail-surface-overlay-z);
+  background: var(--rams-detail-surface-overlay-paint);
+  -webkit-backdrop-filter: blur(var(--rams-detail-motion-drawer-backdrop-blur)); backdrop-filter: blur(var(--rams-detail-motion-drawer-backdrop-blur));
+}
+@media (prefers-reduced-transparency: reduce) {
+  .overlay { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+.content { box-sizing: border-box;
+  --rams-detail-drawer-size: min(var(--rams-detail-motion-drawer-inline-size), calc(100vw - var(--rams-detail-space-4)));
+  /* Critically damped, like a sheet spring: it never overshoots past the edge it is anchored to. */
+  --rams-detail-ease-drawer: var(--rams-detail-ease-drawerFallback);
+  --rams-detail-drawer-from: var(--rams-detail-drawer-offscreen-inline-end);
+  position: fixed;
+  z-index: var(--rams-detail-surface-content-z);
+  display: flex;
+  flex-direction: column;
+  width: var(--rams-detail-drawer-size);
+  max-width: var(--rams-detail-surface-viewport-inline-size);
+  max-height: var(--rams-detail-surface-viewport-block-size);
+  overflow: hidden;
+  border: var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border);
+  background: var(--rams-detail-surface-raised);
+  color: var(--rams-detail-foreground);
+  box-shadow: var(--rams-detail-surface-elevation);
+}
+/* While a layer leaves it lets clicks through, so pressing the trigger again during the close reopens the drawer from wherever it is. */
+/* Radix writes pointer-events inline on the overlay, so the closing state has to win over it. */
+.overlay[data-state="closed"], .content[data-state="closed"] { pointer-events: none !important; }
+
+.content[data-side="right"] { inset: 0 0 0 auto; border-width: var(--rams-detail-menu-border-width) 0 var(--rams-detail-menu-border-width) var(--rams-detail-menu-border-width); border-radius: var(--rams-detail-surface-modal-radius) 0 0 var(--rams-detail-surface-modal-radius); }
+.content[data-side="left"] { inset: 0 auto 0 0; border-width: var(--rams-detail-menu-border-width) var(--rams-detail-menu-border-width) var(--rams-detail-menu-border-width) 0; border-radius: 0 var(--rams-detail-surface-modal-radius) var(--rams-detail-surface-modal-radius) 0; }
+.content[data-side="top"] { inset: 0 0 auto; width: 100%; max-width: none; max-height: min(var(--rams-detail-motion-drawer-max-block-size), 100dvh); border-width: 0 0 var(--rams-detail-menu-border-width); border-radius: 0 0 var(--rams-detail-surface-modal-radius) var(--rams-detail-surface-modal-radius); }
+.content[data-side="bottom"] { inset: auto 0 0; width: 100%; max-width: none; max-height: min(var(--rams-detail-motion-drawer-max-block-size), 100dvh); border-width: var(--rams-detail-menu-border-width) 0 0; border-radius: var(--rams-detail-surface-modal-radius) var(--rams-detail-surface-modal-radius) 0 0; }
+.content[data-side="bottom"]::before { position: absolute; top: var(--rams-detail-motion-drawer-grip-inset); left: 50%; width: var(--rams-detail-motion-drawer-grip-inline-size); height: var(--rams-detail-motion-drawer-grip-block-size); border-radius: var(--rams-detail-radius-pill); background: var(--rams-detail-border-strong); content: ""; opacity: var(--rams-detail-motion-drawer-grip-opacity); transform: translateX(-50%); }
+
+/* Motion springs the panel from its edge. Keyframes only run when DrawerContent sits under a bare Radix root. */
+.content[data-side="left"] { --rams-detail-drawer-from: var(--rams-detail-drawer-offscreen-inline-start); }
+.content[data-side="top"] { --rams-detail-drawer-from: var(--rams-detail-drawer-offscreen-block-start); }
+.content[data-side="bottom"] { --rams-detail-drawer-from: var(--rams-detail-drawer-offscreen-block-end); }
+.keyframes.overlay[data-state="open"] { animation: overlay-in var(--rams-detail-duration-standard) var(--rams-detail-ease-enter) both; }
+.keyframes.overlay[data-state="closed"] { animation: overlay-out var(--rams-detail-duration-fast) var(--rams-detail-ease-standard) both; }
+.keyframes.content[data-state="open"] { animation: drawer-in var(--rams-detail-duration-considered) var(--rams-detail-ease-drawer) both; }
+/* The panel translates throughout the exit. The shadow fades over its final segment. */
+.keyframes.content[data-state="closed"] {
+  --rams-detail-drawer-shadow-delay: calc(var(--rams-detail-duration-standard) * var(--rams-motion-drawer-exit-fade-start));
+  --rams-detail-drawer-shadow-duration: calc(var(--rams-detail-duration-standard) * (var(--rams-detail-drawer-complete-progress) - var(--rams-motion-drawer-exit-fade-start)));
+  animation: drawer-out var(--rams-detail-duration-standard) var(--rams-detail-ease-standard) both,
+    drawer-shadow-out var(--rams-detail-drawer-shadow-duration) var(--rams-detail-ease-standard) var(--rams-detail-drawer-shadow-delay) both;
+}
+.content:focus { outline: none; }
+/* Inside a container the layers anchor to that element instead of the viewport. */
+.overlay[data-contained], .content[data-contained] { position: absolute; }
+.overlay[data-contained] { z-index: var(--rams-detail-motion-drawer-contained-overlay-z); background: var(--rams-detail-detail-drawer-background-bbf32a86); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.content[data-contained] { --rams-detail-drawer-size: min(var(--rams-detail-motion-drawer-contained-inline-size), calc(100% - var(--rams-detail-space-8))); z-index: calc(var(--rams-detail-motion-drawer-contained-overlay-z) + 1); max-height: 100%; box-shadow: none; }
+.content[data-contained][data-side="top"], .content[data-contained][data-side="bottom"] { max-height: min(var(--rams-detail-motion-drawer-max-block-size), calc(100% - var(--rams-detail-space-8))); }
+/* The container already draws the outer edges, so only the inner edge keeps a border. */
+.content[data-contained][data-side] { border-width: 0; }
+.content[data-contained][data-side="right"] { border-left-width: var(--rams-detail-menu-border-width); }
+.content[data-contained][data-side="left"] { border-right-width: var(--rams-detail-menu-border-width); }
+.content[data-contained][data-side="top"] { border-bottom-width: var(--rams-detail-menu-border-width); }
+.content[data-contained][data-side="bottom"] { border-top-width: var(--rams-detail-menu-border-width); }
+
+.header { display: grid; flex: 0 0 auto; grid-template-columns: minmax(0, 1fr) auto; align-items: start; min-width: 0; padding: var(--rams-detail-surface-padding); border-bottom: var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border); }
+/* The header doubles as the drag handle, so touch drags move the panel instead of the page. */
+.handle { touch-action: none; user-select: none; }
+.content[data-side="bottom"] .handle, .content[data-side="top"] .handle { cursor: grab; }
+.title, .description { position: relative; min-width: 0; overflow-wrap: anywhere; }
+/* The copy sets its own line height so a page-level heading rule cannot squeeze the title. */
+.swap { display: block; line-height: var(--rams-detail-leading-body); }
+.title { margin: 0; font-family: var(--type-title-family); font-size: var(--rams-detail-surface-title-size); font-weight: var(--rams-detail-surface-title-weight); letter-spacing: var(--rams-detail-surface-title-tracking); line-height: var(--rams-detail-surface-title-leading); }
+.description { grid-column: 1 / -1; max-width: var(--rams-detail-surface-dialog-inline-size); margin: 0; color: var(--rams-detail-surface-muted-ink); font-size: var(--rams-detail-surface-body-size); line-height: var(--rams-detail-surface-body-leading); font-family: var(--type-body-family); font-weight: var(--rams-detail-surface-body-weight); letter-spacing: var(--rams-detail-surface-body-tracking); }
+/* The full close hit area reserves its own header track. */
+.close { display: grid; align-self: start; min-block-size: 0; padding: 0; filter: none; width: var(--rams-detail-surface-close-size); height: var(--rams-detail-surface-close-size); place-items: center; border: var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border); border-radius: var(--rams-detail-radius-control); background: color-mix(in oklab, var(--rams-detail-surface-muted) var(--rams-detail-motion-drawer-close-wash-share), transparent); color: var(--rams-detail-text-secondary); cursor: pointer; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+@media (hover: hover) and (pointer: fine) { .close:hover { background: var(--rams-detail-surface-muted); color: var(--rams-detail-foreground); } }
+.close:active { transform: scale(var(--rams-motion-dismiss-press-scale)); transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.body { min-height: 0; overflow: auto; padding: var(--rams-detail-surface-padding);  overscroll-behavior: contain; scrollbar-width: thin; }
+
+@media (max-width: 40rem) {
+  .content { --rams-detail-drawer-size: calc(100vw - var(--rams-detail-space-3)); }
+}
+
+@keyframes overlay-in { from { opacity: 0; } }
+@keyframes overlay-out { to { opacity: 0; } }
+@keyframes drawer-in { from { transform: var(--rams-detail-drawer-from); } }
+@keyframes drawer-out { to { transform: var(--rams-detail-drawer-from); } }
+@keyframes drawer-shadow-out { from { opacity: 1; } to { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .keyframes.overlay, .keyframes.content { animation: none !important; }
+  .overlay[data-rams-presence="exiting"], .content[data-rams-presence="exiting"], .swap[data-rams-presence="exiting"] { display: none; }
+  .overlay[data-rams-presence="present"], .content[data-rams-presence="present"], .swap[data-rams-presence="present"] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .close, .close:active { transition: none; }
+  .close:active { transform: none; }
+}
+
+:where(.overlay,.content,.keyframes,.header,.handle,.title,.description,.swap,.close,.body):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Border-separated header and scroll region each own the same reading inset. */
+.body { overflow-wrap: anywhere; }
+.title .swap { line-height: var(--rams-detail-surface-title-leading); }
+
+.footer { min-inline-size: var(--rams-detail-space-0); }
+.footer { flex: none; padding: var(--rams-detail-surface-padding); border-block-start: var(--rams-detail-menu-border-width) solid var(--rams-detail-surface-border); }

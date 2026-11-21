@@ -1,0 +1,93 @@
+.root { container: proof-files / inline-size; display: grid; width: 100%; min-width: 0; color: var(--rams-detail-foreground); }
+.input { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; clip-path: var(--rams-detail-accessible-hidden-clip-path); }
+/* A full-width drop target: press feedback is color only, never a scale. */
+.dropzone { display: flex; min-height: var(--rams-detail-file-upload-dropzone-min-block-size); align-items: center; gap: var(--rams-detail-file-upload-media-gap); padding: var(--rams-detail-file-upload-dropzone-padding); border: var(--rams-detail-primitive-border-width) dashed var(--rams-detail-border-strong); border-radius: var(--rams-detail-radius-panel); background: var(--rams-detail-surface); cursor: pointer; transition: border-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.dropzone.dragging, .dropzone:not(.disabled):active { border-color: var(--rams-detail-accent); background: var(--rams-detail-accent-subtle); }
+.dropzone.disabled { cursor: not-allowed; opacity: var(--rams-detail-file-upload-disabled-opacity); }
+.uploadIcon, .fileIcon { display: grid; flex: 0 0 auto; place-items: center; color: var(--rams-detail-accent-strong); }
+/* The cloud lifts toward the file while it hovers over the drop target. */
+.uploadIcon { width: var(--rams-detail-file-upload-media-slot-size); height: var(--rams-detail-file-upload-media-slot-size); transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.dragging .uploadIcon { transform: translateY(calc(-1 * var(--rams-motion-file-upload-drag-lift))); }
+.copy { display: grid; min-width: 0; gap: var(--rams-detail-file-upload-dropzone-copy-gap); flex: var(--rams-detail-layout-flex-fill); }
+.copy strong { font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); }
+.label { position: relative; display: block; min-width: 0; }
+.labelText { display: block; }
+.copy > span { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); overflow-wrap: anywhere; }
+.browse { flex: 0 0 auto; color: var(--rams-detail-accent-strong); font-size: var(--type-control-size); font-weight: var(--type-action-weight); }
+.statusFrame { overflow: hidden; }
+.status { position: relative; min-height: var(--rams-detail-file-upload-status-min-block-size); margin: 0; padding-top: var(--rams-detail-file-upload-status-inset-block-start); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.statusText { display: block; }
+.fileList { display: grid; margin: 0; padding: 0; list-style: none; }
+/* The gap lives inside the clipped row, so a collapsing row reaches zero height instead of stopping at its padding. */
+.fileRow { overflow: hidden; }
+.fileItem { display: flex; margin-top: var(--rams-detail-file-upload-list-row-gap); min-width: 0; align-items: center; gap: var(--rams-detail-file-upload-media-gap); padding: var(--rams-detail-file-upload-row-padding); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-subtle); border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-surface-muted); }
+.fileIcon { width: var(--rams-detail-file-upload-media-slot-size); height: var(--rams-detail-file-upload-media-slot-size); color: var(--rams-detail-text-secondary); }
+.fileCopy { display: grid; min-width: 0; flex: var(--rams-detail-layout-flex-fill); gap: var(--rams-detail-file-upload-row-copy-gap); }
+.fileCopy strong { overflow-wrap: anywhere; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); white-space: normal; }
+.fileCopy > span { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.meta { display: flex; flex-wrap: wrap; min-width: 0; white-space: normal; font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.dot { padding-inline: var(--rams-detail-file-upload-metadata-separator-padding-inline); }
+.phase { position: relative; display: inline-block; }
+.phaseText { display: block; }
+.percent { display: inline-block; min-width: var(--rams-detail-file-upload-percent-reserve); }
+.fileCopy .error { color: var(--rams-detail-danger); }
+.barFrame { display: block; }
+.bar { display: block; height: var(--rams-detail-file-upload-progress-block-size); margin: var(--rams-detail-file-upload-progress-margin); overflow: hidden; border-radius: var(--radius-pill); background: var(--rams-detail-border); }
+.barFill { display: block; width: 100%; height: 100%; border-radius: inherit; background: var(--rams-detail-accent); }
+.statusSlot { position: relative; display: grid; width: var(--rams-detail-file-upload-action-slot-size); height: var(--rams-detail-file-upload-action-slot-size); flex: 0 0 auto; place-items: center; }
+.retrySlot { display: grid; place-items: center; }
+.ready { display: grid; width: var(--rams-detail-file-upload-ready-slot-size); height: var(--rams-detail-file-upload-ready-slot-size); place-items: center; color: var(--rams-detail-success); }
+.remove, .retry { display: grid; width: var(--rams-detail-file-upload-action-slot-size); height: var(--rams-detail-file-upload-action-slot-size); flex: 0 0 auto; place-items: center; border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; color: var(--rams-detail-text-muted); cursor: pointer; transition: transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.retry { color: var(--rams-detail-text-secondary); }
+.uploadIcon svg { inline-size: var(--rams-detail-file-upload-dropzone-glyph-size); block-size: var(--rams-detail-file-upload-dropzone-glyph-size); stroke-width: var(--rams-detail-file-upload-outline-glyph-stroke); }
+.fileIcon svg { inline-size: var(--rams-detail-file-upload-file-type-glyph-size); block-size: var(--rams-detail-file-upload-file-type-glyph-size); stroke-width: var(--rams-detail-file-upload-outline-glyph-stroke); }
+.ready svg { inline-size: var(--rams-detail-file-upload-status-glyph-size); block-size: var(--rams-detail-file-upload-status-glyph-size); stroke-width: var(--rams-detail-file-upload-action-glyph-stroke); }
+.retry svg { inline-size: var(--rams-detail-file-upload-status-glyph-size); block-size: var(--rams-detail-file-upload-status-glyph-size); stroke-width: var(--rams-detail-file-upload-outline-glyph-stroke); }
+.remove svg { inline-size: var(--rams-detail-file-upload-remove-glyph-size); block-size: var(--rams-detail-file-upload-remove-glyph-size); stroke-width: var(--rams-detail-file-upload-action-glyph-stroke); }
+/* Quick press, spring release. */
+.remove:active, .retry:active { transform: scale(var(--rams-motion-file-upload-action-press-scale)); transition-duration: var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) {
+  .dropzone:not(.disabled):hover { border-color: var(--rams-detail-accent); background: var(--rams-detail-accent-subtle); }
+  .remove:hover, .retry:hover { background: var(--rams-detail-surface); color: var(--rams-detail-foreground); }
+}
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); padding: var(--rams-detail-accessible-hidden-padding); overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: var(--rams-detail-accessible-hidden-border); }
+@media (prefers-reduced-motion: reduce) { .dropzone, .uploadIcon, .remove, .retry { transition: none; } .dragging .uploadIcon, .remove:active, .retry:active { transform: none; } }
+:where(.root,.input,.dropzone,.dragging,.disabled,.uploadIcon,.fileIcon,.copy,.label,.labelText,.browse,.statusFrame,.status,.statusText,.fileList,.fileRow,.fileItem,.fileCopy,.meta,.dot,.phase,.phaseText,.percent,.error,.barFrame,.bar,.barFill,.statusSlot,.retrySlot,.ready,.remove,.retry,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .labelText:not([aria-hidden="true"]), .statusText:not([aria-hidden="true"]), .phaseText:not([aria-hidden="true"]) {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .labelText[aria-hidden="true"], .statusText[aria-hidden="true"], .phaseText[aria-hidden="true"],
+  .fileRow[aria-hidden="true"], .barFrame[aria-hidden="true"] {
+    display: none;
+  }
+  .fileRow:not([aria-hidden="true"]), .barFrame:not([aria-hidden="true"]) {
+    height: auto !important;
+    opacity: 1 !important;
+  }
+  .statusFrame:has(.statusText:not([aria-hidden="true"])) { height: auto !important; }
+  .fileList:not([aria-hidden="true"]) { padding-top: var(--rams-detail-file-upload-list-row-gap) !important; }
+  .fileList[aria-hidden="true"] { padding-top: 0 !important; }
+  .ready, .retrySlot:not([aria-hidden="true"]) {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .retrySlot[aria-hidden="true"] { display: none; }
+  .ready path { stroke-dasharray: none !important; }
+}
+
+/* Keep the explanation and actual filename measure when text enlargement outgrows the icon rail. */
+@container proof-files (max-width: 14rem) {
+  .dropzone { display: grid; grid-template-columns: minmax(0,1fr) auto; }
+  .copy { grid-column: 1 / -1; grid-row: 2; }
+  .browse { grid-column: 2; grid-row: 1; }
+  .fileItem { display: grid; grid-template-columns: minmax(0,1fr) auto; }
+  .fileCopy { grid-column: 1 / -1; grid-row: 2; }
+  .fileIcon { grid-column: 1; grid-row: 1; }
+  .statusSlot { grid-column: 1; grid-row: 3; }
+  .remove { grid-column: 2; grid-row: 3; }
+}

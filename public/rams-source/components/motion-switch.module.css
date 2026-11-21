@@ -1,0 +1,4 @@
+/* The native RAMS primitive owns track, thumb, color, focus and size. Labels remain external. */
+.field { display: inline-flex; flex-shrink: 0; min-inline-size: 0; max-inline-size: 100%; align-items: center; gap: var(--rams-detail-space-2); }
+.field > label { min-inline-size: 0; overflow-wrap: anywhere; cursor: pointer; }
+.field[data-disabled] > label { cursor: not-allowed; opacity: var(--rams-detail-control-disabled-opacity); }

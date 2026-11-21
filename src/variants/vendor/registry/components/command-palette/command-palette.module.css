@@ -1,0 +1,98 @@
+.palette { box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border);
+  border-radius: var(--rams-detail-radius-panel);
+  background: var(--rams-detail-surface);
+  box-shadow: var(--rams-detail-shadow-floating);
+  transform-origin: top center;
+}
+
+.searchRow {
+  position: relative;
+  display: flex;
+  min-height: var(--rams-detail-command-search-row-min-block);
+  align-items: center;
+  gap: var(--rams-detail-command-content-gap);
+  padding: var(--rams-detail-command-search-block-inset) var(--rams-detail-command-search-inline-inset);
+  border-bottom: var(--rams-detail-separator-thickness) solid var(--rams-detail-border-subtle);
+  transition: background var(--rams-detail-duration-fast) var(--rams-detail-ease-standard);
+}
+
+.searchRow:focus-within { background: var(--rams-detail-surface-muted); }
+.searchIcon, .itemIcon { display: grid; flex: none; place-items: center; color: var(--rams-detail-text-muted); }
+.searchIcon { width: var(--rams-detail-command-search-glyph-box-size); height: var(--rams-detail-command-search-glyph-box-size); }
+.searchRow input { min-width: 0; flex: var(--rams-detail-layout-flex-fill); border: 0; outline: 0; background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--type-input-size); }
+.searchRow input::placeholder { color: var(--rams-detail-text-muted); }
+.searchRow input:focus-visible { outline: none; }
+
+.commandKey, .shortcut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border);
+  border-radius: var(--rams-detail-command-keycap-primary-radius);
+  background: var(--rams-detail-surface-muted);
+  color: var(--rams-detail-text-muted);
+  font-family: inherit;
+  font-size: var(--rams-detail-text-xs);
+  font-weight: var(--rams-detail-label-weight);
+  line-height: var(--rams-detail-command-keycap-leading);
+  font-variant-numeric: var(--rams-detail-numeric-column-variant);
+}
+
+.commandKey { min-width: var(--rams-detail-command-keycap-primary-inline-min); height: var(--rams-detail-command-keycap-primary-block); padding: var(--rams-detail-command-keycap-primary-padding); gap: var(--rams-detail-command-keycap-primary-gap); }
+.clearButton { display: grid; flex-wrap: nowrap; width: var(--rams-detail-command-action-block-size); height: var(--rams-detail-command-action-block-size); min-inline-size: var(--rams-detail-command-action-block-size); min-block-size: var(--rams-detail-command-action-block-size); flex: none; place-items: center; padding: 0; border: 0; border-radius: var(--radius-control); background: transparent; color: var(--rams-detail-text-muted); cursor: pointer; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.clearButton svg { inline-size: var(--rams-detail-command-clear-glyph-size); block-size: var(--rams-detail-command-clear-glyph-size); }
+@media (hover: hover) and (pointer: fine) { .clearButton:hover, .closeButton:hover { background: var(--rams-detail-surface); color: var(--rams-detail-foreground); } }
+.clearButton:active, .closeButton:active { background: var(--rams-detail-surface); color: var(--rams-detail-foreground); }
+.closeButton { display: grid; flex-wrap: nowrap; min-width: var(--rams-detail-command-close-inline-min); min-inline-size: var(--rams-detail-command-close-inline-min); height: var(--rams-detail-command-action-block-size); min-block-size: var(--rams-detail-command-action-block-size); flex: none; place-items: center; border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border-subtle); border-radius: var(--radius-control); background: transparent; color: var(--rams-detail-text-muted); padding: 0 var(--rams-detail-command-close-inline-inset); font: inherit; font-size: var(--type-control-size); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-command-action-leading); cursor: pointer; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+
+/* The frame animates to the list height; the list keeps its own scroll. */
+.resultsFrame { overflow: hidden; }
+.results { position: relative; max-height: var(--rams-detail-command-results-max-block); overflow: auto; padding: var(--rams-detail-command-list-block-inset) var(--rams-detail-command-list-inline-inset); }
+.highlight { position: absolute; top: 0; right: var(--rams-detail-command-list-inline-inset); left: var(--rams-detail-command-list-inline-inset); border-radius: var(--radius-control); background: var(--rams-detail-surface-muted); opacity: 0; pointer-events: none; }
+/* Groups are positioned so a row that pops out of the flow is placed against the same box it was measured in, even mid-glide. */
+.group { position: relative; }
+.group + .group { margin-top: var(--rams-detail-command-group-gap); }
+.groupHeading { display: block; padding: var(--rams-detail-command-group-heading-padding); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-label-weight); line-height: var(--type-caption-leading); }
+
+/* One line per result: the title, then its description in muted text, so the list stays short and scannable. */
+.result { position: relative; display: flex; flex-wrap: nowrap; width: 100%; min-height: var(--rams-detail-command-result-min-block); min-block-size: var(--rams-detail-command-result-min-block); align-items: center; gap: var(--rams-detail-command-content-gap); border: 0; border-radius: var(--radius-control); padding: 0 var(--rams-detail-command-list-inline-inset); background: transparent; color: var(--rams-detail-foreground); font: inherit; font-weight: var(--type-body-weight); overflow-wrap: normal; text-align: start; cursor: pointer; }
+.result:focus-visible { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline); outline-offset: var(--rams-detail-focus-outline-offset); }
+/* The active row is drawn by the shared highlight; the row itself only tints its icon and arrow. */
+.itemIcon { transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.itemIcon { display: grid; width: var(--rams-detail-command-result-glyph-size); height: var(--rams-detail-command-result-glyph-size); flex: none; place-items: center; color: var(--rams-detail-text-muted); }
+.itemIcon svg { width: var(--rams-detail-command-result-glyph-size); height: var(--rams-detail-command-result-glyph-size); }
+.resultCopy { display: flex; min-width: 0; flex: var(--rams-detail-layout-flex-fill); align-items: baseline; gap: var(--rams-detail-command-result-copy-gap); }
+.resultCopy strong, .resultCopy small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.resultCopy strong { flex: none; max-width: 100%; }
+.resultCopy small { min-width: 0; }
+.resultCopy strong { font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); }
+.resultCopy small { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.shortcut { min-width: var(--rams-detail-command-keycap-shortcut-size); height: var(--rams-detail-command-keycap-shortcut-size); padding: 0 var(--rams-detail-command-keycap-shortcut-inline-inset); border-color: transparent; border-radius: var(--rams-detail-command-keycap-shortcut-radius); font-size: var(--type-caption-size); }
+.empty { display: grid; justify-items: center; gap: var(--rams-detail-command-empty-gap); padding: var(--rams-detail-command-empty-padding); text-align: center; }
+.empty > span { display: grid; width: var(--rams-detail-command-empty-icon-box-size); height: var(--rams-detail-command-empty-icon-box-size); place-items: center; margin-bottom: var(--rams-detail-command-empty-icon-gap); color: var(--rams-detail-text-muted); }
+.empty strong { font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); }
+.empty small { color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.visuallyHidden { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .searchRow { gap: var(--rams-detail-command-content-gap-compact); padding: var(--rams-detail-command-search-block-inset) var(--rams-detail-command-search-inline-inset-compact); }
+  .results { padding: var(--rams-detail-command-list-block-inset) var(--rams-detail-command-list-inline-inset-compact); }
+  .highlight { right: var(--rams-detail-command-list-inline-inset-compact); left: var(--rams-detail-command-list-inline-inset-compact); }
+  .result { gap: var(--rams-detail-command-content-gap-compact); }
+  .shortcut, .commandKey { display: none; }
+  }
+
+@media (max-width: 340px) {
+    .result { padding-inline: var(--rams-detail-command-result-inline-inset-narrow); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .searchRow, .itemIcon, .clearButton, .closeButton { transition: none; }
+  .resultSet[inert], .group[inert], .result[inert], .clearButton[inert], .empty[inert] { display: none !important; }
+}
+
+:where(.palette,.searchRow,.searchIcon,.itemIcon,.commandKey,.shortcut,.clearButton,.closeButton,.resultsFrame,.results,.highlight,.group,.groupHeading,.result,.resultCopy,.activeResult,.empty,.visuallyHidden):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }

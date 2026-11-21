@@ -1,0 +1,48 @@
+.figure { display: grid; min-width: 0; gap: var(--rams-detail-space-3); margin: 0; color: var(--rams-detail-foreground); }.caption { display: flex; align-items: baseline; gap: var(--rams-detail-space-2); min-width: 0; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); }.label { min-width: 0; overflow: hidden; white-space: nowrap; }.caption strong { margin-inline-start: auto; color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-lg); font-weight: var(--rams-detail-label-weight); letter-spacing: var(--rams-detail-tracking-body); font-variant-numeric: var(--rams-detail-numeric-column-variant); }.caption small { flex: none; font-size: var(--rams-detail-text-xs); font-weight: var(--rams-detail-label-weight); font-variant-numeric: normal; transition: color var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.accent { color: var(--rams-detail-accent-strong); stroke: var(--rams-detail-accent); }.success { color: var(--rams-detail-success); stroke: var(--rams-detail-success); }.warning { color: var(--rams-detail-warning); stroke: var(--rams-detail-warning); }.danger { color: var(--rams-detail-danger); stroke: var(--rams-detail-danger); }
+/* The scrubbed date is context, not a change, so it stays neutral whatever the tone. */
+.point { color: var(--rams-detail-text-secondary); }
+
+/* Let caption fields move to another line before they compete with the plot.
+   The aside reserves a short date/percentage measure while its text morphs. */
+.caption { flex-wrap: wrap; }
+.caption .label { flex: 1 1 auto; overflow: visible; white-space: normal; }
+.caption strong, .caption small { min-width: 0; max-width: 100%; }
+.caption small { min-inline-size: min(100%, var(--rams-detail-sparkline-aside-measure)); }
+.label .roll[data-whole] .track,
+.label .roll[data-whole] .slot,
+.label .roll[data-whole] .glyph {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* Changing text rolls in place. Outgoing pieces are popped out of flow, so the wrapper never holds both widths; numbers stay anchored to their right edge. */
+.roll { position: relative; display: inline-flex; max-width: 100%; overflow-x: clip; white-space: pre; vertical-align: top; }
+.roll[data-end] { justify-content: flex-end; }
+.track, .slot, .glyph { position: relative; display: inline-block; white-space: pre; }
+.roll[data-whole] .track, .roll[data-whole] .slot, .roll[data-whole] .glyph { max-width: 100%; overflow: hidden; text-overflow: ellipsis; vertical-align: top; }
+.sizer { position: absolute; top: 0; left: 0; visibility: hidden; white-space: pre; pointer-events: none; }
+
+/* The plot is the scrubber: hover or drag across it, or focus it and use the arrow keys. Vertical swipes still scroll the page. */
+.plot { position: relative; min-width: 0; border-radius: calc(var(--rams-detail-radius-control) / 2); outline: none; -webkit-tap-highlight-color: transparent; }
+.plot[data-interactive] { touch-action: pan-y; cursor: default; user-select: none; }
+.plot:focus-visible { --rams-detail-focus-outline-offset: var(--rams-detail-sparkline-focus-offset); }
+.chart { display: block; width: 100%; height: auto; overflow: visible; }
+.baseline { stroke: var(--rams-detail-border); stroke-width: var(--rams-detail-sparkline-guide-stroke); }
+/* The area under the line carries a faint wash of the line tone. */
+.area.area { fill: color-mix(in oklab, currentColor var(--rams-detail-sparkline-area-share), transparent); stroke: none; }
+.line, .trail { fill: none; stroke-width: var(--rams-detail-sparkline-line-stroke); stroke-linecap: var(--rams-detail-chart-series-linecap); stroke-linejoin: var(--rams-detail-chart-series-linejoin); }
+.line { transition: stroke var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+.trail { stroke: var(--rams-detail-border-strong); }
+.cursor { stroke: var(--rams-detail-border-strong); stroke-width: var(--rams-detail-sparkline-guide-stroke); }
+.end { transition: stroke var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); }
+@media (prefers-reduced-motion: reduce) {
+  .line, .end, .caption small { transition: none; }
+  .roll { width: auto !important; }
+  :is(.slot, .glyph)[data-rams-presence="exiting"] { display: none; }
+  :is(.slot, .glyph)[data-rams-presence="present"] { opacity: 1 !important; transform: none !important; filter: none !important; }
+}
+:where(.figure,.caption,.label,.accent,.success,.warning,.danger,.point,.roll,.track,.slot,.glyph,.sizer,.plot,.chart,.baseline,.area,.line,.trail,.cursor,.end):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+/* Numeric slots use the shared tabular numeral face. */
+.caption strong, .caption small[data-rams-numeric] { font-family: var(--rams-detail-font-numeric); font-variant-numeric: var(--type-data-variant); font-style: normal; }

@@ -1,0 +1,36 @@
+.root { --rams-detail-expandable-text-lines: var(--rams-detail-expandable-text-default-lines); display: grid; justify-items: start; gap: var(--rams-detail-space-2); min-width: 0; color: var(--rams-detail-text-secondary); font-size: var(--rams-detail-text-sm); line-height: var(--rams-detail-leading-body); letter-spacing: var(--rams-detail-tracking-body); }
+/* Height is owned by motion while it moves; at rest the clamp is plain CSS, so it follows every width and font change for free. */
+.content { position: relative; width: 100%; min-width: 0; overflow: hidden; overflow-wrap: anywhere; }
+.content[data-clamped] { max-height: calc(var(--rams-detail-expandable-text-lines) * var(--rams-detail-expandable-text-legacy-line-size)); max-height: calc(var(--rams-detail-expandable-text-lines) * 1lh); }
+/* Exactly `lines` lines tall in the text's own line height; measured to decide whether the toggle is needed. */
+.probe { position: absolute; top: 0; left: 0; width: 0; height: calc(var(--rams-detail-expandable-text-lines) * var(--rams-detail-expandable-text-legacy-line-size)); height: calc(var(--rams-detail-expandable-text-lines) * 1lh); visibility: hidden; pointer-events: none; }
+.inner > :first-child { margin-top: 0; }
+.inner > :last-child { margin-bottom: 0; }
+.inner p { margin: 0 0 var(--rams-detail-expandable-text-paragraph-gap); }
+.toggle { display: inline-flex; align-items: center; gap: var(--rams-detail-space-1); min-height: var(--rams-detail-expandable-text-action-min-block-size); margin: 0 0 0 calc(-1 * var(--rams-detail-expandable-text-action-inline-inset)); padding: 0 var(--rams-detail-expandable-text-action-inline-inset); border: 0; border-radius: var(--radius-control); background: transparent; color: var(--rams-detail-foreground); font: inherit; font-weight: var(--type-action-weight, var(--rams-detail-native-action-weight-fallback)); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .toggle:hover { color: var(--rams-detail-text-secondary); } }
+.toggle:active { color: var(--rams-detail-text-muted); }
+.labels { display: inline-grid; justify-items: start; }
+/* The labels crossfade with a short vertical drift and a brief blur, timed to the opening. */
+.label { grid-area: 1 / 1; opacity: 0; filter: blur(var(--rams-motion-blur-subtle)); transform: translateY(calc(-1 * var(--rams-motion-expandable-text-label-travel))); transition: opacity var(--rams-detail-duration-standard) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-considered) var(--rams-detail-ease-standard), filter var(--rams-detail-duration-standard) var(--rams-detail-ease-standard); pointer-events: none; }
+.label[data-active] { opacity: 1; filter: blur(0); transform: none; }
+.label + .label:not([data-active]) { transform: translateY(var(--rams-motion-expandable-text-label-travel)); }
+.icon { display: inline-flex; color: var(--rams-detail-text-muted); }
+.icon svg { stroke-width: var(--rams-detail-motion-button-glyph-stroke); }
+@media (prefers-reduced-motion: reduce) {
+  .toggle, .label { transition: none; }
+  .content[data-overflowing] { height: auto !important; }
+  .content[data-expanded] { mask-image: none !important; -webkit-mask-image: none !important; }
+  .content[data-overflowing]:not([data-expanded]) {
+    max-height: calc(var(--rams-detail-expandable-text-lines) * var(--rams-detail-expandable-text-legacy-line-size));
+    max-height: calc(var(--rams-detail-expandable-text-lines) * 1lh);
+    mask-image: linear-gradient(to bottom, var(--rams-detail-mask-opaque-paint) calc(100% - var(--rams-detail-expandable-text-mask-depth)), rgb(var(--rams-detail-mask-rgb-channels) / calc(1 - var(--rams-motion-expandable-text-fade-strength))) 100%) !important;
+    -webkit-mask-image: linear-gradient(to bottom, var(--rams-detail-mask-opaque-paint) calc(100% - var(--rams-detail-expandable-text-mask-depth)), rgb(var(--rams-detail-mask-rgb-channels) / calc(1 - var(--rams-motion-expandable-text-fade-strength))) 100%) !important;
+  }
+  .toggle .icon { transform: none !important; }
+  .toggle[aria-expanded="true"] .icon { transform: var(--rams-detail-disclosure-expanded-glyph-transform) !important; }
+}
+:where(.root,.content,.probe,.inner,.toggle,.labels,.label,.icon):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Retain this adapter's existing feedback on the shared native Button. */
+.toggle { filter: none; }

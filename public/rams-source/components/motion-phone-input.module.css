@@ -1,0 +1,117 @@
+/* No row gap: grid tracks clamp a negative margin at zero, so a closed message row would still pay the gap. Each row carries its own space instead. */
+.field { --rams-detail-pi-h: var(--rams-detail-control-height-md); --rams-detail-pi-panel-w: var(--rams-detail-motion-phone-panel-seed); position: relative; display: grid; min-width: 0; font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); }
+.field[data-open] { z-index: var(--rams-detail-motion-phone-open-layer); }
+.label { justify-self: start; margin-bottom: var(--rams-detail-space-2); color: var(--rams-detail-foreground); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-leading-body); }
+
+/* The shell matches the labeled input: one border, one radius, and a quiet border change on hover and focus. */
+.control { --rams-detail-pi-outline:var(--rams-detail-border-strong); position: relative; display: flex; min-width: 0; height: var(--rams-detail-pi-h); box-sizing: border-box; border: var(--rams-detail-primitive-border-width) solid transparent; border-radius: var(--rams-detail-radius-control); background: var(--rams-detail-surface); transition: border-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .control:hover:not([data-invalid]) { --rams-detail-pi-outline:var(--rams-detail-foreground); } }
+.control:has(.number:focus) { --rams-detail-pi-outline:var(--rams-detail-foreground); }
+.control[data-invalid] { --rams-detail-pi-outline:var(--rams-detail-danger); }
+.field[data-disabled] .control { opacity: var(--rams-detail-control-disabled-opacity); background: var(--rams-detail-surface-muted); }
+
+/* The anchor holds the closed button's place and springs to a new width when the calling code changes length. */
+.anchor { position: relative; flex: none; height: 100%; }
+.anchor::after { content: ""; position: absolute; top: var(--rams-detail-motion-phone-divider-block-inset); inset-inline-end: 0; bottom: var(--rams-detail-motion-phone-divider-block-inset); width: var(--rams-detail-separator-thickness); background: var(--rams-detail-border); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.field[data-open] .anchor::after { opacity: 0; }
+
+/* One material for both states. Open, it steps out over the shell's own border so the two edges never double up. */
+.shape { position: absolute; z-index: var(--rams-detail-layer-above-overlay); top: 0; inset-inline-start: 0; overflow: clip; background: var(--rams-detail-surface); transition: box-shadow var(--rams-detail-duration-considered) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.shape::after { content: ""; position: absolute; inset: 0; z-index: var(--rams-detail-layer-front); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-border); border-radius: inherit; opacity: var(--rams-detail-pi-material-stroke,var(--rams-detail-pi-material-stroke-fallback)); pointer-events: none; transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.field[data-open] .shape { translate: calc(-1 * var(--rams-detail-primitive-border-width)) calc(-1 * var(--rams-detail-primitive-border-width)); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); }
+.field[data-open] .shape:dir(rtl) { translate: var(--rams-detail-primitive-border-width) calc(-1 * var(--rams-detail-primitive-border-width)); }
+.field[data-open] .shape::after { opacity: 1; }
+.field[data-disabled] .shape { background: transparent; }
+
+.lid { position: absolute; z-index: var(--rams-detail-local-overlay-layer); top: 0; right: 0; left: 0; height: calc(var(--rams-detail-pi-h) - 2 * var(--rams-detail-primitive-border-width)); }
+
+.trigger { box-sizing: border-box; display: flex; height: calc(var(--rams-detail-pi-h) - 2 * var(--rams-detail-primitive-border-width)); align-items: center; padding-block: 0; padding-inline: var(--rams-detail-motion-phone-control-leading-inset) var(--rams-detail-motion-phone-control-accessory-reserve); font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); white-space: nowrap; }
+.lid .trigger { position: absolute; inset-block: var(--rams-detail-motion-phone-trigger-inset); inset-inline-start: var(--rams-detail-motion-phone-trigger-inset); width: calc(100% - 2 * var(--rams-detail-motion-phone-trigger-inset)); height: auto; margin: 0; padding-inline: calc(var(--rams-detail-motion-phone-control-leading-inset) - var(--rams-detail-motion-phone-trigger-inset)) calc(var(--rams-detail-motion-phone-control-accessory-reserve) - var(--rams-detail-motion-phone-trigger-inset)); border: 0; border-radius: calc(var(--rams-detail-radius-control) - var(--rams-detail-motion-phone-trigger-inset) - var(--rams-detail-primitive-border-width)); background: transparent; color: var(--rams-detail-foreground); cursor: pointer; font-family: inherit; letter-spacing: inherit; text-align: start; -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) { .field:not([data-open], [data-disabled]) .lid .trigger:hover { background: var(--rams-detail-surface-muted); } }
+.lid .trigger:active:not(:disabled) { background: var(--rams-detail-surface-muted); }
+.lid .trigger:disabled { cursor: not-allowed; }
+/* No focus rings (product decision): keyboard focus reads as the same quiet fill as hover. */
+.lid .trigger:focus-visible { background: var(--rams-detail-surface-muted); }
+.clear:focus-visible, .closeHit:focus-visible { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-motion-phone-action-tint), transparent); }
+/* An invisible copy that says how wide the closed button wants to be. */
+.measure { visibility: hidden; pointer-events: none; width: max-content; }
+
+.slot { position: relative; display: block; min-width: 0; height: 100%; flex: var(--rams-detail-layout-flex-fill); }
+.slot[data-hidden] { opacity: 0; transition: opacity var(--rams-detail-duration-instant) var(--rams-detail-ease-standard); }
+.layer { position: absolute; inset: 0; display: flex; align-items: center; gap: var(--rams-detail-motion-phone-flag-gap); }
+.flag { display: inline-grid; width: var(--rams-detail-motion-phone-flag-inline-size); flex: none; place-items: center; font-family: var(--rams-detail-motion-phone-flag-font-family); font-size: var(--rams-detail-motion-phone-flag-size); font-weight: var(--type-body-weight); line-height: var(--rams-detail-compact-display-leading); }
+.dial { font-family: var(--rams-detail-font-body); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+
+.chevron { position: absolute; top: 50%; inset-inline-end: var(--rams-detail-motion-phone-control-leading-inset); display: grid; width: var(--rams-detail-motion-phone-icon-size); height: var(--rams-detail-motion-phone-icon-size); margin-top: calc(var(--rams-detail-motion-phone-icon-size) / -2); place-items: center; color: var(--rams-detail-text-muted); pointer-events: none; }
+
+/* Search takes the lid's place while the list is open. */
+.searchRow { position: absolute; inset: 0; display: flex; align-items: center; gap: var(--rams-detail-space-2); padding-inline: calc(var(--rams-detail-motion-phone-control-leading-inset) + var(--rams-detail-primitive-border-width)) calc(var(--rams-detail-motion-phone-control-leading-inset) + (var(--rams-detail-motion-phone-icon-size) - var(--rams-detail-motion-phone-control-accessory-reserve)) / 2); }
+.searchRow[inert] { pointer-events: none; }
+.searchIcon { flex: none; color: var(--rams-detail-text-muted); }
+.search { min-width: 0; text-align: match-parent; height: 100%; flex: var(--rams-detail-layout-flex-fill); padding: 0; border: 0; background: transparent; color: var(--rams-detail-foreground); font: inherit; font-size: var(--type-input-size); letter-spacing: var(--rams-detail-tracking-body); outline: none; }
+.search::placeholder { color: var(--rams-detail-text-muted); }
+.clear { display: grid; width: var(--rams-detail-motion-phone-clear-hit-size); height: var(--rams-detail-motion-phone-clear-hit-size); flex: none; place-items: center; padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-motion-phone-action-tint), transparent); color: var(--rams-detail-text-secondary); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+/* Sits over the shared chevron, so the chevron closes the list. */
+.closeHit { width: var(--rams-detail-motion-phone-control-accessory-reserve); height: var(--rams-detail-motion-phone-control-accessory-reserve); flex: none; padding: 0; border: 0; border-radius: var(--rams-detail-radius-pill); background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+@media (hover: hover) and (pointer: fine) {
+  .closeHit:hover, .clear:hover { background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-motion-phone-action-tint), transparent); }
+  .clear:hover { color: var(--rams-detail-foreground); }
+}
+
+/* The list hangs under the lid at its final width, so rows never reflow while the surface springs open. */
+.listFace { position: absolute; top: calc(var(--rams-detail-pi-h) - 2 * var(--rams-detail-primitive-border-width)); inset-inline-start: 0; box-sizing: border-box; width: var(--rams-detail-pi-panel-w); padding: 0 var(--rams-detail-motion-phone-panel-inset) var(--rams-detail-motion-phone-panel-inset); }
+.listFace::before { content: ""; position: absolute; top: 0; right: var(--rams-detail-motion-phone-panel-separator-inset); left: var(--rams-detail-motion-phone-panel-separator-inset); height: var(--rams-detail-separator-thickness); background: var(--rams-detail-border-subtle); }
+.listFace[inert] { pointer-events: none; }
+.scroll { max-height: var(--rams-detail-motion-phone-panel-block-max); overflow-y: auto; overscroll-behavior: contain; padding-top: var(--rams-detail-motion-phone-panel-inset); scrollbar-width: thin; }
+.options { position: relative; }
+.options, .group { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--rams-detail-motion-phone-option-row-gap); }
+.highlight { position: absolute; top: 0; right: 0; left: 0; border-radius: max(0px, calc(var(--radius-panel) - var(--rams-detail-motion-phone-panel-inset) - var(--rams-detail-primitive-border-width))); background: color-mix(in oklab, var(--rams-detail-foreground) var(--rams-detail-motion-phone-option-tint), transparent); pointer-events: none; }
+.group + .group { margin-top: var(--rams-detail-motion-phone-option-section-gap); }
+.groupLabel { padding: var(--rams-detail-motion-phone-option-label-padding-block-start) var(--rams-detail-motion-phone-option-padding-inline) var(--rams-detail-motion-phone-option-section-gap); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); }
+.option { position: relative; display: flex; min-height: var(--rams-detail-motion-phone-option-min-block-size); box-sizing: border-box; align-items: center; gap: var(--rams-detail-motion-phone-option-gap); padding: 0 var(--rams-detail-motion-phone-option-padding-inline); border-radius: max(0px, calc(var(--radius-panel) - var(--rams-detail-motion-phone-panel-inset) - var(--rams-detail-primitive-border-width))); color: var(--rams-detail-text-secondary); cursor: pointer; font-size: var(--rams-detail-text-sm); user-select: none; -webkit-user-select: none; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.option[data-active], .option[aria-selected="true"] { color: var(--rams-detail-foreground); }
+.name { min-width: 0; flex: var(--rams-detail-layout-flex-fill); overflow: hidden; font-weight: var(--rams-detail-label-weight); text-overflow: ellipsis; white-space: nowrap; }
+.meta { flex: none; color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-xs); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+.check { display: grid; width: var(--rams-detail-motion-phone-icon-size); height: var(--rams-detail-motion-phone-icon-size); flex: none; place-items: center; color: var(--rams-detail-foreground); opacity: 0; transform: scale(var(--rams-motion-status-swap-icon-enter-scale)); transition: opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.check[data-on] { opacity: 1; transform: none; }
+.empty { margin: 0; padding-block: var(--rams-detail-motion-phone-empty-padding-block); padding-inline: var(--rams-detail-motion-phone-option-padding-inline); color: var(--rams-detail-text-muted); font-size: var(--rams-detail-text-sm); }
+
+/* The number and its guide share one box. The guide paints the typed part invisibly, then the rest of the example faintly after it. */
+.numberWrap { position: relative; display: flex; min-width: 0; flex: var(--rams-detail-layout-flex-fill); align-items: center; }
+.numberWrap:dir(rtl) .number { border-radius: var(--rams-detail-radius-control) 0 0 var(--rams-detail-radius-control); }
+.number, .guide { box-sizing: border-box; text-align: left; padding: 0 var(--rams-detail-motion-phone-control-accessory-reserve) 0 var(--rams-detail-motion-phone-control-leading-inset); font-family: var(--rams-detail-font-body); font-size: var(--type-input-size); font-variant-numeric: var(--rams-detail-numeric-column-variant); letter-spacing: var(--rams-detail-tracking-body); line-height: var(--rams-detail-leading-body); }
+.number { position: relative; z-index: var(--rams-detail-local-overlay-layer); width: 100%; height: 100%; min-width: 0; margin: 0; border: 0; border-radius: 0 var(--rams-detail-radius-control) var(--rams-detail-radius-control) 0; background: transparent; color: var(--rams-detail-foreground); outline: none; }
+.number:disabled { cursor: not-allowed; }
+.guide { position: absolute; inset: 0; display: flex; align-items: center; overflow: hidden; color: color-mix(in oklab, var(--rams-detail-text-muted) var(--rams-detail-motion-phone-guide-ink-strength), transparent); pointer-events: none; white-space: pre; }
+.guideTyped { visibility: hidden; }
+.valid { position: absolute; z-index: var(--rams-detail-local-overlay-layer); top: 50%; right: var(--rams-detail-motion-phone-control-leading-inset); display: grid; width: var(--rams-detail-motion-phone-valid-slot-size); height: var(--rams-detail-motion-phone-valid-slot-size); margin-top: calc(var(--rams-detail-motion-phone-valid-slot-size) / -2); place-items: center; color: var(--rams-detail-success); pointer-events: none; }
+
+.chevron svg { inline-size: var(--rams-detail-motion-phone-icon-size); block-size: var(--rams-detail-motion-phone-icon-size); stroke-width: var(--rams-detail-motion-phone-icon-stroke); }
+.searchIcon { inline-size: var(--rams-detail-motion-phone-icon-size); block-size: var(--rams-detail-motion-phone-icon-size); stroke-width: var(--rams-detail-motion-phone-icon-stroke); }
+.check svg { inline-size: var(--rams-detail-motion-phone-icon-size); block-size: var(--rams-detail-motion-phone-icon-size); stroke-width: var(--rams-detail-motion-phone-icon-stroke); }
+.clear svg { inline-size: var(--rams-detail-motion-phone-clear-icon-size); block-size: var(--rams-detail-motion-phone-clear-icon-size); stroke-width: var(--rams-detail-motion-phone-icon-stroke); }
+.valid svg { inline-size: var(--rams-detail-motion-phone-icon-size); block-size: var(--rams-detail-motion-phone-icon-size); stroke-width: var(--rams-detail-motion-phone-valid-icon-stroke); }
+
+/* The row's space is padding inside the clipped slot, so the height animates from a true zero. */
+.messageSlot { position: relative; display: block; overflow: hidden; }
+.hint, .error { display: block; padding-top: var(--rams-detail-space-2); font-size: var(--rams-detail-text-xs); line-height: var(--type-caption-leading); }
+.hint { color: var(--rams-detail-text-muted); }
+.error { color: var(--rams-detail-danger); }
+
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip: rect(0 0 0 0); clip-path: var(--rams-detail-accessible-hidden-clip-path); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .shape, .shape::after, .check, .slot, .control { transition-duration: var(--rams-detail-duration-no-interpolation); }
+}
+@media (prefers-contrast: more) { .shape::after { border-color: var(--rams-detail-border-strong); } }
+:where(.field,.label,.control,.number,.anchor,.shape,.lid,.trigger,.clear,.closeHit,.measure,.slot,.layer,.flag,.dial,.chevron,.searchRow,.searchIcon,.search,.listFace,.scroll,.options,.highlight,.group,.groupLabel,.option,.name,.meta,.check,.empty,.numberWrap,.guide,.guideTyped,.valid,.messageSlot,.hint,.error,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Paint clipping follows the same live width as the country material, including
+   its closing motion. The transparent host border still owns layout. */
+.hostOutline { position:absolute; inset:calc(-1 * var(--rams-detail-primitive-border-width)); border:var(--rams-detail-primitive-border-width) solid var(--rams-detail-pi-outline); border-radius:inherit; pointer-events:none; clip-path:inset(0 0 0 var(--rams-detail-pi-border-cut,var(--rams-detail-pi-border-cut-fallback))); }
+.field[data-open] .hostOutline { clip-path:inset(0 0 0 var(--rams-detail-pi-material-width,var(--rams-detail-pi-material-width-fallback))); }
+.hostOutline:dir(rtl) { clip-path:inset(0 var(--rams-detail-pi-border-cut,var(--rams-detail-pi-border-cut-fallback)) 0 0); }
+.field[data-open] .hostOutline:dir(rtl) { clip-path:inset(0 var(--rams-detail-pi-material-width,var(--rams-detail-pi-material-width-fallback)) 0 0); }
+
+/* Geometry transfers the contour at rest; a second fade would leave two outlines. */
+.field:not([data-open]) .shape::after { transition:none; }

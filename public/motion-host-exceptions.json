@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "scope": "Exact engine/unit adapters and the explicitly requested source-preserved Public Header timings; no wildcard policy waivers",
+  "entries": [
+    {
+      "file": "src/baseline/motion.css",
+      "property": "animation-duration",
+      "literal": ".001ms",
+      "evidence": "animation-duration: .001ms",
+      "reason": "A near-zero duration preserves native animationend-driven presence cleanup while visually settling the state immediately. It is an engine compatibility value, not a decorative duration."
+    },
+    {
+      "file": "src/baseline/motion.css",
+      "property": "animation-duration",
+      "literal": ".001ms",
+      "evidence": "animation-duration: .001ms",
+      "reason": "The local guide reduced-motion adapter needs the same end-event compatibility as the OS adapter. Its scope is the demonstration subtree; it does not simulate OS preference."
+    },
+    {
+      "file": "src/variants/theme-transition.ts",
+      "property": "duration",
+      "literal": "1000",
+      "evidence": "duration: motionTokens.duration.considered * 1000",
+      "reason": "Web Animations requires milliseconds; the multiplier converts the shared seconds token without defining a second timing authority."
+    },
+    {
+      "file": "src/variants/use-chart-motion.ts",
+      "property": "animationDuration",
+      "literal": "1000",
+      "evidence": "animationDuration: reduced ? motionTokens.reduced.duration : motionTokens.duration.data * 1000",
+      "reason": "Recharts takes milliseconds; this dimensionless multiplier only converts the canonical data role duration from seconds. Reduced mode returns zero and final data remains unchanged."
+    },
+    {
+      "file": "src/variants/demos/original-motion-print-feedback.tsx",
+      "property": "duration",
+      "literal": "4500",
+      "evidence": "duration: 4500",
+      "reason": "This 4500 ms value is the local toast reading/autodismiss clock after Undo, not a transition duration. The persistent actionable notice uses Infinity. Preserve reading time and dismissal semantics independently of visual reduced-motion timing."
+    }
+  ]
+}

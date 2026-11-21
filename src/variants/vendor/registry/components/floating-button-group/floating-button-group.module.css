@@ -1,0 +1,80 @@
+/* Separate soft buttons in a quiet tray, with real gaps between them. The tray always keeps its natural size and never wraps or clips its buttons. The buttons stay transparent: one shared highlight
+   moves underneath their content, so there is only ever one moving surface. Corners are concentric with the tray. */
+.group {
+  --rams-detail-fbg-pad: var(--rams-detail-floating-group-default-inset); --rams-detail-fbg-gap: var(--rams-detail-floating-group-default-gap); --rams-detail-fbg-pad-x: var(--rams-detail-floating-group-default-inline-inset);
+  --rams-detail-fbg-outer: var(--rams-detail-radius-control);
+  --rams-detail-fbg-radius: calc(var(--rams-detail-fbg-outer) - var(--rams-detail-fbg-pad) - var(--rams-detail-primitive-border-width));
+  --rams-detail-fbg-highlight: var(--rams-detail-floating-group-highlight);
+  --rams-detail-fbg-highlight-press: var(--rams-detail-floating-group-highlight-pressed);
+  --rams-detail-fbg-on: var(--rams-detail-floating-group-selected);
+  --rams-detail-fbg-rule: var(--rams-detail-floating-group-separator-ink);
+  /* The muted tray is a translucent tint, not --rams-detail-surface-muted, so it still reads when it sits on a muted surface. */
+  --rams-detail-fbg-tray: var(--rams-detail-floating-group-tray-fill);
+  --rams-detail-fbg-tray-edge: var(--rams-detail-floating-group-tray-border);
+  position: relative; isolation: isolate; display: inline-flex; flex: none; flex-wrap: nowrap; align-items: center; gap: var(--rams-detail-fbg-gap); padding: var(--rams-detail-fbg-pad); border: var(--rams-detail-primitive-border-width) solid var(--rams-detail-fbg-tray-edge); border-radius: var(--rams-detail-fbg-outer); background: var(--rams-detail-fbg-tray); color: var(--rams-detail-text-secondary); font-family: var(--rams-detail-font-body); letter-spacing: var(--rams-detail-tracking-body); -webkit-tap-highlight-color: transparent;
+}
+.sm { --rams-detail-fbg-pad: var(--rams-detail-floating-group-compact-inset); --rams-detail-fbg-gap: var(--rams-detail-floating-group-compact-gap); --rams-detail-fbg-pad-x: var(--rams-detail-floating-group-compact-inline-inset); --rams-detail-fbg-outer: calc(var(--rams-detail-radius-control) - var(--rams-detail-floating-group-compact-inset)); }
+.md { --rams-detail-fbg-h: var(--rams-native-hit); }
+/* Raised for overlays such as a selection toolbar: the floating layer shadow and a hairline edge. */
+.floating { border-color: var(--rams-detail-border); background: var(--rams-detail-surface-raised); box-shadow: var(--rams-detail-shadow-floating); }
+.vertical { flex-direction: column; align-items: stretch; }
+:global(:root.dark) .group {
+  --rams-detail-fbg-highlight: var(--rams-detail-floating-group-highlight-dark);
+  --rams-detail-fbg-highlight-press: var(--rams-detail-floating-group-highlight-pressed-dark);
+  --rams-detail-fbg-on: var(--rams-detail-floating-group-selected-dark);
+  --rams-detail-fbg-tray: var(--rams-detail-floating-group-tray-fill-dark);
+  --rams-detail-fbg-tray-edge: var(--rams-detail-floating-group-tray-border-dark);
+}
+
+/* The highlight paints above the buttons' own backgrounds (a pressed tint) and below their content. */
+.highlight { position: absolute; z-index: var(--rams-detail-floating-group-highlight-layer); top: 0; left: 0; border-radius: var(--rams-detail-fbg-radius); background: var(--rams-detail-fbg-highlight); pointer-events: none; transition: background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.highlight[data-pressing] { background: var(--rams-detail-fbg-highlight-press); transition-duration: var(--rams-detail-duration-instant); }
+
+/* A horizontal tray scrolls locally when complete actions exceed its available width. */
+.group:not(.vertical) { box-sizing: border-box; max-inline-size: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }
+
+/* Buttons are not positioned, so the highlight measures them against the tray and stacks above their background. */
+.item { display: inline-flex; min-width: var(--rams-detail-fbg-h); height: var(--rams-detail-fbg-h); flex: none; align-items: center; justify-content: center; margin: 0; padding: 0 var(--rams-detail-fbg-pad-x); border: 0; border-radius: var(--rams-detail-fbg-radius); background: transparent; color: inherit; font: inherit; font-size: var(--rams-detail-text-sm); font-weight: var(--rams-detail-label-weight); line-height: var(--rams-detail-floating-group-item-leading); white-space: nowrap; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), background-color var(--rams-detail-duration-fast) var(--rams-detail-ease-standard), opacity var(--rams-detail-duration-fast) var(--rams-detail-ease-standard); }
+.sm .item { font-size: var(--type-control-size); }
+.item[data-icon]:not([data-icon-only]) { padding-left: calc(var(--rams-detail-fbg-pad-x) - var(--rams-detail-floating-group-icon-inset-adjustment)); }
+.item[data-icon-only] { width: var(--rams-detail-fbg-h); padding: 0; }
+.item[data-active], .item[aria-pressed="true"] { color: var(--rams-detail-foreground); }
+.item[aria-pressed="true"] { background: var(--rams-detail-fbg-on); }
+.item[aria-disabled="true"] { color: var(--rams-detail-text-muted); cursor: not-allowed; opacity: var(--rams-detail-control-disabled-opacity); }
+.vertical .item:not([data-icon-only]) { justify-content: flex-start; }
+.vertical .item[data-icon-only] { align-self: center; }
+
+/* Ghosts of every label share one grid cell with the visible one, so the slot always has the widest label's width. */
+.slot { position: relative; z-index: var(--rams-detail-floating-group-content-layer); display: inline-grid; align-items: center; justify-items: center; }
+.slot > * { grid-area: 1 / 1; }
+.vertical .slot { justify-items: start; }
+.ghost { display: inline-flex; align-items: center; gap: var(--rams-detail-floating-group-label-gap); white-space: nowrap; visibility: hidden; pointer-events: none; }
+.iconSpace { display: block; width: var(--rams-detail-motion-button-glyph-size); height: var(--rams-detail-motion-button-glyph-size); flex: none; }
+.phase { display: inline-flex; align-items: center; gap: var(--rams-detail-floating-group-label-gap); white-space: nowrap; }
+.icon { display: inline-flex; flex: none; }
+.icon svg { width: var(--rams-detail-motion-button-glyph-size); height: var(--rams-detail-motion-button-glyph-size); stroke-width: var(--rams-detail-motion-button-glyph-stroke); }
+.text { display: block; }
+
+.separator { flex: none; align-self: center; width: var(--rams-detail-separator-thickness); height: calc(var(--rams-detail-fbg-h) * .5); margin-inline: var(--rams-detail-floating-group-separator-clearance); border-radius: var(--rams-detail-separator-thickness); background: var(--rams-detail-fbg-rule); }
+.vertical .separator { width: calc(var(--rams-detail-fbg-h) * .5); height: var(--rams-detail-separator-thickness); margin: var(--rams-detail-floating-group-separator-clearance) 0; }
+
+.tooltipContent { box-sizing: border-box; max-inline-size: var(--radix-tooltip-content-available-width); }
+.tip { display: inline-flex; flex-wrap: wrap; max-inline-size: 100%; min-inline-size: 0; align-items: baseline; gap: var(--rams-detail-space-3); white-space: normal; }
+.kbd { font: inherit; white-space: nowrap; color: var(--rams-detail-floating-group-shortcut-ink); font-variant-numeric: var(--rams-detail-numeric-column-variant); }
+
+@media (prefers-reduced-motion: reduce) {
+  .item, .highlight { transition: none; }
+  .highlight { visibility: hidden; }
+  .item[data-active] { background: var(--rams-detail-fbg-highlight); }
+  .item[data-active][data-fbg-pressing] { background: var(--rams-detail-fbg-highlight-press); }
+  .item[data-active][aria-pressed="true"] { background: linear-gradient(var(--rams-detail-fbg-highlight), var(--rams-detail-fbg-highlight)), var(--rams-detail-fbg-on); }
+  .item[data-active][aria-pressed="true"][data-fbg-pressing] { background: linear-gradient(var(--rams-detail-fbg-highlight-press), var(--rams-detail-fbg-highlight-press)), var(--rams-detail-fbg-on); }
+}
+
+:where(.group,.sm,.md,.floating,.vertical,.highlight,.item,.slot,.ghost,.iconSpace,.phase,.icon,.text,.separator,.tip,.kbd):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* The motion adapter owns its measured control height. */
+.item { min-block-size: 0; }
+
+/* Action heights follow the same canonical scale as Button. */
+.group { --rams-detail-fbg-h:var(--rams-native-hit); }

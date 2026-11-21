@@ -1,0 +1,22 @@
+/* At a given available width, feedback reserves its widest state: the label cell reserves its widest state while icon and letters crossfade inside it. Press releases on the spring curve. */
+.button { -webkit-tap-highlight-color:transparent; transition:transform var(--rams-detail-duration-spring) var(--rams-detail-ease-spring); }
+.button:active:not(:disabled) { transform: scale(var(--rams-motion-copy-button-text-press-scale)); transition-duration: var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-fast), var(--rams-detail-duration-instant); transition-timing-function: var(--rams-detail-ease-standard); }
+.iconOnly:active:not(:disabled) { transform: scale(var(--rams-motion-copy-button-icon-press-scale)); }
+.button:disabled { cursor: not-allowed; opacity: var(--rams-detail-control-disabled-opacity); }
+/* Each icon carries its own color, so the outgoing glyph never tints on its way out. */
+.icon { position: relative; display: grid; width: var(--rams-detail-native-inline-glyph-size); height: var(--rams-detail-native-inline-glyph-size); flex: none; }
+.iconInner { position: absolute; inset: 0; display: grid; place-items: center; }
+.iconInner svg { stroke-width: var(--rams-detail-motion-button-glyph-stroke); }
+.iconInner[data-state="copied"] { color: var(--rams-detail-success); }
+.iconInner[data-state="error"] { color: var(--rams-detail-danger); }
+.label { display: grid; grid-template-columns: minmax(0, 1fr); flex: var(--rams-detail-layout-flex-max-content); min-width: 0; max-inline-size: 100%; text-align: left; white-space: normal; overflow-wrap: anywhere; }
+.measure, .text { grid-area: 1 / 1; }
+.measure { visibility: hidden; }
+.text { justify-self: start; }
+.srOnly { position: absolute; width: var(--rams-detail-accessible-hidden-inline-size); height: var(--rams-detail-accessible-hidden-block-size); overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .button { transition: none; } .button:active:not(:disabled) { transform: none; } }
+:where(.button,.iconOnly,.plain,.icon,.iconInner,.label,.measure,.text,.srOnly):focus-visible:not(input:not([type="button"], [type="checkbox"], [type="color"], [type="file"], [type="image"], [type="radio"], [type="range"], [type="reset"], [type="submit"]), textarea, [contenteditable]:not([contenteditable="false"]), [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [tabindex="-1"]) { outline: var(--rams-detail-focus-outline-width) solid var(--rams-detail-focus-outline) !important; outline-offset: var(--rams-detail-focus-outline-offset) !important; }
+
+/* Retain this adapter's existing feedback on the shared native Button. */
+
+.button:is([data-variant="default"],[data-variant="destructive"]) .iconInner { color:inherit; }
