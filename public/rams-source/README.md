@@ -94,6 +94,8 @@ rules and styles without copying them into this package.
 
 Paste the [installation prompt](docs/install-prompt.md) into an agent with filesystem and shell tools. It directs the agent to read [`AGENTS.md`](AGENTS.md), inspect the manifest, resolve conflicts, install dependencies and verify the resulting interface. A chat-only model cannot install an application. Source installation needs no server or MCP.
 
+[RAMS skills](skills/README.md) cover interface review, prototypes, edge cases and motion. Add them to your application separately from components.
+
 ## Foundations
 
 - Use semantic roles for color, text and surfaces. The public core starts neutral; set an accent in the consuming application.

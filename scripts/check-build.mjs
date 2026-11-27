@@ -24,6 +24,19 @@ for (const variant of variants) {
 }
 
 const sdk = json("/rams-source/rams.json");
+const expectedSkills = [
+  "skills/README.md",
+  "skills/rams-interface-review/SKILL.md",
+  "skills/rams-learn-criteria/SKILL.md",
+  "skills/rams-motion-performance/SKILL.md",
+  "skills/rams-motion-review/SKILL.md",
+  "skills/rams-preview-stress-test/SKILL.md",
+  "skills/rams-prototype/SKILL.md",
+  "skills/rams-touch-interaction/SKILL.md"
+];
+const declaredSkills = Object.keys(sdk.files).filter(path => path.startsWith("skills/")).sort();
+assert.deepEqual(declaredSkills, expectedSkills.sort(), "The SDK lists the complete skill package");
+
 for (const [name, descriptor] of Object.entries(sdk.files)) {
   const bytes = asset("/rams-source/" + name);
   assert.equal(bytes.length, descriptor.bytes, name);

@@ -20,6 +20,8 @@ Default typography is Geist. [Optional colors](palette.css) can be imported sepa
 [Project profiles](docs/profiles.md) require explicit local configuration outside this package.
 No profile is inferred from identity, Git configuration or environment variables.
 
+[RAMS skills](skills/README.md) cover interface review, prototypes, edge cases and motion. Add them to your application separately from components.
+
 [Installation prompt](docs/install-prompt.md) · [README](README.md) · [Licenses](NOTICE.md)
 
 An agent needs filesystem/shell tools to install, or ordinary HTTP/file tools to read these files.

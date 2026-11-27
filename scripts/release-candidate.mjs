@@ -67,6 +67,7 @@ if (command === "verify-live") {
   const expectedModule = readFileSync(join(dist, "index.html"), "utf8").match(indexModule)?.[1];
   assert.ok(modulePath && modulePath === expectedModule, "The HTML uses a different entry bundle");
   const rawPaths = [...required.slice(1), modulePath.slice(1),
+    ...paths.filter((name) => name.startsWith("rams-source/skills/")),
     ...paths.filter((name) => /^assets\/original-motion-print-navigation-.*\.(js|css)$/.test(name))];
   for (const path of rawPaths) {
     assert.equal(sha256(await fetchBytes(path)), manifest.files[path], "Different served bytes: " + path);

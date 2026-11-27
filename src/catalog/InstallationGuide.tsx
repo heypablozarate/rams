@@ -93,6 +93,15 @@ export default function InstallationGuide() {
           </p>
         </section>
         <section>
+          <h2 className="docs-section-title">Add RAMS skills</h2>
+          <p className="mt-3 text-muted-foreground">
+            Copy the skills you want into <code>.agents/skills/</code> in your application.
+            In Codex, try <code>$rams-interface-review</code> and name the screen to review.
+            Component installation is a separate step.
+          </p>
+          <a className="mt-4 inline-block docs-underlined-link" href="/rams-source/skills/README.md">Browse and install the seven skills</a>
+        </section>
+        <section>
           <h2 className="docs-section-title">Use with an agent</h2>
           <p className="mt-3 text-muted-foreground">
             Paste this into a coding agent in your React project. Tell it which

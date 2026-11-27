@@ -20,6 +20,10 @@ npm run preview
 
 The build generates the catalog documents and source listings, checks TypeScript, and writes the static site to `dist/`. It verifies the code listings, the source package manifest, and the fonts in the finished site. A static host can serve that directory at the domain root. Component pages use hash routes such as `/#/components/signature-pad`.
 
+## Use RAMS skills
+
+[Choose and install skills](public/rams-source/skills/README.md) for interface review, prototyping, edge cases, touch and motion. Copy the selected folders into your application's `.agents/skills/` directory, then invoke them in Codex.
+
 ## Use a component
 
 Browse the [component catalog](https://rams-design-system.heypablozarate.chatgpt.site) and install selected components from this GitHub checkout:

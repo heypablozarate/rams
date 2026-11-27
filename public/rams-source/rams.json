@@ -4686,8 +4686,8 @@
       "bytes": 3879
     },
     "README.md": {
-      "sha256": "b4955488d8508d83b36375bf6ff6ece646ac3343f97b8f5684687bbf5831faee",
-      "bytes": 8382
+      "sha256": "d866b9aa286ad063faac9e667fbf70d306e07383e60a711838c2e946692dce2e",
+      "bytes": 8531
     },
     "agent-index.json": {
       "sha256": "6dccddb700ca39afa59566f8fbfa3b6d9714b9f33e388a69bb0c6286436bd1af",
@@ -6750,8 +6750,8 @@
       "bytes": 1069
     },
     "llms.txt": {
-      "sha256": "42daca3270cfe719bf34f6daa6f2101fbb81a319d29e3d14d47b1802b2a29717",
-      "bytes": 1681
+      "sha256": "6667f6039bf9448e51e03d188de5379c4aa768b8edc476a87a9321a27ba64a2a",
+      "bytes": 1830
     },
     "package.json": {
       "sha256": "a9ae628a84898e1f533707f638855526b95eb5b2acd3a568fffce60679695cd0",
@@ -6760,6 +6760,38 @@
     "palette.css": {
       "sha256": "9df8d173c066fef88d66d71bf36163d9f99e5bdb170912a60a25bf6855e8166f",
       "bytes": 1836
+    },
+    "skills/README.md": {
+      "sha256": "a14ff023aaa53a7f611d653bbeb5d5b2d2448b20d3ae4bab72736a8c82cd7dd4",
+      "bytes": 2616
+    },
+    "skills/rams-interface-review/SKILL.md": {
+      "sha256": "93907d192ef2d23cafe6007379917dbe2a1472622a5d1dc365185d4d4590c95d",
+      "bytes": 1368
+    },
+    "skills/rams-learn-criteria/SKILL.md": {
+      "sha256": "735c4e07ab2803e42bb7aae5e19cbb88d1944feafb605332cc82aee5a3ee04a5",
+      "bytes": 1529
+    },
+    "skills/rams-motion-performance/SKILL.md": {
+      "sha256": "0291087fc17a8df6e81a5c2ab181c5436f32bccbd83b6c930ae546dba7c8e95d",
+      "bytes": 1697
+    },
+    "skills/rams-motion-review/SKILL.md": {
+      "sha256": "0c0c06ba86328952215c6d554f2887fd3e18d190f1db4401ce380d8117ebd628",
+      "bytes": 1792
+    },
+    "skills/rams-preview-stress-test/SKILL.md": {
+      "sha256": "3e098dfd5a20a5c00dcb762140c7c539d05e820879db4e81dfb9e3234f6acb2a",
+      "bytes": 1376
+    },
+    "skills/rams-prototype/SKILL.md": {
+      "sha256": "5ec2ca7c2e72bd1cce64ea08fa63ddf1fc0724c11a3044132ae02ce64751430a",
+      "bytes": 1759
+    },
+    "skills/rams-touch-interaction/SKILL.md": {
+      "sha256": "0ef5a6c9a6841f897d27fe943d1f40de7d847647c30ab770890ab23922a6b9af",
+      "bytes": 1883
     },
     "styles.css": {
       "sha256": "ef3f061a19550a00d0047eca07b7b6f7bf687e21534605e59c25f1b70b107db2",
