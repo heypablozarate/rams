@@ -90,4 +90,3 @@ export function readGlassTokenFromStyles(styles: CSSStyleDeclaration): GlassToke
     ),
   });
 }
-
