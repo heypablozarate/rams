@@ -13,7 +13,10 @@ export default function InstallationGuide() {
         <section>
           <h2 className="docs-section-title">Get the source from GitHub</h2>
           <p className="mt-3 text-muted-foreground">Browse components and usage here. Clone the GitHub repository to install the components you need, with their shared styles and licensed Geist fonts.</p>
-          <a className="mt-4 inline-block docs-underlined-link" href="https://github.com/heypablozarate/rams">View source on GitHub</a>
+          <div className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-2">
+            <a className="docs-underlined-link" href="https://github.com/heypablozarate/rams">View source on GitHub</a>
+            <a className="docs-underlined-link text-sm" href="/rams-source/skills/README.md">Browse RAMS skills</a>
+          </div>
           <div className="mt-4">
             <CodeBlock
               label="Terminal · clone the repository"
@@ -99,7 +102,6 @@ export default function InstallationGuide() {
             In Codex, try <code>$rams-interface-review</code> and name the screen to review.
             Component installation is a separate step.
           </p>
-          <a className="mt-4 inline-block docs-underlined-link" href="/rams-source/skills/README.md">Browse and install the seven skills</a>
         </section>
         <section>
           <h2 className="docs-section-title">Use with an agent</h2>

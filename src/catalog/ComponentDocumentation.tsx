@@ -1,9 +1,11 @@
 import { RamsText } from "../brand/RamsName";
+import { Check } from "lucide-react";
 import { Fragment, lazy, startTransition, Suspense, useEffect, useState, type MouseEvent } from "react";
 import type { ComponentFamily, ComponentVariant } from "./components";
 import { ComponentPreview, componentSources, exampleSources } from "./Preview";
 import { portableSource } from "./portable-source";
 import { PreviewScope } from "./PreviewScope";
+import { copyRecovery, useClipboardCopy } from "./useClipboardCopy";
 const VariantDocumentation = lazy(() => import("./VariantDocumentation"));
 import { Button } from "../primitives/button";
 import {
@@ -66,21 +68,7 @@ function CodePanel({ variant }: { variant: ComponentVariant }) {
   const files = variant.codeFiles;
   const [file, setFile] = useState(files[0]);
   const [text, setText] = useState("Loading code…");
-  const [copied, setCopied] = useState(false);
-  const [copyError, setCopyError] = useState(false);
-  useEffect(() => {
-    setFile(files[0]);
-    setCopied(false);
-    setCopyError(false);
-  }, [variant.id]);
-  useEffect(() => {
-    if (!copied && !copyError) return;
-    const timer = window.setTimeout(() => {
-      setCopied(false);
-      setCopyError(false);
-    }, 2500);
-    return () => window.clearTimeout(timer);
-  }, [copied, copyError]);
+  const { copy, status } = useClipboardCopy(text, file);
   useEffect(() => {
     let live = true;
     setText("Loading code…");
@@ -114,8 +102,7 @@ function CodePanel({ variant }: { variant: ComponentVariant }) {
             value={file}
             onChange={(event) => {
               setFile(event.target.value);
-              setCopied(false);
-              setCopyError(false);
+              setText("Loading code…");
             }}
           >
             {files.map((path) => (
@@ -127,26 +114,22 @@ function CodePanel({ variant }: { variant: ComponentVariant }) {
         </div>
         <Button
           variant="outline"
+          aria-label={`Copy code for ${file.split("/").slice(-2).join("/")}`}
           disabled={
             !text ||
             /^(Loading code|Could not load|File unavailable)/.test(
               text,
             )
           }
-          onClick={async () => {
-            try {
-              await navigator.clipboard.writeText(text);
-              setCopied(true);
-              setCopyError(false);
-            } catch {
-              setCopied(false);
-              setCopyError(true);
-            }
-          }}
+          onClick={copy}
         >
-          {copied ? "Copied" : "Copy code"}
+          {status === "copied" && <Check aria-hidden="true" />}
+          Copy code
         </Button>
       </div>
+      <p role="status" className={status === "error" ? "text-sm text-foreground" : "sr-only"}>
+        {status === "copied" ? "Code copied" : status === "error" ? copyRecovery : ""}
+      </p>
       <pre
         className="component-code"
         tabIndex={0}
@@ -155,13 +138,6 @@ function CodePanel({ variant }: { variant: ComponentVariant }) {
       >
         <code>{text}</code>
       </pre>
-      <span className="sr-only" role="status">
-        {copied
-          ? "Code copied"
-          : copyError
-            ? "Could not copy. Select the code to copy it."
-            : ""}
-      </span>
     </div>
   );
 }

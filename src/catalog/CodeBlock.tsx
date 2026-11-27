@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { Button } from "../primitives/button";
+import { copyRecovery, useClipboardCopy } from "./useClipboardCopy";
 
 export function CodeBlock({
   code,
@@ -9,15 +9,7 @@ export function CodeBlock({
   code: string;
   label?: string;
 }) {
-  const [state, setState] = useState<"idle" | "copied" | "error">("idle");
-  useEffect(() => {
-    setState("idle");
-  }, [code]);
-  useEffect(() => {
-    if (state === "idle") return;
-    const timer = window.setTimeout(() => setState("idle"), 2500);
-    return () => window.clearTimeout(timer);
-  }, [state]);
+  const { copy, status } = useClipboardCopy(code);
   return (
     <div className="code-block">
       <div className="code-block-toolbar">
@@ -25,19 +17,15 @@ export function CodeBlock({
         <Button
           variant="ghost"
           size="icon-sm"
-          aria-label={state === "copied" ? "Code copied" : "Copy code"}
-          onClick={async () => {
-            try {
-              await navigator.clipboard.writeText(code);
-              setState("copied");
-            } catch {
-              setState("error");
-            }
-          }}
+          aria-label={`Copy ${label}`}
+          onClick={copy}
         >
-          {state === "copied" ? <Check /> : <Copy />}
+          {status === "copied" ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
         </Button>
       </div>
+      <p role="status" className={status === "error" ? "px-4 pt-3 text-sm text-foreground" : "sr-only"}>
+        {status === "copied" ? "Code copied" : status === "error" ? copyRecovery : ""}
+      </p>
       <pre
         role="region"
         tabIndex={0}
@@ -46,13 +34,6 @@ export function CodeBlock({
       >
         <code>{code}</code>
       </pre>
-      <span className="sr-only" role="status">
-        {state === "copied"
-          ? "Code copied"
-          : state === "error"
-            ? "Could not copy. Select the code to copy it."
-            : ""}
-      </span>
     </div>
   );
 }
