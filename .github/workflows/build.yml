@@ -10,11 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run build
+      - name: Stamp and verify candidate
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          node scripts/release-candidate.mjs stamp dist "$GITHUB_SHA" "$GITHUB_RUN_ID"
+          node scripts/release-candidate.mjs verify dist "$GITHUB_SHA" "$GITHUB_RUN_ID"
+      - name: Store checked catalog
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v7
+        with:
+          name: rams-candidate-${{ github.sha }}-${{ github.run_attempt }}
+          path: dist/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
